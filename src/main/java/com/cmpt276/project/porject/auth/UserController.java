@@ -51,13 +51,24 @@ public class UserController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
         if (user != null) {
-            return "users/login";
+            return "redirect:/";
         }
 
         else {
             model.addAttribute("user", user);
-            return "users/protected";
+            return "login";
         }
+    }
+
+    @GetMapping("/register")
+    public String getRegisterModel(Model model, HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        if (user != null) {
+            return "redirect:/";
+        }
+
+        return "register";
     }
 
     @PostMapping("/login")
