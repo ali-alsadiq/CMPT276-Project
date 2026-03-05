@@ -38,12 +38,8 @@ public class UserController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
 
-        if (user == null || !"ADMIN".equals(user.getRole())) {
-            return "redirect:/login";
-        }
-
         // If user is not logged in or not admin, redirect to login
-        if (user == null || !user.getRole().equals("ADMIN")) {
+        if (user == null || !"ADMIN".equals(user.getRole())) {
             return "redirect:/login";
         }
 
@@ -53,11 +49,30 @@ public class UserController {
         return "users/adminDashboard"; // TODO: Create this page
     }
 
+    /**
+     * Redirects to login page.
+     * 
+     * - Any "user" who is not logged in gets landed on login page.
+     */
     @GetMapping("/")
     public RedirectView process() {
         return new RedirectView("login");
     }
 
+    /**
+     * Handles user registration.
+     * 
+     * - Checks if all required fields are filled.
+     * - Checks if password is at least 8 characters long.
+     * - Checks if password contains at least one uppercase letter, one lowercase
+     * letter, one number, and one special character.
+     * - Checks if username is unique.
+     * 
+     * @param newUser  Map containing user registration data.
+     * @param model    Model to add attributes to.
+     * @param response Response to send to the client.
+     * @return String representing the view to return.
+     */
     @PostMapping("/register")
     public String registerUser(@RequestParam Map<String, String> newUser, Model model, HttpServletResponse response) {
         boolean hasError = validateFields(newUser, model, "firstname", "lastname", "username", "password");
@@ -70,46 +85,83 @@ public class UserController {
         String username = newUser.get("username");
         String password = newUser.get("password");
 
-        if (calculatePasswordStrength(password) <= 2) {
+        // Check if password is at least 8 characters long
+        if (password.length() < 8) {
+            model.addAttribute("passwordError", true);
+            model.addAttribute("error", "Password is too weak.");
+            return "register";
+        }
+
+        // Check if password contains at least one uppercase letter, one lowercase
+        // letter, one number, and one special character
+        if (!password.matches(".*[a-z].*") || !password.matches(".*[A-Z].*") || !password.matches(".*[0-9].*")
+                || !password.matches(".*[!@#$%^&*].*")) {
             model.addAttribute("passwordError", true);
             model.addAttribute("error", "Password is too weak.");
             return "register";
         }
 
         String role = newUser.getOrDefault("role", "USER");
-
         User user = new User(username, password, role);
-
         userRepository.save(user);
 
-        return "redirect:/users/view";
+        return "redirect:/login";
     }
 
+    /**
+     * Handles login requests.
+     * 
+     * - Checks if all required fields are filled.
+     * - Checks if username and password are correct.
+     * - Checks if user is logged in.
+     * 
+     * @param login    Map containing login data.
+     * @param model    Model to add attributes to.
+     * @param request  Request to get session from.
+     * @param response Response to send to the client.
+     * @return String representing the view to return.
+     */
     @GetMapping("/login")
     public String getLoginModel(Model model, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
+
         if (user != null) {
-            return "redirect:/";
+            return "redirect:/dashboard"; // TODO: Create this page
         }
 
-        else {
-            model.addAttribute("user", user);
-            return "login";
-        }
+        model.addAttribute("user", user);
+        return "login";
     }
 
+    /**
+     * Handles register requests.
+     * 
+     * @param model    Model to add attributes to.
+     * @param request  Request to get session from.
+     * @param response Response to send to the client.
+     * @return String representing the view to return.
+     */
     @GetMapping("/register")
     public String getRegisterModel(Model model, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
         if (user != null) {
-            return "redirect:/";
+            return "redirect:/dashboard"; // TODO: Create this page
         }
 
         return "register";
     }
 
+    /**
+     * Handles login requests.
+     * 
+     * @param login    Map containing login data.
+     * @param model    Model to add attributes to.
+     * @param request  Request to get session from.
+     * @param response Response to send to the client.
+     * @return String representing the view to return.
+     */
     @PostMapping("/login")
     public String login(@RequestParam Map<String, String> login, Model model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -138,6 +190,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Handles logout requests.
+     * 
+     * @param request Request to get session from.
+     * @return String representing the view to return.
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
