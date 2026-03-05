@@ -15,13 +15,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Controller for handling user authentication and user management.
+ * 
+ * FOR BACKEND IMPLEMENTATION:
+ * - To check if a user is loggin in, on your own controller, use:
+ * User user = (User) request.getSession().getAttribute("session_user");
+ */
 @Controller
 public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Admin Dashboard, shows list of all users.
+     * 
+     * - Only accessible by users with "ADMIN" role.
+     */
     @GetMapping("/users/view")
     public String getAllUsers(Model model) {
+        // Check if user is logged in has "ADMIN" role
+
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 

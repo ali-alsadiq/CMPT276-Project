@@ -1,4 +1,4 @@
-package com.cmpt276.project.porject.auth;
+package com.cmpt276.project.porject.auth; // Typo?
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,6 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Represents a user in the system.
+ * 
+ * FOR BACKEND IMPLEMENTATION:
+ * - When creating entities that belong to users, use 'uid'
+ * from this class as a foreign key.
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,8 +21,8 @@ public class User {
     private int uid;
 
     private String username;
-    private String password;
-    private String role;
+    private String password; // Stored as plain text for Iteration 1
+    private String role; // USER or ADMIN
 
     public User() {
 
@@ -27,6 +34,14 @@ public class User {
         this.role = role;
     }
 
+    // -- Getters and Setters --
+
+    /**
+     * User ID (Primary Key)
+     * 
+     * @return Unique database ID for this user.
+     *         - Use this to link to other tables!
+     */
     public int getUid() {
         return uid;
     }
