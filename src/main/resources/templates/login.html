@@ -14,25 +14,25 @@
             <div class="bg-white p-5" style="width: 100%; max-width: 500px;">
                 <h1 class="text-start mb-4 fw-bold">Sign in</h1>
 
-        <form action="/login" method="POST">
-            <div class="mb-3">
-                <input type="text" th:class="${usernameError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username*">
-            </div>
+                <form action="/login" method="POST">
+                    <div class="mb-3">
+                        <input type="text" th:class="${usernameError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username*">
+                    </div>
 
-            <div class="mb-4">
-                <input type="password" th:class="${passwordError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" id="password" name="password" placeholder="Password*">
-                <div th:if="${error}" class="text-danger text-start mt-2 small" style="margin-left: 16px;">
-                    <span th:text="${error}"></span>
-                </div>
-            </div>
-            
-            <button type="submit" class="btn btn-dark w-100 p-3 rounded-pill">Login</button>
+                    <div class="mb-4">
+                        <input type="password" th:class="${passwordError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" id="password" name="password" placeholder="Password*">
+                        <div th:if="${error}" class="text-danger text-start mt-2 small" style="margin-left: 16px;">
+                            <span th:text="${error}"></span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-dark w-100 p-3 rounded-pill">Login</button>
 
-            <div class="text-center mt-3">
-                <a href="/register" class="text-decoration-none small text-muted">Don't have an account?</a>
+                    <div class="text-center mt-3">
+                        <a href="/register" class="text-decoration-none small text-muted">Don't have an account?</a>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
         </div>
     </div>
 </body>

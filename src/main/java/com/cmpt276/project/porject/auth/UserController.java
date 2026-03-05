@@ -175,8 +175,8 @@ public class UserController {
             return "register";
         }
 
-        // Check if password strength is sufficient
-        if (calculatePasswordStrength(password) < 5) {
+        // Check if password strength is sufficient (>= 3 is Fair)
+        if (calculatePasswordStrength(password) < 3) {
             model.addAttribute("passwordError", true);
             model.addAttribute("error", "Password is too weak.");
             return "register";

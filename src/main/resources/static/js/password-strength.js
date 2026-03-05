@@ -21,7 +21,6 @@ passwordInput.addEventListener('input', function() {
  *   uppercase letter, one lowercase letter, one number, and one special character.
  * 
  * @param {string} password - The password to calculate the strength of.
- * 
  * @returns {number} - The strength of the password.
  */
 function calculatePasswordStrength(password) {
