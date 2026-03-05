@@ -45,6 +45,12 @@ public class UserController {
         String username = newUser.get("username");
         String password = newUser.get("password");
 
+        if (calculatePasswordStrength(password) <= 2) {
+            model.addAttribute("passwordError", true);
+            model.addAttribute("error", "Password is too weak.");
+            return "register";
+        }
+
         String role = newUser.getOrDefault("role", "USER");
 
         User user = new User(username, password, role);
@@ -127,5 +133,32 @@ public class UserController {
             }
         }
         return hasError;
+    }
+
+    private int calculatePasswordStrength(String password) {
+        int score = 0;
+        if (password == null || password.isEmpty()) {
+            return score;
+        }
+
+        score++; // length > 0
+
+        if (password.length() >= 8) {
+            score++;
+        }
+
+        if (password.matches(".*[a-z].*") && password.matches(".*[A-Z].*")) {
+            score++;
+        }
+
+        if (password.matches(".*[0-9].*")) {
+            score++;
+        }
+
+        if (password.matches(".*[!@#$%^&*].*")) {
+            score++;
+        }
+
+        return score;
     }
 }
