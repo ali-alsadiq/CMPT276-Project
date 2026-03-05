@@ -59,45 +59,7 @@ public class UserController {
         return new RedirectView("login");
     }
 
-    /**
-     * Handles user registration.
-     * 
-     * - Checks if all required fields are filled.
-     * - Checks if password is at least 8 characters long.
-     * - Checks if password contains at least one uppercase letter, one lowercase
-     * letter, one number, and one special character.
-     * - Checks if username is unique.
-     * 
-     * @param newUser  Map containing user registration data.
-     * @param model    Model to add attributes to.
-     * @param response Response to send to the client.
-     * @return String representing the view to return.
-     */
-    @PostMapping("/register")
-    public String registerUser(@RequestParam Map<String, String> newUser, Model model, HttpServletResponse response) {
-        boolean hasError = validateFields(newUser, model, "firstname", "lastname", "username", "password");
-
-        if (hasError) {
-            model.addAttribute("error", "Fill all required fields.");
-            return "register";
-        }
-
-        String username = newUser.get("username");
-        String password = newUser.get("password");
-
-        // Check if password is strong enough (score of 5 means it meets all criteria)
-        if (calculatePasswordStrength(password) < 5) {
-            model.addAttribute("passwordError", true);
-            model.addAttribute("error", "Password is too weak.");
-            return "register";
-        }
-
-        String role = newUser.getOrDefault("role", "USER");
-        User user = new User(username, password, role);
-        userRepository.save(user);
-
-        return "redirect:/login";
-    }
+    // -- Login --
 
     /**
      * Handles login requests.
@@ -117,31 +79,13 @@ public class UserController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
 
+        // If user is logged in, redirect to dashboard
         if (user != null) {
             return "redirect:/dashboard"; // TODO: Create this page
         }
 
         model.addAttribute("user", user);
         return "login";
-    }
-
-    /**
-     * Handles register requests.
-     * 
-     * @param model    Model to add attributes to.
-     * @param request  Request to get session from.
-     * @param response Response to send to the client.
-     * @return String representing the view to return.
-     */
-    @GetMapping("/register")
-    public String getRegisterModel(Model model, HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("session_user");
-        if (user != null) {
-            return "redirect:/dashboard"; // TODO: Create this page
-        }
-
-        return "register";
     }
 
     /**
@@ -158,6 +102,7 @@ public class UserController {
             HttpServletResponse response) {
         boolean hasError = validateFields(login, model, "username", "password");
 
+        // If no username or password, return to login page
         if (hasError) {
             model.addAttribute("error", "Fill all required fields.");
             return "login";
@@ -168,21 +113,92 @@ public class UserController {
 
         List<User> users = userRepository.findByUsernameAndPassword(username, password);
 
+        // If no username or password, return to login page
         if (users.isEmpty()) {
             model.addAttribute("error", "The username or password you entered is incorrect.");
             model.addAttribute("usernameVal", username);
             return "login";
         }
 
+        // If username and password are correct, log the user in
         else {
             User user = users.get(0);
             request.getSession().setAttribute("session_user", user);
-            return "redirect:/users/view";
+            return "redirect:/dashboard"; // TODO: Create this page
         }
     }
 
+    // -- Register --
+
+    /**
+     * Handles user registration.
+     * 
+     * - Checks if all required fields are filled.
+     * - Checks if password is at least 8 characters long.
+     * - Checks if password contains at least one uppercase letter, one lowercase
+     * letter, one number, and one special character.
+     * - Checks if username is unique.
+     * 
+     * @param newUser  Map containing user registration data.
+     * @param model    Model to add attributes to.
+     * @param response Response to send to the client.
+     * @return String representing the view to return.
+     */
+    @PostMapping("/register")
+    public String registerUser(@RequestParam Map<String, String> newUser, Model model, HttpServletResponse response) {
+        boolean hasError = validateFields(newUser, model, "firstname", "lastname", "username", "password");
+
+        // If no username or password, return to register page
+        if (hasError) {
+            model.addAttribute("error", "Fill all required fields.");
+            return "register";
+        }
+
+        String username = newUser.get("username");
+        String password = newUser.get("password");
+
+        // Check if password strength is sufficient
+        if (calculatePasswordStrength(password) < 5) {
+            model.addAttribute("passwordError", true);
+            model.addAttribute("error", "Password is too weak.");
+            return "register";
+        }
+
+        String role = newUser.getOrDefault("role", "USER");
+        User user = new User(username, password, role);
+        userRepository.save(user);
+
+        return "redirect:/login";
+    }
+
+    /**
+     * Handles register requests.
+     * 
+     * @param model    Model to add attributes to.
+     * @param request  Request to get session from.
+     * @param response Response to send to the client.
+     * @return String representing the view to return.
+     */
+    @GetMapping("/register")
+    public String getRegisterModel(Model model, HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        // If user is logged in, redirect to dashboard
+        if (user != null) {
+            return "redirect:/dashboard"; // TODO: Create this page
+        }
+
+        // If unsuccessful, return to register page
+        return "register";
+    }
+
+    // -- Logout --
+
     /**
      * Handles logout requests.
+     * 
+     * - Redirects to login page.
      * 
      * @param request Request to get session from.
      * @return String representing the view to return.
@@ -193,8 +209,20 @@ public class UserController {
         return "redirect:/login";
     }
 
+    // -- Helper Methods --
+
+    /**
+     * Validates that all required fields are filled.
+     * 
+     * @param data       Map containing user data.
+     * @param model      Model to add attributes to.
+     * @param fieldNames Array of field names to validate.
+     * @return True if there are errors, false otherwise.
+     */
     private boolean validateFields(Map<String, String> data, Model model, String... fieldNames) {
         boolean hasError = false;
+
+        // Checks if all required fields are filled
         for (String fieldName : fieldNames) {
             String value = data.get(fieldName);
             if (value == null || value.trim().isEmpty()) {
@@ -209,26 +237,37 @@ public class UserController {
         return hasError;
     }
 
+    /**
+     * Calculates the strength of a password.
+     * 
+     * @param password Password to calculate the strength of.
+     * @return Strength of the password.
+     */
     private int calculatePasswordStrength(String password) {
         int score = 0;
-        if (password == null || password.isEmpty()) {
-            return score;
+
+        // Checks if password is at least 1 character long
+        if (password.length() > 0) {
+            score++;
         }
 
-        score++; // length > 0
-
+        // Checks if password is at least 8 characters long
         if (password.length() >= 8) {
             score++;
         }
 
+        // Checks if password contains at least one lowercase letter and one uppercase
+        // letter
         if (password.matches(".*[a-z].*") && password.matches(".*[A-Z].*")) {
             score++;
         }
 
+        // Checks if password contains at least one number
         if (password.matches(".*[0-9].*")) {
             score++;
         }
 
+        // Checks if password contains at least one special character
         if (password.matches(".*[!@#$%^&*].*")) {
             score++;
         }
