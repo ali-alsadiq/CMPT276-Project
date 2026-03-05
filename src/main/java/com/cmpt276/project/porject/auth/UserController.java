@@ -31,6 +31,10 @@ public class UserController {
      * Admin Dashboard, shows list of all users.
      * 
      * - Only accessible by users with "ADMIN" role.
+     * 
+     * @param model   Model to add attributes to.
+     * @param request Request to get session from.
+     * @return String representing the view to return.
      */
     @GetMapping("/users/view")
     public String getAllUsers(Model model, HttpServletRequest request) {
@@ -108,7 +112,7 @@ public class UserController {
             return "login";
         }
 
-        String username = login.get("username");
+        String username = login.get("username").trim();
         String password = login.get("password");
 
         List<User> users = userRepository.findByUsernameAndPassword(username, password);
@@ -154,8 +158,22 @@ public class UserController {
             return "register";
         }
 
-        String username = newUser.get("username");
+        String firstname = newUser.get("firstname").trim();
+        String lastname = newUser.get("lastname").trim();
+        String username = newUser.get("username").trim();
         String password = newUser.get("password");
+
+        if (username.contains(" ")) {
+            model.addAttribute("usernameError", true);
+            model.addAttribute("error", "Username cannot contain spaces.");
+            return "register";
+        }
+
+        if (!userRepository.findByUsername(username).isEmpty()) {
+            model.addAttribute("usernameError", true);
+            model.addAttribute("error", "Username already exists.");
+            return "register";
+        }
 
         // Check if password strength is sufficient
         if (calculatePasswordStrength(password) < 5) {
@@ -165,7 +183,7 @@ public class UserController {
         }
 
         String role = newUser.getOrDefault("role", "USER");
-        User user = new User(username, password, role);
+        User user = new User(firstname, lastname, username, password, role);
         userRepository.save(user);
 
         return "redirect:/login";

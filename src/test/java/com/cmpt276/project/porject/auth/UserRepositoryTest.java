@@ -19,8 +19,8 @@ public class UserRepositoryTest {
      */
     @Test
     public void testFindAllUsers() {
-        User testAdmin = new User("testAdmin", "pass123", "ADMIN");
-        User testUser = new User("testUser", "pass123", "USER");
+        User testAdmin = new User("Test", "Admin", "testAdmin", "pass123", "ADMIN");
+        User testUser = new User("Test", "User", "testUser", "pass123", "USER");
         userRepository.save(testAdmin);
         userRepository.save(testUser);
 
@@ -34,7 +34,7 @@ public class UserRepositoryTest {
      */
     @Test
     public void testFindByUsernameAndPassword() {
-        User testUser = new User("testUser", "pass123", "USER");
+        User testUser = new User("Test", "User", "testUser", "pass123", "USER");
         userRepository.save(testUser);
 
         List<User> foundUser = userRepository.findByUsernameAndPassword("testUser", "pass123");
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
      */
     @Test
     public void testFindByUid() {
-        User user = new User("testUser", "pass123", "USER");
+        User user = new User("Test", "User", "testUser", "pass123", "USER");
         userRepository.save(user);
 
         int userUid = user.getUid();

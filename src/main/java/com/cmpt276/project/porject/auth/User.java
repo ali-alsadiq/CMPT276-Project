@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 /**
  * Represents a user in the system.
@@ -20,6 +21,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
 
+    private String firstname;
+    private String lastname;
+
+    @Column(unique = true)
     private String username;
     private String password; // Stored as plain text for Iteration 1
     private String role; // USER or ADMIN
@@ -28,7 +33,9 @@ public class User {
 
     }
 
-    public User(String username, String password, String role) {
+    public User(String firstname, String lastname, String username, String password, String role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -48,6 +55,22 @@ public class User {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getUsername() {
