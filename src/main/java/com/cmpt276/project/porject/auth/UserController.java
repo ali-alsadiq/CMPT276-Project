@@ -85,17 +85,8 @@ public class UserController {
         String username = newUser.get("username");
         String password = newUser.get("password");
 
-        // Check if password is at least 8 characters long
-        if (password.length() < 8) {
-            model.addAttribute("passwordError", true);
-            model.addAttribute("error", "Password is too weak.");
-            return "register";
-        }
-
-        // Check if password contains at least one uppercase letter, one lowercase
-        // letter, one number, and one special character
-        if (!password.matches(".*[a-z].*") || !password.matches(".*[A-Z].*") || !password.matches(".*[0-9].*")
-                || !password.matches(".*[!@#$%^&*].*")) {
+        // Check if password is strong enough (score of 5 means it meets all criteria)
+        if (calculatePasswordStrength(password) < 5) {
             model.addAttribute("passwordError", true);
             model.addAttribute("error", "Password is too weak.");
             return "register";
