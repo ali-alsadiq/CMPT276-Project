@@ -33,13 +33,24 @@ public class UserController {
      * - Only accessible by users with "ADMIN" role.
      */
     @GetMapping("/users/view")
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, HttpServletRequest request) {
         // Check if user is logged in has "ADMIN" role
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null || !"ADMIN".equals(user.getRole())) {
+            return "redirect:/login";
+        }
+
+        // If user is not logged in or not admin, redirect to login
+        if (user == null || !user.getRole().equals("ADMIN")) {
+            return "redirect:/login";
+        }
 
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 
-        return "users/showAll";
+        return "users/adminDashboard"; // TODO: Create this page
     }
 
     @GetMapping("/")
