@@ -257,7 +257,6 @@ public class UserController {
         }
 
         // Checks if password contains at least one lowercase letter and one uppercase
-        // letter
         if (password.matches(".*[a-z].*") && password.matches(".*[A-Z].*")) {
             score++;
         }
