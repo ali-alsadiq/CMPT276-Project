@@ -15,23 +15,25 @@
             
             <div class="row mb-3">
                 <div class="col">
-                    <input type="text" class="form-control bg-light border-0 p-3" id="firstname" name="firstname" placeholder="First Name">
+                    <input type="text" th:class="${firstnameError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" th:value="${firstnameVal}" id="firstname" name="firstname" placeholder="First Name">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control bg-light border-0 p-3" id="lastname" name="lastname" placeholder="Last Name">
+                    <input type="text" th:class="${lastnameError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" th:value="${lastnameVal}" id="lastname" name="lastname" placeholder="Last Name">
                 </div>
             </div>
 
             <div class="mb-3">
-                <input type="text" class="form-control bg-light border-0 p-3" id="username" name="username" placeholder="Username">
+                <input type="text" th:class="${usernameError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username">
             </div>
 
-            <div class="mb-5">
-                <input type="password" class="form-control bg-light border-0 p-3" id="password" name="password" placeholder="Password">
+            <div class="mb-4">
+                <input type="password" th:class="${passwordError != null ? 'form-control bg-light p-3 border border-danger' : 'form-control bg-light p-3 border-0'}" id="password" name="password" placeholder="Password">
                 <div class="progress mt-2" style="height: 5px;" id="password-strength-container">
-                    <div id="password-strength-bar" class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="password-strength-bar" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <small id="password-strength-text" class="text-danger mt-1 d-block">Weak</small>
+                <div th:if="${error}" class="text-danger text-start mt-2 small" style="margin-left: 16px;">
+                    <span th:text="${error}"></span>
+                </div>
             </div>
             
             <button type="submit" class="btn btn-dark w-100 p-3 rounded-pill">Create Account</button>

@@ -33,11 +33,19 @@ public class UserController {
         return new RedirectView("login");
     }
 
-    @PostMapping("/users/add")
-    public String addUser(@RequestParam Map<String, String> newUser, HttpServletResponse response) {
+    @PostMapping("/register")
+    public String registerUser(@RequestParam Map<String, String> newUser, Model model, HttpServletResponse response) {
+        boolean hasError = validateFields(newUser, model, "firstname", "lastname", "username", "password");
+
+        if (hasError) {
+            model.addAttribute("error", "Fill all required fields.");
+            return "register";
+        }
+
         String username = newUser.get("username");
         String password = newUser.get("password");
-        String role = newUser.get("role");
+
+        String role = newUser.getOrDefault("role", "USER");
 
         User user = new User(username, password, role);
 
@@ -74,6 +82,13 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam Map<String, String> login, Model model, HttpServletRequest request,
             HttpServletResponse response) {
+        boolean hasError = validateFields(login, model, "username", "password");
+
+        if (hasError) {
+            model.addAttribute("error", "Fill all required fields.");
+            return "login";
+        }
+
         String username = login.get("username");
         String password = login.get("password");
 
@@ -81,6 +96,7 @@ public class UserController {
 
         if (users.isEmpty()) {
             model.addAttribute("error", "The username or password you entered is incorrect.");
+            model.addAttribute("usernameVal", username);
             return "login";
         }
 
@@ -95,5 +111,21 @@ public class UserController {
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/login";
+    }
+
+    private boolean validateFields(Map<String, String> data, Model model, String... fieldNames) {
+        boolean hasError = false;
+        for (String fieldName : fieldNames) {
+            String value = data.get(fieldName);
+            if (value == null || value.trim().isEmpty()) {
+                model.addAttribute(fieldName + "Error", true);
+                hasError = true;
+            }
+
+            else {
+                model.addAttribute(fieldName + "Val", value);
+            }
+        }
+        return hasError;
     }
 }
