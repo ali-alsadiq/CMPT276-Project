@@ -16,8 +16,11 @@
                 <input type="text" class="form-control bg-light border-0 p-3" id="username" name="username" placeholder="Username*">
             </div>
 
-            <div class="mb-5">
+            <div class="mb-4">
                 <input type="password" class="form-control bg-light border-0 p-3" id="password" name="password" placeholder="Password*">
+                <div th:if="${error}" class="text-danger text-start mt-2 small" style="margin-left: 16px;">
+                    <span th:text="${error}"></span>
+                </div>
             </div>
             
             <button type="submit" class="btn btn-dark w-100 p-3 rounded-pill">Login</button>

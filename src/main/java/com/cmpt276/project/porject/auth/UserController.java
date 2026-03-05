@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam Map<String, String> login, HttpServletRequest request,
+    public String login(@RequestParam Map<String, String> login, Model model, HttpServletRequest request,
             HttpServletResponse response) {
         String username = login.get("username");
         String password = login.get("password");
@@ -80,19 +80,20 @@ public class UserController {
         List<User> users = userRepository.findByUsernameAndPassword(username, password);
 
         if (users.isEmpty()) {
-            return "users/login";
+            model.addAttribute("error", "The username or password you entered is incorrect.");
+            return "login";
         }
 
         else {
             User user = users.get(0);
             request.getSession().setAttribute("session_user", user);
-            return "users/protected";
+            return "redirect:/users/view";
         }
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "users/login";
+        return "redirect:/login";
     }
 }
