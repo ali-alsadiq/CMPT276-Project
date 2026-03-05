@@ -14,6 +14,9 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Tests that findAll returns all users in the database.
+     */
     @Test
     public void testFindAllUsers() {
         User testAdmin = new User("testAdmin", "pass123", "ADMIN");
@@ -26,6 +29,9 @@ public class UserRepositoryTest {
         assertEquals(2, allUsers.size());
     }
 
+    /**
+     * Tests that findByUsernameAndPassword returns the correct user.
+     */
     @Test
     public void testFindByUsernameAndPassword() {
         User testUser = new User("testUser", "pass123", "USER");
@@ -39,6 +45,11 @@ public class UserRepositoryTest {
         assertEquals("USER", foundUser.get(0).getRole());
     }
 
+    /**
+     * Tests that findByUid returns the correct user.
+     * 
+     * - Uses a non-existent uid to test that it returns null.
+     */
     @Test
     public void testFindByUid() {
         User user = new User("testUser", "pass123", "USER");

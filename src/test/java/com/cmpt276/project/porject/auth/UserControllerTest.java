@@ -25,6 +25,9 @@ public class UserControllerTest {
     @MockitoBean
     private UserRepository userRepository;
 
+    /*
+     * Tests login page is displayed when the user visits the login page.
+     */
     @Test
     public void testGetLoginPage() throws Exception {
         mockMvc.perform(get("/login"))
@@ -127,6 +130,9 @@ public class UserControllerTest {
         Mockito.verify(userRepository, Mockito.never()).save(any(User.class));
     }
 
+    /**
+     * Tests that a user cannot access the admin dashboard.
+     */
     @Test
     public void testAdminDashboardAccessDeniedForUser() throws Exception {
         User standardUser = new User("normie", "pass123", "USER");
