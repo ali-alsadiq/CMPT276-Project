@@ -1,6 +1,7 @@
 :root {
   --bg-main: #141413;
   --bg-input: #6a6a67;
+  --bg-accent: #c1c1a9;
   --text-secondary: #8b8a87;
   --text-main: #ffffff;
   --btn-primary: #c1c1a9;
@@ -14,6 +15,10 @@ body.theme-bg {
 .theme-bg-container {
   background-color: var(--bg-main) !important;
   color: var(--text-main) !important;
+}
+
+.bg-accent {
+  background-color: var(--bg-accent) !important;
 }
 
 .theme-input {
