@@ -1,0 +1,45 @@
+:root {
+  --bg-main: #141413;
+  --bg-input: #6a6a67;
+  --text-secondary: #8b8a87;
+  --text-main: #ffffff;
+  --btn-primary: #c1c1a9;
+}
+
+body.theme-bg {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+.theme-bg-container {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+.theme-input {
+  background-color: var(--bg-input) !important;
+  color: var(--text-main) !important;
+}
+
+.theme-input::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+.theme-input:focus {
+  background-color: var(--bg-input) !important;
+  color: var(--text-main) !important;
+  border-color: var(--btn-primary) !important;
+  box-shadow: 0 0 0 0.25rem rgba(193, 193, 169, 0.25) !important;
+}
+
+.btn-primary {
+  background-color: var(--btn-primary) !important;
+  color: #000000 !important; /* contrasting text for sage green */
+  border-color: var(--btn-primary) !important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #a8a892 !important; /* slightly darker sage */
+  color: #000000 !important;
+  border-color: #a8a892 !important;
+}
