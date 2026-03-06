@@ -26,6 +26,10 @@ body.theme-bg {
   color: var(--text-main) !important;
 }
 
+.text-bg-main {
+  color: var(--bg-main) !important;
+}
+
 .theme-input::placeholder {
   color: var(--text-secondary) !important;
 }
