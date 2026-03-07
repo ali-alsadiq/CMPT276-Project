@@ -21,6 +21,10 @@ body.theme-bg {
   background-color: var(--bg-accent) !important;
 }
 
+.bg-input {
+  background-color: var(--bg-input) !important;
+}
+
 .theme-input {
   background-color: var(--bg-input) !important;
   color: var(--text-main) !important;
