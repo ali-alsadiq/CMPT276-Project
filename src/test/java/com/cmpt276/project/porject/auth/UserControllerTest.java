@@ -32,7 +32,7 @@ public class UserControllerTest {
         public void testGetLoginPage() throws Exception {
                 mockMvc.perform(get("/login"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("login"));
+                                .andExpect(view().name("users/login"));
         }
 
         @Test
@@ -82,7 +82,7 @@ public class UserControllerTest {
                                 .param("username", "testuser2")
                                 .param("password", "wrongpw"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("login"))
+                                .andExpect(view().name("users/login"))
                                 .andExpect(model().attributeExists("error"))
                                 .andExpect(request().sessionAttributeDoesNotExist("session_user"));
         }
@@ -98,7 +98,7 @@ public class UserControllerTest {
                                 .param("username", "testadmin2")
                                 .param("password", "wrongpw"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("login"))
+                                .andExpect(view().name("users/login"))
                                 .andExpect(model().attributeExists("error"))
                                 .andExpect(request().sessionAttributeDoesNotExist("session_user"));
         }
@@ -125,7 +125,7 @@ public class UserControllerTest {
                                 .param("username", "newUser")
                                 .param("password", "weakpass"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("register"))
+                                .andExpect(view().name("users/register"))
                                 .andExpect(model().attributeExists("passwordError"));
 
                 Mockito.verify(userRepository, Mockito.never()).save(any(User.class));
