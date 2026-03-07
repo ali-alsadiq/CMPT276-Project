@@ -1,5 +1,6 @@
 package com.cmpt276.project.porject.auth;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -89,7 +90,7 @@ public class UserController {
         }
 
         model.addAttribute("user", user);
-        return "login";
+        return "users/login";
     }
 
     /**
@@ -109,7 +110,7 @@ public class UserController {
         // If no username or password, return to login page
         if (hasError) {
             model.addAttribute("error", "Fill all required fields.");
-            return "login";
+            return "users/login";
         }
 
         String username = login.get("username").trim();
@@ -121,7 +122,7 @@ public class UserController {
         if (users.isEmpty()) {
             model.addAttribute("error", "The username or password you entered is incorrect.");
             model.addAttribute("usernameVal", username);
-            return "login";
+            return "users/login";
         }
 
         // If username and password are correct, log the user in
@@ -155,7 +156,7 @@ public class UserController {
         // If no username or password, return to register page
         if (hasError) {
             model.addAttribute("error", "Fill all required fields.");
-            return "register";
+            return "users/register";
         }
 
         String firstname = newUser.get("firstname").trim();
@@ -166,20 +167,20 @@ public class UserController {
         if (username.contains(" ")) {
             model.addAttribute("usernameError", true);
             model.addAttribute("error", "Username cannot contain spaces.");
-            return "register";
+            return "users/register";
         }
 
         if (!userRepository.findByUsername(username).isEmpty()) {
             model.addAttribute("usernameError", true);
             model.addAttribute("error", "Username already exists.");
-            return "register";
+            return "users/register";
         }
 
         // Check if password strength is sufficient (>= 3 is Fair)
         if (calculatePasswordStrength(password) < 3) {
             model.addAttribute("passwordError", true);
             model.addAttribute("error", "Password is too weak.");
-            return "register";
+            return "users/register";
         }
 
         String role = newUser.getOrDefault("role", "USER");
@@ -208,7 +209,7 @@ public class UserController {
         }
 
         // If unsuccessful, return to register page
-        return "register";
+        return "users/register";
     }
 
     // -- Logout --
@@ -225,6 +226,180 @@ public class UserController {
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/login";
+    }
+
+        /**
+     * Displays the user profile page.
+     * 
+     * @param model   Model to add attributes to.
+     * @param request Request to get session from.
+     * @return String representing the view to return.
+     */
+    @GetMapping("/profile")
+    public String getProfilePage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("user", user);
+        return "users/profile";
+    }
+
+    /**
+     * Updates the user profile information.
+     * 
+     * @param profileData Map containing profile data.
+     * @param model       Model to add attributes to.
+     * @param request     Request to get session from.
+     * @return String representing the view to return.
+     */
+    @PostMapping("/profile")
+    public String updateProfile(@RequestParam Map<String, String> profileData, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        boolean hasError = false;
+
+        String firstname = profileData.get("firstname") != null ? profileData.get("firstname").trim() : "";
+        String lastname = profileData.get("lastname") != null ? profileData.get("lastname").trim() : "";
+        String sex = profileData.get("sex") != null ? profileData.get("sex").trim() : "";
+        String dateOfBirthStr = profileData.get("dateOfBirth") != null ? profileData.get("dateOfBirth").trim() : "";
+        String heightStr = profileData.get("height") != null ? profileData.get("height").trim() : "";
+        String weightStr = profileData.get("weight") != null ? profileData.get("weight").trim() : "";
+        String caloriesDailyGoalStr = profileData.get("caloriesDailyGoal") != null
+                ? profileData.get("caloriesDailyGoal").trim()
+                : "";
+
+        model.addAttribute("firstnameVal", firstname);
+        model.addAttribute("lastnameVal", lastname);
+        model.addAttribute("sexVal", sex);
+        model.addAttribute("dateOfBirthVal", dateOfBirthStr);
+        model.addAttribute("heightVal", heightStr);
+        model.addAttribute("weightVal", weightStr);
+        model.addAttribute("caloriesDailyGoalVal", caloriesDailyGoalStr);
+
+        if (firstname.isEmpty()) {
+            model.addAttribute("firstnameError", true);
+            hasError = true;
+        }
+
+        if (lastname.isEmpty()) {
+            model.addAttribute("lastnameError", true);
+            hasError = true;
+        }
+
+        if (sex.isEmpty()) {
+            model.addAttribute("sexError", true);
+            hasError = true;
+        }
+
+        LocalDate dateOfBirth = null;
+        if (dateOfBirthStr.isEmpty()) {
+            model.addAttribute("dateOfBirthError", true);
+            hasError = true;
+        } else {
+            try {
+                dateOfBirth = LocalDate.parse(dateOfBirthStr);
+
+                if (!dateOfBirth.isBefore(LocalDate.now())) {
+                    model.addAttribute("dateOfBirthError", true);
+                    model.addAttribute("error", "Date of birth must be in the past.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("dateOfBirthError", true);
+                model.addAttribute("error", "Please enter a valid date of birth.");
+                hasError = true;
+            }
+        }
+
+        double height = 0;
+        if (heightStr.isEmpty()) {
+            model.addAttribute("heightError", true);
+            hasError = true;
+        } else {
+            try {
+                height = Double.parseDouble(heightStr);
+
+                if (height < 50 || height > 300) {
+                    model.addAttribute("heightError", true);
+                    model.addAttribute("error", "Height must be between 50 cm and 300 cm.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("heightError", true);
+                model.addAttribute("error", "Please enter a valid height.");
+                hasError = true;
+            }
+        }
+
+        double weight = 0;
+        if (weightStr.isEmpty()) {
+            model.addAttribute("weightError", true);
+            hasError = true;
+        } else {
+            try {
+                weight = Double.parseDouble(weightStr);
+
+                if (weight < 20 || weight > 500) {
+                    model.addAttribute("weightError", true);
+                    model.addAttribute("error", "Weight must be between 20 kg and 500 kg.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weightError", true);
+                model.addAttribute("error", "Please enter a valid weight.");
+                hasError = true;
+            }
+        }
+
+        int caloriesDailyGoal = 0;
+        if (caloriesDailyGoalStr.isEmpty()) {
+            model.addAttribute("caloriesDailyGoalError", true);
+            hasError = true;
+        } else {
+            try {
+                caloriesDailyGoal = Integer.parseInt(caloriesDailyGoalStr);
+
+                if (caloriesDailyGoal < 500 || caloriesDailyGoal > 10000) {
+                    model.addAttribute("caloriesDailyGoalError", true);
+                    model.addAttribute("error", "Daily calorie goal must be between 500 and 10000.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("caloriesDailyGoalError", true);
+                model.addAttribute("error", "Please enter a valid daily calorie goal.");
+                hasError = true;
+            }
+        }
+
+        if (hasError) {
+            model.addAttribute("user", user);
+            return "users/profile";
+        }
+
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setSex(sex);
+        user.setDateOfBirth(dateOfBirth);
+        user.setHeight(height);
+        user.setWeight(weight);
+        user.setCaloriesDailyGoal(caloriesDailyGoal);
+
+        userRepository.save(user);
+        session.setAttribute("session_user", user);
+
+        model.addAttribute("user", user);
+        model.addAttribute("success", "Profile updated successfully.");
+
+        return "users/profile";
     }
 
     // -- Helper Methods --
