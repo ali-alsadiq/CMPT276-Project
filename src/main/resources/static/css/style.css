@@ -5,6 +5,7 @@
   --text-secondary: #8b8a87;
   --text-main: #ffffff;
   --btn-primary: #c1c1a9;
+  --text-accent: #7AEEFF;
 }
 
 body.theme-bg {
@@ -52,3 +53,40 @@ body.theme-bg {
   color: #000000 !important;
   border-color: #a8a892 !important;
 }
+
+
+/* Nav Sections */
+
+.bottom-nav {
+  list-style: none; 
+  bottom:30px; 
+  left:50%; 
+  transform:translateX(-50%); 
+  width:250px; 
+  padding:0; 
+  margin:0;
+  gap: 7.5rem;
+}
+
+.bottom-nav li a {
+  padding: 1rem;
+  color: var(--text-accent);
+  border-bottom: 2px solid var(--text-accent);
+  border-left: 2px solid var(--text-accent);
+  border-top: 2px solid transparent;
+  border-right: 2px solid transparent;
+  background-color: transparent;
+  border-bottom-left-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.bottom-nav li a:hover {
+  border: 2px solid var(--text-accent);
+  border-radius: 10px;
+  color: var(--bg-main);
+  background-color: var(--text-accent);
+  transform: scale(1.05);
+}
+
+/* Progress Bar */
+

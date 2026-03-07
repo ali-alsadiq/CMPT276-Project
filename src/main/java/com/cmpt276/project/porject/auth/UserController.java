@@ -211,6 +211,30 @@ public class UserController {
         return "register";
     }
 
+    // -- Calorie Tracker --
+
+    /**
+     * Handles calorie tracker page requests.
+     *
+     * - Only accessible by logged-in users.
+     *
+     * @param request Request to get session from.
+     * @return String representing the view to return.
+     */
+    @GetMapping("/calorieTracker")
+    public String getCalorieTracker(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        // If user is not logged in, redirect to login
+
+        // if (user == null) {
+        //     return "redirect:/login";
+        // }
+
+        return "calorieTracker";
+    }
+
     // -- Logout --
 
     /**
