@@ -2,29 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ascend - Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Admin</title>
 </head>
 <body>
 
+    <h2>Admin view</h2>
+
     <div class="container mt-5">
-        <h2>Admin view</h2>
-        <a href="/logout" class="btn btn-sm btn-outline-secondary mb-3">Logout</a>
-
-        <ul class="list-group" style="max-width: 600px;">
-            
-            <li class="list-group-item d-flex justify-content-between" th:each="user : ${users}">
-                
-                <span>
-                    <strong th:text="${user.username}">Username</strong> 
-                    <span class="text-muted" th:text="' (UID: ' + ${user.uid} + ')'"></span>
-                </span>
-                
-                <span class="text-muted" th:text="${user.role}">ROLE</span>
-                
-            </li>
-
-        </ul>
+        <li th:each="user : ${users}" th:text="${user.username} + ' (UID: ' + ${user.uid} + ') - Role: ' + ${user.role}">
+        </li>
     </div>
 
 </body>
