@@ -54,6 +54,41 @@ body.theme-bg {
   border-color: #a8a892 !important;
 }
 
+/* Page Header */
+.page-header {
+  width: 100%;
+  border-left: solid var(--text-accent) 5px;
+  height: 65px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  animation: headerFade 0.6s ease forwards;
+}
+
+.page-header h3 {
+  color: var(--text-accent);
+}
+
+.page-header p {
+  font-style: italic;
+  color: var(--bg-input);
+  margin-top: -10px;
+}
+
+@keyframes headerFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Nav Sections */
 
@@ -65,7 +100,7 @@ body.theme-bg {
   width:250px; 
   padding:0; 
   margin:0;
-  gap: 7.5rem;
+  gap: 5rem;
 }
 
 .bottom-nav li a {
@@ -100,7 +135,7 @@ body.theme-bg {
 .progress-top {
   display: flex;
   justify-content: left;
-  margin-left: -65px;
+  margin-left: -50px;
   width: 100%;
 }
 
