@@ -218,19 +218,24 @@ public class UserController {
      *
      * - Only accessible by logged-in users.
      *
-     * @param request Request to get session from.
-     * @return String representing the view to return.
+     * @param request request used to retrieve the current session
+     * @param model model used to pass progress values to the view
+     * @return the calorie tracker view, or redirect to login if user is not logged in
      */
     @GetMapping("/calorieTracker")
-    public String getCalorieTracker(HttpServletRequest request) {
+    public String getCalorieTracker(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
 
         // If user is not logged in, redirect to login
-
         // if (user == null) {
         //     return "redirect:/login";
         // }
+
+        model.addAttribute("totalPercent", 67);
+        model.addAttribute("proteinPercent", 82);
+        model.addAttribute("carbsPercent", 74);
+        model.addAttribute("macrosPercent", 91);
 
         return "calorieTracker";
     }

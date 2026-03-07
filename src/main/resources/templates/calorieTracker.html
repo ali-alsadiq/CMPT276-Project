@@ -14,7 +14,50 @@
         </div>
         <div class="col-12 col-md-8 d-flex align-items-center justify-content-center h-100 ">
             <div class="theme-bg-container p-5 position-relative h-100" style="width: 100%; max-width: 500px; ">
-                <div class="progress" ></div>
+                <div class="progress-layout">
+                    <div class="progress-top">
+                        <div class="progress-wrapper progress-wrapper-total">
+                            <div class="progress-circle progress-circle-total" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                th:attr="aria-valuenow=${totalPercent}" aria-labelledby="progress-total" 
+                                th:style="'--value:' + ${totalPercent} + '; --size: 220px; --progress-color: #c1c1a9;'">
+                                <span class="progress-value" th:text="${totalPercent} + '%'">67%</span>
+                            </div>
+                            <p id="progress-total" class="progress-label">Total</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-bottom">
+                        <div class="progress-wrapper">
+                            <div class="progress-circle progress-circle-small" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                th:attr="aria-valuenow=${proteinPercent}" aria-labelledby="progress-protein"
+                                th:style="'--value:' + ${proteinPercent} + '; --size: 130px; --progress-color: #a8a892;'">
+                                <span class="progress-value progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
+                            </div>
+                            <p id="progress-protein" class="progress-label">Protein</p>
+                        </div>
+
+                        <div class="progress-wrapper">
+                            <div class="progress-circle progress-circle-small" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                th:attr="aria-valuenow=${carbsPercent}" aria-labelledby="progress-carbs"
+                                th:style="'--value:' + ${carbsPercent} + '; --size: 130px; --progress-color: #7AEEFF;'">
+                                <span class="progress-value progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
+                            </div>
+                            <p id="progress-carbs" class="progress-label">Carbs</p>
+                        </div>
+
+                        <div class="progress-wrapper">
+                            <div class="progress-circle progress-circle-small" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                th:attr="aria-valuenow=${macrosPercent}" aria-labelledby="progress-macros"
+                                th:style="'--value:' + ${macrosPercent} + '; --size: 130px; --progress-color: #c1c1a9;'">
+                                <span class="progress-value progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
+                            </div>
+                            <p id="progress-macros" class="progress-label">Macros</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- NAV Section -->
                 <div class="w-100">
                     <ul class="bottom-nav d-flex justify-content-center position-absolute">
                         <li>
@@ -37,6 +80,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll(".progress-circle").forEach(circle => {
+            const value = circle.style.getPropertyValue("--value").trim();
+            const text = circle.querySelector(".progress-value");
+            if (text) text.textContent = `${value}%`;
+        });
+    </script>
 </body>
 
 </html>

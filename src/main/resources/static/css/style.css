@@ -89,4 +89,111 @@ body.theme-bg {
 }
 
 /* Progress Bar */
+.progress-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding-top: 2rem;
+}
 
+.progress-top {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+}
+
+.progress-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.progress-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.progress-wrapper-total {
+  margin-bottom: 0.5rem;
+}
+
+.progress-circle {
+  --value: 0;
+  --size: 220px;
+  --thickness: 18px;
+  --progress-color: var(--bg-accent);
+  --track-color: #2a2a2a;
+  --animated-value: 0;
+
+  width: var(--size);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  background: conic-gradient(
+    var(--progress-color) calc(var(--animated-value) * 1%),
+    var(--track-color) 0
+  );
+
+  animation: fillProgress 1.8s ease forwards;
+}
+
+.progress-circle::before {
+  content: "";
+  position: absolute;
+  inset: var(--thickness);
+  background-color: var(--bg-main);
+  border-radius: 50%;
+}
+
+.progress-circle-total {
+  --size: 250px;
+  --thickness: 20px;
+}
+
+.progress-circle-small {
+  --size: 130px;
+  --thickness: 14px;
+}
+
+.progress-value {
+  position: relative;
+  z-index: 1;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.progress-value-small {
+  font-size: 1.25rem;
+}
+
+.progress-label {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+@property --animated-value {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes fillProgress {
+  from {
+    --animated-value: 0;
+  }
+  to {
+    --animated-value: var(--value);
+  }
+}
