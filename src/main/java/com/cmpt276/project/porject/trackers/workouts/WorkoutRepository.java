@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+/**
+ * Database access for wrokout entity
+ */
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
 

@@ -18,7 +18,7 @@ public class WorkoutApiService {
         RestTemplate restTemplate = new RestTemplate();
         
         try {
-            // Prepare headers with API key
+            // add api key to headers
             HttpHeaders headers = new HttpHeaders();
             headers.set("X-Api-Key", API_KEY);
             
@@ -26,10 +26,10 @@ public class WorkoutApiService {
             // Build URL
             String url = API_URL + "?activity=" + activity + "&duration=" + duration;
             
-            // Create entity with headers
+            // create http entity with headers
             HttpEntity<?> entity = new HttpEntity<>(headers);
             
-            // Get raw JSON response as String
+            // json response
             ResponseEntity<String> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -37,11 +37,11 @@ public class WorkoutApiService {
                 String.class
             );
             
-            // Parse the JSON array
+            // Turn into JSONarray
             JSONArray jsonArray = new JSONArray(response.getBody());
             
             if (jsonArray.length() > 0) {
-                // Get the first item in the array and extract total_calories
+                // Get first item in the array and get total_calories
                 JSONObject firstItem = jsonArray.getJSONObject(0);
                 return firstItem.getInt("total_calories");
             }
