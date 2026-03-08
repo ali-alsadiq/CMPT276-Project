@@ -15,7 +15,7 @@ public class MockAdminUserConfig {
     public CommandLineRunner initMockAdminUser(UserRepository userRepository) {
         return args -> {
             try {
-                userRepository.save(new User("System", "Admin", "admin", "admin", "ADMIN"));
+                userRepository.save(new User("System", "Admin", "admin_test", "admin", "ADMIN"));
             }
 
             catch (Exception e) {
