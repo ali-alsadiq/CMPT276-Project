@@ -37,21 +37,21 @@ public class UserController {
      * @param request Request to get session from.
      * @return String representing the view to return.
      */
-    @GetMapping("/users/view")
+    @GetMapping("/adminDashboard")
     public String getAllUsers(Model model, HttpServletRequest request) {
         // Check if user is logged in has "ADMIN" role
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
 
         // If user is not logged in or not admin, redirect to login
-        if (user == null || !"ADMIN".equals(user.getRole())) {
+        if (user == null || !user.isAdmin()) {
             return "redirect:/login";
         }
 
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 
-        return "users/adminDashboard"; // TODO: Create this page
+        return "adminDashboard";
     }
 
     /**
@@ -86,7 +86,13 @@ public class UserController {
 
         // If user is logged in, redirect to dashboard
         if (user != null) {
-            return "redirect:/dashboard"; // TODO: Create this page
+            if (user.isAdmin()) {
+                return "redirect:/adminDashboard";
+            }
+
+            else {
+                return "redirect:/dashboard"; // doesn't exist yet
+            }
         }
 
         model.addAttribute("user", user);
@@ -129,7 +135,12 @@ public class UserController {
         else {
             User user = users.get(0);
             request.getSession().setAttribute("session_user", user);
-            return "redirect:/dashboard"; // TODO: Create this page
+
+            if (user.isAdmin()) {
+                return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
+            } else {
+                return "redirect:/"; // Redirect to nothing / home for now
+            }
         }
     }
 
@@ -205,7 +216,11 @@ public class UserController {
 
         // If user is logged in, redirect to dashboard
         if (user != null) {
-            return "redirect:/dashboard"; // TODO: Create this page
+            if (user.isAdmin()) {
+                return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
+            } else {
+                return "redirect:/"; // Redirect to nothing / home for now
+            }
         }
 
         // If unsuccessful, return to register page
@@ -228,7 +243,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-        /**
+    /**
      * Displays the user profile page.
      * 
      * @param model   Model to add attributes to.
@@ -257,7 +272,8 @@ public class UserController {
      * @return String representing the view to return.
      */
     @PostMapping("/profile")
-    public String updateProfile(@RequestParam Map<String, String> profileData, Model model, HttpServletRequest request) {
+    public String updateProfile(@RequestParam Map<String, String> profileData, Model model,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
 
