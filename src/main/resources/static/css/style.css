@@ -123,26 +123,46 @@ body.theme-bg {
   transform: scale(1.05);
 }
 
+.progress-grid {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+
 /* Progress Bar */
+
+/* Progress Layout */
 .progress-layout {
-  background-color: #a8a892;
-  gap: 2.5rem;
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+.progress-top-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .progress-top {
   display: flex;
-  justify-content: left;
-  width: 100%;
-}
-
-.progress-bottom {
-  display: flex;
-  justify-content: left;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   gap: 2rem;
-  width: 100%;
-  flex-wrap: nowrap;
+  padding: 1.25rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .progress-wrapper {
@@ -153,7 +173,42 @@ body.theme-bg {
 }
 
 .progress-wrapper-total {
-  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.progress-legend {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-width: 160px;
+}
+
+.progress-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.progress-legend-dot {
+  font-size: 0.85rem;
+}
+
+.progress-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.progress-bottom .progress-wrapper {
+  flex: 1;
+  padding: 1rem 0.75rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .progress-circle {
@@ -188,13 +243,13 @@ body.theme-bg {
 }
 
 .progress-circle-total {
-  --size: 250px;
-  --thickness: 20px;
+  --size: 220px;
+  --thickness: 18px;
 }
 
 .progress-circle-small {
-  --size: 130px;
-  --thickness: 14px;
+  --size: 110px;
+  --thickness: 12px;
 }
 
 .progress-value {
@@ -206,12 +261,12 @@ body.theme-bg {
 }
 
 .progress-value-small {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .progress-label {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   text-align: center;
 }
@@ -229,4 +284,59 @@ body.theme-bg {
   to {
     --animated-value: var(--value);
   }
+}
+
+/* meal logged */
+
+.logged-meals-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.meal-table-header,
+.meal-row {
+  display: grid;
+  grid-template-columns: 80px 1.8fr 1fr 1fr 1fr;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.meal-table-header {
+  padding: 0.75rem 1rem;
+  color: var(--text-accent);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.meal-row {
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.meal-row:hover {
+  transform: translateY(-2px);
+  border-color: rgba(122, 238, 255, 0.25);
+}
+
+.meal-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.meal-name-col {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.meal-calories-col,
+.meal-fats-col,
+.meal-carbs-col {
+  color: var(--text-secondary);
 }
