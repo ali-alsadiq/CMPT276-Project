@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import com.cmpt276.project.porject.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RankService rankService;
+
     /**
      * Admin Dashboard, shows list of all users.
      * 
@@ -47,6 +51,13 @@ public class UserController {
         if (user == null || !user.isAdmin()) {
             return "redirect:/login";
         }
+
+        user.setRank(rankService.calculateTier(user.getRR()));
+        int pointsToNextTier = rankService.calculatePointsToNextTier(user.getRR());
+        int progressPercentage = user.getRR() % 100;
+
+        model.addAttribute("pointsToNextTier", pointsToNextTier);
+        model.addAttribute("progressPercentage", progressPercentage);
 
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
