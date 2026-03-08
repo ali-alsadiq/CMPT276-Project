@@ -1,25 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ascend - Login</title>
+    <title>Nutrition Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/618d4f1d54.js" crossorigin="anonymous"></script>
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body class="theme-bg overflow-hidden vh-100 m-0">
-    <div class="row g-0 h-100">
-        <div class="col-4 d-none d-md-block bg-accent p-4">
-            <h2 class="fw-bold text-bg-main" style="letter-spacing: 2px;">ASCEND.</h2>
+<body class="theme-bg vh-100 m-0 overflow-hidden">
+    
+    <div class="d-flex h-100 w-100">
+        <!-- Sidebar -->
+        <div class="bg-main p-4 d-flex flex-column" style="width: 350px; flex-shrink: 1;">
+            <div class="mb-5 mt-3 d-flex flex-column gap-3">
+                <div class="d-flex gap-3">
+                    <div class="rounded" style="width: 40px; height: 40px; background-color: var(--bg-input); flex-shrink: 0;"></div>
+                    <div class="d-flex flex-column justify-content-start pt-2">
+                        <strong class="text-uppercase text-white fw-bold lh-1 mb-1" style="font-size: 13px; letter-spacing: 1px;" th:text="${session.session_user != null ? session.session_user.username : 'guest'}">admin</strong>
+
+                        <!-- RANK IS NOT IMPLEMENTED YET -->
+                        <span class="text-uppercase lh-1" style="font-size: 11px; color: var(--text-secondary); letter-spacing: 0.5px;">SILVER II</span>
+                    </div>
+                </div>
+                
+                <!-- XP IS NOT IMPLEMENTED YET -->
+                <div class="w-100">
+                    <div class="d-flex justify-content-between mb-1" style="font-size: 10px; color: var(--text-secondary);">
+                        <span>800 XP</span>
+                        <span>1000 XP</span>
+                    </div>
+                    <div class="progress" style="height: 4px; background-color: var(--bg-surface);">
+                        <div class="progress-bar bg-accent" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="nav flex-column gap-2" style="font-size: 14px;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Admin Dashboard
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Insight and Progress
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-black rounded px-3 py-2 fw-semibold bg-accent">
+                        Nutrition Tracker
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Wellness Tracker
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Settings
+                    </a>
+                </li>
+            </ul>
         </div>
-                                                                            <!-- make sure to remove bg accent -->
-        <div class="col-12 col-md-8 d-flex align-items-center justify-content-center h-100 bg-accent">
-            <div class="theme-bg-container p-5 position-relative h-100" style="width: 100%; max-width: 500px; ">
-                <div class="page-header p-2 d-flex flex-column">
+
+        <!-- Main Section -->
+        <div class="flex-grow-1 w-100 p-4 p-md-5 overflow-auto h-100 bg-surface">
+            <div class="page-header p-2 d-flex flex-column">
                     <h3>STAYING CONSISTENT</h3>
                     <p>every meal counts.</p>
                 </div>
-                <div class="progress-layout">
+                <div class="progress-layout d-flex flex-column align-items-center">
                     <div class="progress-top">
                         <div class="progress-wrapper progress-wrapper-total">
                             <div class="progress-circle progress-circle-total" role="progressbar" aria-valuemin="0" aria-valuemax="100"
@@ -29,8 +84,8 @@
                             </div>
                             <p id="progress-total" class="progress-label fs-4">Total</p>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="progress-bottom">
                         <div class="progress-wrapper">
                             <div class="progress-circle progress-circle-small" role="progressbar" aria-valuemin="0" aria-valuemax="100"
@@ -59,40 +114,18 @@
                             <p id="progress-macros" class="progress-label">Macros</p>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- NAV Section -->
-                <div class="w-100">
-                    <ul class="bottom-nav d-flex justify-content-center position-absolute">
-                        <li>
-                            <a th:href="@{/dashboard}">
-                                <i class="fa-solid fa-chart-area p-3" style="font-size: 1.8rem;"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/workout}">
-                                <i class="fa-solid fa-dumbbell  p-3"style="font-size: 1.8rem;"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/caloriesTracker}">
-                                <i class="fa-solid fa-plate-wheat  p-3" style="font-size: 1.8rem;"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
-
     <script>
-        document.querySelectorAll(".progress-circle").forEach(circle => {
-            const value = circle.style.getPropertyValue("--value").trim();
-            const text = circle.querySelector(".progress-value");
-            if (text) text.textContent = `${value}%`;
-        });
-    </script>
+            document.querySelectorAll(".progress-circle").forEach(circle => {
+                const value = circle.style.getPropertyValue("--value").trim();
+                const text = circle.querySelector(".progress-value");
+                if (text) text.textContent = `${value}%`;
+            });
+        </script>
 </body>
-
 </html>
+
+
+

@@ -125,9 +125,7 @@ body.theme-bg {
 
 /* Progress Bar */
 .progress-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #a8a892;
   gap: 2.5rem;
   padding-top: 2rem;
 }
@@ -135,13 +133,12 @@ body.theme-bg {
 .progress-top {
   display: flex;
   justify-content: left;
-  margin-left: -50px;
   width: 100%;
 }
 
 .progress-bottom {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: flex-start;
   gap: 2rem;
   width: 100%;
