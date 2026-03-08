@@ -7,20 +7,51 @@
     <link href="/css/style.css" rel="stylesheet">
 <body class="theme-bg vh-100 m-0 overflow-hidden">
     
-    <div class="row g-0 h-100">
+    <div class="d-flex h-100 w-100">
         <!-- Sidebar -->
-        <div class="col-4 col-md-3 bg-black p-4">
-            <h5 class="fw-bold mb-4">Menu</h5>
-            <ul class="list-unstyled">
-                <li class="mb-3">Admin Dashboard</li>
+        <div class="bg-main p-4 d-flex flex-column" style="width: 350px; flex-shrink: 1;">
+            <div class="mb-5 mt-3">
+                <strong class="text-uppercase text-white fw-bold" style="font-size: 13px; letter-spacing: 1px;">admin</strong>
+            </div>
+            
+            <ul class="nav flex-column gap-2" style="font-size: 14px;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-black rounded px-3 py-2 fw-semibold bg-accent">
+                        Admin Dashboard
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Insight and Progress
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Nutrition Tracker
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Wellness Tracker
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
+                        Settings
+                    </a>
+                </li>
             </ul>
         </div>
 
         <!-- Main Section -->
-        <div class="col-8 col-md-9 p-4 p-md-5 overflow-auto h-100">
-            <h2 class="fw-bold mb-4">Admin view</h2>
+        <div class="flex-grow-1 w-100 p-4 p-md-5 overflow-auto h-100 bg-surface">
+            <h2 class="fw-bold mb-4">Admin Dashboard</h2>
 
-            <div class="container mt-5">
+            <div class="mt-5 p-4">
                 <li class="py-2" th:each="user : ${users}" th:text="${user.username} + ' (UID: ' + ${user.uid} + ') - Role: ' + ${user.role}">
                 </li>
             </div>
