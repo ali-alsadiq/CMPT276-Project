@@ -38,6 +38,8 @@ public class User {
     private double weight;
     private int caloriesDailyGoal;
 
+    private int rr;
+
     public User() {
 
     }
@@ -48,6 +50,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.rr = 0;
     }
 
     // -- Getters and Setters --
@@ -144,6 +147,14 @@ public class User {
 
     public void setCaloriesDailyGoal(int caloriesDailyGoal) {
         this.caloriesDailyGoal = caloriesDailyGoal;
+    }
+
+    public int getRr() {
+        return rr;
+    }
+
+    public void setRr(int rr) {
+        this.rr = rr;
     }
 
     // Returns true if user is an admin
