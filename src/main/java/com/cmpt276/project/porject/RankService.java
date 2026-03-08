@@ -17,7 +17,7 @@ public class RankService {
      * @param rr The raw rr to calculate the tier from.
      * @return The rank string based on the raw rr.
      */
-    public String calculateTier(int rr) {
+    public String calculateRank(int rr) {
         String[] tiers = {
                 "Bronze I", "Bronze II", "Bronze III", // 0 - 300rr
                 "Silver I", "Silver II", "Silver III", // 301 - 600rr
@@ -77,7 +77,7 @@ public class RankService {
      */
     public void populateRanks(List<User> users) {
         for (User user : users) {
-            String calculatedRank = calculateTier(user.getRR());
+            String calculatedRank = calculateRank(user.getRR());
 
             user.setRank(calculatedRank); // Saves it to temporary memory
         }
