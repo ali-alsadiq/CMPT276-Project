@@ -1,284 +1,438 @@
 
 /* Page Header */
 .page-header {
-  width: 100%;
-  border-left: solid var(--text-accent) 5px;
-  height: 65px;
-  margin-bottom: 20px;
-  padding-left: 15px;
+    width: 100%;
+    border-left: solid var(--text-accent) 5px;
+    height: 65px;
+    margin-bottom: 20px;
+    padding-left: 15px;
 
-  opacity: 0;
-  transform: translateY(10px);
+    opacity: 0;
+    transform: translateY(10px);
 
-  animation: headerFade 0.6s ease forwards;
+    animation: headerFade 0.6s ease forwards;
 }
 
 .page-header h3 {
-  color: var(--text-accent);
+    color: var(--text-accent);
 }
 
 .page-header p {
-  font-style: italic;
-  color: var(--bg-input);
-  margin-top: -10px;
+    font-style: italic;
+    color: var(--bg-input);
+    margin-top: -10px;
 }
 
 @keyframes headerFade {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Nav Sections */
 
 .bottom-nav {
-  list-style: none; 
-  bottom:30px; 
-  left:50%; 
-  transform:translateX(-50%); 
-  width:250px; 
-  padding:0; 
-  margin:0;
-  gap: 5rem;
+    list-style: none; 
+    bottom:30px; 
+    left:50%; 
+    transform:translateX(-50%); 
+    width:250px; 
+    padding:0; 
+    margin:0;
+    gap: 5rem;
 }
 
 .bottom-nav li a {
-  padding: 1rem;
-  color: var(--text-accent);
-  border-bottom: 2px solid var(--text-accent);
-  border-left: 2px solid var(--text-accent);
-  border-top: 2px solid transparent;
-  border-right: 2px solid transparent;
-  background-color: transparent;
-  border-bottom-left-radius: 10px;
-  transition: all 0.3s ease;
+    padding: 1rem;
+    color: var(--text-accent);
+    border-bottom: 2px solid var(--text-accent);
+    border-left: 2px solid var(--text-accent);
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    background-color: transparent;
+    border-bottom-left-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 .bottom-nav li a:hover {
-  border: 2px solid var(--text-accent);
-  border-radius: 10px;
-  color: var(--bg-main);
-  background-color: var(--text-accent);
-  transform: scale(1.05);
+    border: 2px solid var(--text-accent);
+    border-radius: 10px;
+    color: var(--bg-main);
+    background-color: var(--text-accent);
+    transform: scale(1.05);
 }
 
 .progress-grid {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-
-  box-shadow:
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Progress Layout */
 .progress-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 1.5rem;
-  min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem;
+    min-height: 100%;
 }
 
 .progress-top-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .progress-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1.25rem 1rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.25rem 1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .progress-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .progress-wrapper-total {
-  flex-shrink: 0;
+    flex-shrink: 0;
 }
 
 .progress-legend {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    min-width: 160px;
 }
 
 .progress-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.95rem;
-  color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
 }
 
 .progress-legend-dot {
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 
 .progress-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1rem;
 }
 
 .progress-bottom .progress-wrapper {
-  flex: 1;
-  padding: 1rem 0.75rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+    flex: 1;
+    padding: 1rem 0.75rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .progress-circle {
-  --value: 0;
-  --size: 220px;
-  --thickness: 18px;
-  --progress-color: var(--bg-accent);
-  --track-color: #2a2a2a;
-  --animated-value: 0;
+    --value: 0;
+    --size: 220px;
+    --thickness: 18px;
+    --progress-color: var(--bg-accent);
+    --track-color: #2a2a2a;
+    --animated-value: 0;
 
-  width: var(--size);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  position: relative;
-  display: grid;
-  place-items: center;
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    position: relative;
+    display: grid;
+    place-items: center;
 
-  background: conic-gradient(
-    var(--progress-color) calc(var(--animated-value) * 1%),
-    var(--track-color) 0
+    background: conic-gradient(
+        var(--progress-color) calc(var(--animated-value) * 1%),
+        var(--track-color) 0
   );
 
-  animation: fillProgress 1.8s ease forwards;
+    animation: fillProgress 1.8s ease forwards;
 }
 
 .progress-circle::before {
-  content: "";
-  position: absolute;
-  inset: var(--thickness);
-  background-color: var(--bg-main);
-  border-radius: 50%;
+    content: "";
+    position: absolute;
+    inset: var(--thickness);
+    background-color: var(--bg-main);
+    border-radius: 50%;
 }
 
 .progress-circle-total {
-  --size: 220px;
-  --thickness: 18px;
+    --size: 220px;
+    --thickness: 18px;
 }
 
 .progress-circle-small {
-  --size: 110px;
-  --thickness: 12px;
+    --size: 110px;
+    --thickness: 12px;
 }
 
 .progress-value {
-  position: relative;
-  z-index: 1;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-main);
+    position: relative;
+    z-index: 1;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .progress-value-small {
-  font-size: 1.1rem;
+    font-size: 1.1rem;
 }
 
 .progress-label {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  text-align: center;
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-align: center;
 }
 
 @property --animated-value {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
 }
 
 @keyframes fillProgress {
-  from {
-    --animated-value: 0;
-  }
-  to {
-    --animated-value: var(--value);
-  }
+    from {
+        --animated-value: 0;
+    }
+    to {
+        --animated-value: var(--value);
+    }
 }
 
 /* meal logged */
 
 .logged-meals-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 1rem;
 }
 
 .meal-table-header,
 .meal-row {
-  display: grid;
-  grid-template-columns: 80px 1.8fr 1fr 1fr 1fr;
-  align-items: center;
-  column-gap: 1rem;
+    display: grid;
+    grid-template-columns: 80px 1.8fr 1fr 1fr 1fr;
+    align-items: center;
+    column-gap: 1rem;
 }
 
 .meal-table-header {
-  padding: 0.75rem 1rem;
-  color: var(--text-accent);
-  font-weight: 600;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.75rem 1rem;
+    color: var(--text-accent);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .meal-row {
-  padding: 0.85rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .meal-row:hover {
-  transform: translateY(-2px);
-  border-color: rgba(122, 238, 255, 0.25);
+    transform: translateY(-2px);
+    border-color: rgba(122, 238, 255, 0.25);
 }
 
 .meal-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 12px;
-  display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
 }
 
 .meal-name-col {
-  color: var(--text-main);
-  font-weight: 600;
+    color: var(--text-main);
+    font-weight: 600;
 }
 
 .meal-calories-col,
 .meal-fats-col,
 .meal-carbs-col {
-  color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+/* Add meal btn */
+
+.meal-log-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#add-meal-btn {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: var(--text-accent);
+    color: var(--bg-main);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: -4px 6px 16px rgba(0,0,0,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#add-meal-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: -6px 10px 20px rgba(0,0,0,0.45);
+}
+
+.meal-search-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 0 1rem;
+    margin-top: 0;
+
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+
+    transition:
+        max-height 0.35s ease,
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        padding 0.25s ease,
+        margin-top 0.25s ease;
+}
+
+.meal-search-panel.active {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.meal-search-panel.active {
+    display: flex;
+}
+
+.meal-search-box {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.meal-search-input {
+    flex: 1;
+    padding: 0.85rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    outline: none;
+}
+
+.meal-search-btn {
+    padding: 0.85rem 1.2rem;
+    border: none;
+    border-radius: 14px;
+    background-color: var(--bg-accent);
+    color: var(--bg-main);
+    font-weight: 700;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.meal-search-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+}
+
+.meal-search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 40px;
+}
+
+
+
+.meal-result-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.meal-result-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.meal-result-info {
+    flex: 1;
+}
+
+.meal-result-name {
+    margin: 0;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.meal-result-meta {
+    margin: 0.2rem 0 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.meal-result-add-btn {
+    box-shadow: -4px 6px 16px rgba(0,0,0,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    border-radius: 12px;
+    padding: 0.65rem 1rem;
+    background: var(--text-accent);
+    color: var(--bg-main);
+    font-weight: 700;
+}
+
+.meal-result-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: -6px 10px 20px rgba(0,0,0,0.45);
 }

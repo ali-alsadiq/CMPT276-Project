@@ -182,15 +182,42 @@
                             </div>
                         </div>
                 </div>
+                <div class="meal-log-section">
+                    <button id="add-meal-btn" class="fw-bold" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span>ADD MEAL</span>
+                    </button>
+
+                    <div id="meal-search-panel" class="meal-search-panel">
+                        <div class="meal-search-box">
+                            <input 
+                                type="text" 
+                                id="meal-search-input" 
+                                class="theme-input meal-search-input"
+                                placeholder="Search for a meal..."
+                                autocomplete="off"
+                            >
+                            <button id="meal-search-btn" type="button" class="meal-search-btn">
+                                Search
+                            </button>
+                        </div>
+
+                        <div id="meal-search-results" class="meal-search-results">
+                            <!-- API results go here -->
+                             <div class="meal-result-item">
+                                <img src="" alt="Meal image" class="meal-result-image">
+                                <div class="meal-result-info">
+                                    <p class="meal-result-name">Chicken Wrap</p>
+                                    <p class="meal-result-meta">430 cal • 18g fat • 32g carbs</p>
+                                </div>
+                                <button class="meal-result-add-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
-    <script>
-        document.querySelectorAll(".progress-circle").forEach(circle => {
-            const value = circle.style.getPropertyValue("--value").trim();
-            const text = circle.querySelector(".progress-value");
-            if (text) text.textContent = `${value}%`;
-        });
-    </script>
+    <script th:src="@{/js/calorieTracker.js}"></script>
 </body>
 </html>
 
