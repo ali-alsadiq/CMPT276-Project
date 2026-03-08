@@ -18,13 +18,16 @@ public class MockAdminUserConfig {
     public CommandLineRunner initMockAdminUser(UserRepository userRepository, RankService rankService) {
         return args -> {
             try {
-                User admin = new User("System", "Admin", "admin_test", "admin", "ADMIN");
-                admin.setRR(1685);
+                User admin1 = new User("System", "Admin", "admin_test1", "admin", "ADMIN");
+                admin1.setRR(1685);
+
+                User admin2 = new User("System", "Admin", "admin_test2", "admin", "ADMIN");
+                admin2.setRR(776);
 
                 User user1 = new User("System", "User", "user_test1", "user", "USER");
                 User user2 = new User("System", "User", "user_test2", "user", "USER");
 
-                List<User> mockUsers = Arrays.asList(admin, user1, user2);
+                List<User> mockUsers = Arrays.asList(admin1, admin2, user1, user2);
                 rankService.populateRanks(mockUsers);
 
                 userRepository.saveAll(mockUsers);

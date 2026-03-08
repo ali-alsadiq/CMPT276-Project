@@ -24,8 +24,9 @@
                 <!-- RR PROGRESS -->
                 <div class="w-100">
                     <div class="d-flex justify-content-between mb-1" style="font-size: 10px; color: var(--text-secondary);">
-                        <span th:text="${session.session_user.getRR()} + ' RR'"></span>
-                        <span th:text="${session.session_user.getRR() + pointsToNextTier} + ' RR'"></span>
+                        <span th:if="${!isMaxRank}" th:text="${session.session_user.getRR()} + ' RR'"></span>
+                        <span th:if="${isMaxRank}" class="fw-bold text-accent">Max Rank Reached!</span>
+                        <span th:if="${!isMaxRank}" th:text="${session.session_user.getRR() + pointsToNextTier} + ' RR'"></span>
                     </div>
                     <div class="progress" style="height: 4px; background-color: var(--bg-surface);">
                         <div class="progress-bar bg-accent" role="progressbar" th:style="'width: ' + ${progressPercentage} + '%'" th:attr="aria-valuenow=${progressPercentage}" aria-valuemin="0" aria-valuemax="100"></div>

@@ -54,10 +54,13 @@ public class UserController {
 
         user.setRank(rankService.calculateTier(user.getRR()));
         int pointsToNextTier = rankService.calculatePointsToNextTier(user.getRR());
-        int progressPercentage = user.getRR() % 100;
+
+        boolean isMaxRank = user.getRR() >= 1500;
+        int progressPercentage = isMaxRank ? 100 : (user.getRR() % 100);
 
         model.addAttribute("pointsToNextTier", pointsToNextTier);
         model.addAttribute("progressPercentage", progressPercentage);
+        model.addAttribute("isMaxRank", isMaxRank);
 
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);

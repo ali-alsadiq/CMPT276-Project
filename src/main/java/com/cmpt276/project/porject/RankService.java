@@ -31,8 +31,8 @@ public class RankService {
         // Example: 410 / 100 = 4 ("Silver II")
         int index = rr / 100;
 
-        // If rr is greater than 1500, return the rr as a string
-        if (rr > 1500) {
+        // If rr is greater than or equal to 1500, return the rr as a string
+        if (rr >= 1500) {
             String maxRR = String.valueOf(rr) + " RR";
 
             return maxRR;
