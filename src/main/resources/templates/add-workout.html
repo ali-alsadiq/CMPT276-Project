@@ -10,7 +10,7 @@
 <body class="theme-bg overflow-hidden vh-100 m-0">
     <h1>Workout Calorie Calculator</h1>
 
-    <form method="post" th:action="@{/test-workout}">
+    <form method="post" th:action="@{/add-workout}">
         <label for="activity">Activity:</label>
         <input type="text" id="activity" name="activity" required><br><br>
 
@@ -20,11 +20,11 @@
         <button type="submit">Calculate Calories</button>
     </form>
 
-    <div th:if="${calories != null}">
+    <div th:if="${workout != null}">
         <h2>Result:</h2>
-        <p>Calories burned for <strong th:text="${activity}"></strong>
-           over <strong th:text="${duration}"></strong> minutes:
-           <strong th:text="${calories}"></strong></p>
+        <p>Calories burned for <strong th:text="${workout.workoutName}"></strong>
+           over <strong th:text="${workout.duration}"></strong> minutes:
+           <strong th:text="${workout.calsBurned}"></strong></p>
     </div>
 </body>
 </html>
