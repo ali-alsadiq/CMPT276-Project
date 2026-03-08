@@ -114,7 +114,7 @@ public class User {
         this.sex = sex;
     }
 
-   public LocalDate getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -144,5 +144,10 @@ public class User {
 
     public void setCaloriesDailyGoal(int caloriesDailyGoal) {
         this.caloriesDailyGoal = caloriesDailyGoal;
+    }
+
+    // Returns true if user is an admin
+    public boolean isAdmin() {
+        return this.role.equals("ADMIN");
     }
 }
