@@ -16,6 +16,8 @@ public class MockAdminUserConfig {
         return args -> {
             try {
                 userRepository.save(new User("System", "Admin", "admin_test", "admin", "ADMIN"));
+                userRepository.save(new User("System", "User", "user_test1", "user", "USER"));
+                userRepository.save(new User("System", "User", "user_test2", "user", "USER"));
             }
 
             catch (Exception e) {
