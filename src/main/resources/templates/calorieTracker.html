@@ -131,7 +131,7 @@
 
                             <div class="progress-wrapper">
                                 <div class="progress-circle progress-circle-small" role="progressbar" aria-valuemin="0" aria-valuemax="100" 
-                                    th:attr="aria-valuenow=${macrosPercent}"aria-labelledby="progress-macros"th:style="'--value:' + ${macrosPercent} + '; --progress-color: #F2E0E0;'">
+                                    th:attr="aria-valuenow=${macrosPercent}" aria-labelledby="progress-macros" th:style="'--value:' + ${macrosPercent} + '; --progress-color: #F2E0E0;'">
                                     <span class="progress-value progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                                 </div>
                                 <p id="progress-macros" class="progress-label">Macros</p>
@@ -183,7 +183,6 @@
                         </div>
                 </div>
         </div>
-
     </div>
     <script>
         document.querySelectorAll(".progress-circle").forEach(circle => {
