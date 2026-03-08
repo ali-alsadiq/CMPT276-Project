@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import java.time.LocalDate;
 
@@ -39,6 +40,9 @@ public class User {
     private int caloriesDailyGoal;
 
     private int rr;
+
+    @Transient
+    private String rank;
 
     public User() {
 
@@ -149,12 +153,20 @@ public class User {
         this.caloriesDailyGoal = caloriesDailyGoal;
     }
 
-    public int getRr() {
+    public int getRR() {
         return rr;
     }
 
-    public void setRr(int rr) {
+    public void setRR(int rr) {
         this.rr = rr;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     // Returns true if user is an admin
