@@ -66,8 +66,15 @@ public class Food {
     public Food(String name, double calories, double servSize, double protien, double carbs, double fats, double fiber, double sugar, double sodium, double potassium, double cholesterol, LocalDateTime consumedAt) {
         this.foodName = name;
         this.calories = calories;
+		this.servSize = servSize;
+		this.protien = protien;
+		this.carbs = carbs;
         this.fats = fats;
-        this.carbs = carbs;
+        this.fiber = fiber;
+		this.sugar = sugar;
+		this.sodium = sodium;
+		this.potassium = potassium;
+		this.cholesterol = cholesterol;
         this.consumedAt = consumedAt;
         this.createdAt = LocalDateTime.now();
 
