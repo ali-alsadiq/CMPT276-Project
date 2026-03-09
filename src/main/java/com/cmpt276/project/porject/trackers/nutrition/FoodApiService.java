@@ -36,8 +36,10 @@ public class FoodApiService {
             headers.set("X-Api-Key", API_KEY);
 
             //ensure valid format
-            String encoded = java.net.URLEncoder.encode(foodDescription, "UTF-8");
+            String safeDescription = foodDescription.replace(",", " "); //API doesnt like commas
+            String encoded = java.net.URLEncoder.encode(safeDescription, "UTF-8");
             String url = API_URL + "?query=" + encoded;
+            System.out.println("API URL: " + url);
 
             //make api request
             HttpEntity<?> entity = new HttpEntity<>(headers);
