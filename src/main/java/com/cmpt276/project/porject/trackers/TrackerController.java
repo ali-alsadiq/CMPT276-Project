@@ -1,6 +1,5 @@
 package com.cmpt276.project.porject.trackers;
 
-import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,8 +38,7 @@ public class TrackerController {
     //SENDS BACK TO FORM FOR NOW FOR TESTING
     @PostMapping("/add-workout")
     public String addWorkout(@RequestParam String activity, @RequestParam int duration, Model model) {
-        int calories = workoutApiService.getCaloriesBurned(activity, duration);
-        Workout workout = new Workout(activity, duration, calories, LocalDateTime.now());
+        Workout workout = workoutApiService.getWorkout(activity, duration);
         model.addAttribute("workout", workout);
 
         workoutRepository.save(workout);

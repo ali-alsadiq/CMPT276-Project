@@ -6,6 +6,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDateTime;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +17,7 @@ public class WorkoutApiService {
     private static final String API_URL = "https://api.api-ninjas.com/v1/caloriesburned";
     private static final String API_KEY = "JsA3JsxqkwdiDwYXtz5PzA1LX1U0INdNJBvtPGO7";
 
-    public int getCaloriesBurned(String activity, int duration) {
+    public Workout getWorkout(String activity, int duration) {
         RestTemplate restTemplate = new RestTemplate();
         
         try {
@@ -43,13 +46,16 @@ public class WorkoutApiService {
             if (jsonArray.length() > 0) {
                 // Get first item in the array and get total_calories
                 JSONObject firstItem = jsonArray.getJSONObject(0);
-                return firstItem.getInt("total_calories");
+                int calories = firstItem.getInt("total_calories");
+
+                Workout workout = new Workout(activity, duration, calories, LocalDateTime.now());
+                return workout;
             }
             
         } catch (Exception e) {
             System.err.println("Error fetching calories: " + e.getMessage());
         }
         
-        return 0;
+        return null;
     }
 }
