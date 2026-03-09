@@ -49,7 +49,7 @@ public class TrackerController {
 
         if (food == null) {
             model.addAttribute("messageType", "error");
-            System.err.println("Failed to find calories burned for: " + food);
+            System.err.println("Failed to find nutrition info for: " + food);
         } else {
             model.addAttribute("nutrition", food);
             foodRepository.save(food);
