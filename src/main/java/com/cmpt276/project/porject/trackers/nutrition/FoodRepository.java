@@ -12,8 +12,8 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
 
     List<Food> findByUserId(int userId);
     
-    List<Workout> findByWorkoutNameAndUserId(String foodName, int userId);
+    List<Food> findByFoodNameAndUserId(String foodName, int userId);
     
-    List<Workout> findByWorkoutName(String foodName);
-    List<Workout> findByUserIdOrderByWorkoutDateDesc(int userId);
+    List<Food> findByFoodName(String foodName);
+    
 }

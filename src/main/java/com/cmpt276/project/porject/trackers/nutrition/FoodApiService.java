@@ -16,7 +16,7 @@ public class FoodApiService {
     private static final String API_URL = "https://api.calorieninjas.com/v1/nutrition";
     private static final String API_KEY = "+QKQeZ1DTdFPA3U7tW0LFg==vvsZzkX3mQMWmRSn";
 
-    public Food getCaloriesBurned(String foodDescription) {
+    public Food getFoodNutrition(String foodDescription) {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
