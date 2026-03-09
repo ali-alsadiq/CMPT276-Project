@@ -44,6 +44,9 @@ public class User {
     @Transient
     private String rank;
 
+    @Transient
+    private String rankImageName;
+
     public User() {
 
     }
@@ -169,8 +172,37 @@ public class User {
         this.rank = rank;
     }
 
+    public String getRankImageName() {
+        return rankImageName;
+    }
+
+    public void setRankImageName(String rankImageName) {
+        this.rankImageName = rankImageName;
+    }
+
     // Returns true if user is an admin
     public boolean isAdmin() {
         return this.role.equals("ADMIN");
+    }
+
+    // Getters and setters here allow for the navbar fragment to be standlone
+    // Instead of being handled by the controller for every page, handled by the
+    // user model itself
+    public boolean isMaxRank() {
+        return this.rr >= 1500;
+    }
+
+    public int getPointsToNextRank() {
+        if (isMaxRank()) {
+            return 0;
+        }
+        return 100 - (this.rr % 100);
+    }
+
+    public int getProgressPercentage() {
+        if (isMaxRank()) {
+            return 100;
+        }
+        return this.rr % 100;
     }
 }

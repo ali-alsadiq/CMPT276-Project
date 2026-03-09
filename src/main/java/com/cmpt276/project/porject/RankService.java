@@ -18,7 +18,11 @@ public class RankService {
      * @return The rank string based on the raw rr.
      */
     public String calculateRank(int rr) {
-        String[] tiers = {
+        // If rr is greater than or equal to 1500, return the rr as a string
+        if (rr >= 1500)
+            return String.valueOf(rr) + " RR";
+
+        String[] ranks = {
                 "Bronze I", "Bronze II", "Bronze III", // 0 - 300rr
                 "Silver I", "Silver II", "Silver III", // 301 - 600rr
                 "Gold I", "Gold II", "Gold III", // 601 - 900rr
@@ -31,14 +35,7 @@ public class RankService {
         // Example: 410 / 100 = 4 ("Silver II")
         int index = rr / 100;
 
-        // If rr is greater than or equal to 1500, return the rr as a string
-        if (rr >= 1500) {
-            String maxRR = String.valueOf(rr) + " RR";
-
-            return maxRR;
-        }
-
-        return tiers[index];
+        return ranks[index];
     }
 
     /**
