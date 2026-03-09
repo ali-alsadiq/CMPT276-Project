@@ -33,6 +33,7 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${foodItem.foodName}"></h5>
                             <p class="card-text">
+                                Serving Size: <span th:text="${foodItem.servSize}"></span>g<br>
                                 Calories: <span th:text="${foodItem.calories}"></span><br>
                                 Protein: <span th:text="${foodItem.protien}"></span>g<br>
                                 Carbs: <span th:text="${foodItem.carbs}"></span>g<br>
