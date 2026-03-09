@@ -23,7 +23,8 @@ public class Food {
     @Column(nullable = false)
     private String foodName;
 
-    @Column(name = "user_id")  
+	
+    @Column(name = "user_id", nullable = false)  
     private int userId;
 
     @Column(name = "calories")

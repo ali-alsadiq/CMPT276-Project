@@ -7,12 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cmpt276.project.porject.auth.User;
+import com.cmpt276.project.porject.auth.UserRepository;
 import com.cmpt276.project.porject.trackers.nutrition.Food;
 import com.cmpt276.project.porject.trackers.nutrition.FoodApiService;
 import com.cmpt276.project.porject.trackers.nutrition.FoodRepository;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Controller for nutrition and workout management
@@ -31,6 +36,17 @@ public class TrackerController {
     @Autowired
     private FoodRepository foodRepository;
 
+    @Autowired 
+    private UserRepository userRepository;
+
+    /** 
+     * Helper for getting user session
+    */
+    private User getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (User) session.getAttribute("session_user");
+    }
+
     // Add workout page
     @GetMapping("/add-workout")
     public String showAddWorkout() {
@@ -44,7 +60,8 @@ public class TrackerController {
 
     
     @PostMapping("/add-food")
-    public String postMethodName(@RequestParam String foodDescription, Model model) {
+    public String addFood(@RequestParam String foodDescription, HttpServletRequest request, Model model) {
+        User user = getCurrentUser(request);
         Food food = foodApiService.getFoodNutrition(foodDescription);
 
         if (food == null) {
@@ -52,7 +69,11 @@ public class TrackerController {
             System.err.println("Failed to find nutrition info for: " + food);
         } else {
             model.addAttribute("food", food);
-            //foodRepository.save(food);
+            
+            if (user != null) {
+                food.setUserId(user.getUid());
+                foodRepository.save(food);
+            }
         }
 
         // SENDS BACK TO FORM FOR NOW FOR TESTING
@@ -61,7 +82,8 @@ public class TrackerController {
 
     
     @PostMapping("/add-workout")
-    public String addWorkout(@RequestParam String activity, int duration, Model model) {
+    public String addWorkout(@RequestParam String activity, int duration, HttpServletRequest request, Model model) {
+        User user = getCurrentUser(request);
         Workout workout = workoutApiService.getWorkout(activity, duration);
 
         //Check valid obj
@@ -71,10 +93,16 @@ public class TrackerController {
 
         } else {
             model.addAttribute("workout", workout);
-            //workoutRepository.save(workout);
+
+            if (user != null) {
+                workout.setUserId(user.getUid());
+                workoutRepository.save(workout);
+            }
+            
         }
 
         // SENDS BACK TO FORM FOR NOW FOR TESTING
         return "add-workout";
     }
+
 }
