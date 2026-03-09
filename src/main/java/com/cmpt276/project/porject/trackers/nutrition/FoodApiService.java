@@ -24,7 +24,8 @@ public class FoodApiService {
             HttpHeaders headers = new HttpHeaders();
             headers.set("X-Api-Key", API_KEY);
 
-            String url = API_URL + "?query=" + foodDescription;
+            String encoded = java.net.URLEncoder.encode(foodDescription, "UTF-8");
+            String url = API_URL + "?query=" + encoded;
 
             HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -37,7 +38,7 @@ public class FoodApiService {
             JSONObject jsonResponse = new JSONObject(response.getBody());
             JSONArray jsonArray = jsonResponse.getJSONArray("items");
 
-            if (jsonArray.length() >= 0) {
+            if (jsonArray.length() > 0) {
                 // Get first item returned
                 JSONObject target = jsonArray.getJSONObject(0);
 

@@ -56,12 +56,12 @@ public class Food {
 	@Column(name = "cholesterol")
     private double cholesterol;
 
-    //should let users add things they ate beforehand
+    //to allow tracking by user reported time consumed
     @Column(name = "consumed_date")
-    private LocalDateTime consumedAt;  
+    private LocalDateTime consumedDate;  
     
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
     public Food(String name, double calories, double servSize, double protien, double carbs, double fats, double fiber, double sugar, double sodium, double potassium, double cholesterol, LocalDateTime consumedAt) {
         this.foodName = name;
@@ -75,8 +75,8 @@ public class Food {
 		this.sodium = sodium;
 		this.potassium = potassium;
 		this.cholesterol = cholesterol;
-        this.consumedAt = consumedAt;
-        this.createdAt = LocalDateTime.now();
+        this.consumedDate = consumedAt;
+        this.createdDate = LocalDateTime.now();
 
     }
 
@@ -180,20 +180,20 @@ public class Food {
 		this.cholesterol = cholesterol;
 	}
 
-	public LocalDateTime getConsumedAt() {
-		return consumedAt;
+	public LocalDateTime getConsumedDate() {
+		return consumedDate;
 	}
 
-	public void setConsumedAt(LocalDateTime consumedAt) {
-		this.consumedAt = consumedAt;
+	public void setConsumedDate(LocalDateTime consumedAt) {
+		this.consumedDate = consumedAt;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
+	public void setCreatedDate(LocalDateTime createdAt) {
+		this.createdDate = createdAt;
 	}
 
 	

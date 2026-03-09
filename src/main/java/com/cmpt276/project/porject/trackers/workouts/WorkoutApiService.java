@@ -26,8 +26,8 @@ public class WorkoutApiService {
             headers.set("X-Api-Key", API_KEY);
             
             
-            // Build URL
-            String url = API_URL + "?activity=" + activity + "&duration=" + duration;
+            String encoded = java.net.URLEncoder.encode(activity, "UTF-8");
+            String url = API_URL + "?activity=" + encoded + "&duration=" + duration;
             
             // create http entity with headers
             HttpEntity<?> entity = new HttpEntity<>(headers);

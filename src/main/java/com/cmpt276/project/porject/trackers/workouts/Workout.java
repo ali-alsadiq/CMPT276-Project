@@ -38,7 +38,7 @@ public class Workout {
     private LocalDateTime workoutDate;  
     
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
 
     // Constructors
     public Workout() {}  
@@ -48,7 +48,7 @@ public class Workout {
         this.duration = duration;
         this.calsBurned = calories;
         this.workoutDate = workoutDate;
-        this.createdAt = LocalDateTime.now();
+        this.createdDate = LocalDateTime.now();
     }
     
     
@@ -101,11 +101,11 @@ public class Workout {
     }
     
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return createdDate;
     }
     
     public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+        this.createdDate = createdAt;
     }
 }
 
