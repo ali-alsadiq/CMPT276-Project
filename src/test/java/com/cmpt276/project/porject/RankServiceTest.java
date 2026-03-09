@@ -8,7 +8,7 @@ public class RankServiceTest {
     private RankService rankService = new RankService();
 
     @Test
-    public void testCalculateTier() {
+    public void testCalculateRank() {
         // Test standard rank values
         assertEquals("Bronze I", rankService.calculateRank(0));
         assertEquals("Bronze I", rankService.calculateRank(99));
@@ -26,13 +26,13 @@ public class RankServiceTest {
     }
 
     @Test
-    public void testCalculatePointsToNextTier() {
+    public void testCalculatePointsToNextRank() {
         // Test standard calculation values
-        assertEquals(66, rankService.calculatePointsToNextTier(234));
-        assertEquals(1, rankService.calculatePointsToNextTier(199));
+        assertEquals(66, rankService.calculatePointsToNextRank(234));
+        assertEquals(1, rankService.calculatePointsToNextRank(199));
 
         // Test the maximum cap
-        assertEquals(0, rankService.calculatePointsToNextTier(1500));
-        assertEquals(0, rankService.calculatePointsToNextTier(2250));
+        assertEquals(0, rankService.calculatePointsToNextRank(1500));
+        assertEquals(0, rankService.calculatePointsToNextRank(2250));
     }
 }

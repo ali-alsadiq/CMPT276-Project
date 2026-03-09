@@ -2,6 +2,7 @@ package com.cmpt276.project.porject.auth;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import com.cmpt276.project.porject.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -24,6 +25,9 @@ public class UserControllerTest {
 
         @MockitoBean
         private UserRepository userRepository;
+
+        @MockitoBean
+        private RankService rankService;
 
         /*
          * Tests login page is displayed when the user visits the login page.
@@ -49,7 +53,7 @@ public class UserControllerTest {
                                 .param("username", "testuser1")
                                 .param("password", "StrongPass1!"))
                                 .andExpect(status().is3xxRedirection())
-                                .andExpect(redirectedUrl("/dashboard"))
+                                .andExpect(redirectedUrl("/"))
                                 .andExpect(request().sessionAttribute("session_user", mockUser));
         }
 
@@ -67,7 +71,7 @@ public class UserControllerTest {
                                 .param("username", "testadmin1")
                                 .param("password", "StrongPass1!"))
                                 .andExpect(status().is3xxRedirection())
-                                .andExpect(redirectedUrl("/dashboard"))
+                                .andExpect(redirectedUrl("/adminDashboard"))
                                 .andExpect(request().sessionAttribute("session_user", mockUser));
         }
 
@@ -141,12 +145,12 @@ public class UserControllerTest {
                 MockHttpSession session = new MockHttpSession();
                 session.setAttribute("session_user", standardUser);
 
-                mockMvc.perform(get("/users/view").session(session))
+                mockMvc.perform(get("/adminDashboard").session(session))
                                 .andExpect(status().is3xxRedirection())
                                 .andExpect(redirectedUrl("/login"));
         }
 
-                /*
+        /*
          * Tests that profile page redirects if user is not logged in.
          */
         @Test

@@ -53,13 +53,12 @@ public class UserController {
             return "redirect:/login";
         }
 
-        user.setRank(rankService.calculateTier(user.getRR()));
-        int pointsToNextTier = rankService.calculatePointsToNextTier(user.getRR());
-
+        user.setRank(rankService.calculateRank(user.getRR()));
+        int pointsToNextRank = rankService.calculatePointsToNextRank(user.getRR());
         boolean isMaxRank = user.getRR() >= 1500;
         int progressPercentage = isMaxRank ? 100 : (user.getRR() % 100);
 
-        model.addAttribute("pointsToNextTier", pointsToNextTier);
+        model.addAttribute("pointsToNextRank", pointsToNextRank);
         model.addAttribute("progressPercentage", progressPercentage);
         model.addAttribute("isMaxRank", isMaxRank);
 

@@ -57,7 +57,7 @@ public class RankService {
      * 
      * - Mainly used for progress bar in dashboard and nav bar
      */
-    public int calculatePointsToNextTier(int rr) {
+    public int calculatePointsToNextRank(int rr) {
         // If the user is already at the maximum rank
         if (rr >= 1500) {
             return 0;
