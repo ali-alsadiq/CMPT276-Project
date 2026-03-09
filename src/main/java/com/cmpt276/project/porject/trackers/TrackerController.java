@@ -51,8 +51,8 @@ public class TrackerController {
             model.addAttribute("messageType", "error");
             System.err.println("Failed to find nutrition info for: " + food);
         } else {
-            model.addAttribute("nutrition", food);
-            foodRepository.save(food);
+            model.addAttribute("food", food);
+            //foodRepository.save(food);
         }
 
         // SENDS BACK TO FORM FOR NOW FOR TESTING
@@ -71,7 +71,7 @@ public class TrackerController {
 
         } else {
             model.addAttribute("workout", workout);
-            workoutRepository.save(workout);
+            //workoutRepository.save(workout);
         }
 
         // SENDS BACK TO FORM FOR NOW FOR TESTING
