@@ -1,5 +1,6 @@
 :root {
   --bg-main: #141413;
+  --bg-surface: #222220;
   --bg-input: #6a6a67;
   --bg-accent: #c1c1a9;
   --text-secondary: #8b8a87;
@@ -10,6 +11,14 @@
 body.theme-bg {
   background-color: var(--bg-main) !important;
   color: var(--text-main) !important;
+}
+
+.bg-surface {
+  background-color: var(--bg-surface) !important;
+}
+
+.bg-main {
+  background-color: var(--bg-main) !important;
 }
 
 .theme-bg-container {
