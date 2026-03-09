@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Food Nutrition Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Food Nutrition Calculator</h1>
-
-    <form method="post" th:action="@{/add-food}">
-        <label for="foodDescription">Descripe food consumed:</label>
-        <input type="text" id="foodDescription" name="foodDescription" required><br><br>
-
-        <button type="submit">Calculate Nutrition</button>
-    </form>
-
-    <div th:if="${food != null}">
-        <h2>Result:</h2>
-        <p><strong th:text="${food.foodName}"></strong> contains:
-           <strong th:text="${food.calories}"></strong> calories and
-           <strong th:text="${food.protien}"></strong> protien.</p>
+<body class="theme-bg overflow-hidden vh-100 m-0">
+    <div class="container mt-4">
+        <h1>Food Nutrition Calculator</h1>
+        
+        <form method="post" th:action="@{/add-food}">
+            <div class="mb-3">
+                <label for="foodDescription" class="form-label">Describe food consumed:</label>
+                <input type="text" class="form-control" id="foodDescription" 
+                       name="foodDescription" 
+                       required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate Nutrition</button>
+        </form>
+        
+        <!-- display all foods -->
+        <div th:if="${mealFoods != null and !mealFoods.isEmpty()}" class="mt-4">
+            <h2>Foods Described:</h2>
+            
+            
+            <!-- List each -->
+            <div class="row">
+                <div th:each="foodItem : ${mealFoods}" class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${foodItem.foodName}"></h5>
+                            <p class="card-text">
+                                Calories: <span th:text="${foodItem.calories}"></span><br>
+                                Protein: <span th:text="${foodItem.protien}"></span>g<br>
+                                Carbs: <span th:text="${foodItem.carbs}"></span>g<br>
+                                Fats: <span th:text="${foodItem.fats}"></span>g
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

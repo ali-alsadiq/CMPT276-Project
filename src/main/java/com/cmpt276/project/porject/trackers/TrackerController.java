@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.auth.UserRepository;
 import com.cmpt276.project.porject.trackers.nutrition.Food;
 import com.cmpt276.project.porject.trackers.nutrition.FoodApiService;
 import com.cmpt276.project.porject.trackers.nutrition.FoodRepository;
@@ -37,9 +36,6 @@ public class TrackerController {
 
     @Autowired
     private FoodRepository foodRepository;
-
-    @Autowired 
-    private UserRepository userRepository;
 
     /** 
      * Helper for getting user session
@@ -85,7 +81,7 @@ public class TrackerController {
             model.addAttribute("messageType", "error");
             System.err.println("Failed to find nutrition info for: " + mealFoods.get(0));
         } else {
-            model.addAttribute("food", mealFoods.get(0));
+            model.addAttribute("mealFoods", mealFoods);
             //add user id if logged in
             if (user != null) {
                 mealFoods.get(0).setUserId(user.getUid());
