@@ -1,5 +1,7 @@
 package com.cmpt276.project.porject.trackers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,32 +49,47 @@ public class TrackerController {
         return (User) session.getAttribute("session_user");
     }
 
-    // Add workout page
+    /**
+     * workout test page get mapping
+     * @return add-workout template view
+     */
     @GetMapping("/add-workout")
     public String showAddWorkout() {
         return "add-workout";
     }
 
+     /**
+     * food test page get mapping
+     * @return add-food template view
+     */
     @GetMapping("/add-food")
     public String showAddFood() {
         return "add-food";
     }
 
-    
+    /**
+     * Post mapping to add-food test page
+     * 
+     * @param foodDescription natural description of users meal/food
+     * @param request HttpServletRequest
+     * @param model Model
+     * @return returns add-food test view with list of foods
+     */
     @PostMapping("/add-food")
     public String addFood(@RequestParam String foodDescription, HttpServletRequest request, Model model) {
         User user = getCurrentUser(request);
-        Food food = foodApiService.getFoodNutrition(foodDescription);
+        List<Food> mealFoods = foodApiService.getMealNutrition(foodDescription);
 
-        if (food == null) {
+        //check List isnt empty
+        if (mealFoods.size() < 0) {
             model.addAttribute("messageType", "error");
-            System.err.println("Failed to find nutrition info for: " + food);
+            System.err.println("Failed to find nutrition info for: " + mealFoods.get(0));
         } else {
-            model.addAttribute("food", food);
-            
+            model.addAttribute("food", mealFoods.get(0));
+            //add user id if logged in
             if (user != null) {
-                food.setUserId(user.getUid());
-                foodRepository.save(food);
+                mealFoods.get(0).setUserId(user.getUid());
+                foodRepository.save(mealFoods.get(0));
             }
         }
 
@@ -80,7 +97,15 @@ public class TrackerController {
         return "add-food";
     }
 
-    
+    /**
+     *  Post mapping to add-workout test page
+     * 
+     * @param activity the activity performed
+     * @param duration the length in minutes of the activity
+     * @param request HttpServletRequest
+     * @param model model
+     * @return returns add-workout test view with workout object
+     */
     @PostMapping("/add-workout")
     public String addWorkout(@RequestParam String activity, int duration, HttpServletRequest request, Model model) {
         User user = getCurrentUser(request);
@@ -94,6 +119,7 @@ public class TrackerController {
         } else {
             model.addAttribute("workout", workout);
 
+            //add user id if logged in
             if (user != null) {
                 workout.setUserId(user.getUid());
                 workoutRepository.save(workout);

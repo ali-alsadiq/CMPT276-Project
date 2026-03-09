@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Database access for wrokout entity
+ * Database access for workout entity
  */
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Integer> {

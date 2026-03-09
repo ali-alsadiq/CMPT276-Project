@@ -12,11 +12,21 @@ import java.time.LocalDateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Service to interface with api-ninjas excersise api
+ */
 @Service
 public class WorkoutApiService {
     private static final String API_URL = "https://api.api-ninjas.com/v1/caloriesburned";
     private static final String API_KEY = "JsA3JsxqkwdiDwYXtz5PzA1LX1U0INdNJBvtPGO7";
 
+    /**
+     * Gets the workout described and returns the estimated calories
+     * 
+     * @param activity the workout performed
+     * @param duration length in minutes of workout
+     * @return returns workout object storing calorie info, null if api request failed or was invalid
+     */
     public Workout getWorkout(String activity, int duration) {
         RestTemplate restTemplate = new RestTemplate();
         
@@ -25,14 +35,12 @@ public class WorkoutApiService {
             HttpHeaders headers = new HttpHeaders();
             headers.set("X-Api-Key", API_KEY);
             
-            
+            //ensure proper format
             String encoded = java.net.URLEncoder.encode(activity, "UTF-8");
             String url = API_URL + "?activity=" + encoded + "&duration=" + duration;
             
-            // create http entity with headers
+            //make request
             HttpEntity<?> entity = new HttpEntity<>(headers);
-            
-            // json response
             ResponseEntity<String> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -40,7 +48,7 @@ public class WorkoutApiService {
                 String.class
             );
             
-            // Turn into JSONarray
+            // conv to json array
             JSONArray jsonArray = new JSONArray(response.getBody());
             
             if (jsonArray.length() > 0) {
@@ -53,7 +61,7 @@ public class WorkoutApiService {
             }
             
         } catch (Exception e) {
-            System.err.println("Error fetching calories: " + e.getMessage());
+            System.err.println("Error fetching calories for:" + e.getMessage());
         }
         
         return null;

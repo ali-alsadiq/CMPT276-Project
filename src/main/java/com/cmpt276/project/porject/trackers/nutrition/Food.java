@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * Object of food/meal to track nutrition of
+ * Object of food items and their nutrition
  */
 @Entity
 @Table(name = "foods")
