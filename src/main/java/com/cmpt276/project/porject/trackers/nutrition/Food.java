@@ -27,16 +27,34 @@ public class Food {
     private int userId;
 
     @Column(name = "calories")
-    private int calories;
+    private double calories;
+
+	@Column(name = "servSize")
+    private double servSize;
 
     @Column(name = "protien")
-    private int protien;
+    private double protien;
+
+	@Column(name = "carbs")
+    private double carbs;
 
     @Column(name = "fats")
-    private int fats;
+    private double fats;
 
-    @Column(name = "carbs")
-    private int carbs;
+    @Column(name = "fiber")
+    private double fiber;
+
+	@Column(name = "sugar")
+    private double sugar;
+
+	@Column(name = "sodium")
+    private double sodium;
+
+	@Column(name = "potassium")
+    private double potassium;
+
+	@Column(name = "cholesterol")
+    private double cholesterol;
 
     //should let users add things they ate beforehand
     @Column(name = "consumed_date")
@@ -45,7 +63,7 @@ public class Food {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Food(String name, int calories, int protien, int fats, int carbs, LocalDateTime consumedAt) {
+    public Food(String name, double calories, double servSize, double protien, double carbs, double fats, double fiber, double sugar, double sodium, double potassium, double cholesterol, LocalDateTime consumedAt) {
         this.foodName = name;
         this.calories = calories;
         this.fats = fats;
@@ -55,70 +73,6 @@ public class Food {
 
     }
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getFoodName() {
-		return foodName;
-	}
-
-	public void setFoodName(String foodName) {
-		this.foodName = foodName;
-	}
-
-	public int getCalories() {
-		return calories;
-	}
-
-	public void setCalories(int calories) {
-		this.calories = calories;
-	}
-
-	public int getProtien() {
-		return protien;
-	}
-
-	public void setProtien(int protien) {
-		this.protien = protien;
-	}
-
-	public int getFats() {
-		return fats;
-	}
-
-	public void setFats(int fats) {
-		this.fats = fats;
-	}
-
-	public int getCarbs() {
-		return carbs;
-	}
-
-	public void setCarbs(int carbs) {
-		this.carbs = carbs;
-	}
-
-	public LocalDateTime consumedAt() {
-		return consumedAt;
-	}
-
-	public void consumedAt(LocalDateTime when) {
-		this.consumedAt = when;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	
     
 }
