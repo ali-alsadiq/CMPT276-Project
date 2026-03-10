@@ -1,5 +1,7 @@
 package com.cmpt276.project.porject.auth;
 
+import com.cmpt276.project.porject.RankService;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
@@ -32,6 +34,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RankService rankService;
+
     /**
      * Admin Dashboard, shows list of all users.
      * 
@@ -51,6 +56,8 @@ public class UserController {
         if (user == null || !user.isAdmin()) {
             return "redirect:/login";
         }
+
+        user.setRank(rankService.calculateRank(user.getRR()));
 
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
@@ -223,12 +230,36 @@ public class UserController {
             if (user.isAdmin()) {
                 return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
             } else {
-                return "redirect:/"; // Redirect to nothing / home for now
+                return "redirect:/dashboard"; // Redirect to nothing / home for now
             }
         }
 
         // If unsuccessful, return to register page
         return "users/register";
+    }
+
+    @GetMapping("/dashboard")
+    public String getDashboard(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        return "dashboard";
+    }
+
+    @GetMapping("/add-workout")
+    public String getWorkout(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        return "add-workout";
     }
 
     // -- Calorie Tracker --
@@ -239,8 +270,9 @@ public class UserController {
      * - Only accessible by logged-in users.
      *
      * @param request request used to retrieve the current session
-     * @param model model used to pass progress values to the view
-     * @return the calorie tracker view, or redirect to login if user is not logged in
+     * @param model   model used to pass progress values to the view
+     * @return the calorie tracker view, or redirect to login if user is not logged
+     *         in
      */
     @GetMapping("/calorieTracker")
     public String getCalorieTracker(HttpServletRequest request, Model model) {
@@ -249,7 +281,7 @@ public class UserController {
 
         // If user is not logged in, redirect to login
         // if (user == null) {
-        //     return "redirect:/login";
+        // return "redirect:/login";
         // }
 
         model.addAttribute("totalPercent", 67);
@@ -260,7 +292,6 @@ public class UserController {
         return "calorieTracker";
     }
 
-    
     @RestController
     @RequestMapping("/api")
     public class NutritionApiController {
@@ -288,7 +319,6 @@ public class UserController {
             return foods;
         }
     }
-
 
     // -- Logout --
 
