@@ -1,5 +1,7 @@
 package com.cmpt276.project.porject.auth;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -226,6 +230,65 @@ public class UserController {
         // If unsuccessful, return to register page
         return "users/register";
     }
+
+    // -- Calorie Tracker --
+
+    /**
+     * Handles calorie tracker page requests.
+     *
+     * - Only accessible by logged-in users.
+     *
+     * @param request request used to retrieve the current session
+     * @param model model used to pass progress values to the view
+     * @return the calorie tracker view, or redirect to login if user is not logged in
+     */
+    @GetMapping("/calorieTracker")
+    public String getCalorieTracker(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        // If user is not logged in, redirect to login
+        // if (user == null) {
+        //     return "redirect:/login";
+        // }
+
+        model.addAttribute("totalPercent", 67);
+        model.addAttribute("proteinPercent", 82);
+        model.addAttribute("carbsPercent", 74);
+        model.addAttribute("macrosPercent", 91);
+
+        return "calorieTracker";
+    }
+
+    
+    @RestController
+    @RequestMapping("/api")
+    public class NutritionApiController {
+
+        @GetMapping("/nutrition")
+        public List<Map<String, Object>> getNutrition(@RequestParam String query) {
+
+            List<Map<String, Object>> foods = new ArrayList<>();
+
+            Map<String, Object> food1 = new HashMap<>();
+            food1.put("name", "Prime Rib");
+            food1.put("calories", 850);
+            food1.put("fat_total_g", 65);
+            food1.put("carbohydrates_total_g", 2);
+
+            Map<String, Object> food2 = new HashMap<>();
+            food2.put("name", "Mashed Potatoes");
+            food2.put("calories", 240);
+            food2.put("fat_total_g", 10);
+            food2.put("carbohydrates_total_g", 35);
+
+            foods.add(food1);
+            foods.add(food2);
+
+            return foods;
+        }
+    }
+
 
     // -- Logout --
 
