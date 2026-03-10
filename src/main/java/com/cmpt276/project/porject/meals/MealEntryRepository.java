@@ -16,7 +16,7 @@ public interface MealEntryRepository extends JpaRepository<MealEntry, Integer> {
      * @param uid User ID
      * @return List of meals for that user.
      */
-    List<MealEntry> findByUserUidOrderByEatenAtDesc(int uid);
+    List<MealEntry> findByUserUidOrderByConsumedDateDesc(int uid);
 
     /**
      * Finds all meals for a user within a time range.
@@ -26,5 +26,5 @@ public interface MealEntryRepository extends JpaRepository<MealEntry, Integer> {
      * @param end   End date/time
      * @return List of meals in that range.
      */
-    List<MealEntry> findByUserUidAndEatenAtBetween(int uid, LocalDateTime start, LocalDateTime end);
+    List<MealEntry> findByUserUidAndConsumedDateBetween(int uid, LocalDateTime start, LocalDateTime end);
 }
