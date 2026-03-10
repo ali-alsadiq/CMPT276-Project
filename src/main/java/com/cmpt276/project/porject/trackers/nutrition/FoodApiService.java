@@ -1,6 +1,5 @@
 package com.cmpt276.project.porject.trackers.nutrition;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class FoodApiService {
             headers.set("X-Api-Key", API_KEY);
 
             //ensure valid format
-            String safeDescription = foodDescription.replace(",", " "); //API doesnt like commas
+            String safeDescription = foodDescription.replace(",", " ");
             String encoded = java.net.URLEncoder.encode(safeDescription, "UTF-8");
             String url = API_URL + "?query=" + encoded;
             System.out.println("API URL: " + url);
@@ -53,29 +52,40 @@ public class FoodApiService {
             JSONObject jsonResponse = new JSONObject(response.getBody());
             JSONArray jsonArray = jsonResponse.getJSONArray("items");
 
-            //Add all to list 
+            //Add all to list
             if (jsonArray.length() > 0) {
                 List<Food> mealFoods = new ArrayList<>();
-                // Get first item returned
-                for (int i = 0 ; i < jsonArray.length(); i++) {
+
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject target = jsonArray.getJSONObject(i);
 
                     // Get info
                     String name = target.getString("name");
-                    Double calories = target.getDouble("calories");
-                    Double servSize = target.getDouble("serving_size_g");
-                    Double protien = target.getDouble("protein_g");
-                    Double carbs = target.getDouble("carbohydrates_total_g");
-                    Double fats = target.getDouble("fat_total_g");
-                    Double fiber = target.getDouble("fiber_g");
-                    Double sugar = target.getDouble("sugar_g");
-                    Double sodium = target.getDouble("sodium_mg");
-                    Double potassium = target.getDouble("potassium_mg");
-                    Double cholesterol = target.getDouble("cholesterol_mg");
+                    double calories = target.getDouble("calories");
+                    double servSize = target.getDouble("serving_size_g");
+                    double protien = target.getDouble("protein_g");
+                    double carbs = target.getDouble("carbohydrates_total_g");
+                    double fats = target.getDouble("fat_total_g");
+                    double fiber = target.getDouble("fiber_g");
+                    double sugar = target.getDouble("sugar_g");
+                    double sodium = target.getDouble("sodium_mg");
+                    double potassium = target.getDouble("potassium_mg");
+                    double cholesterol = target.getDouble("cholesterol_mg");
 
                     // Create food obj
-                    Food food = new Food(name, calories, servSize, protien, carbs, fats, fiber, sugar, sodium,
-                            potassium, cholesterol);
+                    Food food = new Food(
+                            name,
+                            servSize,
+                            calories,
+                            protien,
+                            carbs,
+                            fats,
+                            fiber,
+                            sugar,
+                            sodium,
+                            potassium,
+                            cholesterol);
+
                     mealFoods.add(food);
                 }
 
@@ -84,6 +94,7 @@ public class FoodApiService {
 
         } catch (Exception e) {
             System.err.println("Error fetching nutrition for: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return null;

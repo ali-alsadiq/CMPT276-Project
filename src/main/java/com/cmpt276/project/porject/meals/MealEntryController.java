@@ -158,6 +158,8 @@ public class MealEntryController {
             List<Food> foods = new ArrayList<>();
 
             for (int i = 0; i < foodNames.size(); i++) {
+
+                System.out.println(foodNames.get(i));
                 Food food = new Food();
                 food.setFoodName(foodNames.get(i));
                 food.setServSize(servSizes.get(i));
@@ -180,6 +182,7 @@ public class MealEntryController {
             return "redirect:/add-food";
 
         } catch (Exception e) {
+            e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to add meal.");
             return "redirect:/add-food";
         }

@@ -1,7 +1,5 @@
 package com.cmpt276.project.porject.trackers.nutrition;
 
-import java.time.LocalDateTime;
-
 import com.cmpt276.project.porject.meals.MealEntry;
 
 import jakarta.persistence.Column;
@@ -21,10 +19,10 @@ import jakarta.persistence.Table;
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private int id; 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	/**
+    /**
      * Meal that this food belongs to.
      */
     @ManyToOne
@@ -37,13 +35,13 @@ public class Food {
     @Column(name = "calories")
     private double calories;
 
-	@Column(name = "servSize")
+    @Column(name = "servSize")
     private double servSize;
 
     @Column(name = "protien")
     private double protien;
 
-	@Column(name = "carbs")
+    @Column(name = "carbs")
     private double carbs;
 
     @Column(name = "fats")
@@ -52,124 +50,134 @@ public class Food {
     @Column(name = "fiber")
     private double fiber;
 
-	@Column(name = "sugar")
+    @Column(name = "sugar")
     private double sugar;
 
-	@Column(name = "sodium")
+    @Column(name = "sodium")
     private double sodium;
 
-	@Column(name = "potassium")
+    @Column(name = "potassium")
     private double potassium;
 
-	@Column(name = "cholesterol")
+    @Column(name = "cholesterol")
     private double cholesterol;
 
-	public Food(){}
-
-    public Food(String name, double calories, double servSize, double protien, double carbs, double fats, double fiber, double sugar, double sodium, double potassium, double cholesterol) {
-        this.foodName = name;
-        this.calories = calories;
-		this.servSize = servSize;
-		this.protien = protien;
-		this.carbs = carbs;
-        this.fats = fats;
-        this.fiber = fiber;
-		this.sugar = sugar;
-		this.sodium = sodium;
-		this.potassium = potassium;
-		this.cholesterol = cholesterol;
-
+    public Food() {
     }
 
-	public int getId() {
-		return id;
-	}
+    public Food(String foodName, double servSize, double calories, double protien,
+            double carbs, double fats, double fiber, double sugar,
+            double sodium, double potassium, double cholesterol) {
+        this.foodName = foodName;
+        this.servSize = servSize;
+        this.calories = calories;
+        this.protien = protien;
+        this.carbs = carbs;
+        this.fats = fats;
+        this.fiber = fiber;
+        this.sugar = sugar;
+        this.sodium = sodium;
+        this.potassium = potassium;
+        this.cholesterol = cholesterol;
+    }
 
-	public String getFoodName() {
-		return foodName;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setFoodName(String foodName) {
-		this.foodName = foodName;
-	}
+    public MealEntry getMealEntry() {
+        return mealEntry;
+    }
 
-	public double getCalories() {
-		return calories;
-	}
+    public void setMealEntry(MealEntry mealEntry) {
+        this.mealEntry = mealEntry;
+    }
 
-	public void setCalories(double calories) {
-		this.calories = calories;
-	}
+    public String getFoodName() {
+        return foodName;
+    }
 
-	public double getServSize() {
-		return servSize;
-	}
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
 
-	public void setServSize(double servSize) {
-		this.servSize = servSize;
-	}
+    public double getCalories() {
+        return calories;
+    }
 
-	public double getProtien() {
-		return protien;
-	}
+    public void setCalories(double calories) {
+        this.calories = calories;
+    }
 
-	public void setProtien(double protien) {
-		this.protien = protien;
-	}
+    public double getServSize() {
+        return servSize;
+    }
 
-	public double getCarbs() {
-		return carbs;
-	}
+    public void setServSize(double servSize) {
+        this.servSize = servSize;
+    }
 
-	public void setCarbs(double carbs) {
-		this.carbs = carbs;
-	}
+    public double getProtien() {
+        return protien;
+    }
 
-	public double getFats() {
-		return fats;
-	}
+    public void setProtien(double protien) {
+        this.protien = protien;
+    }
 
-	public void setFats(double fats) {
-		this.fats = fats;
-	}
+    public double getCarbs() {
+        return carbs;
+    }
 
-	public double getFiber() {
-		return fiber;
-	}
+    public void setCarbs(double carbs) {
+        this.carbs = carbs;
+    }
 
-	public void setFiber(double fiber) {
-		this.fiber = fiber;
-	}
+    public double getFats() {
+        return fats;
+    }
 
-	public double getSugar() {
-		return sugar;
-	}
+    public void setFats(double fats) {
+        this.fats = fats;
+    }
 
-	public void setSugar(double sugar) {
-		this.sugar = sugar;
-	}
+    public double getFiber() {
+        return fiber;
+    }
 
-	public double getSodium() {
-		return sodium;
-	}
+    public void setFiber(double fiber) {
+        this.fiber = fiber;
+    }
 
-	public void setSodium(double sodium) {
-		this.sodium = sodium;
-	}
+    public double getSugar() {
+        return sugar;
+    }
 
-	public double getPotassium() {
-		return potassium;
-	}
+    public void setSugar(double sugar) {
+        this.sugar = sugar;
+    }
 
-	public void setPotassium(double potassium) {
-		this.potassium = potassium;
-	}
+    public double getSodium() {
+        return sodium;
+    }
 
-	public double getCholesterol() {
-		return cholesterol;
-	}
+    public void setSodium(double sodium) {
+        this.sodium = sodium;
+    }
 
-	public void setCholesterol(double cholesterol) {
-		this.cholesterol = cholesterol;
-	}    
+    public double getPotassium() {
+        return potassium;
+    }
+
+    public void setPotassium(double potassium) {
+        this.potassium = potassium;
+    }
+
+    public double getCholesterol() {
+        return cholesterol;
+    }
+
+    public void setCholesterol(double cholesterol) {
+        this.cholesterol = cholesterol;
+    }
 }

@@ -36,6 +36,11 @@ public class MealEntryService {
      */
     public void addMeal(User user, String mealType, LocalDateTime consumedDate, List<Food> foods) {
         MealEntry mealEntry = new MealEntry(user, mealType, consumedDate);
+
+        for (Food food : foods) {
+            food.setMealEntry(mealEntry);
+        }
+
         mealEntry.setFoods(foods);
         mealEntryRepository.save(mealEntry);
     }
