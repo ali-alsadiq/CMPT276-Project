@@ -8,32 +8,15 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 <body class="theme-bg overflow-hidden vh-100 m-0">
-    <div class="row g-0 h-100">
-        <div class="col-4 d-none d-md-block bg-accent p-4">
-            <h2 class="fw-bold text-bg-main" style="letter-spacing: 2px;">ASCEND.</h2>
-        </div>
-        <div class="col-12 col-md-8 d-flex align-items-center justify-content-center h-100 ">
-            <div class="theme-bg-container p-5 position-relative h-100" style="width: 100%; max-width: 500px; ">
-                <!-- NAV Section -->
-                <div class="w-100">
-                    <ul class="bottom-nav d-flex justify-content-center position-absolute">
-                        <li>
-                            <a th:href="@{/dashboard}">
-                                <i class="fa-solid fa-chart-area p-3" style="font-size: 1.8rem;"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/workout}">
-                                <i class="fa-solid fa-dumbbell  p-3"style="font-size: 1.8rem;"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/caloriesTracker}">
-                                <i class="fa-solid fa-plate-wheat  p-3" style="font-size: 1.8rem;"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="d-flex h-100 w-100">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/navbar :: navbar('dashboard')}"></div>
+        
+        <div class="flex-grow-1 w-100 p-4 p-md-5 overflow-auto h-100 bg-surface">
+            <!-- Remaining dashboard logic / placeholder content -->
+            <h2 class="fw-bold text-bg-main mb-4" style="letter-spacing: 2px;">DASHBOARD</h2>
+            <div class="theme-bg-container p-5" style="width: 100%; max-width: 500px;">
+                <p>Welcome to your Ascend dashboard. Select an option from the sidebar to get started.</p>
             </div>
         </div>
     </div>
