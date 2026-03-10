@@ -110,6 +110,7 @@ public class MealEntry {
     /**
      * Gets the foods that belong to this meal.
      * 
+     * 
      * @return List of food items in the meal
      */
     public List<Food> getFoods() {
