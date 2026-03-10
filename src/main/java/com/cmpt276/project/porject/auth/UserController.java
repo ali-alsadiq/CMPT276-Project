@@ -238,6 +238,30 @@ public class UserController {
         return "users/register";
     }
 
+    @GetMapping("/dashboard")
+    public String getDashboard(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        return "dashboard";
+    }
+
+    @GetMapping("/add-workout")
+    public String getWorkout(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        return "add-workout";
+    }
+
     // -- Calorie Tracker --
 
     /**
