@@ -2,11 +2,15 @@ package com.cmpt276.project.porject.trackers.nutrition;
 
 import java.time.LocalDateTime;
 
+import com.cmpt276.project.porject.meals.MealEntry;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -20,12 +24,15 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private int id; 
 
+	/**
+     * Meal that this food belongs to.
+     */
+    @ManyToOne
+    @JoinColumn(name = "meal_entry_id", nullable = false)
+    private MealEntry mealEntry;
+
     @Column(nullable = false)
     private String foodName;
-
-	
-    @Column(name = "user_id", nullable = false)  
-    private int userId;
 
     @Column(name = "calories")
     private double calories;
@@ -57,13 +64,6 @@ public class Food {
 	@Column(name = "cholesterol")
     private double cholesterol;
 
-    //to allow tracking by user reported time consumed
-    @Column(name = "consumed_date")
-    private LocalDateTime consumedDate;  
-    
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
     public Food(String name, double calories, double servSize, double protien, double carbs, double fats, double fiber, double sugar, double sodium, double potassium, double cholesterol, LocalDateTime consumedAt) {
         this.foodName = name;
         this.calories = calories;
@@ -76,8 +76,6 @@ public class Food {
 		this.sodium = sodium;
 		this.potassium = potassium;
 		this.cholesterol = cholesterol;
-        this.consumedDate = consumedAt;
-        this.createdDate = LocalDateTime.now();
 
     }
 
@@ -91,14 +89,6 @@ public class Food {
 
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public double getCalories() {
@@ -179,24 +169,5 @@ public class Food {
 
 	public void setCholesterol(double cholesterol) {
 		this.cholesterol = cholesterol;
-	}
-
-	public LocalDateTime getConsumedDate() {
-		return consumedDate;
-	}
-
-	public void setConsumedDate(LocalDateTime consumedAt) {
-		this.consumedDate = consumedAt;
-	}
-
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(LocalDateTime createdAt) {
-		this.createdDate = createdAt;
-	}
-
-	
-    
+	}    
 }

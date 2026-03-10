@@ -84,7 +84,6 @@ public class TrackerController {
             model.addAttribute("mealFoods", mealFoods);
             //add user id if logged in
             if (user != null) {
-                mealFoods.get(0).setUserId(user.getUid());
                 foodRepository.save(mealFoods.get(0));
             }
         }
