@@ -1,12 +1,14 @@
 package com.cmpt276.project.porject.trackers.nutrition;
 
-import java.time.LocalDateTime;
+import com.cmpt276.project.porject.meals.MealEntry;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -17,26 +19,29 @@ import jakarta.persistence.Table;
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private int id; 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    /**
+     * Meal that this food belongs to.
+     */
+    @ManyToOne
+    @JoinColumn(name = "meal_entry_id", nullable = false)
+    private MealEntry mealEntry;
 
     @Column(nullable = false)
     private String foodName;
 
-	
-    @Column(name = "user_id", nullable = false)  
-    private int userId;
-
     @Column(name = "calories")
     private double calories;
 
-	@Column(name = "servSize")
+    @Column(name = "servSize")
     private double servSize;
 
     @Column(name = "protien")
     private double protien;
 
-	@Column(name = "carbs")
+    @Column(name = "carbs")
     private double carbs;
 
     @Column(name = "fats")
@@ -45,158 +50,134 @@ public class Food {
     @Column(name = "fiber")
     private double fiber;
 
-	@Column(name = "sugar")
+    @Column(name = "sugar")
     private double sugar;
 
-	@Column(name = "sodium")
+    @Column(name = "sodium")
     private double sodium;
 
-	@Column(name = "potassium")
+    @Column(name = "potassium")
     private double potassium;
 
-	@Column(name = "cholesterol")
+    @Column(name = "cholesterol")
     private double cholesterol;
 
-    //to allow tracking by user reported time consumed
-    @Column(name = "consumed_date")
-    private LocalDateTime consumedDate;  
-    
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
-    public Food(String name, double calories, double servSize, double protien, double carbs, double fats, double fiber, double sugar, double sodium, double potassium, double cholesterol, LocalDateTime consumedAt) {
-        this.foodName = name;
-        this.calories = calories;
-		this.servSize = servSize;
-		this.protien = protien;
-		this.carbs = carbs;
-        this.fats = fats;
-        this.fiber = fiber;
-		this.sugar = sugar;
-		this.sodium = sodium;
-		this.potassium = potassium;
-		this.cholesterol = cholesterol;
-        this.consumedDate = consumedAt;
-        this.createdDate = LocalDateTime.now();
-
+    public Food() {
     }
 
-	public int getId() {
-		return id;
-	}
+    public Food(String foodName, double servSize, double calories, double protien,
+            double carbs, double fats, double fiber, double sugar,
+            double sodium, double potassium, double cholesterol) {
+        this.foodName = foodName;
+        this.servSize = servSize;
+        this.calories = calories;
+        this.protien = protien;
+        this.carbs = carbs;
+        this.fats = fats;
+        this.fiber = fiber;
+        this.sugar = sugar;
+        this.sodium = sodium;
+        this.potassium = potassium;
+        this.cholesterol = cholesterol;
+    }
 
-	public String getFoodName() {
-		return foodName;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setFoodName(String foodName) {
-		this.foodName = foodName;
-	}
+    public MealEntry getMealEntry() {
+        return mealEntry;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public void setMealEntry(MealEntry mealEntry) {
+        this.mealEntry = mealEntry;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public String getFoodName() {
+        return foodName;
+    }
 
-	public double getCalories() {
-		return calories;
-	}
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
 
-	public void setCalories(double calories) {
-		this.calories = calories;
-	}
+    public double getCalories() {
+        return calories;
+    }
 
-	public double getServSize() {
-		return servSize;
-	}
+    public void setCalories(double calories) {
+        this.calories = calories;
+    }
 
-	public void setServSize(double servSize) {
-		this.servSize = servSize;
-	}
+    public double getServSize() {
+        return servSize;
+    }
 
-	public double getProtien() {
-		return protien;
-	}
+    public void setServSize(double servSize) {
+        this.servSize = servSize;
+    }
 
-	public void setProtien(double protien) {
-		this.protien = protien;
-	}
+    public double getProtien() {
+        return protien;
+    }
 
-	public double getCarbs() {
-		return carbs;
-	}
+    public void setProtien(double protien) {
+        this.protien = protien;
+    }
 
-	public void setCarbs(double carbs) {
-		this.carbs = carbs;
-	}
+    public double getCarbs() {
+        return carbs;
+    }
 
-	public double getFats() {
-		return fats;
-	}
+    public void setCarbs(double carbs) {
+        this.carbs = carbs;
+    }
 
-	public void setFats(double fats) {
-		this.fats = fats;
-	}
+    public double getFats() {
+        return fats;
+    }
 
-	public double getFiber() {
-		return fiber;
-	}
+    public void setFats(double fats) {
+        this.fats = fats;
+    }
 
-	public void setFiber(double fiber) {
-		this.fiber = fiber;
-	}
+    public double getFiber() {
+        return fiber;
+    }
 
-	public double getSugar() {
-		return sugar;
-	}
+    public void setFiber(double fiber) {
+        this.fiber = fiber;
+    }
 
-	public void setSugar(double sugar) {
-		this.sugar = sugar;
-	}
+    public double getSugar() {
+        return sugar;
+    }
 
-	public double getSodium() {
-		return sodium;
-	}
+    public void setSugar(double sugar) {
+        this.sugar = sugar;
+    }
 
-	public void setSodium(double sodium) {
-		this.sodium = sodium;
-	}
+    public double getSodium() {
+        return sodium;
+    }
 
-	public double getPotassium() {
-		return potassium;
-	}
+    public void setSodium(double sodium) {
+        this.sodium = sodium;
+    }
 
-	public void setPotassium(double potassium) {
-		this.potassium = potassium;
-	}
+    public double getPotassium() {
+        return potassium;
+    }
 
-	public double getCholesterol() {
-		return cholesterol;
-	}
+    public void setPotassium(double potassium) {
+        this.potassium = potassium;
+    }
 
-	public void setCholesterol(double cholesterol) {
-		this.cholesterol = cholesterol;
-	}
+    public double getCholesterol() {
+        return cholesterol;
+    }
 
-	public LocalDateTime getConsumedDate() {
-		return consumedDate;
-	}
-
-	public void setConsumedDate(LocalDateTime consumedAt) {
-		this.consumedDate = consumedAt;
-	}
-
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(LocalDateTime createdAt) {
-		this.createdDate = createdAt;
-	}
-
-	
-    
+    public void setCholesterol(double cholesterol) {
+        this.cholesterol = cholesterol;
+    }
 }
