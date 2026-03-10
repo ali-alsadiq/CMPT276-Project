@@ -71,26 +71,26 @@ public class TrackerController {
      * @param model Model
      * @return returns add-food test view with list of foods
      */
-    @PostMapping("/add-food")
-    public String addFood(@RequestParam String foodDescription, HttpServletRequest request, Model model) {
-        User user = getCurrentUser(request);
-        List<Food> mealFoods = foodApiService.getMealNutrition(foodDescription);
+    // @PostMapping("/add-food")
+    // public String addFood(@RequestParam String foodDescription, HttpServletRequest request, Model model) {
+    //     User user = getCurrentUser(request);
+    //     List<Food> mealFoods = foodApiService.getMealNutrition(foodDescription);
 
-        //check List isnt empty
-        if (mealFoods.size() < 0 || mealFoods == null) {
-            model.addAttribute("messageType", "error");
-            System.err.println("Failed to find nutrition info for: " + mealFoods.get(0));
-        } else {
-            model.addAttribute("mealFoods", mealFoods);
-            //add user id if logged in
-            if (user != null) {
-                foodRepository.save(mealFoods.get(0));
-            }
-        }
+    //     //check List isnt empty
+    //     if (mealFoods.size() < 0 || mealFoods == null) {
+    //         model.addAttribute("messageType", "error");
+    //         System.err.println("Failed to find nutrition info for: " + mealFoods.get(0));
+    //     } else {
+    //         model.addAttribute("mealFoods", mealFoods);
+    //         //add user id if logged in
+    //         if (user != null) {
+    //             foodRepository.save(mealFoods.get(0));
+    //         }
+    //     }
 
-        // SENDS BACK TO FORM FOR NOW FOR TESTING
-        return "add-food";
-    }
+    //     // SENDS BACK TO FORM FOR NOW FOR TESTING
+    //     return "add-food";
+    // }
 
     /**
      *  Post mapping to add-workout test page

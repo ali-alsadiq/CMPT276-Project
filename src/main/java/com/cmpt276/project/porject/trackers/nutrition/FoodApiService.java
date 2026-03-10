@@ -75,7 +75,7 @@ public class FoodApiService {
 
                     // Create food obj
                     Food food = new Food(name, calories, servSize, protien, carbs, fats, fiber, sugar, sodium,
-                            potassium, cholesterol, LocalDateTime.now());
+                            potassium, cholesterol);
                     mealFoods.add(food);
                 }
 

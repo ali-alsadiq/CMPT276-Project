@@ -40,8 +40,7 @@ public class MealEntry {
     private String mealType;
     private LocalDateTime consumedDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "meal_entry_id")
+    @OneToMany(mappedBy = "mealEntry", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Food> foods = new ArrayList<>();
 
     public MealEntry() {

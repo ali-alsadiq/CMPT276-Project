@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Integer> {
 
-    List<Food> findByUserId(int userId);
+    // List<Food> findByUserId(int userId);
     
-    List<Food> findByFoodNameAndUserId(String foodName, int userId);
+    // List<Food> findByFoodNameAndUserId(String foodName, int userId);
     
     List<Food> findByFoodName(String foodName);
     
-    List<Food> findByUserIdOrderByConsumedDateDesc(int userId);
+    // List<Food> findByUserIdOrderByConsumedDateDesc(int userId);
 }
