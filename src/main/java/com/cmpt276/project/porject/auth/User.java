@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 import java.time.LocalDate;
 
@@ -39,13 +38,15 @@ public class User {
     private double weight;
     private int caloriesDailyGoal;
 
-    private int rr;
-
-    @Transient
-    private String rank;
-
-    @Transient
-    private String rankImageName;
+    /*
+     * // private int rr;
+     * 
+     * // @Transient
+     * // private String rank;
+     * 
+     * // @Transient
+     * // private String rankImageName;
+     */
 
     public User() {
 
@@ -57,7 +58,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.rr = 0;
     }
 
     // -- Getters and Setters --
@@ -156,53 +156,52 @@ public class User {
         this.caloriesDailyGoal = caloriesDailyGoal;
     }
 
-    public int getRR() {
-        return rr;
-    }
-
-    public void setRR(int rr) {
-        this.rr = rr;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public String getRankImageName() {
-        return rankImageName;
-    }
-
-    public void setRankImageName(String rankImageName) {
-        this.rankImageName = rankImageName;
-    }
-
-    // Returns true if user is an admin
     public boolean isAdmin() {
         return this.role.equals("ADMIN");
     }
 
+    // public int getRR() {
+    // return rr;
+    // }
+
+    // public void setRR(int rr) {
+    // this.rr = rr;
+    // }
+
+    // public String getRank() {
+    // return rank;
+    // }
+
+    // public void setRank(String rank) {
+    // this.rank = rank;
+    // }
+
+    // public String getRankImageName() {
+    // return rankImageName;
+    // }
+
+    // public void setRankImageName(String rankImageName) {
+    // this.rankImageName = rankImageName;
+    // }
+
     // Getters and setters here allow for the navbar fragment to be standlone
     // Instead of being handled by the controller for every page, handled by the
     // user model itself
-    public boolean isMaxRank() {
-        return this.rr >= 1500;
-    }
+    // public boolean isMaxRank() {
+    // return this.rr >= 1500;
+    // }
 
-    public int getPointsToNextRank() {
-        if (isMaxRank()) {
-            return 0;
-        }
-        return 100 - (this.rr % 100);
-    }
+    // public int getPointsToNextRank() {
+    // if (isMaxRank()) {
+    // return 0;
+    // }
+    // return 100 - (this.rr % 100);
+    // }
 
-    public int getProgressPercentage() {
-        if (isMaxRank()) {
-            return 100;
-        }
-        return this.rr % 100;
-    }
+    // public int getProgressPercentage() {
+    // if (isMaxRank()) {
+    // return 100;
+    // }
+    // return this.rr % 100;
+    // }
 }

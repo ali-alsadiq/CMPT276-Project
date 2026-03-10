@@ -37,9 +37,9 @@ public class TrackerController {
     @Autowired
     private FoodRepository foodRepository;
 
-    /** 
+    /**
      * Helper for getting user session
-    */
+     */
     private User getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return (User) session.getAttribute("session_user");
@@ -47,6 +47,7 @@ public class TrackerController {
 
     /**
      * workout test page get mapping
+     * 
      * @return add-workout template view
      */
     @GetMapping("/add-workout")
@@ -54,8 +55,9 @@ public class TrackerController {
         return "add-workout";
     }
 
-     /**
+    /**
      * food test page get mapping
+     * 
      * @return add-food template view
      */
     @GetMapping("/add-food")
@@ -67,8 +69,8 @@ public class TrackerController {
      * Post mapping to add-food test page
      * 
      * @param foodDescription natural description of users meal/food
-     * @param request HttpServletRequest
-     * @param model Model
+     * @param request         HttpServletRequest
+     * @param model           Model
      * @return returns add-food test view with list of foods
      */
     @PostMapping("/add-food")
@@ -76,13 +78,13 @@ public class TrackerController {
         User user = getCurrentUser(request);
         List<Food> mealFoods = foodApiService.getMealNutrition(foodDescription);
 
-        //check List isnt empty
+        // check List isnt empty
         if (mealFoods.size() < 0 || mealFoods == null) {
             model.addAttribute("messageType", "error");
             System.err.println("Failed to find nutrition info for: " + mealFoods.get(0));
         } else {
             model.addAttribute("mealFoods", mealFoods);
-            //add user id if logged in
+            // add user id if logged in
             if (user != null) {
                 mealFoods.get(0).setUserId(user.getUid());
                 foodRepository.save(mealFoods.get(0));
@@ -94,12 +96,12 @@ public class TrackerController {
     }
 
     /**
-     *  Post mapping to add-workout test page
+     * Post mapping to add-workout test page
      * 
      * @param activity the activity performed
      * @param duration the length in minutes of the activity
-     * @param request HttpServletRequest
-     * @param model model
+     * @param request  HttpServletRequest
+     * @param model    model
      * @return returns add-workout test view with workout object
      */
     @PostMapping("/add-workout")
@@ -107,7 +109,7 @@ public class TrackerController {
         User user = getCurrentUser(request);
         Workout workout = workoutApiService.getWorkout(activity, duration);
 
-        //Check valid obj
+        // Check valid obj
         if (workout == null) {
             model.addAttribute("messageType", "error");
             System.err.println("Failed to find calories burned for: " + activity);
@@ -115,12 +117,12 @@ public class TrackerController {
         } else {
             model.addAttribute("workout", workout);
 
-            //add user id if logged in
+            // add user id if logged in
             if (user != null) {
                 workout.setUserId(user.getUid());
                 workoutRepository.save(workout);
             }
-            
+
         }
 
         // SENDS BACK TO FORM FOR NOW FOR TESTING
