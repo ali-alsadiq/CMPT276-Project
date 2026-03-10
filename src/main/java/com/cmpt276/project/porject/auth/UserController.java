@@ -1,6 +1,6 @@
 package com.cmpt276.project.porject.auth;
 
-import com.cmpt276.project.porject.RankService;
+// import com.cmpt276.project.porject.RankService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,9 +34,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RankService rankService;
-
     /**
      * Admin Dashboard, shows list of all users.
      * 
@@ -56,8 +53,6 @@ public class UserController {
         if (user == null || !user.isAdmin()) {
             return "redirect:/login";
         }
-
-        user.setRank(rankService.calculateRank(user.getRR()));
 
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
