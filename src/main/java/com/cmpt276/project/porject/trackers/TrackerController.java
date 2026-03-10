@@ -77,7 +77,7 @@ public class TrackerController {
         List<Food> mealFoods = foodApiService.getMealNutrition(foodDescription);
 
         //check List isnt empty
-        if (mealFoods.size() < 0) {
+        if (mealFoods.size() < 0 || mealFoods == null) {
             model.addAttribute("messageType", "error");
             System.err.println("Failed to find nutrition info for: " + mealFoods.get(0));
         } else {
