@@ -32,7 +32,7 @@ public class UserControllerTest {
         public void testGetLoginPage() throws Exception {
                 mockMvc.perform(get("/login"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("login"));
+                                .andExpect(view().name("users/login"));
         }
 
         @Test
@@ -82,7 +82,7 @@ public class UserControllerTest {
                                 .param("username", "testuser2")
                                 .param("password", "wrongpw"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("login"))
+                                .andExpect(view().name("users/login"))
                                 .andExpect(model().attributeExists("error"))
                                 .andExpect(request().sessionAttributeDoesNotExist("session_user"));
         }
@@ -98,7 +98,7 @@ public class UserControllerTest {
                                 .param("username", "testadmin2")
                                 .param("password", "wrongpw"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("login"))
+                                .andExpect(view().name("users/login"))
                                 .andExpect(model().attributeExists("error"))
                                 .andExpect(request().sessionAttributeDoesNotExist("session_user"));
         }
@@ -125,7 +125,7 @@ public class UserControllerTest {
                                 .param("username", "newUser")
                                 .param("password", "weakpass"))
                                 .andExpect(status().isOk())
-                                .andExpect(view().name("register"))
+                                .andExpect(view().name("users/register"))
                                 .andExpect(model().attributeExists("passwordError"));
 
                 Mockito.verify(userRepository, Mockito.never()).save(any(User.class));
@@ -142,6 +142,110 @@ public class UserControllerTest {
                 session.setAttribute("session_user", standardUser);
 
                 mockMvc.perform(get("/users/view").session(session))
+                                .andExpect(status().is3xxRedirection())
+                                .andExpect(redirectedUrl("/login"));
+        }
+
+                /*
+         * Tests that profile page redirects if user is not logged in.
+         */
+        @Test
+        public void testGetProfilePageRedirectIfNotLoggedIn() throws Exception {
+                mockMvc.perform(get("/profile"))
+                                .andExpect(status().is3xxRedirection())
+                                .andExpect(redirectedUrl("/login"));
+        }
+
+        /*
+         * Tests that profile page loads for logged-in user.
+         */
+        @Test
+        public void testGetProfilePageSuccess() throws Exception {
+                User mockUser = new User("Test", "User", "testuser1", "StrongPass1!", "USER");
+
+                MockHttpSession session = new MockHttpSession();
+                session.setAttribute("session_user", mockUser);
+
+                mockMvc.perform(get("/profile").session(session))
+                                .andExpect(status().isOk())
+                                .andExpect(view().name("users/profile"))
+                                .andExpect(model().attributeExists("user"))
+                                .andExpect(model().attribute("user", mockUser));
+        }
+
+        /*
+         * Tests successful profile update.
+         */
+        @Test
+        public void testUpdateProfileSuccess() throws Exception {
+                User mockUser = new User("Old", "Name", "testuser1", "StrongPass1!", "USER");
+
+                MockHttpSession session = new MockHttpSession();
+                session.setAttribute("session_user", mockUser);
+
+                Mockito.when(userRepository.save(any(User.class)))
+                                .thenAnswer(invocation -> invocation.getArgument(0));
+
+                mockMvc.perform(post("/profile")
+                                .session(session)
+                                .param("firstname", "Ali")
+                                .param("lastname", "Alsadiq")
+                                .param("sex", "Male")
+                                .param("dateOfBirth", "2000-01-01")
+                                .param("height", "175.5")
+                                .param("weight", "72.3")
+                                .param("caloriesDailyGoal", "2200"))
+                                .andExpect(status().isOk())
+                                .andExpect(view().name("users/profile"))
+                                .andExpect(model().attributeExists("success"));
+
+                Mockito.verify(userRepository, Mockito.times(1)).save(mockUser);
+        }
+
+        /*
+         * Tests profile update fails with invalid data.
+         */
+        @Test
+        public void testUpdateProfileFailsWithInvalidData() throws Exception {
+                User mockUser = new User("Old", "Name", "testuser1", "StrongPass1!", "USER");
+
+                MockHttpSession session = new MockHttpSession();
+                session.setAttribute("session_user", mockUser);
+
+                mockMvc.perform(post("/profile")
+                                .session(session)
+                                .param("firstname", "")
+                                .param("lastname", "Alsadiq")
+                                .param("sex", "")
+                                .param("dateOfBirth", "3000-01-01")
+                                .param("height", "20")
+                                .param("weight", "900")
+                                .param("caloriesDailyGoal", "100"))
+                                .andExpect(status().isOk())
+                                .andExpect(view().name("users/profile"))
+                                .andExpect(model().attributeExists("firstnameError"))
+                                .andExpect(model().attributeExists("sexError"))
+                                .andExpect(model().attributeExists("dateOfBirthError"))
+                                .andExpect(model().attributeExists("heightError"))
+                                .andExpect(model().attributeExists("weightError"))
+                                .andExpect(model().attributeExists("caloriesDailyGoalError"));
+
+                Mockito.verify(userRepository, Mockito.never()).save(any(User.class));
+        }
+
+        /*
+         * Tests profile update redirects if not logged in.
+         */
+        @Test
+        public void testUpdateProfileRedirectIfNotLoggedIn() throws Exception {
+                mockMvc.perform(post("/profile")
+                                .param("firstname", "Ali")
+                                .param("lastname", "Alsadiq")
+                                .param("sex", "Male")
+                                .param("dateOfBirth", "2000-01-01")
+                                .param("height", "175")
+                                .param("weight", "72")
+                                .param("caloriesDailyGoal", "2200"))
                                 .andExpect(status().is3xxRedirection())
                                 .andExpect(redirectedUrl("/login"));
         }

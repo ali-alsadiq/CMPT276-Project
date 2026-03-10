@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 
 /**
@@ -28,6 +31,12 @@ public class User {
     private String username;
     private String password; // Stored as plain text for Iteration 1
     private String role; // USER or ADMIN
+
+    private String sex;
+    private LocalDate dateOfBirth;
+    private double height;
+    private double weight;
+    private int caloriesDailyGoal;
 
     public User() {
 
@@ -95,5 +104,50 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public int getCaloriesDailyGoal() {
+        return caloriesDailyGoal;
+    }
+
+    public void setCaloriesDailyGoal(int caloriesDailyGoal) {
+        this.caloriesDailyGoal = caloriesDailyGoal;
+    }
+
+    // Returns true if user is an admin
+    public boolean isAdmin() {
+        return this.role.equals("ADMIN");
     }
 }
