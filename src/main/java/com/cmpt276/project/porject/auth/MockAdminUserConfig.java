@@ -24,10 +24,10 @@ public class MockAdminUserConfig {
                 admin2.getRankProfile().setRr(776);
 
                 User user1 = new User("System", "User", "user_test1", "user", "USER");
+
                 User user2 = new User("System", "User", "user_test2", "user", "USER");
 
                 List<User> mockUsers = Arrays.asList(admin1, admin2, user1, user2);
-                // rankService.populateRanks(mockUsers); // Method no longer needed, rank dynamically calculates for templates 
 
                 userRepository.saveAll(mockUsers);
             }

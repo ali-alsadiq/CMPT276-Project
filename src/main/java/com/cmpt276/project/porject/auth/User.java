@@ -57,7 +57,7 @@ public class User {
         this.lastname = lastname;
         this.username = username;
         this.password = password;
-        this.role = role.toUpperCase();
+        this.role = role;
         this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
     }
 
