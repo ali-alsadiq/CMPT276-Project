@@ -53,7 +53,7 @@ public class UserControllerTest {
                                 .param("username", "testuser1")
                                 .param("password", "StrongPass1!"))
                                 .andExpect(status().is3xxRedirection())
-                                .andExpect(redirectedUrl("/"))
+                                .andExpect(redirectedUrl("/dashboard"))
                                 .andExpect(request().sessionAttribute("session_user", mockUser));
         }
 
