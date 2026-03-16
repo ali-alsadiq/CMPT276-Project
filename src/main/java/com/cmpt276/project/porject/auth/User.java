@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 import com.cmpt276.project.porject.rank.RankProfile;
+
 /**
  * Represents a user in the system.
  * 
@@ -56,17 +57,11 @@ public class User {
         this.lastname = lastname;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.role = role.toUpperCase();
+        this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
     }
 
     // -- Getters and Setters --
-
-    /**
-     * User ID (Primary Key)
-     * 
-     * @return Unique database ID for this user.
-     *         - Use this to link to other tables!
-     */
     public int getUid() {
         return uid;
     }
