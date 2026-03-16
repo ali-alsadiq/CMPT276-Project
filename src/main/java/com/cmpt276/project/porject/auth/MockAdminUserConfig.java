@@ -3,7 +3,6 @@ package com.cmpt276.project.porject.auth;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.cmpt276.project.porject.RankService;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class MockAdminUserConfig {
 
     @Bean
-    public CommandLineRunner initMockAdminUser(UserRepository userRepository, RankService rankService) {
+    public CommandLineRunner initMockAdminUser(UserRepository userRepository) {
         return args -> {
             try {
                 User admin1 = new User("System", "Admin", "admin_test1", "admin", "ADMIN");

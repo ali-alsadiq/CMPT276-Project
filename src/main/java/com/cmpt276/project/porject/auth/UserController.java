@@ -1,6 +1,6 @@
 package com.cmpt276.project.porject.auth;
 
-import com.cmpt276.project.porject.RankService;
+import com.cmpt276.project.porject.rank.RankService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
