@@ -1,6 +1,6 @@
 package com.cmpt276.project.porject.trackers.nutrition;
 
-import com.cmpt276.project.porject.meals.MealEntry;
+import com.cmpt276.project.porject.meals.Meal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ public class Food {
      */
     @ManyToOne
     @JoinColumn(name = "meal_entry_id", nullable = false)
-    private MealEntry mealEntry;
+    private Meal mealEntry;
 
     @Column(nullable = false)
     private String foodName;
@@ -85,11 +85,11 @@ public class Food {
         return id;
     }
 
-    public MealEntry getMealEntry() {
+    public Meal getMealEntry() {
         return mealEntry;
     }
 
-    public void setMealEntry(MealEntry mealEntry) {
+    public void setMealEntry(Meal mealEntry) {
         this.mealEntry = mealEntry;
     }
 

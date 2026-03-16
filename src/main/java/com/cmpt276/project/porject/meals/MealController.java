@@ -33,10 +33,10 @@ import jakarta.servlet.http.HttpSession;
  * User user = (User) request.getSession().getAttribute("session_user");
  */
 @Controller
-public class MealEntryController {
+public class MealController {
 
     @Autowired
-    private MealEntryService mealEntryService;
+    private MealService mealEntryService;
 
     @Autowired
     private FoodApiService foodApiService;

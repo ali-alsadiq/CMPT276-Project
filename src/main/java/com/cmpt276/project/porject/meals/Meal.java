@@ -28,7 +28,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "meal_entries")
-public class MealEntry {
+public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -43,11 +43,11 @@ public class MealEntry {
     @OneToMany(mappedBy = "mealEntry", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Food> foods = new ArrayList<>();
 
-    public MealEntry() {
+    public Meal() {
 
     }
 
-    public MealEntry(User user, String mealType, LocalDateTime consumedDate) {
+    public Meal(User user, String mealType, LocalDateTime consumedDate) {
         this.user = user;
         this.mealType = mealType;
         this.consumedDate = consumedDate;
