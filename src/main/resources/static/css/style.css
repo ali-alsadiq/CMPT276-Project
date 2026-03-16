@@ -1,4 +1,6 @@
 :root {
+  /* --- Dark Mode --- */
+  
   /* Main Background Colors */
   --bg-primary: #141413;   /* Very dark gray/black used for the main application background */
   --bg-secondary: #222220; /* Slightly lighter gray used for surface elements like cards and panels */
@@ -9,7 +11,7 @@
   --text-secondary: #8b8a87; /* Muted gray for placeholder or secondary text */
 
   /* Brand Accents */
-  --accent-1: #c1c1a9; /* Light sage green for primary buttons, highlights, and active elements */
+  --accent-1: #c1c1a9;
 }
 
 body.theme-bg {
