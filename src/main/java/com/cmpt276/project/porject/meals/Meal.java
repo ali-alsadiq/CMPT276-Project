@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.trackers.nutrition.Food;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

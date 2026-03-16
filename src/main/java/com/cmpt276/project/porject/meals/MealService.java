@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.trackers.nutrition.Food;
 
 /**
  * Service for handling meal-related business logic.

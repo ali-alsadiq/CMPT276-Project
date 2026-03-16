@@ -1,6 +1,4 @@
-package com.cmpt276.project.porject.trackers.nutrition;
-
-import com.cmpt276.project.porject.meals.Meal;
+package com.cmpt276.project.porject.meals;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

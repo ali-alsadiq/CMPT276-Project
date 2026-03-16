@@ -1,4 +1,4 @@
-package com.cmpt276.project.porject.trackers.nutrition;
+package com.cmpt276.project.porject.meals;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

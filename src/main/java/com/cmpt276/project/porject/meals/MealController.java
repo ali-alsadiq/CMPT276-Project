@@ -14,8 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.trackers.nutrition.Food;
-import com.cmpt276.project.porject.trackers.nutrition.FoodApiService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

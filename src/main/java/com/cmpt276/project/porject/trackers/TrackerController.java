@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.trackers.nutrition.Food;
-import com.cmpt276.project.porject.trackers.nutrition.FoodApiService;
-import com.cmpt276.project.porject.trackers.nutrition.FoodRepository;
+import com.cmpt276.project.porject.meals.Food;
+import com.cmpt276.project.porject.meals.FoodApiService;
+import com.cmpt276.project.porject.meals.FoodRepository;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
