@@ -3,19 +3,10 @@ package com.cmpt276.project.porject.meals;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 /**
  * Database access for food entity
  */
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Integer> {
-
-    // List<Food> findByUserId(int userId);
-    
-    // List<Food> findByFoodNameAndUserId(String foodName, int userId);
-    
-    List<Food> findByFoodName(String foodName);
-    
-    // List<Food> findByUserIdOrderByConsumedDateDesc(int userId);
 }

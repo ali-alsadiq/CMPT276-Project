@@ -24,8 +24,8 @@ public class Food {
      * Meal that this food belongs to.
      */
     @ManyToOne
-    @JoinColumn(name = "meal_entry_id", nullable = false)
-    private Meal mealEntry;
+    @JoinColumn(name = "meal_id", nullable = false)
+    private Meal meal;
 
     @Column(nullable = false)
     private String foodName;
@@ -83,12 +83,12 @@ public class Food {
         return id;
     }
 
-    public Meal getMealEntry() {
-        return mealEntry;
+    public Meal getMeal() {
+        return meal;
     }
 
-    public void setMealEntry(Meal mealEntry) {
-        this.mealEntry = mealEntry;
+    public void setMeal(Meal meal) {
+        this.meal = meal;
     }
 
     public String getFoodName() {
