@@ -16,7 +16,7 @@
         <div th:replace="~{fragments/navbar :: navbar('calorieTracker')}"></div>
 
         <!-- Main Content -->
-        <div class="flex-grow-1 p-4 overflow-auto h-100 bg-secondary">
+        <div class="flex-grow-1 p-3 overflow-auto h-100 bg-secondary">
             <div class="row g-4 w-100 h-100">
 
                 <!-- ── LEFT COLUMN: Meal Log + Food Entry ── -->
@@ -28,33 +28,45 @@
                             <div class="meal-row" th:each="meal : ${meals}">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
-                                    <span class="meal-name" th:text="${meal.name}">Chicken Salad</span>
-                                    <span class="meal-meta" th:text="${meal.calories} + ' cals, ' + ${meal.protein} + 'g protein, ' + ${meal.fats} + 'g fats, ' + ${meal.carbs} + 'g carbs'">420 cals, 24g protein, 18g fats, 19g carbs</span>
+                                    <div class="meal-name-row">
+                                        <span class="meal-name" th:text="${meal.name}">Chicken Salad</span>
+                                        <span class="meal-cals" th:text="${meal.calories} + ' cals'">420 cals</span>
+                                    </div>
+                                    <span class="meal-meta" th:text="${meal.protein} + 'g protein · ' + ${meal.fats} + 'g fats · ' + ${meal.carbs} + 'g carbs'">24g protein · 18g fats · 19g carbs</span>
                                 </div>
                             </div>
 
-                            <!-- Placeholde r-->
+                            <!-- Placeholder -->
                             <div class="meal-row">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
-                                    <span class="meal-name">Chicken Salad</span>
-                                    <span class="meal-meta">420 cals, 24g protein, 18g fats, 19g carbs</span>
+                                    <div class="meal-name-row">
+                                        <span class="meal-name">Chicken Salad</span>
+                                        <span class="meal-cals">420 cals</span>
+                                    </div>
+                                    <span class="meal-meta">24g protein · 18g fats · 19g carbs</span>
                                 </div>
                             </div>
 
                             <div class="meal-row">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
-                                    <span class="meal-name">Beef Rice Bowl</span>
-                                    <span class="meal-meta">610 cals, 35g protein, 22g fats, 58g carbs</span>
+                                    <div class="meal-name-row">
+                                        <span class="meal-name">Beef Rice Bowl</span>
+                                        <span class="meal-cals">610 cals</span>
+                                    </div>
+                                    <span class="meal-meta">35g protein · 22g fats · 58g carbs</span>
                                 </div>
                             </div>
 
                             <div class="meal-row">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
-                                    <span class="meal-name">Greek Yogurt Parfait</span>
-                                    <span class="meal-meta">280 cals, 14g protein, 6g fats, 31g carbs</span>
+                                    <div class="meal-name-row">
+                                        <span class="meal-name">Greek Yogurt Parfait</span>
+                                        <span class="meal-cals">280 cals</span>
+                                    </div>
+                                    <span class="meal-meta">14g protein · 6g fats · 31g carbs</span>
                                 </div>
                             </div>
                         </div>
