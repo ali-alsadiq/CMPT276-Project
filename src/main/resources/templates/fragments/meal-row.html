@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--
+    Fragment: meal-row
+    Usage: th:replace="~{fragments/meal-row :: meal-row(${meal})}"
+    Renders a single logged meal card with image, name, and macro summary.
+-->
+<div th:fragment="meal-row(meal)" class="meal-row">
+    <img th:src="${meal.imageUrl}" src="" alt="Meal image" class="meal-image">
+    <div class="d-flex flex-column">
+        <span class="meal-name" th:text="${meal.name}">Meal Name</span>
+        <span class="meal-meta"
+              th:text="${meal.calories} + ' cals, ' +
+                        ${meal.protein} + 'g protein, ' +
+                        ${meal.fats}    + 'g fats, ' +
+                        ${meal.carbs}   + 'g carbs'">
+            420 cals, 24g protein, 18g fats, 19g carbs
+        </span>
+    </div>
+</div>
+
+</body>
+</html>
