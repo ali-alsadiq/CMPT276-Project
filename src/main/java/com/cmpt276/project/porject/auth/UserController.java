@@ -269,6 +269,7 @@ public class UserController {
         model.addAttribute("proteinPercent", 82);
         model.addAttribute("carbsPercent", 74);
         model.addAttribute("macrosPercent", 91);
+        model.addAttribute("meals", List.of()); // placeholder until meal data is wired
 
         return "calorieTracker";
     }
