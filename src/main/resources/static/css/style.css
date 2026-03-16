@@ -1,44 +1,54 @@
 :root {
-  --bg-main: #141413;
-  --bg-surface: #222220;
-  --bg-input: #6a6a67;
-  --bg-accent: #c1c1a9;
-  --bg-surface: #222220;
-  --text-secondary: #8b8a87;
-  --text-main: #ffffff;
-  --btn-primary: #c1c1a9;
-  --text-accent: #7AEEFF;
+  /* Main Background Colors */
+  --bg-primary: #141413;   /* Very dark gray/black used for the main application background */
+  --bg-secondary: #222220; /* Slightly lighter gray used for surface elements like cards and panels */
+  --bg-accent: #6a6a67;    /* Mid-tone gray/brown used for inputs and subtle active states */
+
+  /* Text Colors */
+  --text-primary: #ffffff;   /* Pure white for primary readable text */
+  --text-secondary: #8b8a87; /* Muted gray for placeholder or secondary text */
+
+  /* Brand Accents */
+  --accent-1: #c1c1a9; /* Light sage green for primary buttons, highlights, and active elements */
 }
 
 body.theme-bg {
-  background-color: var(--bg-main) !important;
-  color: var(--text-main) !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
 }
 
-.bg-surface {
-  background-color: var(--bg-surface) !important;
+.bg-secondary {
+  background-color: var(--bg-secondary) !important;
 }
 
-.bg-main {
-  background-color: var(--bg-main) !important;
+.bg-primary {
+  background-color: var(--bg-primary) !important;
 }
 
 .theme-bg-container {
-  background-color: var(--bg-main) !important;
-  color: var(--text-main) !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
 }
 
 .bg-accent {
   background-color: var(--bg-accent) !important;
 }
 
-.theme-input {
-  background-color: var(--bg-input) !important;
-  color: var(--text-main) !important;
+.bg-accent-1 {
+  background-color: var(--accent-1) !important;
 }
 
-.text-bg-main {
-  color: var(--bg-main) !important;
+.text-accent-1 {
+  color: var(--accent-1) !important;
+}
+
+.theme-input {
+  background-color: var(--bg-accent) !important;
+  color: var(--text-primary) !important;
+}
+
+.text-bg-primary {
+  color: var(--bg-primary) !important;
 }
 
 .theme-input::placeholder {
@@ -46,16 +56,16 @@ body.theme-bg {
 }
 
 .theme-input:focus {
-  background-color: var(--bg-input) !important;
-  color: var(--text-main) !important;
-  border-color: var(--btn-primary) !important;
+  background-color: var(--bg-accent) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--accent-1) !important;
   box-shadow: 0 0 0 0.25rem rgba(193, 193, 169, 0.25) !important;
 }
 
 .btn-primary {
-  background-color: var(--btn-primary) !important;
+  background-color: var(--accent-1) !important;
   color: #000000 !important; /* contrasting text for sage green */
-  border-color: var(--btn-primary) !important;
+  border-color: var(--accent-1) !important;
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {

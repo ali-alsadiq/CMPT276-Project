@@ -2,7 +2,7 @@
 /* Page Header */
 .page-header {
     width: 100%;
-    border-left: solid var(--text-accent) 5px;
+    border-left: solid var(--accent-1) 5px;
     height: 65px;
     margin-bottom: 20px;
     padding-left: 15px;
@@ -14,12 +14,12 @@
 }
 
 .page-header h3 {
-    color: var(--text-accent);
+    color: var(--accent-1);
 }
 
 .page-header p {
     font-style: italic;
-    color: var(--bg-input);
+    color: var(--bg-accent);
     margin-top: -10px;
 }
 
@@ -49,9 +49,9 @@
 
 .bottom-nav li a {
     padding: 1rem;
-    color: var(--text-accent);
-    border-bottom: 2px solid var(--text-accent);
-    border-left: 2px solid var(--text-accent);
+    color: var(--accent-1);
+    border-bottom: 2px solid var(--accent-1);
+    border-left: 2px solid var(--accent-1);
     border-top: 2px solid transparent;
     border-right: 2px solid transparent;
     background-color: transparent;
@@ -60,10 +60,10 @@
 }
 
 .bottom-nav li a:hover {
-    border: 2px solid var(--text-accent);
+    border: 2px solid var(--accent-1);
     border-radius: 10px;
-    color: var(--bg-main);
-    background-color: var(--text-accent);
+    color: var(--bg-primary);
+    background-color: var(--accent-1);
     transform: scale(1.05);
 }
 
@@ -129,7 +129,7 @@
     align-items: center;
     gap: 0.75rem;
     font-size: 0.95rem;
-    color: var(--text-main);
+    color: var(--text-primary);
 }
 
 .progress-legend-dot {
@@ -155,7 +155,7 @@
     --value: 0;
     --size: 220px;
     --thickness: 18px;
-    --progress-color: var(--bg-accent);
+    --progress-color: var(--accent-1);
     --track-color: #2a2a2a;
     --animated-value: 0;
 
@@ -178,7 +178,7 @@
     content: "";
     position: absolute;
     inset: var(--thickness);
-    background-color: var(--bg-main);
+    background-color: var(--bg-primary);
     border-radius: 50%;
 }
 
@@ -197,7 +197,7 @@
     z-index: 1;
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--text-primary);
 }
 
 .progress-value-small {
@@ -246,7 +246,7 @@
 
 .meal-table-header {
     padding: 0.75rem 1rem;
-    color: var(--text-accent);
+    color: var(--accent-1);
     font-weight: 600;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -273,7 +273,7 @@
 }
 
 .meal-name-col {
-    color: var(--text-main);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -294,8 +294,8 @@
 #add-meal-btn {
     width: 100%;
     padding: 0.8rem 1rem;
-    background-color: var(--text-accent);
-    color: var(--bg-main);
+    background-color: var(--accent-1);
+    color: var(--bg-primary);
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -364,8 +364,8 @@
     padding: 0.85rem 1.2rem;
     border: none;
     border-radius: 14px;
-    background-color: var(--bg-accent);
-    color: var(--bg-main);
+    background-color: var(--accent-1);
+    color: var(--bg-primary);
     font-weight: 700;
     transition: transform 0.2s ease, filter 0.2s ease;
 }
@@ -407,7 +407,7 @@
 
 .meal-result-name {
     margin: 0;
-    color: var(--text-main);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -423,8 +423,8 @@
     border: none;
     border-radius: 12px;
     padding: 0.65rem 1rem;
-    background: var(--text-accent);
-    color: var(--bg-main);
+    background: var(--accent-1);
+    color: var(--bg-primary);
     font-weight: 700;
 }
 
