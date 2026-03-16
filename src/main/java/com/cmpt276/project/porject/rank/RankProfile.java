@@ -10,18 +10,22 @@ import jakarta.persistence.Transient;
 
 /**
  * Represents a user's ranking profile in the system.
+ * 
+ * Class is not explicitly accessed by http, it is only used by other classes
+ * through RankService, thus it does not need a controller.
  */
 @Entity
 @Table(name = "rank_profiles")
 public class RankProfile {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    // Automatically set to 0 if user does not have a rank profile
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int rr;
 
+    // Transient field, not stored in the database
     @Transient
     private String rankImageName;
 
@@ -30,7 +34,6 @@ public class RankProfile {
     }
 
     // -- Getters and Setters --
-
     public int getId() {
         return id;
     }
