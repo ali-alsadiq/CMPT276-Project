@@ -72,10 +72,12 @@
     display: grid;
     place-items: center;
 
-    background: conic-gradient(
-        var(--progress-color) calc(var(--animated-value) * 1%),
-        var(--track-color) 0
-    );
+    background: 
+        radial-gradient(circle at 50% calc(var(--thickness) / 2), var(--progress-color) calc(var(--thickness) / 2), transparent 0),
+        conic-gradient(
+            var(--progress-color) calc(var(--animated-value) * 1%),
+            var(--track-color) 0
+        );
 
     animation: fillProgress 1.8s ease forwards;
 }
@@ -86,6 +88,21 @@
     inset: var(--thickness);
     background-color: var(--bg-primary);
     border-radius: 50%;
+    z-index: 2;
+}
+
+.progress-circle::after {
+    content: "";
+    position: absolute;
+    width: var(--thickness);
+    height: var(--thickness);
+    background-color: var(--progress-color);
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform-origin: 50% calc(var(--size) / 2);
+    transform: translateX(-50%) rotate(calc(var(--animated-value) * 3.6deg));
+    z-index: 1;
 }
 
 .progress-circle-total {
@@ -100,7 +117,7 @@
 
 .progress-value {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -119,7 +136,7 @@
 
 @property --animated-value {
     syntax: "<number>";
-    inherits: false;
+    inherits: true;
     initial-value: 0;
 }
 
