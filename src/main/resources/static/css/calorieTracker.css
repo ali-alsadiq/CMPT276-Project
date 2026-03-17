@@ -5,7 +5,7 @@
 .progress-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 2rem;
     padding: 1.25rem 1rem;
     border-radius: 18px;
@@ -44,14 +44,13 @@
 }
 
 .progress-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    align-items: stretch;
 }
 
 .progress-bottom .progress-wrapper {
-    flex: 1;
     padding: 1rem 0.75rem;
     border-radius: 18px;
     background: var(--bg-secondary);
