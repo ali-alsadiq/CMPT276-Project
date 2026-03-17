@@ -19,13 +19,17 @@
         <div class="flex-grow-1 p-3 overflow-auto h-100 bg-secondary">
             <div class="row g-4 w-100 h-100">
 
-                <!-- ── LEFT COLUMN: Meal Log + Food Entry ── -->
-                <div class="col-lg-7 h-100">
-                    <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column gap-3">
+                <!-- LEFT COLUMN: Meal Log + Food Entry -->
+                <div class="col-lg-8 h-100">
+                    <div class="bg-primary rounded-4 p-4 h-100 d-flex gap-5">
+                        <div class="w-50 d-flex flex-column">
+                            <h3 class="mb-4">Log a Meal</h3> 
+                        </div>
 
-                        <!-- Logged Meals (approx half the column) -->
-                        <div class="logged-meals-container">
-                            <div class="meal-row" th:each="meal : ${meals}">
+                        <div class="w-50 overflow-auto h-100 pe-2">
+                            <h4 class="mb-4">Meals</h4> 
+
+                            <div class="meal-row mb-4" th:each="meal : ${meals}">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
                                     <div class="meal-name-row">
@@ -36,8 +40,7 @@
                                 </div>
                             </div>
 
-                            <!-- Placeholder -->
-                            <div class="meal-row">
+                            <div class="meal-row mb-4">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
                                     <div class="meal-name-row">
@@ -48,7 +51,7 @@
                                 </div>
                             </div>
 
-                            <div class="meal-row">
+                            <div class="meal-row mb-4">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
                                     <div class="meal-name-row">
@@ -59,49 +62,13 @@
                                 </div>
                             </div>
 
-                            <div class="meal-row">
-                                <img src="" alt="Meal image" class="meal-image">
-                                <div class="meal-info">
-                                    <div class="meal-name-row">
-                                        <span class="meal-name">Greek Yogurt Parfait</span>
-                                        <span class="meal-cals">280 cals</span>
-                                    </div>
-                                    <span class="meal-meta">14g protein · 6g fats · 31g carbs</span>
-                                </div>
-                            </div>
                         </div>
-
-                        <!-- Add Meal -->
-                        <div class="meal-log-section">
-                            <button id="add-meal-btn" class="fw-bold" type="button">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                <span>ADD MEAL</span>
-                            </button>
-
-                            <div id="meal-search-panel" class="meal-search-panel">
-                                <div class="meal-search-box">
-                                    <input
-                                        type="text"
-                                        id="meal-search-input"
-                                        class="theme-input meal-search-input"
-                                        placeholder="Describe your meal"
-                                        autocomplete="off"
-                                    >
-                                    <button id="meal-search-btn" type="button" class="meal-search-btn">
-                                        Search
-                                    </button>
-                                </div>
-                                <div id="meal-search-results" class="meal-search-results">
-                                    <!-- API results injected here -->
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+                    
                 </div>
 
                 <!-- ── RIGHT COLUMN: Progress / Analytics ── -->
-                <div class="col-lg-5 h-100">
+                <div class="col-lg-4 h-100">
                     <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column gap-4">
 
                         <!-- Total progress ring + legend -->
