@@ -19,7 +19,6 @@
         <div class="flex-grow-1 p-4 bg-secondary d-flex flex-column overflow-hidden" style="height: 100vh;">
             <div class="row g-4 m-0 flex-grow-1 overflow-hidden">
 
-                <!-- LEFT COLUMN: Meal Log + Food Entry -->
                 <!-- LEFT COLUMN: Logging Section -->
                 <div class="col-lg-6 d-flex flex-column overflow-hidden">
                     <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column">
@@ -110,49 +109,50 @@
                     <!-- Analytics Card -->
                     <div class="bg-primary rounded-4 p-4">
                         <h4 class="mb-4 text-secondary">Nutrition</h4>
-                        <div class="d-flex align-items-center justify-content-between px-2">
-                            <!-- Main Calorie Chart -->
+                        
+                        <!-- Calorie Progress Bar -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-end mb-2">
+                                <span class="text-white fw-bold">Calories</span>
+                                <span class="text-white fs-5 fw-bold" th:text="${totalPercent} + '%'">67%</span>
+                            </div>
+                            <div class="progress rounded-pill overflow-hidden" style="height: 12px; background-color: var(--bg-secondary);">
+                                <div class="progress-bar rounded-pill" role="progressbar" 
+                                     th:style="'width: ' + ${totalPercent} + '%; background-color: #e4d9dc; transition: width 1s ease;'" 
+                                     th:attr="aria-valuenow=${totalPercent}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <!-- Macro Charts Row -->
+                        <div class="d-flex justify-content-between align-items-center px-2">
                             <div class="progress-wrapper">
-                                <div class="progress-circle progress-circle-total"
+                                <div class="progress-circle progress-circle-small"
                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                    th:attr="aria-valuenow=${totalPercent}"
-                                    th:style="'--value:' + ${totalPercent} + '; --progress-color: #e4d9dc;'">
-                                    <span class="progress-value" th:text="${totalPercent} + '%'">67%</span>
+                                    th:attr="aria-valuenow=${proteinPercent}"
+                                    th:style="'--value:' + ${proteinPercent} + '; --progress-color: #f3c7cf;'">
+                                    <span class="progress-value progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
                                 </div>
-                                <p class="progress-label mt-2">Calories</p>
+                                <p class="progress-label mt-2">Proteins</p>
                             </div>
 
-                            <!-- Small Macro Charts Row -->
-                            <div class="d-flex gap-3">
-                                <div class="progress-wrapper">
-                                    <div class="progress-circle progress-circle-small"
-                                        role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                        th:attr="aria-valuenow=${proteinPercent}"
-                                        th:style="'--value:' + ${proteinPercent} + '; --progress-color: #f3c7cf;'">
-                                        <span class="progress-value progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
-                                    </div>
-                                    <p class="progress-label">Proteins</p>
+                            <div class="progress-wrapper">
+                                <div class="progress-circle progress-circle-small"
+                                    role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                    th:attr="aria-valuenow=${carbsPercent}"
+                                    th:style="'--value:' + ${carbsPercent} + '; --progress-color: #bfdbe9;'">
+                                    <span class="progress-value progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
                                 </div>
+                                <p class="progress-label mt-2">Carbs</p>
+                            </div>
 
-                                <div class="progress-wrapper">
-                                    <div class="progress-circle progress-circle-small"
-                                        role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                        th:attr="aria-valuenow=${carbsPercent}"
-                                        th:style="'--value:' + ${carbsPercent} + '; --progress-color: #bfdbe9;'">
-                                        <span class="progress-value progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
-                                    </div>
-                                    <p class="progress-label">Carbs</p>
+                            <div class="progress-wrapper">
+                                <div class="progress-circle progress-circle-small"
+                                    role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                    th:attr="aria-valuenow=${macrosPercent}"
+                                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #d0dcdb;'">
+                                    <span class="progress-value progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                                 </div>
-
-                                <div class="progress-wrapper">
-                                    <div class="progress-circle progress-circle-small"
-                                        role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                        th:attr="aria-valuenow=${macrosPercent}"
-                                        th:style="'--value:' + ${macrosPercent} + '; --progress-color: #d0dcdb;'">
-                                        <span class="progress-value progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
-                                    </div>
-                                    <p class="progress-label">Fats</p>
-                                </div>
+                                <p class="progress-label mt-2">Fats</p>
                             </div>
                         </div>
                     </div>
