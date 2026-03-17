@@ -12,6 +12,9 @@
 
   /* Brand Accents */
   --accent-1: #c1c1a9;
+  
+  /* Input Background */
+  --bg-input: #1a1a19;
 }
 
 body.theme-bg {

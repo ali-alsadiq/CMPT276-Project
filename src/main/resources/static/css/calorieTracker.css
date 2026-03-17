@@ -144,11 +144,15 @@
     display: flex;
     align-items: center;
     gap: 0.85rem;
-    background: var(--bg-primary);
-    border-radius: 18px;
+    background: transparent;
+    border-bottom: 1px solid var(--bg-secondary);
     transition: transform 0.2s ease;
-    padding: 0.75rem 0rem;
-    width: 90%;
+    padding: 1.25rem 0;
+    width: 100%;
+}
+
+.meal-row:last-child {
+    border-bottom: none;
 }
 
 .meal-row:hover {

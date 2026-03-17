@@ -21,15 +21,29 @@
 
                 <!-- LEFT COLUMN: Meal Log + Food Entry -->
                 <div class="col-lg-8 h-100">
-                    <div class="bg-primary rounded-4 p-4 h-100 d-flex gap-5">
+                    <div class="bg-primary rounded-4 p-4 h-100 d-flex gap-0">
                         <div class="w-50 d-flex flex-column">
                             <h3 class="mb-4">Log a Meal</h3> 
                         </div>
 
-                        <div class="w-50 overflow-auto h-100 pe-2">
-                            <h4 class="mb-4">Meals</h4> 
+                        <!-- Vertical Divider -->
+                        <div class="mx-4" style="width: 1px; background-color: var(--bg-secondary); opacity: 0.6;"></div>
 
-                            <div class="meal-row mb-4" th:each="meal : ${meals}">
+                        <div class="flex-grow-1 overflow-auto h-100 ps-2 pe-4">
+                            <h4 class="mb-4">Meals</h4>
+                            <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
+                                <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
+                                    <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>
+                                    <input type="text" class="bg-transparent border-0 text-secondary w-100" placeholder="Search meals..." style="outline: none;">
+                                </div>
+                                
+                                <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
+                                    <i class="fa-regular fa-calendar text-secondary"></i>
+                                    <span class="fw-medium text-secondary">Today</span>
+                                </div>
+                            </div>
+
+                            <div class="meal-row" th:each="meal : ${meals}">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
                                     <div class="meal-name-row">
@@ -40,7 +54,7 @@
                                 </div>
                             </div>
 
-                            <div class="meal-row mb-4">
+                            <div class="meal-row">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
                                     <div class="meal-name-row">
@@ -51,7 +65,7 @@
                                 </div>
                             </div>
 
-                            <div class="meal-row mb-4">
+                            <div class="meal-row">
                                 <img src="" alt="Meal image" class="meal-image">
                                 <div class="meal-info">
                                     <div class="meal-name-row">
