@@ -52,8 +52,17 @@ body.theme-bg {
   color: var(--text-primary) !important;
 }
 
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
 .text-bg-primary {
   color: var(--bg-primary) !important;
+}
+
+::placeholder {
+  color: var(--text-secondary);
+  opacity: 1; /* Firefox default is 0.5 */
 }
 
 .theme-input::placeholder {
