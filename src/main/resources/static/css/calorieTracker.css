@@ -139,7 +139,6 @@
     height: 34px;
     background-color: var(--bg-input);
     border-radius: 50px;
-    /* Removed overflow: hidden to allow fill glow to spill out */
     user-select: none;
 }
 
@@ -149,8 +148,8 @@
     width: calc(var(--value) * 1%);
     animation: fillWidth 1.8s ease-in-out forwards;
     position: relative;
-    overflow: hidden; /* This still handles the text masking */
-    border-radius: 50px; /* Matched parent to maintain pill shape */
+    overflow: hidden; 
+    border-radius: 50px; 
     box-shadow: 0 0 20px rgba(193, 193, 169, 0.8);
 }
 
@@ -159,7 +158,6 @@
     to   { width: calc(var(--value) * 1%); }
 }
 
-/* Shared layer for labels */
 .progress-labels {
     position: absolute;
     top: 50%;
@@ -174,13 +172,11 @@
     text-transform: uppercase;
     white-space: nowrap;
 }
-
-/* Bottom layer (Visible on background) */
+    
 .progress-labels-bottom {
     color: var(--text-secondary);
 }
 
-/* Top layer (Revealed by bar) - Responsively matches the full width of the parent bar */
 .progress-labels-top {
     color: var(--bg-primary);
     width: calc(10000% / var(--value));
@@ -438,4 +434,44 @@
 .meal-result-add-btn:hover {
     transform: translateY(-2px);
     box-shadow: -6px 10px 20px rgba(0,0,0,0.45);
+}
+
+/* ─────────────────────────────────────────
+   Chatbot Transition Styles
+───────────────────────────────────────── */
+
+.transition-spacer {
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-all-slow {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#welcome-section {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+    overflow: hidden;
+}
+
+#logging-container.chat-mode .bottom-spacer {
+    flex-grow: 0 !important;
+}
+
+#logging-container.chat-mode #welcome-section {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-20px);
+    margin-bottom: 0 !important;
+    pointer-events: none;
+}
+
+#logging-container.chat-mode #input-section {
+    padding-bottom: 1rem;
+}
+
+#logging-container {
+    height: 100%;
+    width: 100%;
 }

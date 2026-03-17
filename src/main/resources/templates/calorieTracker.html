@@ -19,42 +19,48 @@
         <div class="flex-grow-1 p-4 bg-secondary d-flex flex-column overflow-hidden" style="height: 100vh;">
             <div class="row g-4 m-0 flex-grow-1 overflow-hidden">
 
-                <!-- LEFT COLUMN: Logging Section -->
+                <!-- Logging Section -->
                 <div class="col-lg-7 d-flex flex-column overflow-hidden">
                     <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column">
                         <h4 class="mb-4 text-secondary">Logging</h4>
-                        
-                        <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-                            <div class="text-start">
-                                <p class="text-secondary mb-0">Hi <span th:text="${session.session_user.firstname}">User</span>,</p>
-                                <h3 class="text-white fw-bold">Let's Add a Meal!</h3>
-                            </div>
-                        </div>
 
-                        <div class="mt-auto p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
-                            <textarea class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-2" 
-                                    rows="3" 
-                                    placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..." 
-                                    style="resize: none; outline: none;"></textarea>
-
-                            <div class="d-flex justify-content-between align-items-center px-2 pb-1">
-                                <div class="text-white" style="cursor: pointer;">
-                                    <i class="fa-solid fa-circle-plus fs-5"></i>
-                                </div>
-                                
-                                <div class="bg-white text-bg-primary rounded-circle d-flex align-items-center justify-content-center" 
-                                    style="width: 36px; height: 36px; cursor: pointer;">
-                                    <i class="fa-solid fa-arrow-up"></i>
+                        <div id="logging-container" class="flex-grow-1 d-flex flex-column align-items-center">
+                            <div class="flex-grow-1 transition-spacer top-spacer" style="flex-grow: 1;"></div>
+                            
+                            <div id="welcome-section" class="w-100 transition-all-slow" style="max-width: 600px;">
+                                <div class="text-start mb-4 ps-2">
+                                    <p class="text-secondary mb-0">Hi <span th:text="${session.session_user.firstname}">User</span>,</p>
+                                    <h3 class="text-white fw-bold">Let's Add a Meal!</h3>
                                 </div>
                             </div>
+
+                            <div id="input-section" class="w-100 transition-all-slow" style="max-width: 600px;">
+                                <div class="p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
+                                    <textarea id="logging-input" class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-2" 
+                                            rows="3" 
+                                            placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..." 
+                                            style="resize: none; outline: none;"></textarea>
+
+                                    <div class="d-flex justify-content-between align-items-center px-2 pb-1">
+                                        <div class="text-white" style="cursor: pointer;">
+                                            <i class="fa-solid fa-circle-plus fs-5"></i>
+                                        </div>
+                                        
+                                        <div id="send-meal-btn" class="bg-white text-bg-primary rounded-circle d-flex align-items-center justify-content-center" 
+                                            style="width: 36px; height: 36px; cursor: pointer;">
+                                            <i class="fa-solid fa-arrow-up"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-grow-1 transition-spacer bottom-spacer" style="flex-grow: 1;"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: Meals + Analytics -->
+                <!-- Meals + Analytics -->
                 <div class="col-lg-5 d-flex flex-column gap-4 overflow-hidden">
-                    
-                    <!-- Meals Card -->
                     <div class="bg-primary rounded-4 p-4 d-flex flex-column flex-grow-1 overflow-hidden">
                         <h4 class="mb-4 text-secondary">Meals</h4>
                         <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
@@ -106,20 +112,15 @@
                         </div>
                     </div>
 
-                    <!-- Analytics Card -->
                     <div class="bg-primary rounded-4 p-4 pb-5">
                         <h4 class="mb-4 text-secondary">Nutrition</h4>
                         
-                        <!-- Calorie Progress Bar -->
                         <div class="mb-5 px-2">
                             <div class="progress-bar-container">
-                                <!-- Bottom Layer (Visible on dark background) -->
                                 <div class="progress-labels progress-labels-bottom">
                                     <span>Calories</span>
                                     <span th:text="${totalPercent} + '%'">67%</span>
                                 </div>
-                                
-                                <!-- Top Layer (Visible inside the light bar) -->
                                 <div class="progress-bar-fill" th:style="'--value: ' + ${totalPercent}">
                                     <div class="progress-labels progress-labels-top">
                                         <span>Calories</span>
@@ -129,7 +130,6 @@
                             </div>
                         </div>
 
-                        <!-- Macro Charts Row -->
                         <div class="d-flex justify-content-start align-items-center gap-4 px-2">
                             <div class="progress-wrapper">
                                 <div class="progress-circle progress-circle-small"
@@ -181,9 +181,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
