@@ -2,7 +2,7 @@ package com.cmpt276.project.porject.auth;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import com.cmpt276.project.porject.RankService;
+import com.cmpt276.project.porject.rank.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -53,7 +53,7 @@ public class UserControllerTest {
                                 .param("username", "testuser1")
                                 .param("password", "StrongPass1!"))
                                 .andExpect(status().is3xxRedirection())
-                                .andExpect(redirectedUrl("/"))
+                                .andExpect(redirectedUrl("/dashboard"))
                                 .andExpect(request().sessionAttribute("session_user", mockUser));
         }
 
