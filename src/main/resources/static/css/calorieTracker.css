@@ -61,7 +61,7 @@
     --size: 220px;
     --thickness: 18px;
     --progress-color: var(--accent-1);
-    --track-color: #2a2a2a;
+    --track-color: var(--bg-input);
     --animated-value: 0;
 
     width: var(--size);
@@ -137,19 +137,21 @@
 .progress-bar-container {
     position: relative;
     height: 34px;
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-input);
     border-radius: 50px;
-    overflow: hidden;
+    /* Removed overflow: hidden to allow fill glow to spill out */
     user-select: none;
 }
 
 .progress-bar-fill {
     height: 100%;
-    background-color: #e4d9dc;
+    background-color: var(--accent-1);
     width: calc(var(--value) * 1%);
     animation: fillWidth 1.8s ease-in-out forwards;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* This still handles the text masking */
+    border-radius: 50px; /* Matched parent to maintain pill shape */
+    box-shadow: 0 0 20px rgba(193, 193, 169, 0.8);
 }
 
 @keyframes fillWidth {
@@ -193,6 +195,8 @@
     letter-spacing: 0.5px;
     margin-top: 2px;
 }
+
+
 
 .progress-label {
     margin: 0;

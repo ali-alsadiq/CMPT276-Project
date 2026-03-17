@@ -20,7 +20,7 @@
             <div class="row g-4 m-0 flex-grow-1 overflow-hidden">
 
                 <!-- LEFT COLUMN: Logging Section -->
-                <div class="col-lg-6 d-flex flex-column overflow-hidden">
+                <div class="col-lg-7 d-flex flex-column overflow-hidden">
                     <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column">
                         <h4 class="mb-4 text-secondary">Logging</h4>
                         
@@ -52,7 +52,7 @@
                 </div>
 
                 <!-- RIGHT COLUMN: Meals + Analytics -->
-                <div class="col-lg-6 d-flex flex-column gap-4 overflow-hidden">
+                <div class="col-lg-5 d-flex flex-column gap-4 overflow-hidden">
                     
                     <!-- Meals Card -->
                     <div class="bg-primary rounded-4 p-4 d-flex flex-column flex-grow-1 overflow-hidden">
@@ -159,10 +159,22 @@
                                 <div class="progress-circle progress-circle-small"
                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                     th:attr="aria-valuenow=${macrosPercent}"
-                                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #d0dcdb;'">
+                                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #ede4d4;'">
                                     <div class="progress-inner">
                                         <span class="progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                                         <span class="progress-sublabel">Fats</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="progress-wrapper">
+                                <div class="progress-circle progress-circle-small"
+                                    role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                    aria-valuenow="59"
+                                    style="--value: 59; --progress-color: #dbcdf0;">
+                                    <div class="progress-inner">
+                                        <span class="progress-value-small">59%</span>
+                                        <span class="progress-sublabel">Fibre</span>
                                     </div>
                                 </div>
                             </div>
