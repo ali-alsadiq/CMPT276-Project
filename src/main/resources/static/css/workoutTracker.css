@@ -5,7 +5,7 @@
 }
 
 .workout-main-card {
-    min-height: calc(100vh - 4rem);
+    height: 95vh;
 }
 
 .tracker-panel {

@@ -20,7 +20,7 @@
                         <div>
                             <p class="eyebrow mb-2">Workout Tracker</p>
                             <h1 class="panel-title">Log a workout and watch your weekly burn build up.</h1>
-                            <p class="panel-copy">Your weekly ring tracks calories burned from Monday through Sunday. Each day below fills based on that day's contribution.</p>
+                            <p class="panel-copy">sweat off that calories and see the numbers burned throughout the week.</p>
                         </div>
 
                         <form method="post" th:action="@{/add-workout}" class="workout-form">
@@ -41,15 +41,6 @@
                                 Calculate Calories Burned
                             </button>
                         </form>
-
-                        <div class="result-card" th:if="${workout != null}">
-                            <p class="result-kicker mb-1">Latest workout</p>
-                            <h2 class="result-title mb-2" th:text="${workout.workoutName}">Running</h2>
-                            <p class="result-copy mb-0">
-                                <span th:text="${workout.duration}">45</span> minutes burned
-                                <strong th:text="${workout.calsBurned} + ' calories'">420 calories</strong>.
-                            </p>
-                        </div>
                     </section>
                 </div>
 
@@ -85,7 +76,7 @@
                                     <span th:text="${weeklyWorkoutCalories}">0</span> calories
                                 </p>
                                 <p class="summary-detail">Burned so far this week.</p>
-                                <p class="summary-detail">The large ring shows progress toward your weekly target, and the daily rings compare each day against your highest-burn day this week.</p>
+                                <p class="summary-detail">See your progress reach toward your weekly target.</p>
                             </div>
                         </div>
 
