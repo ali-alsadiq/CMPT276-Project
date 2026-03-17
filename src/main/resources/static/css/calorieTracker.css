@@ -107,12 +107,12 @@
 
 .progress-circle-total {
     --size: 220px;
-    --thickness: 18px;
+    --thickness: 24px;
 }
 
 .progress-circle-small {
     --size: 90px;
-    --thickness: 8px;
+    --thickness: 10px;
 }
 
 .progress-value {

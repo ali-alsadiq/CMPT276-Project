@@ -24,6 +24,24 @@
                     <div class="bg-primary rounded-4 p-4 h-100 d-flex gap-0">
                         <div class="w-50 d-flex flex-column">
                             <h3 class="mb-4">Log a Meal</h3> 
+
+                            <div class="mt-auto p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
+                                <textarea class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-3" 
+                                        rows="4" 
+                                        placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..." 
+                                        style="resize: none; outline: none;"></textarea>
+
+                                <div class="d-flex justify-content-between align-items-center px-2 pb-1">
+                                    <div class="text-white" style="cursor: pointer;">
+                                        <i class="fa-solid fa-circle-plus fs-5"></i>
+                                    </div>
+                                    
+                                    <div class="bg-white text-bg-primary rounded-circle d-flex align-items-center justify-content-center" 
+                                        style="width: 36px; height: 36px; cursor: pointer;">
+                                        <i class="fa-solid fa-arrow-up"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Vertical Divider -->
@@ -34,7 +52,7 @@
                             <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
                                 <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
                                     <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>
-                                    <input type="text" class="bg-transparent border-0 text-secondary w-100" placeholder="Search meals" style="outline: none;">
+                                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search meals" style="outline: none;">
                                 </div>
                                 
                                 <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
@@ -92,7 +110,7 @@
                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                     th:attr="aria-valuenow=${totalPercent}"
                                     aria-labelledby="progress-total"
-                                    th:style="'--value:' + ${totalPercent} + '; --progress-color: #0022FF;'">
+                                    th:style="'--value:' + ${totalPercent} + '; --progress-color: #e4d9dc;'">
                                     <span class="progress-value" th:text="${totalPercent} + '%'">67%</span>
                                 </div>
                                 <p id="progress-total" class="progress-label fs-5">Total Progress</p>
@@ -100,22 +118,22 @@
 
                             <div class="progress-legend">
                                 <div class="progress-legend-item">
-                                    <span class="progress-legend-dot" style="color: #FFABAB;">
+                                    <span class="progress-legend-dot" style="color: #f3c7cf;;">
                                         <i class="fa-solid fa-square"></i>
                                     </span>
-                                    <span>Protein intake</span>
+                                    <span>Proteins</span>
                                 </div>
                                 <div class="progress-legend-item">
-                                    <span class="progress-legend-dot" style="color: #96FFFF;">
+                                    <span class="progress-legend-dot" style="color: #bfdbe9;">
                                         <i class="fa-solid fa-square"></i>
                                     </span>
-                                    <span>Carb intake</span>
+                                    <span>Carbs</span>
                                 </div>
                                 <div class="progress-legend-item">
-                                    <span class="progress-legend-dot" style="color: #F2E0E0;">
+                                    <span class="progress-legend-dot" style="color: #d0dcdb">
                                         <i class="fa-solid fa-square"></i>
                                     </span>
-                                    <span>Macro balance</span>
+                                    <span>Fats</span>
                                 </div>
                             </div>
                         </div>
@@ -127,10 +145,10 @@
                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                     th:attr="aria-valuenow=${proteinPercent}"
                                     aria-labelledby="progress-protein"
-                                    th:style="'--value:' + ${proteinPercent} + '; --progress-color: #FFABAB;'">
+                                    th:style="'--value:' + ${proteinPercent} + '; --progress-color: #f3c7cf;'">
                                     <span class="progress-value progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
                                 </div>
-                                <p id="progress-protein" class="progress-label">Protein</p>
+                                <p id="progress-protein" class="progress-label">Proteins</p>
                             </div>
 
                             <div class="progress-wrapper">
@@ -138,7 +156,7 @@
                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                     th:attr="aria-valuenow=${carbsPercent}"
                                     aria-labelledby="progress-carbs"
-                                    th:style="'--value:' + ${carbsPercent} + '; --progress-color: #96FFFF;'">
+                                    th:style="'--value:' + ${carbsPercent} + '; --progress-color: #bfdbe9;'">
                                     <span class="progress-value progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
                                 </div>
                                 <p id="progress-carbs" class="progress-label">Carbs</p>
@@ -149,10 +167,10 @@
                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                     th:attr="aria-valuenow=${macrosPercent}"
                                     aria-labelledby="progress-macros"
-                                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #F2E0E0;'">
+                                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #d0dcdb;'">
                                     <span class="progress-value progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                                 </div>
-                                <p id="progress-macros" class="progress-label">Macros</p>
+                                <p id="progress-macros" class="progress-label">Fats</p>
                             </div>
                         </div>
 

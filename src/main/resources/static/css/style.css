@@ -8,7 +8,7 @@
 
   /* Text Colors */
   --text-primary: #ffffff;   /* Pure white for primary readable text */
-  --text-secondary: #8b8a87; /* Muted gray for placeholder or secondary text */
+  --text-secondary: #b1b1ae; /* Muted but readable gray for placeholders and secondary text */
 
   /* Brand Accents */
   --accent-1: #c1c1a9;
@@ -60,9 +60,10 @@ body.theme-bg {
   color: var(--bg-primary) !important;
 }
 
-::placeholder {
-  color: var(--text-secondary);
-  opacity: 1; /* Firefox default is 0.5 */
+::placeholder, 
+.form-control::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 1 !important;
 }
 
 .theme-input::placeholder {
