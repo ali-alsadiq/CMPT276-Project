@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.trackers.nutrition.Food;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,8 +26,8 @@ import jakarta.persistence.Table;
  * - Nutrition totals are calculated by summing all foods in the meal.
  */
 @Entity
-@Table(name = "meal_entries")
-public class MealEntry {
+@Table(name = "meal")
+public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,23 +39,27 @@ public class MealEntry {
     private String mealType;
     private LocalDateTime consumedDate;
 
-    @OneToMany(mappedBy = "mealEntry", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Food> foods = new ArrayList<>();
 
-    public MealEntry() {
-
+    public Meal() {
     }
 
-    public MealEntry(User user, String mealType, LocalDateTime consumedDate) {
+    public Meal(User user, String mealType, LocalDateTime consumedDate, List<Food> foods) {
+        if (foods == null || foods.isEmpty()) {
+            throw new IllegalArgumentException("A meal must contain at least one food.");
+        }
+
         this.user = user;
         this.mealType = mealType;
         this.consumedDate = consumedDate;
+        setFoods(foods);
     }
 
     // -- Getters and Setters --
 
     /**
-     * Meal Entry ID (Primary Key)
+     * Meal ID (Primary Key)
      * 
      * @return Unique database ID for this meal entry.
      */
@@ -118,6 +121,23 @@ public class MealEntry {
     }
 
     public void setFoods(List<Food> foods) {
-        this.foods = foods;
+        this.foods.clear();
+
+        if (foods == null) {
+            return;
+        }
+
+        for (Food food : foods) {
+            addFood(food);
+        }
+    }
+
+    public void addFood(Food food) {
+        if (food == null) {
+            return;
+        }
+
+        this.foods.add(food);
+        food.setMeal(this);
     }
 }
