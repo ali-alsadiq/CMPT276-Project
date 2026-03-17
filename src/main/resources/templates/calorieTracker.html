@@ -22,12 +22,19 @@
                 <!-- LEFT COLUMN: Meal Log + Food Entry -->
                 <div class="col-lg-8 h-100">
                     <div class="bg-primary rounded-4 p-4 h-100 d-flex gap-0">
-                        <div class="w-50 d-flex flex-column">
-                            <h3 class="mb-4">Log a Meal</h3> 
+                        <div class="w-50 d-flex flex-column h-100">
+                            <h4 class="mb-4">Logging</h4>
+
+                            <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+                                <div class="text-start">
+                                    <p class="text-secondary mb-0">Hi <span th:text="${session.session_user.firstname}">User</span>,</p>
+                                    <h3 class="text-white fw-bold">Let's Add a Meal!</h3>
+                                </div>
+                            </div>
 
                             <div class="mt-auto p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
-                                <textarea class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-3" 
-                                        rows="4" 
+                                <textarea class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-2" 
+                                        rows="3" 
                                         placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..." 
                                         style="resize: none; outline: none;"></textarea>
 
