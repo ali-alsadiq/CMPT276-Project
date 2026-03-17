@@ -105,8 +105,8 @@
 }
 
 .progress-circle-total {
-    --size: 220px;
-    --thickness: 24px;
+    --size: 160px;
+    --thickness: 18px;
 }
 
 .progress-circle-small {
