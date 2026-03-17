@@ -110,8 +110,8 @@
 }
 
 .progress-circle-small {
-    --size: 90px;
-    --thickness: 10px;
+    --size: 105px;
+    --thickness: 12px;
 }
 
 .progress-value {
@@ -122,8 +122,76 @@
     color: var(--text-primary);
 }
 
-.progress-value-small {
-    font-size: 1.1rem;
+.progress-inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+}
+
+/* ─────────────────────────────────────────
+   Progress Bar
+───────────────────────────────────────── */
+.progress-bar-container {
+    position: relative;
+    height: 34px;
+    background-color: var(--bg-secondary);
+    border-radius: 50px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #e4d9dc;
+    width: calc(var(--value) * 1%);
+    animation: fillWidth 1.8s ease-in-out forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fillWidth {
+    from { width: 0; }
+    to   { width: calc(var(--value) * 1%); }
+}
+
+/* Shared layer for labels */
+.progress-labels {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Bottom layer (Visible on background) */
+.progress-labels-bottom {
+    color: var(--text-secondary);
+}
+
+/* Top layer (Revealed by bar) - Responsively matches the full width of the parent bar */
+.progress-labels-top {
+    color: var(--bg-primary);
+    width: calc(10000% / var(--value));
+    min-width: 400px; /* Fallback for very small fill values */
+}
+
+.progress-sublabel {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
 }
 
 .progress-label {
