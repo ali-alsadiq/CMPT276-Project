@@ -2,6 +2,7 @@
 /* Page Header */
 .page-header {
     width: 100%;
+    border-left: solid var(--text-accent) 5px;
     height: 65px;
     margin-bottom: 20px;
     padding-left: 15px;
