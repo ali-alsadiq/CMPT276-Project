@@ -64,7 +64,7 @@ body.theme-bg {
   color: var(--text-secondary) !important;
 }
 
-.text-bg-primary {
+.text-theme-dark {
   color: var(--bg-primary) !important;
 }
 
