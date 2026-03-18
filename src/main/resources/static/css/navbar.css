@@ -1,0 +1,40 @@
+:root {
+    --sidebar-collapsed-width: 100px;
+    --sidebar-expanded-width: 350px;
+}
+
+#dynamic-sidebar {
+    width: 78px; /* Default collapsed */
+    overflow: hidden; 
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    background-color: var(--bg-primary);
+}
+
+#dynamic-sidebar.is-expanded {
+    width: 320px !important; /* Forces expansion over content */
+}
+
+.sidebar-text {
+    font-size: 0.85rem;
+    opacity: 0 !important;
+    visibility: hidden !important; 
+    white-space: nowrap; 
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    display: inline-block; 
+    max-width: 0;
+    overflow: hidden;
+}
+
+#dynamic-sidebar.is-expanded .sidebar-text {
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-width: 300px;
+    transition-delay: 0.2s; /* Give the box time to widen */
+}
+
+.sidebar-text.w-100 {
+    display: block !important;
+    width: 280px !important;
+    max-width: 280px !important;
+    margin-top: 5px;
+}
