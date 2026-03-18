@@ -2,8 +2,8 @@
   /* --- Dark Mode --- */
   
   /* Main Background Colors */
-  --bg-primary: #141413;   /* Very dark gray/black used for the main application background */
-  --bg-secondary: #222220; /* Slightly lighter gray used for surface elements like cards and panels */
+  --bg-secondary: #111111;   /* Very dark gray/black used for the main application background */
+  --bg-primary: #181718; /* Slightly lighter gray used for surface elements like cards and panels */
   --bg-accent: #6a6a67;    /* Mid-tone gray/brown used for inputs and subtle active states */
 
   /* Text Colors */
@@ -14,7 +14,7 @@
   --accent-1: #cf9fff;
   
   /* Input Background */
-  --bg-input: #1a1a19;
+  --bg-input: #232124;
 }
 
 body.theme-bg {
