@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Repository for accessing meal entry data.
  */
-public interface MealEntryRepository extends JpaRepository<MealEntry, Integer> {
+public interface MealRepository extends JpaRepository<Meal, Integer> {
 
     /**
      * Finds all meals for a user ordered from newest to oldest.
@@ -16,7 +16,7 @@ public interface MealEntryRepository extends JpaRepository<MealEntry, Integer> {
      * @param uid User ID
      * @return List of meals for that user.
      */
-    List<MealEntry> findByUserUidOrderByConsumedDateDesc(int uid);
+    List<Meal> findByUserUidOrderByConsumedDateDesc(int uid);
 
     /**
      * Finds all meals for a user within a time range.
@@ -26,5 +26,5 @@ public interface MealEntryRepository extends JpaRepository<MealEntry, Integer> {
      * @param end   End date/time
      * @return List of meals in that range.
      */
-    List<MealEntry> findByUserUidAndConsumedDateBetween(int uid, LocalDateTime start, LocalDateTime end);
+    List<Meal> findByUserUidAndConsumedDateBetween(int uid, LocalDateTime start, LocalDateTime end);
 }
