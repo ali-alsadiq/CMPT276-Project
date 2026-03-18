@@ -5,10 +5,12 @@
     <div th:fragment="navbar(activePage)" class="h-100">
         <!-- Desktop Sidebar -->
         <div id="sidebar-container" 
-            class="d-none d-md-flex flex-column h-100 p-3 bg-secondary flex-shrink-0" 
-            style="width: 85px;">
+            class="d-none d-md-flex flex-column h-100 p-3 bg-surface flex-shrink-0" 
+            style="width: 100px;">
             
-            <div th:replace="~{fragments/navbarUpper :: navbar-upper(activePage=${activePage})}"></div>
+            <div class="bg-main rounded-4 py-4 px-3 w-100">
+                <div th:replace="~{fragments/navbarUpper :: navbar-upper(activePage=${activePage})}"></div>
+            </div>
 
             <div class="mt-auto d-flex justify-content-center w-100 mb-4 px-0">
                 <a href="/logout" class="nav-link text-danger p-2 rounded" title="Logout">
