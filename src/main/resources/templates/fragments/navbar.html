@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
     <div th:fragment="navbar(activePage)" class="d-flex flex-column h-100 p-3 bg-secondary flex-shrink-0" style="width: 110px; position: fixed; top: 0; left: 0; z-index: 1050;">
-        
+
         <!-- Upper Navbar Pod -->
         <div id="dynamic-sidebar-container" style="position: relative; width: 78px;"> 
             <div id="dynamic-sidebar" class="bg-primary rounded-4 py-3 px-0 pod-collapsed" style="border: var(--outline-main); position: absolute; z-index: 1060;">
@@ -12,21 +12,19 @@
 
         <!-- Lower Navbar (Stays fixed) -->
         <div class="mt-auto d-flex flex-column align-items-center gap-4 pb-3">
-            <a href="#" class="text-white fs-5 text-decoration-none" title="Toggle Theme">
+            <a href="#" class="text-white text-decoration-none" title="Toggle Theme">
                 <i class="fa-solid fa-moon"></i>
             </a>
-            <a href="#" class="text-white fs-5 text-decoration-none" title="Settings">
+            <a href="#" class="text-white text-decoration-none" title="Settings">
                 <i class="fa-solid fa-gear"></i>
             </a>
             <a href="/logout" 
                class="d-flex justify-content-center align-items-center text-white text-decoration-none rounded-3" 
                style="width: 60px; height: 60px; background-color: var(--bg-input); border: var(--outline-main);" 
                title="Logout">
-                <i class="fa-solid fa-arrow-right-from-bracket fs-5"></i>
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </a>
         </div>
-        
     </div>
-
 </body>
 </html>

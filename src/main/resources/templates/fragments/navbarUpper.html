@@ -1,5 +1,6 @@
 <div th:fragment="navbar-upper(activePage)" class="d-flex flex-column w-100" th:if="${session.session_user != null}">
     <div class="mb-4 mt-2 d-flex flex-column gap-3 w-100">    
+
         <!-- User Info -->
         <div class="d-flex align-items-center">
             <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 76px;">
@@ -30,10 +31,9 @@
         <a th:href="@{/adminDashboard}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'adminDashboard' ? 'bg-accent-1 text-black' : 'text-white'}"
-           title="Admin Dashboard">
+           th:classappend="${activePage == 'adminDashboard' ? 'bg-accent-1 text-black' : 'text-white'}">
 
-            <i class="fa-solid fa-unlock flex-shrink-0 text-center fs-5" style="width: 60px;"></i>
+            <i class="fa-solid fa-unlock flex-shrink-0 text-center" style="width: 60px;"></i>
 
             <span class="sidebar-text fw-semibold">Admin Dashboard</span>
         </a>
@@ -41,10 +41,9 @@
         <a th:href="@{/dashboard}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'dashboard' ? 'bg-accent-1 text-black' : 'text-white'}"
-           title="Dashboard">
+           th:classappend="${activePage == 'dashboard' ? 'bg-accent-1 text-black' : 'text-white'}">
 
-            <i class="fa-solid fa-arrow-up-right-dots flex-shrink-0 text-center fs-5" style="width: 60px;"></i>
+            <i class="fa-solid fa-arrow-up-right-dots flex-shrink-0 text-center" style="width: 60px;"></i>
 
             <span class="sidebar-text fw-semibold">Dashboard</span>
         </a>
@@ -52,10 +51,9 @@
         <a th:href="@{/calorieTracker}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'calorieTracker' ? 'bg-accent-1 text-black' : 'text-white'}"
-           title="Calorie Tracker">
+           th:classappend="${activePage == 'calorieTracker' ? 'bg-accent-1 text-black' : 'text-white'}">
 
-            <i class="fa-solid fa-apple-whole flex-shrink-0 text-center fs-5" style="width: 60px;"></i>
+            <i class="fa-solid fa-apple-whole flex-shrink-0 text-center" style="width: 60px;"></i>
 
             <span class="sidebar-text fw-semibold">Calorie Tracker</span>
         </a>
@@ -63,11 +61,10 @@
         <a th:href="@{/add-workout}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'add-workout' ? 'bg-accent-1 text-black' : 'text-white'}"
-           title="Workout Tracker">
+           th:classappend="${activePage == 'add-workout' ? 'bg-accent-1 text-black' : 'text-white'}">
 
-            <i class="fa-solid fa-dumbbell flex-shrink-0 text-center fs-5" style="width: 60px;"></i>
-            
+            <i class="fa-solid fa-dumbbell flex-shrink-0 text-center" style="width: 60px;"></i>
+
             <span class="sidebar-text fw-semibold">Workout Tracker</span>
         </a>
     </div>
