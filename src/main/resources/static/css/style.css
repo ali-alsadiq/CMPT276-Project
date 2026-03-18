@@ -7,7 +7,12 @@
   --text-secondary: #8b8a87;
   --text-main: #ffffff;
   --btn-primary: #c1c1a9;
+  --bg-secondary: #1c1c1b;
   --text-accent: #7AEEFF;
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary) !important;
 }
 
 body.theme-bg {
