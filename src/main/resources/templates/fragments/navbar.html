@@ -8,7 +8,7 @@
             class="d-none d-md-flex flex-column h-100 p-3 bg-secondary flex-shrink-0" 
             style="width: 100px;">
             
-            <div class="bg-primary rounded-4 p-3 w-100">
+            <div class="bg-primary rounded-4 p-3 w-100" style="border: var(--outline-main);">
                 <div th:replace="~{fragments/navbarUpper :: navbar-upper(activePage=${activePage})}"></div>
             </div>
 
@@ -23,7 +23,7 @@
 
                 <a href="/logout" class="nav-link p-0" title="Logout">
                     <div class="d-flex justify-content-center align-items-center rounded-3 bg-input text-white shadow-sm" 
-                         style="width: 50px; height: 50px; font-size: 1.3rem; transition: all 0.2s ease;">
+                         style="width: 50px; height: 50px; font-size: 1.3rem; transition: all 0.2s ease; border: var(--outline-main);">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </div>
                 </a>

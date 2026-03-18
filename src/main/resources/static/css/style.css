@@ -15,6 +15,9 @@
   
   /* Input Background */
   --bg-input: #232124;
+
+  /* Global Outline */
+  --outline-main: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .bg-input {
