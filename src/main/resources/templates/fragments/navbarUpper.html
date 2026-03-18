@@ -11,48 +11,47 @@
         </div>
     </div>
     
-    <ul class="nav flex-column gap-4 w-100 align-items-center" style="font-size: 14px;">
+    <ul class="nav flex-column gap-3 w-100 align-items-center" style="font-size: 14px;">
         
-        <li class="nav-item w-100 px-1">
-            <a th:href="@{/adminDashboard}" class="nav-link rounded px-0 py-2 d-flex justify-content-center align-items-center fw-semibold text-nowrap"
-               th:classappend="${activePage == 'adminDashboard' ? 'bg-accent text-black' : 'text-white'}"
-               title="Admin Dashboard">
-                <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 40px; font-size: 1.2rem;">
+        <li class="nav-item w-100 px-1 d-flex justify-content-center">
+            <a th:href="@{/adminDashboard}" class="nav-link p-0" title="Admin Dashboard">
+                <div class="d-flex justify-content-center align-items-center rounded-3 shadow-sm" 
+                     style="width: 50px; height: 50px; font-size: 1.3rem; transition: all 0.2s ease;"
+                     th:classappend="${activePage == 'adminDashboard' ? 'bg-accent-1 text-black' : 'bg-input text-white'}">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
             </a>
         </li>
         
-        <li class="nav-item w-100 px-2">
-            <a th:href="@{/dashboard}" class="nav-link rounded px-0 py-2 d-flex justify-content-center align-items-center fw-semibold text-nowrap"
-               th:classappend="${activePage == 'dashboard' ? 'bg-accent text-black' : 'text-white'}"
-               title="Dashboard">
-                <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 40px; font-size: 1.2rem;">
+        <li class="nav-item w-100 px-1 d-flex justify-content-center">
+            <a th:href="@{/dashboard}" class="nav-link p-0" title="Dashboard">
+                <div class="d-flex justify-content-center align-items-center rounded-3 shadow-sm" 
+                     style="width: 50px; height: 50px; font-size: 1.3rem; transition: all 0.2s ease;"
+                     th:classappend="${activePage == 'dashboard' ? 'bg-accent-1 text-black' : 'bg-input text-white'}">
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
             </a>
         </li>
         
-        <li class="nav-item w-100 px-2">
-            <a th:href="@{/calorieTracker}" class="nav-link rounded px-0 py-2 d-flex justify-content-center align-items-center fw-semibold text-nowrap"
-               th:classappend="${activePage == 'calorieTracker' ? 'bg-accent text-black' : 'text-white'}"
-               title="Calorie Tracker">
-                <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 40px; font-size: 1.2rem;">
+        <li class="nav-item w-100 px-1 d-flex justify-content-center">
+            <a th:href="@{/calorieTracker}" class="nav-link p-0" title="Calorie Tracker">
+                <div class="d-flex justify-content-center align-items-center rounded-3 shadow-sm" 
+                     style="width: 50px; height: 50px; font-size: 1.3rem; transition: all 0.2s ease;"
+                     th:classappend="${activePage == 'calorieTracker' ? 'bg-accent-1 text-black' : 'bg-input text-white'}">
                     <i class="fa-solid fa-apple-whole"></i>
                 </div>
             </a>
         </li>
         
-        <li class="nav-item w-100 px-2">
-            <a th:href="@{/add-workout}" class="nav-link rounded px-0 py-2 d-flex justify-content-center align-items-center fw-semibold text-nowrap"
-               th:classappend="${activePage == 'add-workout' ? 'bg-accent text-black' : 'text-white'}"
-               title="Workout Tracker">
-                <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 40px; font-size: 1.2rem;">
+        <li class="nav-item w-100 px-1 d-flex justify-content-center">
+            <a th:href="@{/add-workout}" class="nav-link p-0" title="Workout Tracker">
+                <div class="d-flex justify-content-center align-items-center rounded-3 shadow-sm" 
+                     style="width: 50px; height: 50px; font-size: 1.3rem; transition: all 0.2s ease;"
+                     th:classappend="${activePage == 'add-workout' ? 'bg-accent-1 text-black' : 'bg-input text-white'}">
                     <i class="fa-solid fa-dumbbell"></i>
                 </div>
             </a>
         </li>
-        
     </ul>
 </div>
 
