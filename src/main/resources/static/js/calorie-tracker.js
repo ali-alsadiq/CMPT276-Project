@@ -1,130 +1,128 @@
-// Progress Circle Animation
-document.querySelectorAll(".progress-circle").forEach(circle => {
-    const value = circle.style.getPropertyValue("--value").trim();
-    const text = circle.querySelector(".progress-value");
-    if (text) text.textContent = `${value}%`;
-});
+// TODO:
+// - Entire page should scroll down, currently the entire page (incl the bottom) moves down
+// - Add profile picutres to messages
+// - Move response sequence to a helper function
+// - Implement food serving display cards
+// - Implement actual API returns
 
-// Helper for safe event listeners
+// --- UTILITIES & HELPERS ---
+
+// Helper: Safely attach event listeners without crashing if the button is missing
 const addSafeListener = (id, event, callback) => {
     const el = document.getElementById(id);
     if (el) el.addEventListener(event, callback);
 };
 
-// ADD MEAL / SEARCH PANEL (Legacy or optional)
-addSafeListener("add-meal-btn", "click", () => {
-    const panel = document.getElementById("meal-search-panel");
-    if (panel) panel.classList.toggle("active");
-});
+// Helper: A modern "sleep" function. Tells JavaScript to pause for X milliseconds.
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-addSafeListener("meal-search-btn", "click", async () => {
-    const input = document.getElementById("meal-search-input");
-    const results = document.getElementById("meal-search-results");
-    if (!input || !results) return;
 
-    const query = input.value.trim();
-    if (!query) return;
+// --- UI INITIALIZATION ---
 
-    try {
-        results.innerHTML = `<p class="meal-result-meta">Analyzing meal...</p>`;
-        const response = await fetch(`/api/nutrition?query=${encodeURIComponent(query)}`);
+// Progress Circle Animaton
+document.querySelectorAll(".progress-circle").forEach(circle => {
+    const value = circle.style.getPropertyValue("--value").trim();
+    const text = circle.querySelector(".progress-value");
 
-        if (!response.ok) throw new Error("Failed to fetch nutrition data");
-
-        const foods = await response.json();
-
-        if (!foods || foods.length === 0) {
-            results.innerHTML = `<p class="meal-result-meta">No foods found.</p>`;
-            return;
-        }
-
-        let html = "";
-        foods.forEach(food => {
-            html += `
-                <div class="meal-result-item">
-                    <div class="meal-result-info">
-                        <p class="meal-result-name">${food.name ?? "Unknown food"}</p>
-                        <p class="meal-result-meta">
-                            ${food.calories ?? 0} cal • ${food.fat_total_g ?? 0}g fat • ${food.carbohydrates_total_g ?? 0}g carbs
-                        </p>
-                    </div>
-                    <button class="meal-result-add-btn" type="button">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </button>
-                </div>
-            `;
-        });
-        results.innerHTML = html;
-    } catch (error) {
-        console.error(error);
-        results.innerHTML = `<p class="meal-result-meta">Something went wrong while fetching nutrition data.</p>`;
+    if (text) {
+        text.textContent = `${value}%`;
     }
 });
 
-// CHATBOT MESSAGE HANDLING
-const appendMessage = (text) => {
+// Handles chat messages
+const appendMessage = (text, sender = 'user') => {
     const chatHistory = document.getElementById("chat-history");
     if (!chatHistory) return;
 
     const messageWrapper = document.createElement('div');
-    messageWrapper.className = 'd-flex justify-content-end w-100 chat-bubble-wrapper';
-
     const messageBubble = document.createElement('div');
-    messageBubble.className = 'bg-accent-1 text-black rounded-4 px-3 py-2 shadow-sm';
+    
+    // Style differently based on who is talking
+    if (sender === 'user') {
+        messageWrapper.className = 'd-flex justify-content-end w-100 chat-bubble-wrapper mb-3';
+        messageBubble.className = 'bg-accent-1 text-black rounded-4 px-3 py-2 shadow-sm';
+    } 
+    
+    else if (sender == 'response') {
+        messageWrapper.className = 'd-flex justify-content-start w-100 chat-bubble-wrapper mb-3';
+        messageBubble.className = 'text-white rounded-4 px-3 py-2 shadow-sm';
+        messageBubble.style.backgroundColor = 'var(--bg-input)'; 
+    }
+
     messageBubble.style.maxWidth = '85%';
     messageBubble.style.wordBreak = 'break-word';
     messageBubble.textContent = text;
 
+    // Attach to page and auto-scroll
     messageWrapper.appendChild(messageBubble);
     chatHistory.appendChild(messageWrapper);
-    chatHistory.scrollTop = chatHistory.scrollHeight;
+    
+    chatHistory.scrollTo({
+        top: chatHistory.scrollHeight,
+        behavior: 'smooth'
+    });
 };
 
-const activateChatMode = () => {
+
+// --- CORE CHATBOX AND WELCOME LOGIC ---
+
+// Handles user message input
+const handleMessageSend = async () => {
     const container = document.getElementById("logging-container");
     const input = document.getElementById("logging-input");
-    if (!input || input.value.trim() === "") return;
+    
+    if (!input || input.value.trim() === "") {
+        return;
+    }
 
+    // Capture text and immediately clear the input box
     const messageText = input.value.trim();
-    input.value = "";
+    input.value = ""; 
 
     const isFirstMessage = !container.classList.contains("chat-mode");
 
+    // Animation for first message
     if (isFirstMessage) {
         const welcome = document.getElementById("welcome-section");
+        
+        container.classList.add("chat-mode"); // Trigger CSS animations
 
-        // ONE trigger: adding chat-mode drives all CSS transitions simultaneously
-        // - welcome fades + slides down (0.5s)
-        // - spacers collapse (0.7s)
-        // - chat-history expands (0.7s)
-        container.classList.add("chat-mode");
-
-        // Hide welcome from layout after its transition finishes
         if (welcome) {
             welcome.addEventListener("transitionend", () => {
                 welcome.style.display = "none";
             }, { once: true });
         }
 
-        // Append bubble after layout transitions complete (0.7s + small buffer)
-        setTimeout(() => {
-            appendMessage(messageText);
-        }, 800);
+        await delay(600);
+        appendMessage(messageText, 'user');
+        
+        // Inital message response
+        await delay(800);
+        appendMessage("Got it! I'm analyzing those macros for you now...", 'response');
 
-    } else {
-        appendMessage(messageText);
+    } 
+    
+    // Subsequent messages
+    else {
+        appendMessage(messageText, 'user');
+        
+        // Subsequent message response
+        await delay(800);
+        appendMessage("I've added that to your daily total.", 'response');
     }
 };
 
-// Listeners for sending the message
-addSafeListener("send-meal-btn", "click", activateChatMode);
+
+// --- EVENT LISTENERS ---
+
+addSafeListener("send-meal-btn", "click", handleMessageSend);
 
 const loggingInput = document.getElementById("logging-input");
 if (loggingInput) {
     loggingInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault(); // Stops Enter from making a new line in the textarea
-            activateChatMode();
+            e.preventDefault(); 
+            handleMessageSend();
         }
     });
 }

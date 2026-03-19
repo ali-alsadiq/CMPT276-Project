@@ -10,17 +10,17 @@
                 <!-- Top spacer: pushes content to center; collapses in chat-mode -->
                 <div class="top-spacer" style="flex-grow: 1;"></div>
 
-                <!-- Welcome text: fades down on first send -->
+                <!-- Welcome text -->
                 <div id="welcome-section" class="w-100 mb-3 ps-2" style="max-width: 600px;">
                     <p class="text-secondary mb-0">Hi <span th:text="${session.session_user?.firstname}">User</span>,</p>
                     <h3 class="text-white fw-bold">Let's Add a Meal!</h3>
                 </div>
 
-                <!-- Scrollable chat history: hidden initially, expands in chat-mode -->
+                <!-- Chat history: hidden initially, expands in chat-mode -->
                 <div id="chat-history" class="w-100 d-flex flex-column overflow-auto px-2 mb-3" style="max-width: 600px;">
                 </div>
 
-                <!-- Input: fades down on first send, reappears at bottom in chat-mode -->
+                <!-- Chat Input Box: shifts down on first send -->
                 <div id="input-section" class="w-100" style="max-width: 600px;">
                     <div class="p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
                         <textarea id="logging-input" class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-2"
