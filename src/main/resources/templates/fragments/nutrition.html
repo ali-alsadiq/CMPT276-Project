@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="nutrition" class="bg-primary rounded-4 p-4 pb-5">
+    <h4 class="mb-4 text-secondary">Nutrition</h4>
+    
+    <div class="mb-5 px-2">
+        <div class="progress-bar-container">
+            <div class="progress-labels progress-labels-bottom">
+                <span>Calories</span>
+                <span th:text="${totalPercent} + '%'">67%</span>
+            </div>
+            <div class="progress-bar-fill" th:style="'--value: ' + ${totalPercent}">
+                <div class="progress-labels progress-labels-top">
+                    <span>Calories</span>
+                    <span th:text="${totalPercent} + '%'">67%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-start align-items-center gap-4 px-2">
+        <div class="progress-wrapper">
+            <div class="progress-circle progress-circle-small"
+                role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                th:attr="aria-valuenow=${proteinPercent}"
+                th:style="'--value:' + ${proteinPercent} + '; --progress-color: #f3c7cf;'">
+                <div class="progress-inner">
+                    <span class="progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
+                    <span class="progress-sublabel">Protein</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-circle progress-circle-small"
+                role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                th:attr="aria-valuenow=${carbsPercent}"
+                th:style="'--value:' + ${carbsPercent} + '; --progress-color: #bfdbe9;'">
+                <div class="progress-inner">
+                    <span class="progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
+                    <span class="progress-sublabel">Carbs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-circle progress-circle-small"
+                role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                th:attr="aria-valuenow=${macrosPercent}"
+                th:style="'--value:' + ${macrosPercent} + '; --progress-color: #ede4d4;'">
+                <div class="progress-inner">
+                    <span class="progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
+                    <span class="progress-sublabel">Fats</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-circle progress-circle-small"
+                role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                aria-valuenow="59"
+                style="--value: 59; --progress-color: #dbcdf0;">
+                <div class="progress-inner">
+                    <span class="progress-value-small">59%</span>
+                    <span class="progress-sublabel">Fibre</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
