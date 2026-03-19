@@ -99,3 +99,40 @@ body.theme-bg {
   color: #000000 !important;
   border-color: #a8a892 !important;
 }
+
+.login-bg-image {
+  background-image: url('/images/login-beach.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.login-bg-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* add a subtle dark overlay to ensure text is readable */
+  z-index: 1;
+}
+
+.login-bg-image > * {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-white {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.btn-white:hover, .btn-white:active, .btn-white:focus {
+  background-color: #e2e2e2 !important;
+  color: #000000 !important;
+  border-color: #e2e2e2 !important;
+}
