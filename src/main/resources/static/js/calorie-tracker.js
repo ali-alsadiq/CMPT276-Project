@@ -61,23 +61,69 @@ addSafeListener("meal-search-btn", "click", async () => {
     }
 });
 
-// CHATBOT MODE TRANSITION
+// CHATBOT MESSAGE HANDLING
+const appendMessage = (text) => {
+    const chatHistory = document.getElementById("chat-history");
+    if (!chatHistory) return;
+
+    const messageWrapper = document.createElement('div');
+    messageWrapper.className = 'd-flex justify-content-end w-100 chat-bubble-wrapper';
+
+    const messageBubble = document.createElement('div');
+    messageBubble.className = 'bg-accent-1 text-black rounded-4 px-3 py-2 shadow-sm';
+    messageBubble.style.maxWidth = '85%';
+    messageBubble.style.wordBreak = 'break-word';
+    messageBubble.textContent = text;
+
+    messageWrapper.appendChild(messageBubble);
+    chatHistory.appendChild(messageWrapper);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+};
+
 const activateChatMode = () => {
     const container = document.getElementById("logging-container");
     const input = document.getElementById("logging-input");
-    if (container && input && input.value.trim() !== "") {
+    if (!input || input.value.trim() === "") return;
+
+    const messageText = input.value.trim();
+    input.value = "";
+
+    const isFirstMessage = !container.classList.contains("chat-mode");
+
+    if (isFirstMessage) {
+        const welcome = document.getElementById("welcome-section");
+
+        // ONE trigger: adding chat-mode drives all CSS transitions simultaneously
+        // - welcome fades + slides down (0.5s)
+        // - spacers collapse (0.7s)
+        // - chat-history expands (0.7s)
         container.classList.add("chat-mode");
-        input.value = ""; // Clear the text box
+
+        // Hide welcome from layout after its transition finishes
+        if (welcome) {
+            welcome.addEventListener("transitionend", () => {
+                welcome.style.display = "none";
+            }, { once: true });
+        }
+
+        // Append bubble after layout transitions complete (0.7s + small buffer)
+        setTimeout(() => {
+            appendMessage(messageText);
+        }, 800);
+
+    } else {
+        appendMessage(messageText);
     }
 };
 
+// Listeners for sending the message
 addSafeListener("send-meal-btn", "click", activateChatMode);
 
 const loggingInput = document.getElementById("logging-input");
 if (loggingInput) {
     loggingInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
+            e.preventDefault(); // Stops Enter from making a new line in the textarea
             activateChatMode();
         }
     });

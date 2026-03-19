@@ -230,7 +230,6 @@
     gap: 0.85rem;
     background: transparent;
     border-bottom: 1px solid var(--bg-secondary);
-    transition: transform 0.2s ease;
     padding: 1.25rem 0;
     width: 100%;
 }
@@ -239,10 +238,7 @@
     border-bottom: none;
 }
 
-.meal-row:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-1);
-}
+
 
 .meal-image {
     width: 44px;
@@ -440,38 +436,58 @@
    Chatbot Transition Styles
 ───────────────────────────────────────── */
 
-.transition-spacer {
+/* Welcome message fades and slides down when chat-mode is added */
+#welcome-section {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#logging-container.chat-mode #welcome-section {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+}
+
+/* Spacers collapse when chat-mode is added */
+.top-spacer,
+.bottom-spacer {
     transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.transition-all-slow {
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#welcome-section {
-    max-height: 200px;
-    opacity: 1;
-    transform: translateY(0);
-    overflow: hidden;
-}
-
+#logging-container.chat-mode .top-spacer,
 #logging-container.chat-mode .bottom-spacer {
     flex-grow: 0 !important;
 }
 
-#logging-container.chat-mode #welcome-section {
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(-20px);
-    margin-bottom: 0 !important;
-    pointer-events: none;
+/* Chat history expands when chat-mode is added */
+#chat-history {
+    flex-grow: 0;
+    overflow: hidden;
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#logging-container.chat-mode #input-section {
-    padding-bottom: 1rem;
+#logging-container.chat-mode #chat-history {
+    flex-grow: 1;
+    overflow: auto;
 }
 
 #logging-container {
     height: 100%;
     width: 100%;
 }
+
+.chat-bubble-wrapper {
+    animation: bubbleEnter 0.35s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    margin-bottom: 0.75rem;
+}
+
+@keyframes bubbleEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
