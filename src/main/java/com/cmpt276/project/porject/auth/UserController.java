@@ -138,6 +138,12 @@ public class UserController {
         // If username and password are correct, log the user in
         else {
             User user = users.get(0);
+
+            // Ensure existing users without rank profiles have them persisted
+            if (user.getRankProfile().getId() == 0) {
+                userRepository.save(user);
+            }
+
             request.getSession().setAttribute("session_user", user);
 
             if (user.isAdmin()) {
