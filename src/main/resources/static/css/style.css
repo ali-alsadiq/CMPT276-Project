@@ -1,16 +1,15 @@
-:root {
-  /* --- Dark Mode --- */
-  
+/* --- Dark Mode --- */
+:root[data-theme="dark"] {
   /* Main Background Colors */
-  --bg-secondary: #111111;   /* Very dark gray/black used for the main application background */
   --bg-primary: #181718; /* Slightly lighter gray used for surface elements like cards and panels */
+  --bg-secondary: #111111;   /* Very dark gray/black used for the main application background */
   --bg-accent: #6a6a67;    /* Mid-tone gray/brown used for inputs and subtle active states */
 
   /* Text Colors */
   --text-primary: #ffffff;   /* Pure white for primary readable text */
   --text-secondary: #b1b1ae; /* Muted but readable gray for placeholders and secondary text */
 
-  /* Brand Accents */
+  /* Accents */
   --accent-1: #cf9fff;
   
   /* Input Background */
@@ -20,8 +19,42 @@
   --outline-main: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.bg-input {
-  background-color: var(--bg-input) !important;
+/* --- Light Mode --- */
+:root[data-theme="light"] {
+  /* Main Background Colors */
+  --bg-primary: #ffffff;     /* Pure white for panels */
+  --bg-secondary: #f1f2f7;
+  --bg-accent: #f1eff2;      /* Light gray for inputs */
+
+  /* Text Colors */
+  --text-primary: #181718;   /* Near-black for readability */
+  --text-secondary: #6c757d; /* Muted gray */
+
+  /* Accents */
+  --accent-1: #cf9fff; 
+  
+  /* Input Background */
+  --bg-input: #f1eff2;
+
+  /* Global Outline */
+  --outline-main: 1px solid rgba(125, 125, 125, 0.1);
+}
+
+.text-theme-icon {
+    color: var(--text-primary) !important; 
+}
+
+.text-theme-primary {
+  color: var(--text-primary) !important;
+}
+
+.bg-static-accent {
+  background-color: #cf9fff !important;
+}
+
+.btn-send-theme {
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
 }
 
 .bg-secondary {
@@ -31,10 +64,6 @@
 body.theme-bg {
   background-color: var(--bg-primary) !important;
   color: var(--text-primary) !important;
-}
-
-.bg-secondary {
-  background-color: var(--bg-secondary) !important;
 }
 
 .bg-primary {
@@ -52,10 +81,6 @@ body.theme-bg {
 
 .bg-accent-1 {
   background-color: var(--accent-1) !important;
-}
-
-.text-accent-1 {
-  color: var(--accent-1) !important;
 }
 
 .theme-input {
@@ -122,17 +147,4 @@ body.theme-bg {
 .login-bg-image > * {
   position: relative;
   z-index: 2;
-}
-
-.btn-white {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-color: #ffffff !important;
-  font-weight: 600 !important;
-}
-
-.btn-white:hover, .btn-white:active, .btn-white:focus {
-  background-color: #e2e2e2 !important;
-  color: #000000 !important;
-  border-color: #e2e2e2 !important;
 }

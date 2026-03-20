@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/618d4f1d54.js" crossorigin="anonymous"></script>
     <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/theme.js"></script>
 </head>
 <body class="theme-bg overflow-hidden vh-100 m-0">
     <div class="d-flex h-100 w-100">
@@ -19,23 +20,23 @@
             <div class="theme-bg-container p-4 rounded-4" style="max-width: 500px;">
                 <form method="post" th:action="@{/add-workout}">
                     <div class="mb-3">
-                        <label for="activity" class="form-label text-white-50">Activity</label>
+                        <label for="activity" class="form-label text-secondary">Activity</label>
                         <input type="text" class="form-control theme-input" id="activity" name="activity" placeholder="e.g. Running, Weightlifting" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="duration" class="form-label text-white-50">Duration (minutes)</label>
+                        <label for="duration" class="form-label text-secondary">Duration (minutes)</label>
                         <input type="number" class="form-control theme-input" id="duration" name="duration" min="1" placeholder="30" required>
                     </div>
 
                     <button class="btn btn-primary w-100 fw-bold mt-2" type="submit">CALCULATE CALORIES</button>
                 </form>
 
-                <div th:if="${workout != null}" class="mt-4 p-3 rounded bg-dark">
+                <div th:if="${workout != null}" class="mt-4 p-3 rounded bg-accent">
                     <h5 class="text-accent mb-2">Results:</h5>
-                    <p class="mb-1 text-white">Activity: <strong th:text="${workout.workoutName}"></strong></p>
-                    <p class="mb-1 text-white">Duration: <strong th:text="${workout.duration}"></strong> mins</p>
-                    <p class="mb-0 text-white">Estimated Burn: <strong class="text-accent" th:text="${workout.calsBurned}"></strong> kcal</p>
+                    <p class="mb-1 text-main">Activity: <strong th:text="${workout.workoutName}"></strong></p>
+                    <p class="mb-1 text-main">Duration: <strong th:text="${workout.duration}"></strong> mins</p>
+                    <p class="mb-0 text-main">Estimated Burn: <strong class="text-accent" th:text="${workout.calsBurned}"></strong> kcal</p>
                 </div>
             </div>
         </div>

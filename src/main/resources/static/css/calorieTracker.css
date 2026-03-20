@@ -177,7 +177,7 @@
 }
 
 .progress-labels-top {
-    color: var(--bg-primary);
+    color: #181718;
     width: calc(10000% / var(--value));
     min-width: 400px; /* Fallback for very small fill values */
 }

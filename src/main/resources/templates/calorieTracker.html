@@ -9,6 +9,7 @@
     <link href="/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/calorieTracker.css">
     <link rel="stylesheet" href="/css/navbar.css">
+    <script src="/js/theme.js"></script>
 </head>
 <body class="theme-bg vh-100 m-0 overflow-hidden">
 
@@ -32,23 +33,23 @@
                             <div id="welcome-section" class="w-100 transition-all-slow" style="max-width: 600px;">
                                 <div class="text-start mb-4 ps-2">
                                     <p class="text-secondary mb-0">Hi <span th:text="${session.session_user.firstname}">User</span>,</p>
-                                    <h3 class="text-white fw-bold">Let's Add a Meal!</h3>
+                                    <h3 class="text-theme-primary fw-bold">Let's Add a Meal!</h3>
                                 </div>
                             </div>
 
                             <div id="input-section" class="w-100 transition-all-slow" style="max-width: 600px;">
                                 <div class="p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: var(--outline-main);">
-                                    <textarea id="logging-input" class="form-control bg-transparent border-0 text-white shadow-none px-2 pt-2 mb-2" 
+                                    <textarea id="logging-input" class="form-control bg-transparent border-0 text-theme-primary shadow-none px-2 pt-2 mb-2" 
                                             rows="3" 
                                             placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..." 
                                             style="resize: none; outline: none;"></textarea>
 
                                     <div class="d-flex justify-content-between align-items-center px-2 pb-1">
-                                        <div class="text-white" style="cursor: pointer;">
+                                        <div class="text-theme-primary" style="cursor: pointer;">
                                             <i class="fa-solid fa-circle-plus fs-5"></i>
                                         </div>
                                         
-                                        <div id="send-meal-btn" class="bg-white text-theme-dark rounded-circle d-flex align-items-center justify-content-center" 
+                                        <div id="send-meal-btn" class="btn-send-theme rounded-circle d-flex align-items-center justify-content-center" 
                                             style="width: 36px; height: 36px; cursor: pointer;">
                                             <i class="fa-solid fa-arrow-up"></i>
                                         </div>
@@ -68,10 +69,10 @@
                         <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
                             <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
                                 <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>
-                                <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search meals" style="outline: none;">
+                                <input type="text" class="bg-transparent border-0 text-theme-primary w-100" placeholder="Search meals" style="outline: none;">
                             </div>
                             
-                            <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
+                            <div class="text-theme-primary rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
                                 <i class="fa-regular fa-calendar text-secondary"></i>
                                 <span class="text-secondary">Today</span>
                             </div>

@@ -4,7 +4,7 @@
         <!-- User Info -->
         <div class="d-flex align-items-center">
             <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 76px;">
-                <div class="rounded-3" style="width: 56px; height: 56px; background-color: var(--bg-input);"></div>
+                <div class="rounded-3" style="width: 56px; height: 56px; background-color: #232124;"></div>
             </div>
             
             <div class="sidebar-text d-flex flex-column justify-content-center">
@@ -15,13 +15,13 @@
 
         <!-- RR -->
         <div class="w-100 px-3">
-            <div class="d-flex justify-content-between align-items-center mb-2 text-nowrap overflow-hidden" style="font-size: 0.75rem; color: var(--text-secondary);">
+            <div class="d-flex justify-content-between align-items-center mb-2 text-nowrap overflow-hidden" style="font-size: 0.75rem; color: #b1b1ae;">
                 <span class="fw-bold flex-shrink-0 text-white" th:text="${session.session_user?.rankProfile?.rr} + ' RR'">0 RR</span>
                 <span class="sidebar-text" th:text="${session.session_user?.rankProfile?.rr + @rankService.getPointsToNextRank(session.session_user?.rankProfile?.rr)} + ' RR'">100 RR</span>
             </div>
 
             <div class="progress" style="height: 4px; background-color: rgba(255,255,255,0.1);">
-                <div class="progress-bar bg-accent-1" role="progressbar" th:style="'width: ' + ${@rankService.getProgressPercentage(session.session_user?.rankProfile?.rr)} + '%'"></div>
+                <div class="progress-bar" style="background-color: #cf9fff;" role="progressbar" th:style="'width: ' + ${@rankService.getProgressPercentage(session.session_user?.rankProfile?.rr)} + '%; background-color: #cf9fff;'"></div>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <a th:href="@{/adminDashboard}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'adminDashboard' ? 'bg-accent-1 text-black' : 'text-white'}">
+           th:classappend="${activePage == 'adminDashboard' ? 'bg-static-accent text-black' : 'text-white'}">
 
             <i class="fa-solid fa-unlock flex-shrink-0 text-center" style="width: 60px;"></i>
 
@@ -41,7 +41,7 @@
         <a th:href="@{/dashboard}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'dashboard' ? 'bg-accent-1 text-black' : 'text-white'}">
+           th:classappend="${activePage == 'dashboard' ? 'bg-static-accent text-black' : 'text-white'}">
 
             <i class="fa-solid fa-arrow-up-right-dots flex-shrink-0 text-center" style="width: 60px;"></i>
 
@@ -51,7 +51,7 @@
         <a th:href="@{/calorieTracker}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'calorieTracker' ? 'bg-accent-1 text-black' : 'text-white'}">
+           th:classappend="${activePage == 'calorieTracker' ? 'bg-static-accent text-black' : 'text-white'}">
 
             <i class="fa-solid fa-apple-whole flex-shrink-0 text-center" style="width: 60px;"></i>
 
@@ -61,7 +61,7 @@
         <a th:href="@{/add-workout}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden" 
            style="height: 60px; transition: all 0.2s ease; border-radius: 12px;"
-           th:classappend="${activePage == 'add-workout' ? 'bg-accent-1 text-black' : 'text-white'}">
+           th:classappend="${activePage == 'add-workout' ? 'bg-static-accent text-black' : 'text-white'}">
 
             <i class="fa-solid fa-dumbbell flex-shrink-0 text-center" style="width: 60px;"></i>
 

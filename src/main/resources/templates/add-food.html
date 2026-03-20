@@ -12,11 +12,11 @@
   </head>
   <body class="theme-bg overflow-auto vh-100 m-0">
     <div class="container mt-4 mb-5">
-      <h1 class="text-white">Food Nutrition Calculator</h1>
+      <h1 class="text-theme-primary">Food Nutrition Calculator</h1>
 
       <form method="post" th:action="@{/add-food}">
         <div class="mb-3">
-          <label for="foodDescription" class="form-label text-white"
+          <label for="foodDescription" class="form-label text-theme-primary"
             >Describe food consumed:</label
           >
           <input
@@ -42,7 +42,7 @@
       </div>
 
       <div th:if="${mealFoods != null and !mealFoods.isEmpty()}" class="mt-4">
-        <h2 class="text-white">Foods Described:</h2>
+        <h2 class="text-theme-primary">Foods Described:</h2>
 
         <div class="row">
           <div th:each="foodItem : ${mealFoods}" class="col-md-6 mb-3">
@@ -65,7 +65,7 @@
         <form method="post" th:action="@{/meals/add}" class="mt-4">
           <div class="row">
             <div class="col-md-4 mb-3">
-              <label for="mealType" class="form-label text-white"
+              <label for="mealType" class="form-label text-theme-primary"
                 >Meal Type</label
               >
               <input
@@ -79,7 +79,7 @@
             </div>
 
             <div class="col-md-4 mb-3">
-              <label for="consumedDate" class="form-label text-white"
+              <label for="consumedDate" class="form-label text-theme-primary"
                 >Consumed Date and Time</label
               >
               <input

@@ -5,22 +5,24 @@
 
         <!-- Upper Navbar Pod -->
         <div id="dynamic-sidebar-container" style="position: relative; width: 78px;"> 
-            <div id="dynamic-sidebar" class="bg-primary rounded-4 py-3 px-0 pod-collapsed" style="border: var(--outline-main); position: absolute; z-index: 1060;">
+            <div id="dynamic-sidebar" class="rounded-4 py-3 px-0 pod-collapsed" style="background-color: #181718; border: 1px solid rgba(255, 255, 255, 0.05); position: absolute; z-index: 1060;">
                 <div th:replace="~{fragments/navbarUpper :: navbar-upper(activePage=${activePage})}"></div>
             </div>
         </div>
 
         <!-- Lower Navbar (Stays fixed) -->
         <div class="mt-auto d-flex flex-column align-items-center gap-4 pb-3">
-            <a href="#" class="text-white text-decoration-none" title="Toggle Theme">
-                <i class="fa-solid fa-moon"></i>
+            <a href="#" id="theme-toggle" class="text-theme-icon text-decoration-none" title="Toggle Theme">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
             </a>
-            <a href="#" class="text-white text-decoration-none" title="Settings">
+
+            <a href="#" class="text-theme-icon text-decoration-none" title="Settings">
                 <i class="fa-solid fa-gear"></i>
             </a>
+
             <a href="/logout" 
                class="d-flex justify-content-center align-items-center text-white text-decoration-none rounded-3" 
-               style="width: 60px; height: 60px; background-color: var(--bg-input); border: var(--outline-main);" 
+               style="width: 60px; height: 60px; background-color: #232124; border: 1px solid rgba(255, 255, 255, 0.05);" 
                title="Logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </a>
