@@ -1,0 +1,54 @@
+/* Welcome message fades and slides down when chat-mode is added */
+#welcome-section {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#logging-container.chat-mode #welcome-section {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+}
+
+/* Spacers collapse when chat-mode is added */
+.top-spacer,
+.bottom-spacer {
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#logging-container.chat-mode .top-spacer,
+#logging-container.chat-mode .bottom-spacer {
+    flex-grow: 0 !important;
+}
+
+/* Chat history expands when chat-mode is added */
+#chat-history {
+    flex-grow: 0;
+    overflow: hidden;
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#logging-container.chat-mode #chat-history {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+#logging-container {
+    height: 100%;
+    width: 100%;
+}
+
+.chat-bubble-wrapper {
+    animation: bubbleEnter 0.35s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    margin-bottom: 0.75rem;
+}
+
+@keyframes bubbleEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

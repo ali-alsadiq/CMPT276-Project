@@ -1,59 +1,10 @@
-/* ─────────────────────────────────────────
-   Progress Rings
-───────────────────────────────────────── */
-
-.progress-top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    padding: 1.25rem 1rem;
-    border-radius: 18px;
-    background: var(--bg-secondary);
-}
+/* PROGRESS RINGS */
 
 .progress-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-}
-
-.progress-wrapper-total {
-    flex-shrink: 0;
-}
-
-.progress-legend {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-    min-width: 160px;
-}
-
-.progress-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.75rem;
-    color: var(--text-primary);
-}
-
-.progress-legend-dot {
-    font-size: 0.85rem;
-}
-
-.progress-bottom {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    align-items: stretch;
-}
-
-.progress-bottom .progress-wrapper {
-    padding: 1rem 0.75rem;
-    border-radius: 18px;
-    background: var(--bg-secondary);
 }
 
 .progress-circle {
@@ -104,11 +55,6 @@
     z-index: 1;
 }
 
-.progress-circle-total {
-    --size: 160px;
-    --thickness: 18px;
-}
-
 .progress-circle-small {
     --size: 105px;
     --thickness: 12px;
@@ -131,9 +77,8 @@
     line-height: 1.1;
 }
 
-/* ─────────────────────────────────────────
-   Progress Bar
-───────────────────────────────────────── */
+/* PROGRESS BAR */
+
 .progress-bar-container {
     position: relative;
     height: 34px;
@@ -191,15 +136,6 @@
     margin-top: 2px;
 }
 
-
-
-.progress-label {
-    margin: 0;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
 @property --animated-value {
     syntax: "<number>";
     inherits: true;
@@ -211,17 +147,7 @@
     to   { --animated-value: var(--value); }
 }
 
-
-/* ─────────────────────────────────────────
-   Meal Log
-───────────────────────────────────────── */
-
-.logged-meals-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin-left: auto;
-}
+/* MEAL LOG */
 
 .meal-row {
     display: flex;
@@ -236,8 +162,6 @@
 .meal-row:last-child {
     border-bottom: none;
 }
-
-
 
 .meal-image {
     width: 44px;
@@ -281,161 +205,8 @@
     font-size: 0.75rem;
 }
 
+/* CHAT MODE TRANSITIONS */
 
-/* ─────────────────────────────────────────
-   Add Meal Button & Search Panel
-───────────────────────────────────────── */
-
-.meal-log-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-#add-meal-btn {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    background-color: var(--accent-1);
-    color: var(--bg-primary);
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    box-shadow: -4px 6px 16px rgba(0,0,0,0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#add-meal-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: -6px 10px 20px rgba(0,0,0,0.45);
-}
-
-.meal-search-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 1rem;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(-8px);
-    pointer-events: none;
-    transition:
-        max-height 0.35s ease,
-        opacity 0.25s ease,
-        transform 0.25s ease,
-        padding 0.25s ease,
-        margin-top 0.25s ease;
-}
-
-.meal-search-panel.active {
-    max-height: 500px;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    padding: 1rem;
-    margin-top: 0.5rem;
-}
-
-.meal-search-box {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-}
-
-.meal-search-input {
-    flex: 1;
-    padding: 0.85rem 1rem;
-    border: 1px solid transparent;
-    border-radius: 14px;
-    outline: none;
-}
-
-.meal-search-btn {
-    padding: 0.85rem 1.2rem;
-    border: none;
-    border-radius: 14px;
-    background-color: var(--accent-1);
-    color: var(--bg-primary);
-    font-weight: 700;
-    transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.meal-search-btn:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.05);
-}
-
-.meal-search-results {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    min-height: 40px;
-}
-
-
-/* ─────────────────────────────────────────
-   Search Result Items (populated by API)
-───────────────────────────────────────── */
-
-.meal-result-item {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding: 0.85rem 1rem;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.meal-result-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.meal-result-info {
-    flex: 1;
-}
-
-.meal-result-name {
-    margin: 0;
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-.meal-result-meta {
-    margin: 0.2rem 0 0;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.meal-result-add-btn {
-    box-shadow: -4px 6px 16px rgba(0,0,0,0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: none;
-    border-radius: 12px;
-    padding: 0.65rem 1rem;
-    background: var(--accent-1);
-    color: var(--bg-primary);
-    font-weight: 700;
-}
-
-.meal-result-add-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: -6px 10px 20px rgba(0,0,0,0.45);
-}
-
-/* ─────────────────────────────────────────
-   Chatbot Transition Styles
-───────────────────────────────────────── */
-
-/* Welcome message fades and slides down when chat-mode is added */
 #welcome-section {
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
@@ -446,7 +217,6 @@
     pointer-events: none;
 }
 
-/* Spacers collapse when chat-mode is added */
 .top-spacer,
 .bottom-spacer {
     transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -457,7 +227,6 @@
     flex-grow: 0 !important;
 }
 
-/* Chat history expands when chat-mode is added */
 #chat-history {
     flex-grow: 0;
     overflow-y: hidden;
@@ -495,11 +264,8 @@
     }
 }
 
-/* ==========================================
-   CHATBOT ANIMATIONS
-========================================== */
+/* CHAT MESSAGE ANIMATIONS */
 
-/* The Breathing Avatar */
 @keyframes breathe {
     0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
     50% { transform: scale(1.1); box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
@@ -514,4 +280,3 @@
 .fade-text {
     transition: opacity 0.3s ease-in-out;
 }
-
