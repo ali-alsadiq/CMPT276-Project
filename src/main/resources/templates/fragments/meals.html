@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="meals" class="bg-primary rounded-4 p-4 d-flex flex-column flex-grow-1 overflow-hidden">
-    <h4 class="mb-4 text-secondary">Meals</h4>
-    <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
-        <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
-            <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>
-            <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search meals" style="outline: none;">
-        </div>
+    <div th:fragment="meals" class="bg-primary rounded-4 p-4 d-flex flex-column flex-grow-1 overflow-hidden">
         
-        <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
-            <i class="fa-regular fa-calendar text-secondary"></i>
-            <span class="text-secondary">Today</span>
-        </div>
-    </div>
-
-    <div class="overflow-auto pe-3">
-        <div class="meal-row" th:each="meal : ${meals}">
-            <img src="" alt="Meal image" class="meal-image">
-            <div class="meal-info">
-                <div class="meal-name-row">
-                    <span class="meal-name" th:text="${meal.name}">Chicken Salad</span>
-                    <span class="meal-cals" th:text="${meal.calories} + ' cals'">420 cals</span>
-                </div>
-                <span class="meal-meta" th:text="${meal.protein} + 'g protein · ' + ${meal.fats} + 'g fats · ' + ${meal.carbs} + 'g carbs'">24g protein · 18g fats · 19g carbs</span>
+        <!-- Header Section -->
+        <h4 class="mb-4 text-secondary">Meals</h4>
+        <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
+            <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
+                <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>
+                <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search meals" style="outline: none;">
             </div>
-        </div>
-        
-        <!-- Placeholder Meal Rows for UI demo -->
-        <div class="meal-row">
-            <img src="" alt="Meal image" class="meal-image">
-            <div class="meal-info">
-                <div class="meal-name-row">
-                    <span class="meal-name">Chicken Salad</span>
-                    <span class="meal-cals">420 cals</span>
-                </div>
-                <span class="meal-meta">24g protein · 18g fats · 19g carbs</span>
+            
+            <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
+                <i class="fa-regular fa-calendar text-secondary"></i>
+                <span class="text-secondary">Today</span>
             </div>
         </div>
 
-        <div class="meal-row">
-            <img src="" alt="Meal image" class="meal-image">
-            <div class="meal-info">
-                <div class="meal-name-row">
-                    <span class="meal-name">Beef Rice Bowl</span>
-                    <span class="meal-cals">610 cals</span>
+        <!-- Scrollable Meal List -->
+        <div class="overflow-auto pe-3">
+
+            <!-- Placeholder Meal Rows -->
+            <div class="meal-row" th:each="meal : ${meals}">
+                <img src="" alt="Meal image" class="meal-image">
+                <div class="meal-info">
+                    <div class="meal-name-row">
+                        <span class="meal-name" th:text="${meal.name}">Chicken Salad</span>
+                        <span class="meal-cals" th:text="${meal.calories} + ' cals'">420 cals</span>
+                    </div>
+                    <span class="meal-meta" th:text="${meal.protein} + 'g protein · ' + ${meal.fats} + 'g fats · ' + ${meal.carbs} + 'g carbs'">24g protein · 18g fats · 19g carbs</span>
                 </div>
-                <span class="meal-meta">35g protein · 22g fats · 58g carbs</span>
+            </div>
+            
+            <div class="meal-row">
+                <img src="" alt="Meal image" class="meal-image">
+                <div class="meal-info">
+                    <div class="meal-name-row">
+                        <span class="meal-name">Chicken Salad</span>
+                        <span class="meal-cals">420 cals</span>
+                    </div>
+                    <span class="meal-meta">24g protein · 18g fats · 19g carbs</span>
+                </div>
+            </div>
+
+            <div class="meal-row">
+                <img src="" alt="Meal image" class="meal-image">
+                <div class="meal-info">
+                    <div class="meal-name-row">
+                        <span class="meal-name">Beef Rice Bowl</span>
+                        <span class="meal-cals">610 cals</span>
+                    </div>
+                    <span class="meal-meta">35g protein · 22g fats · 58g carbs</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

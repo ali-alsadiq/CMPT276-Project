@@ -150,7 +150,6 @@
     position: relative;
     overflow: hidden; 
     border-radius: 50px; 
-    box-shadow: 0 0 20px rgba(193, 193, 169, 0.8);
 }
 
 @keyframes fillWidth {
@@ -461,18 +460,23 @@
 /* Chat history expands when chat-mode is added */
 #chat-history {
     flex-grow: 0;
-    overflow: hidden;
+    overflow-y: hidden;
+    min-height: 0;
     transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #logging-container.chat-mode #chat-history {
     flex-grow: 1;
-    overflow: auto;
+    overflow-y: hidden;
+    min-height: 0;
+    flex-basis: 0;
+    height: 0;
 }
 
 #logging-container {
     height: 100%;
     width: 100%;
+    min-height: 0;
 }
 
 .chat-bubble-wrapper {
@@ -490,4 +494,5 @@
         transform: translateY(0);
     }
 }
+
 

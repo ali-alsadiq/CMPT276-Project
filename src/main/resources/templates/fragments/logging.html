@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="logging" class="col-lg-7 d-flex flex-column overflow-hidden">
-        <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column">
+    <div th:fragment="logging" class="col-lg-7 d-flex flex-column overflow-hidden" style="min-height: 0;">
+        <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column" style="min-height: 0;">
 
             <h4 class="mb-4 text-secondary">Logging</h4>
-            <div id="logging-container" class="flex-grow-1 d-flex flex-column align-items-center overflow-hidden">
+            
+            <div id="logging-container" class="flex-grow-1 d-flex flex-column align-items-center overflow-hidden" style="min-height: 0;">
 
                 <!-- Top spacer: pushes content to center; collapses in chat-mode -->
                 <div class="top-spacer" style="flex-grow: 1;"></div>
@@ -17,7 +18,7 @@
                 </div>
 
                 <!-- Chat history: hidden initially, expands in chat-mode -->
-                <div id="chat-history" class="w-100 d-flex flex-column overflow-auto px-2 mb-3" style="max-width: 600px;">
+                <div id="chat-history" class="w-100 d-flex flex-column overflow-hidden px-2 mb-3" style="max-width: 600px; min-height: 0;">
                 </div>
 
                 <!-- Chat Input Box: shifts down on first send -->
