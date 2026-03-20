@@ -83,7 +83,7 @@ public class TrackerController {
         int maxDailyCalories = Math.max(1, Math.max(WEEKLY_WORKOUT_GOAL / 7, findMax(dailyCalories)));
 
         List<String> dayLabels = List.of("M", "T", "W", "Th", "F", "Sa", "Su");
-        List<String> dayColors = List.of("#f3c7cf", "#bfdbe9", "#ede4d4", "#dbcdf0", "#c7e8ca", "#f7d9a6", "#a7d8de");
+        List<String> dayColors = List.of("#962EFF", "#3A86FF", "#00F5FF", "#A8FF60", "#39FF14", "#FFC857", "#FF5C8A");
         List<WorkoutDaySummary> workoutWeek = new ArrayList<>();
 
         for (int i = 0; i < 7; i++) {

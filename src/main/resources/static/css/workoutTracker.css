@@ -1,5 +1,31 @@
+/* REUSABLE NEON SS BACKGROUNDS: */
+
+.neon-heat {
+    background:
+    radial-gradient(circle at 80% 20%, rgba(173, 92, 255, 0.25), transparent 30%),
+    radial-gradient(circle at 20% 80%, rgba(105, 0, 209, 0.2), transparent 35%),
+    radial-gradient(circle at center, rgba(207, 159, 255, 0.08), transparent 50%),
+    var(--bg-primary);
+}
+
+.neon-glow {
+    background:
+    radial-gradient(circle at top right, rgba(150, 46, 255, 0.18), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(207, 159, 255, 0.12), transparent 40%),
+    var(--bg-primary);
+}
+
+.gradient-tr {
+    background:
+    radial-gradient(circle at top right, rgba(150, 46, 255, 0.18), transparent 35%),
+    var(--bg-primary);
+}
+
+
+/* Workout styles */
+
 .workout-shell {
-    min-height: 100vh;
+    height: 100vh;
     margin-left: 280px;
     padding: 2rem;
 }
@@ -9,7 +35,6 @@
 }
 
 .tracker-panel {
-    background: var(--bg-primary);
     border-radius: 28px;
     padding: 2rem;
     display: flex;
@@ -20,12 +45,6 @@
 
 .tracker-panel-form {
     justify-content: space-between;
-}
-
-.tracker-panel-analytics {
-    background:
-        radial-gradient(circle at top right, rgba(199, 232, 202, 0.15), transparent 30%),
-        var(--bg-primary);
 }
 
 .eyebrow {
@@ -106,17 +125,24 @@
 
 .tracker-submit:hover,
 .tracker-submit:focus {
-    background: #d6d6bc;
+    background: #DBB8FF;
     color: #172018;
 }
 
 .result-card,
 .recent-workouts {
-    border-radius: 22px;
+    border-radius: 10px;
     background: var(--bg-input);
     padding: 1.2rem 1.25rem;
 }
 
+.recent-workouts {
+    position: relative;
+    max-height: 35vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--accent-1) var(--bg-input);
+}
 .result-kicker,
 .workout-name,
 .summary-total {
@@ -270,8 +296,12 @@
 
 @media (max-width: 1199px) {
     .workout-shell {
+        height: 100vh;
+        overflow-y: auto;
         margin-left: 0;
         padding: 1rem;
+        scrollbar-width: 1rem;
+        scrollbar-color: var(--bg-secondary) var(--bg-secondary);
     }
 
     .workout-main-card {
@@ -295,3 +325,4 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+

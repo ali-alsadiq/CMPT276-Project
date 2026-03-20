@@ -16,10 +16,10 @@
         <div class="workout-main-card">
             <div class="row g-4 h-100">
                 <div class="col-xl-7 d-flex">
-                    <section class="tracker-panel tracker-panel-form w-100">
+                    <section class="tracker-panel tracker-panel-form neon-heat w-100">
                         <div>
                             <p class="eyebrow mb-2">Workout Tracker</p>
-                            <h1 class="panel-title">Log a workout and watch your weekly burn build up.</h1>
+                            <h1 class="panel-title">LOG WORKOUT</h1>
                             <p class="panel-copy">sweat off that calories and see the numbers burned throughout the week.</p>
                         </div>
 
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="col-xl-5 d-flex">
-                    <section class="tracker-panel tracker-panel-analytics w-100">
+                    <section class="tracker-panel tracker-panel-analytics gradient-tr w-100">
                         <div class="analytics-header">
                             <div>
                                 <p class="eyebrow mb-2">Weekly Progress</p>
@@ -63,7 +63,7 @@
                                 <div class="progress-circle progress-circle-total"
                                      role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                      th:attr="aria-valuenow=${weeklyWorkoutPercent}"
-                                     th:style="'--value:' + ${weeklyWorkoutPercent} + '; --progress-color: #c7e8ca;'">
+                                     th:style="'--value:' + ${weeklyWorkoutPercent} + '; --progress-color: #00F5FF;'">
                                     <div class="progress-inner">
                                         <span class="progress-value" th:text="${weeklyWorkoutPercent} + '%'">0%</span>
                                         <span class="progress-sublabel">Week Total</span>

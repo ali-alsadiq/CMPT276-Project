@@ -1,20 +1,17 @@
 :root {
   /* --- Dark Mode --- */
-  
-  /* Main Background Colors */
-  --bg-primary: #141413;   /* Very dark gray/black used for the main application background */
-  --bg-secondary: #222220; /* Slightly lighter gray used for surface elements like cards and panels */
-  --bg-accent: #6a6a67;    /* Mid-tone gray/brown used for inputs and subtle active states */
 
-  /* Text Colors */
-  --text-primary: #ffffff;   /* Pure white for primary readable text */
-  --text-secondary: #b1b1ae; /* Muted but readable gray for placeholders and secondary text */
+  --bg-secondary: #111111;
+  --bg-primary: #181718; 
+  --bg-accent: #DBB8FF;
 
-  /* Brand Accents */
-  --accent-1: #c1c1a9;
-  
-  /* Input Background */
-  --bg-input: #1a1a19;
+  --text-primary: #ffffff;
+  --text-secondary: #b1b1ae;
+
+
+  --accent-1: #cf9fff;
+
+  --bg-input: #232124;
 }
 
 body.theme-bg {
@@ -88,3 +85,4 @@ body.theme-bg {
   color: #000000 !important;
   border-color: #a8a892 !important;
 }
+
