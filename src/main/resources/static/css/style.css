@@ -17,6 +17,10 @@
 
   /* Global Outline */
   --outline-main: 1px solid rgba(255, 255, 255, 0.05);
+
+  /* Card Themes */
+  --card-border: var(--outline-main);
+  --card-shadow: none;
 }
 
 /* --- Light Mode --- */
@@ -38,6 +42,10 @@
 
   /* Global Outline */
   --outline-main: 1px solid rgba(125, 125, 125, 0.1);
+
+  /* Card Themes */
+  --card-border: 1px solid transparent;
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
 }
 
 .text-theme-icon {
@@ -68,6 +76,9 @@ body.theme-bg {
 
 .bg-primary {
   background-color: var(--bg-primary) !important;
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition: all 0.5s ease;
 }
 
 .theme-bg-container {
