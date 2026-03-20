@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.trackers.nutrition.Food;
 
 /**
  * Service for handling meal-related business logic.
@@ -22,9 +21,10 @@ import com.cmpt276.project.porject.trackers.nutrition.Food;
  * - Weekly totals always run from Monday to Sunday.
  */
 @Service
-public class MealEntryService {
+public class MealService {
+    
     @Autowired
-    private MealEntryRepository mealEntryRepository;
+    private MealRepository mealEntryRepository;
 
     /**
      * Adds a new meal for a user.
@@ -35,13 +35,7 @@ public class MealEntryService {
      * @param foods        List of foods in the meal.
      */
     public void addMeal(User user, String mealType, LocalDateTime consumedDate, List<Food> foods) {
-        MealEntry mealEntry = new MealEntry(user, mealType, consumedDate);
-
-        for (Food food : foods) {
-            food.setMealEntry(mealEntry);
-        }
-
-        mealEntry.setFoods(foods);
+        Meal mealEntry = new Meal(user, mealType, consumedDate, foods);
         mealEntryRepository.save(mealEntry);
     }
 
@@ -51,7 +45,7 @@ public class MealEntryService {
      * @param uid User ID
      * @return List of meal entries
      */
-    public List<MealEntry> getUserMeals(int uid) {
+    public List<Meal> getUserMeals(int uid) {
         return mealEntryRepository.findByUserUidOrderByConsumedDateDesc(uid);
     }
 
@@ -61,7 +55,7 @@ public class MealEntryService {
      * @param mealEntry Meal entry
      * @return Map containing nutrition totals for the meal
      */
-    public Map<String, Double> getMealTotals(MealEntry mealEntry) {
+    public Map<String, Double> getMealTotals(Meal mealEntry) {
         Map<String, Double> totals = createEmptyTotals();
 
         for (Food food : mealEntry.getFoods()) {
@@ -77,10 +71,10 @@ public class MealEntryService {
      * @param meals List of meals
      * @return Map containing combined nutrition totals
      */
-    public Map<String, Double> getTotalsForMeals(List<MealEntry> meals) {
+    public Map<String, Double> getTotalsForMeals(List<Meal> meals) {
         Map<String, Double> totals = createEmptyTotals();
 
-        for (MealEntry meal : meals) {
+        for (Meal meal : meals) {
             for (Food food : meal.getFoods()) {
                 addFoodToTotals(totals, food);
             }
@@ -101,7 +95,7 @@ public class MealEntryService {
         LocalDateTime start = today.atStartOfDay();
         LocalDateTime end = today.plusDays(1).atStartOfDay();
 
-        List<MealEntry> meals = mealEntryRepository.findByUserUidAndConsumedDateBetween(uid, start, end);
+        List<Meal> meals = mealEntryRepository.findByUserUidAndConsumedDateBetween(uid, start, end);
 
         return getTotalsForMeals(meals);
     }
@@ -121,7 +115,7 @@ public class MealEntryService {
         LocalDateTime start = monday.atStartOfDay();
         LocalDateTime end = monday.plusDays(7).atStartOfDay();
 
-        List<MealEntry> meals = mealEntryRepository.findByUserUidAndConsumedDateBetween(uid, start, end);
+        List<Meal> meals = mealEntryRepository.findByUserUidAndConsumedDateBetween(uid, start, end);
 
         return getTotalsForMeals(meals);
     }
@@ -140,7 +134,7 @@ public class MealEntryService {
         LocalDateTime start = firstDayOfMonth.atStartOfDay();
         LocalDateTime end = firstDayOfNextMonth.atStartOfDay();
 
-        List<MealEntry> meals = mealEntryRepository.findByUserUidAndConsumedDateBetween(uid, start, end);
+        List<Meal> meals = mealEntryRepository.findByUserUidAndConsumedDateBetween(uid, start, end);
 
         return getTotalsForMeals(meals);
     }

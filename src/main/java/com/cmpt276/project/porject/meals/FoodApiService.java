@@ -1,4 +1,4 @@
-package com.cmpt276.project.porject.trackers.nutrition;
+package com.cmpt276.project.porject.meals;
 
 import java.util.ArrayList;
 import java.util.List;

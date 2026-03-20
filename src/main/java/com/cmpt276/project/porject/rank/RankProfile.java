@@ -22,8 +22,14 @@ public class RankProfile {
     private int id;
 
     // Automatically set to 0 if user does not have a rank profile
+<<<<<<< HEAD
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int rr;
+=======
+    @Column(name = "rr", nullable = false)
+    @org.hibernate.annotations.ColumnDefault("0")
+    private int rr = 0;
+>>>>>>> origin/main
 
     // Transient field, not stored in the database
     @Transient
