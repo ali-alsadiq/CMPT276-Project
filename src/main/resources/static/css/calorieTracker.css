@@ -495,4 +495,23 @@
     }
 }
 
+/* ==========================================
+   CHATBOT ANIMATIONS
+========================================== */
+
+/* The Breathing Avatar */
+@keyframes breathe {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+    50% { transform: scale(1.1); box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.avatar-breathing {
+    animation: breathe 1.4s infinite ease-in-out;
+}
+
+/* The Fading Text */
+.fade-text {
+    transition: opacity 0.3s ease-in-out;
+}
 
