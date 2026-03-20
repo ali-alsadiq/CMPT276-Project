@@ -9,6 +9,12 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+
+import com.cmpt276.project.porject.rank.RankProfile;
 
 /**
  * Represents a user in the system.
@@ -38,18 +44,12 @@ public class User {
     private double weight;
     private int caloriesDailyGoal;
 
-    /*
-     * // private int rr;
-     * 
-     * // @Transient
-     * // private String rank;
-     * 
-     * // @Transient
-     * // private String rankImageName;
-     */
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
+    private RankProfile rankProfile;
 
     public User() {
-
+        this.rankProfile = new RankProfile();
     }
 
     public User(String firstname, String lastname, String username, String password, String role) {
@@ -58,16 +58,10 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
     }
 
     // -- Getters and Setters --
-
-    /**
-     * User ID (Primary Key)
-     * 
-     * @return Unique database ID for this user.
-     *         - Use this to link to other tables!
-     */
     public int getUid() {
         return uid;
     }
@@ -160,48 +154,11 @@ public class User {
         return this.role.equals("ADMIN");
     }
 
-    // public int getRR() {
-    // return rr;
-    // }
+    public RankProfile getRankProfile() {
+        return rankProfile;
+    }
 
-    // public void setRR(int rr) {
-    // this.rr = rr;
-    // }
-
-    // public String getRank() {
-    // return rank;
-    // }
-
-    // public void setRank(String rank) {
-    // this.rank = rank;
-    // }
-
-    // public String getRankImageName() {
-    // return rankImageName;
-    // }
-
-    // public void setRankImageName(String rankImageName) {
-    // this.rankImageName = rankImageName;
-    // }
-
-    // Getters and setters here allow for the navbar fragment to be standlone
-    // Instead of being handled by the controller for every page, handled by the
-    // user model itself
-    // public boolean isMaxRank() {
-    // return this.rr >= 1500;
-    // }
-
-    // public int getPointsToNextRank() {
-    // if (isMaxRank()) {
-    // return 0;
-    // }
-    // return 100 - (this.rr % 100);
-    // }
-
-    // public int getProgressPercentage() {
-    // if (isMaxRank()) {
-    // return 100;
-    // }
-    // return this.rr % 100;
-    // }
+    public void setRankProfile(RankProfile rankProfile) {
+        this.rankProfile = rankProfile;
+    }
 }

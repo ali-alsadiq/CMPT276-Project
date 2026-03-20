@@ -1,7 +1,5 @@
 package com.cmpt276.project.porject.auth;
 
-// import com.cmpt276.project.porject.RankService;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
