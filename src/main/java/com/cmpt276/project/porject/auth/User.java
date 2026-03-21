@@ -155,6 +155,9 @@ public class User {
     }
 
     public RankProfile getRankProfile() {
+        if (this.rankProfile == null) {
+            this.rankProfile = new RankProfile();
+        }
         return rankProfile;
     }
 
