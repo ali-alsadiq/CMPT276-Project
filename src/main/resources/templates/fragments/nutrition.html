@@ -26,8 +26,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:attr="aria-valuenow=${proteinPercent}"
-                    th:style="'--value:' + ${proteinPercent} + '; --progress-color: #f3c7cf;'">
+                    th:style="'--value:' + ${proteinPercent} + '; --theme-accent: #f3c7cf;'">
                     <div class="progress-inner">
                         <span class="progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
                         <span class="progress-sublabel">Protein</span>
@@ -39,8 +38,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:attr="aria-valuenow=${carbsPercent}"
-                    th:style="'--value:' + ${carbsPercent} + '; --progress-color: #bfdbe9;'">
+                    th:style="'--value:' + ${carbsPercent} + '; --theme-accent: #bfdbe9;'">
                     <div class="progress-inner">
                         <span class="progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
                         <span class="progress-sublabel">Carbs</span>
@@ -52,8 +50,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:attr="aria-valuenow=${macrosPercent}"
-                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #ede4d4;'">
+                    th:style="'--value:' + ${macrosPercent} + '; --theme-accent: #ede4d4;'">
                     <div class="progress-inner">
                         <span class="progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                         <span class="progress-sublabel">Fats</span>
@@ -65,8 +62,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    aria-valuenow="59"
-                    style="--value: 59; --progress-color: #dbcdf0;">
+                    style="--value: 59; --theme-accent: #dbcdf0;">
                     <div class="progress-inner">
                         <span class="progress-value-small">59%</span>
                         <span class="progress-sublabel">Fibre</span>
