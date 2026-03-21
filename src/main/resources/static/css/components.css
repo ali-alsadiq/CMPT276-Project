@@ -34,12 +34,17 @@
 /* =========================================
    3. THE PROGRESS RINGS
    ========================================= */
+.progress-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 .progress-circle {
     --value: 0;
     --size: 220px;
     --thickness: 18px;
-    --progress-color: var(--theme-accent);
-    --track-color: rgba(168, 85, 247, 0.1); /* Very faint purple track */
+    --progress-color: var(--accent-1);
+    --track-color: var(--bg-input);
     --animated-value: 0;
 
     width: var(--size);
@@ -51,20 +56,18 @@
     background:
         radial-gradient(circle at 50% calc(var(--thickness) / 2), var(--progress-color) calc(var(--thickness) / 2), transparent 0),
         conic-gradient(var(--progress-color) calc(var(--animated-value) * 1%), var(--track-color) 0);
+    animation: fillProgress 1.8s ease forwards;
 }
 
-/* The inner cutout of the donut */
 .progress-circle::before {
     content: "";
     position: absolute;
     inset: var(--thickness);
-    background-color: var(--theme-bg-card); /* Matches the card it sits on */
+    background-color: var(--bg-primary);
     border-radius: 50%;
     z-index: 2;
-    transition: background-color 0.3s ease;
 }
 
-/* The glowing dot at the end of the line */
 .progress-circle::after {
     content: "";
     position: absolute;
@@ -77,28 +80,17 @@
     transform-origin: 50% calc(var(--size) / 2);
     transform: translateX(-50%) rotate(calc(var(--animated-value) * 3.6deg));
     z-index: 1;
-    box-shadow: var(--theme-ring-shadow); 
+    box-shadow: 0 0 16px color-mix(in srgb, var(--progress-color) 70%, transparent);
 }
 
-/* Size Variants */
-.progress-circle-total { --size: 172px; --thickness: 16px; }
-.progress-circle-small { --size: 92px; --thickness: 10px; }
-
-/* Progress Ring Typography */
-.progress-value {
-    position: relative;
-    z-index: 3;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--theme-text-main);
+.progress-circle-total {
+    --size: 172px;
+    --thickness: 16px;
 }
 
-.progress-value-small {
-    position: relative;
-    z-index: 3;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--theme-text-main);
+.progress-circle-small {
+    --size: 92px;
+    --thickness: 10px;
 }
 
 .progress-inner {
@@ -108,15 +100,30 @@
     flex-direction: column;
     align-items: center;
     line-height: 1.1;
+    text-align: center;
+}
+
+.progress-value,
+.progress-value-small {
+    color: var(--text-primary);
+    font-weight: 800;
+}
+
+.progress-value {
+    font-size: 1.45rem;
+}
+
+.progress-value-small {
+    font-size: 0.95rem;
 }
 
 .progress-sublabel {
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     color: var(--text-secondary);
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
 }
 
 /* Animations */
@@ -129,8 +136,4 @@
 @keyframes fillProgress {
     from { --animated-value: 0; }
     to   { --animated-value: var(--value); }
-}
-
-.progress-circle {
-    animation: fillProgress 1.8s ease forwards;
 }

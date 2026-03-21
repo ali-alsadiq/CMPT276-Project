@@ -57,16 +57,7 @@
     margin-top: 2px;
 }
 
-@property --animated-value {
-    syntax: "<number>";
-    inherits: true;
-    initial-value: 0;
-}
 
-@keyframes fillProgress {
-    from { --animated-value: 0; }
-    to   { --animated-value: var(--value); }
-}
 
 /* MEAL LOG */
 

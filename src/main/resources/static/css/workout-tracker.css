@@ -66,6 +66,8 @@
     font-size: clamp(2rem, 3vw, 3.1rem);
     line-height: 1.05;
     max-width: 12ch;
+    font-weight: 500;
+    letter-spacing: normal;
 }
 
 .panel-subtitle {
@@ -197,96 +199,7 @@
     font-weight: 700;
 }
 
-.progress-wrapper {
-    display: flex;
-    justify-content: center;
-}
 
-.progress-circle {
-    --value: 0;
-    --size: 220px;
-    --thickness: 18px;
-    --progress-color: var(--accent-1);
-    --track-color: var(--bg-input);
-    --animated-value: 0;
-
-    width: var(--size);
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    position: relative;
-    display: grid;
-    place-items: center;
-    background:
-        radial-gradient(circle at 50% calc(var(--thickness) / 2), var(--progress-color) calc(var(--thickness) / 2), transparent 0),
-        conic-gradient(var(--progress-color) calc(var(--animated-value) * 1%), var(--track-color) 0);
-}
-
-.progress-circle::before {
-    content: "";
-    position: absolute;
-    inset: var(--thickness);
-    background-color: var(--bg-primary);
-    border-radius: 50%;
-    z-index: 2;
-}
-
-.progress-circle::after {
-    content: "";
-    position: absolute;
-    width: var(--thickness);
-    height: var(--thickness);
-    background-color: var(--progress-color);
-    border-radius: 50%;
-    top: 0;
-    left: 50%;
-    transform-origin: 50% calc(var(--size) / 2);
-    transform: translateX(-50%) rotate(calc(var(--animated-value) * 3.6deg));
-    z-index: 1;
-    box-shadow: 0 0 16px color-mix(in srgb, var(--progress-color) 70%, transparent);
-}
-
-.progress-circle-total {
-    --size: 172px;
-    --thickness: 16px;
-}
-
-.progress-circle-small {
-    --size: 92px;
-    --thickness: 10px;
-}
-
-.progress-inner {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.1;
-    text-align: center;
-}
-
-.progress-value,
-.progress-value-small {
-    color: var(--text-primary);
-    font-weight: 800;
-}
-
-.progress-value {
-    font-size: 1.45rem;
-}
-
-.progress-value-small {
-    font-size: 0.95rem;
-}
-
-.progress-sublabel {
-    font-size: 0.68rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-top: 0.3rem;
-}
 
 @media (max-width: 1399px) {
     .week-progress-grid {
