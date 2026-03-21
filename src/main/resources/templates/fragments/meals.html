@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="meals" class="bg-primary rounded-4 p-4 d-flex flex-column flex-grow-1 overflow-hidden">
+    <div th:fragment="meals" class="tracker-panel gradient-tr d-flex flex-column flex-grow-1 overflow-hidden" style="min-height: 0;">
         
         <!-- Header Section -->
-        <h4 class="mb-4 text-secondary">Meals</h4>
+        <div class="mb-4">
+            <p class="eyebrow mb-1 text-accent-1">MEALS</p>
+            <h2 class="text-white fw-bold mb-0" style="font-size: 1.35rem;">YOUR LOGS</h2>
+        </div>
         <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
             <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
                 <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>

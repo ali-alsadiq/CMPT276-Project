@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="nutrition" class="bg-primary rounded-4 p-4 pb-5">
-        <h4 class="mb-4 text-secondary">Nutrition</h4>
-        
+    <div th:fragment="nutrition" class="tracker-panel gradient-l d-flex flex-column">
+        <div class="mb-4">
+            <p class="eyebrow mb-1 text-accent-1">NUTRITION</p>
+            <h2 class="text-white fw-bold mb-0" style="font-size: 1.35rem;">CALORIES CONSUMED</h2>
+        </div>
         <!-- Calories -->
-        <div class="mb-5 px-2">
+        <div class="mb-3 px-2">
             <div class="progress-bar-container">
                 <div class="progress-labels progress-labels-bottom">
                     <span>Calories</span>
@@ -17,6 +19,7 @@
                         <span th:text="${totalPercent} + '%'">67%</span>
                     </div>
                 </div>
+                <div class="progress-bar-glow" th:style="'--value: ' + ${totalPercent}"></div>
             </div>
         </div>
 
@@ -26,7 +29,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value:' + ${proteinPercent} + '; --theme-accent: #f3c7cf;'">
+                    th:style="'--value:' + ${proteinPercent} + '; --progress-color: #ffb3ba;'">
                     <div class="progress-inner">
                         <span class="progress-value-small" th:text="${proteinPercent} + '%'">82%</span>
                         <span class="progress-sublabel">Protein</span>
@@ -38,7 +41,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value:' + ${carbsPercent} + '; --theme-accent: #bfdbe9;'">
+                    th:style="'--value:' + ${carbsPercent} + '; --progress-color: #bae1ff;'">
                     <div class="progress-inner">
                         <span class="progress-value-small" th:text="${carbsPercent} + '%'">74%</span>
                         <span class="progress-sublabel">Carbs</span>
@@ -50,7 +53,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value:' + ${macrosPercent} + '; --theme-accent: #ede4d4;'">
+                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #ffffba;'">
                     <div class="progress-inner">
                         <span class="progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                         <span class="progress-sublabel">Fats</span>
@@ -62,7 +65,7 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    style="--value: 59; --theme-accent: #dbcdf0;">
+                    style="--value: 59; --progress-color: #baffc9;">
                     <div class="progress-inner">
                         <span class="progress-value-small">59%</span>
                         <span class="progress-sublabel">Fibre</span>

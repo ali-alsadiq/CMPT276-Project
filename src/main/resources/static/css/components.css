@@ -3,6 +3,7 @@
    ========================================= */
 
 /* The Main Card Container */
+
 .premium-card {
     background: radial-gradient(circle at top right, var(--theme-glow-color), transparent 30%), var(--theme-bg-card);
     border: var(--theme-card-border);
@@ -11,7 +12,56 @@
     transition: all 0.3s ease; /* Smooth fade when toggling modes */
 }
 
+/* TRACKER PANELS */
+
+.tracker-panel {
+    border-radius: 28px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.tracker-panel-form {
+    justify-content: space-between;
+}
+
+.neon-heat {
+    background:
+    radial-gradient(circle at 80% 20%, rgba(173, 92, 255, 0.25), transparent 30%),
+    radial-gradient(circle at 20% 80%, rgba(105, 0, 209, 0.2), transparent 35%),
+    radial-gradient(circle at center, rgba(207, 159, 255, 0.08), transparent 50%),
+    var(--bg-primary);
+}
+
+.neon-glow {
+    background:
+    radial-gradient(circle at top right, rgba(150, 46, 255, 0.18), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(207, 159, 255, 0.12), transparent 40%),
+    var(--bg-primary);
+}
+
+.gradient-tr {
+    background:
+    radial-gradient(circle at top right, rgba(150, 46, 255, 0.18), transparent 35%),
+    var(--bg-primary);
+}
+
+.gradient-l {
+    background:
+    radial-gradient(circle at left, rgba(105, 0, 209, 0.16), transparent 50%),
+    var(--bg-primary);
+}
+
+.gradient-tl {
+    background:
+    radial-gradient(circle at top left, rgba(150, 46, 255, 0.22), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(105, 0, 209, 0.12), transparent 40%),
+    var(--bg-primary);
+}
+
 /* The Typography Scale */
+
 .eyebrow {
     color: var(--theme-accent);
     text-transform: uppercase;
@@ -31,9 +81,8 @@
 }
 
 
-/* =========================================
-   3. THE PROGRESS RINGS
-   ========================================= */
+/* PROGRESS RINGS */
+
 .progress-wrapper {
     display: flex;
     justify-content: center;
@@ -127,6 +176,7 @@
 }
 
 /* Animations */
+
 @property --animated-value {
     syntax: "<number>";
     inherits: true;

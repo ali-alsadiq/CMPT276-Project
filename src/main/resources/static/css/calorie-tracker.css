@@ -18,9 +18,29 @@
     border-radius: 50px; 
 }
 
+.progress-bar-glow {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--value) * 1%);
+    transform: translate(-100%, -50%);
+    width: 34px;
+    height: 34px;
+    background-color: var(--accent-1);
+    border-radius: 50%;
+    box-shadow: 0 0 16px 4px color-mix(in srgb, var(--accent-1) 80%, transparent);
+    animation: moveGlow 1.8s ease-in-out forwards;
+    z-index: 3;
+}
+
 @keyframes fillWidth {
     from { width: 0; }
     to   { width: calc(var(--value) * 1%); }
+}
+
+@keyframes moveGlow {
+    0%   { left: 0%; opacity: 0; }
+    5%   { opacity: 1; }
+    100% { left: calc(var(--value) * 1%); opacity: 1; }
 }
 
 .progress-labels {

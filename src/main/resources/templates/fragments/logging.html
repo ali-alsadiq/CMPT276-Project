@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="logging" class="col-lg-7 d-flex flex-column overflow-hidden" style="min-height: 0;">
-        <div class="bg-primary rounded-4 p-4 h-100 d-flex flex-column" style="min-height: 0;">
+    <div th:fragment="logging" class="col-xl-7 d-flex flex-column overflow-hidden" style="min-height: 0;">
+        <section class="tracker-panel tracker-panel-form gradient-tl h-100 d-flex flex-column" style="min-height: 0;">
 
-            <h4 class="mb-4 text-secondary">Logging</h4>
+            <div class="mb-4">
+                <p class="eyebrow mb-2 text-accent-1">MEAL TRACKER</p>
+                <h1 class="panel-title" style="font-weight: 500; letter-spacing: normal;">LOG MEAL</h1>
+                <p class="panel-copy text-secondary">Record a meal and see your daily macros.</p>
+            </div>
             
             <div id="logging-container" class="flex-grow-1 d-flex flex-column align-items-center overflow-hidden" style="min-height: 0;">
 
