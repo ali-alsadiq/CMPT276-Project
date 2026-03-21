@@ -272,9 +272,20 @@ public class UserController {
         // }
 
         model.addAttribute("totalPercent", 67);
+        model.addAttribute("totalSpent", 1340);
+        model.addAttribute("totalGoal", 2000);
+
         model.addAttribute("proteinPercent", 82);
+        model.addAttribute("proteinSpent", 123);
+        model.addAttribute("proteinGoal", 150);
+
         model.addAttribute("carbsPercent", 74);
+        model.addAttribute("carbsSpent", 185);
+        model.addAttribute("carbsGoal", 250);
+
         model.addAttribute("macrosPercent", 91);
+        model.addAttribute("fatsSpent", 64);
+        model.addAttribute("fatsGoal", 70);
 
         return "calorieTracker";
     }

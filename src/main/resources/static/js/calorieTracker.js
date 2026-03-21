@@ -1,7 +1,7 @@
 // Progress Circle Animation
 document.querySelectorAll(".progress-circle").forEach(circle => {
     const value = circle.style.getPropertyValue("--value").trim();
-    const text = circle.querySelector(".progress-value");
+    const text = circle.querySelector(".progress-value, .progress-value-small");
     if (text) text.textContent = `${value}%`;
 });
 

@@ -1,108 +1,15 @@
-
-/* Page Header */
-.page-header {
-    width: 100%;
-    border-left: solid var(--text-accent) 5px;
-    height: 65px;
-    margin-bottom: 20px;
-    padding-left: 15px;
-
-    opacity: 0;
-    transform: translateY(10px);
-
-    animation: headerFade 0.6s ease forwards;
-}
-
-.page-header h3 {
-    color: var(--text-accent);
-}
-
-.page-header p {
-    font-style: italic;
-    color: var(--bg-input);
-    margin-top: -10px;
-}
-
-@keyframes headerFade {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Nav Sections */
-
-.bottom-nav {
-    list-style: none; 
-    bottom:30px; 
-    left:50%; 
-    transform:translateX(-50%); 
-    width:250px; 
-    padding:0; 
-    margin:0;
-    gap: 5rem;
-}
-
-.bottom-nav li a {
-    padding: 1rem;
-    color: var(--text-accent);
-    border-bottom: 2px solid var(--text-accent);
-    border-left: 2px solid var(--text-accent);
-    border-top: 2px solid transparent;
-    border-right: 2px solid transparent;
-    background-color: transparent;
-    border-bottom-left-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.bottom-nav li a:hover {
-    border: 2px solid var(--text-accent);
-    border-radius: 10px;
-    color: var(--bg-main);
-    background-color: var(--text-accent);
-    transform: scale(1.05);
-}
-
-.progress-grid {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 16px;
-    box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-/* Progress Layout */
-.progress-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1.5rem;
-    min-height: 100%;
-}
-
-.progress-top-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
+/* ─────────────────────────────────────────
+   Progress Rings
+───────────────────────────────────────── */
 
 .progress-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 2rem;
     padding: 1.25rem 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-secondary);
 }
 
 .progress-wrapper {
@@ -128,8 +35,8 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 0.95rem;
-    color: var(--text-main);
+    font-size: 0.75rem;
+    color: var(--text-primary);
 }
 
 .progress-legend-dot {
@@ -137,26 +44,24 @@
 }
 
 .progress-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    align-items: stretch;
 }
 
 .progress-bottom .progress-wrapper {
-    flex: 1;
     padding: 1rem 0.75rem;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
+    background: var(--bg-secondary);
 }
 
 .progress-circle {
     --value: 0;
     --size: 220px;
     --thickness: 18px;
-    --progress-color: var(--bg-accent);
-    --track-color: #2a2a2a;
+    --progress-color: var(--accent-1);
+    --track-color: var(--bg-input);
     --animated-value: 0;
 
     width: var(--size);
@@ -166,10 +71,12 @@
     display: grid;
     place-items: center;
 
-    background: conic-gradient(
-        var(--progress-color) calc(var(--animated-value) * 1%),
-        var(--track-color) 0
-  );
+    background: 
+        radial-gradient(circle at 50% calc(var(--thickness) / 2), var(--progress-color) calc(var(--thickness) / 2), transparent 0),
+        conic-gradient(
+            var(--progress-color) calc(var(--animated-value) * 1%),
+            var(--track-color) 0
+        );
 
     animation: fillProgress 1.8s ease forwards;
 }
@@ -178,31 +85,118 @@
     content: "";
     position: absolute;
     inset: var(--thickness);
-    background-color: var(--bg-main);
+    background-color: var(--bg-primary);
     border-radius: 50%;
+    z-index: 2;
+}
+
+.progress-circle::after {
+    content: "";
+    position: absolute;
+    width: var(--thickness);
+    height: var(--thickness);
+    background-color: var(--progress-color);
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform-origin: 50% calc(var(--size) / 2);
+    transform: translateX(-50%) rotate(calc(var(--animated-value) * 3.6deg));
+    z-index: 1;
 }
 
 .progress-circle-total {
-    --size: 220px;
+    --size: 160px;
     --thickness: 18px;
 }
 
 .progress-circle-small {
-    --size: 110px;
+    --size: 105px;
     --thickness: 12px;
 }
 
 .progress-value {
     position: relative;
-    z-index: 1;
-    font-size: 2rem;
+    z-index: 3;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--text-primary);
 }
 
-.progress-value-small {
-    font-size: 1.1rem;
+.progress-inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
 }
+
+/* ─────────────────────────────────────────
+   Progress Bar
+───────────────────────────────────────── */
+.progress-bar-container {
+    position: relative;
+    height: 34px;
+    background-color: var(--bg-input);
+    border-radius: 50px;
+    /* Removed overflow: hidden to allow fill glow to spill out */
+    user-select: none;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--accent-1);
+    width: calc(var(--value) * 1%);
+    animation: fillWidth 1.8s ease-in-out forwards;
+    position: relative;
+    overflow: hidden; /* This still handles the text masking */
+    border-radius: 50px; /* Matched parent to maintain pill shape */
+    box-shadow: 0 0 20px rgba(193, 193, 169, 0.8);
+}
+
+@keyframes fillWidth {
+    from { width: 0; }
+    to   { width: calc(var(--value) * 1%); }
+}
+
+/* Shared layer for labels */
+.progress-labels {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Bottom layer (Visible on background) */
+.progress-labels-bottom {
+    color: var(--text-secondary);
+}
+
+/* Top layer (Revealed by bar) - Responsively matches the full width of the parent bar */
+.progress-labels-top {
+    color: var(--bg-primary);
+    width: calc(10000% / var(--value));
+    min-width: 400px; /* Fallback for very small fill values */
+}
+
+.progress-sublabel {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+
 
 .progress-label {
     margin: 0;
@@ -213,77 +207,93 @@
 
 @property --animated-value {
     syntax: "<number>";
-    inherits: false;
+    inherits: true;
     initial-value: 0;
 }
 
 @keyframes fillProgress {
-    from {
-        --animated-value: 0;
-    }
-    to {
-        --animated-value: var(--value);
-    }
+    from { --animated-value: 0; }
+    to   { --animated-value: var(--value); }
 }
 
-/* meal logged */
+
+/* ─────────────────────────────────────────
+   Meal Log
+───────────────────────────────────────── */
 
 .logged-meals-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding-bottom: 1rem;
+    gap: 0.6rem;
+    margin-left: auto;
 }
 
-.meal-table-header,
 .meal-row {
-    display: grid;
-    grid-template-columns: 80px 1.8fr 1fr 1fr 1fr;
+    display: flex;
     align-items: center;
-    column-gap: 1rem;
+    gap: 0.85rem;
+    background: transparent;
+    border-bottom: 1px solid var(--bg-secondary);
+    transition: transform 0.2s ease;
+    padding: 1.25rem 0;
+    width: 100%;
 }
 
-.meal-table-header {
-    padding: 0.75rem 1rem;
-    color: var(--text-accent);
-    font-weight: 600;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.meal-row {
-    padding: 0.85rem 1rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+.meal-row:last-child {
+    border-bottom: none;
 }
 
 .meal-row:hover {
     transform: translateY(-2px);
-    border-color: rgba(122, 238, 255, 0.25);
+    border-color: var(--accent-1);
 }
 
 .meal-image {
-    width: 60px;
-    height: 60px;
+    width: 44px;
+    height: 44px;
     object-fit: cover;
     border-radius: 12px;
+    flex-shrink: 0;
     display: block;
 }
 
-.meal-name-col {
-    color: var(--text-main);
+.meal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.meal-name-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.meal-name {
+    color: var(--text-primary);
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
-.meal-calories-col,
-.meal-fats-col,
-.meal-carbs-col {
+.meal-cals {
+    color: var(--accent-1);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.meal-meta {
     color: var(--text-secondary);
+    font-size: 0.75rem;
 }
 
-/* Add meal btn */
+
+/* ─────────────────────────────────────────
+   Add Meal Button & Search Panel
+───────────────────────────────────────── */
 
 .meal-log-section {
     display: flex;
@@ -294,8 +304,8 @@
 #add-meal-btn {
     width: 100%;
     padding: 0.8rem 1rem;
-    background-color: var(--text-accent);
-    color: var(--bg-main);
+    background-color: var(--accent-1);
+    color: var(--bg-primary);
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -315,8 +325,6 @@
     flex-direction: column;
     gap: 1rem;
     padding: 0 1rem;
-    margin-top: 0;
-
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -325,7 +333,6 @@
     overflow: hidden;
     transform: translateY(-8px);
     pointer-events: none;
-
     transition:
         max-height 0.35s ease,
         opacity 0.25s ease,
@@ -339,12 +346,9 @@
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
-
     padding: 1rem;
     margin-top: 0.5rem;
 }
-
-
 
 .meal-search-box {
     display: flex;
@@ -364,8 +368,8 @@
     padding: 0.85rem 1.2rem;
     border: none;
     border-radius: 14px;
-    background-color: var(--bg-accent);
-    color: var(--bg-main);
+    background-color: var(--accent-1);
+    color: var(--bg-primary);
     font-weight: 700;
     transition: transform 0.2s ease, filter 0.2s ease;
 }
@@ -383,6 +387,9 @@
 }
 
 
+/* ─────────────────────────────────────────
+   Search Result Items (populated by API)
+───────────────────────────────────────── */
 
 .meal-result-item {
     display: flex;
@@ -407,7 +414,7 @@
 
 .meal-result-name {
     margin: 0;
-    color: var(--text-main);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -423,8 +430,8 @@
     border: none;
     border-radius: 12px;
     padding: 0.65rem 1rem;
-    background: var(--text-accent);
-    color: var(--bg-main);
+    background: var(--accent-1);
+    color: var(--bg-primary);
     font-weight: 700;
 }
 
