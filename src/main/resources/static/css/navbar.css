@@ -38,3 +38,14 @@
     max-width: 280px !important;
     margin-top: 5px;
 }
+
+.rr-glow {
+    background-color: #cf9fff !important;
+    box-shadow: 0 0 12px rgba(207, 159, 255, 0.8);
+    transition: width 0.3s ease;
+    border-radius: 50px;
+}
+
+#dynamic-sidebar .progress {
+    border-radius: 50px;
+}
