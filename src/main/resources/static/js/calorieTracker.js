@@ -1,7 +1,7 @@
 // Progress Circle Animation
 document.querySelectorAll(".progress-circle").forEach(circle => {
     const value = circle.style.getPropertyValue("--value").trim();
-    const text = circle.querySelector(".progress-value");
+    const text = circle.querySelector(".progress-value, .progress-value-small");
     if (text) text.textContent = `${value}%`;
 });
 
@@ -60,25 +60,3 @@ addSafeListener("meal-search-btn", "click", async () => {
         results.innerHTML = `<p class="meal-result-meta">Something went wrong while fetching nutrition data.</p>`;
     }
 });
-
-// CHATBOT MODE TRANSITION
-const activateChatMode = () => {
-    const container = document.getElementById("logging-container");
-    const input = document.getElementById("logging-input");
-    if (container && input && input.value.trim() !== "") {
-        container.classList.add("chat-mode");
-        input.value = ""; // Clear the text box
-    }
-};
-
-addSafeListener("send-meal-btn", "click", activateChatMode);
-
-const loggingInput = document.getElementById("logging-input");
-if (loggingInput) {
-    loggingInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            activateChatMode();
-        }
-    });
-}

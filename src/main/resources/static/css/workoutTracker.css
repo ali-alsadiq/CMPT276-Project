@@ -1,0 +1,328 @@
+/* REUSABLE NEON SS BACKGROUNDS: */
+
+.neon-heat {
+    background:
+    radial-gradient(circle at 80% 20%, rgba(173, 92, 255, 0.25), transparent 30%),
+    radial-gradient(circle at 20% 80%, rgba(105, 0, 209, 0.2), transparent 35%),
+    radial-gradient(circle at center, rgba(207, 159, 255, 0.08), transparent 50%),
+    var(--bg-primary);
+}
+
+.neon-glow {
+    background:
+    radial-gradient(circle at top right, rgba(150, 46, 255, 0.18), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(207, 159, 255, 0.12), transparent 40%),
+    var(--bg-primary);
+}
+
+.gradient-tr {
+    background:
+    radial-gradient(circle at top right, rgba(150, 46, 255, 0.18), transparent 35%),
+    var(--bg-primary);
+}
+
+
+/* Workout styles */
+
+.workout-shell {
+    height: 100vh;
+    margin-left: 280px;
+    padding: 2rem;
+}
+
+.workout-main-card {
+    height: 95vh;
+}
+
+.tracker-panel {
+    border-radius: 28px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.tracker-panel-form {
+    justify-content: space-between;
+}
+
+.eyebrow {
+    color: var(--accent-1);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.panel-title,
+.panel-subtitle,
+.result-title,
+.recent-title {
+    color: var(--text-primary);
+}
+
+.panel-title {
+    font-size: clamp(2rem, 3vw, 3.1rem);
+    line-height: 1.05;
+    max-width: 12ch;
+}
+
+.panel-subtitle {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.panel-copy,
+.goal-note,
+.summary-detail,
+.result-copy,
+.workout-meta,
+.empty-state,
+.recent-count {
+    color: var(--text-secondary);
+}
+
+.workout-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.tracker-label {
+    color: var(--text-primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.tracker-input {
+    min-height: 56px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    padding: 0.95rem 1rem;
+}
+
+.tracker-input:focus {
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border-color: var(--accent-1);
+    box-shadow: 0 0 0 0.2rem rgba(193, 193, 169, 0.12);
+}
+
+.tracker-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.tracker-submit {
+    min-height: 56px;
+    border: none;
+    border-radius: 18px;
+    background: var(--accent-1);
+    color: #172018;
+    font-weight: 800;
+}
+
+.tracker-submit:hover,
+.tracker-submit:focus {
+    background: #DBB8FF;
+    color: #172018;
+}
+
+.result-card,
+.recent-workouts {
+    border-radius: 10px;
+    background: var(--bg-input);
+    padding: 1.2rem 1.25rem;
+}
+
+.recent-workouts {
+    position: relative;
+    max-height: 35vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--accent-1) var(--bg-input);
+}
+.result-kicker,
+.workout-name,
+.summary-total {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.analytics-header,
+.progress-summary,
+.recent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.progress-summary {
+    align-items: center;
+}
+
+.summary-copy {
+    flex: 1;
+}
+
+.summary-total {
+    font-size: 1.7rem;
+    margin-bottom: 0.35rem;
+}
+
+.week-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.workout-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.workout-row:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.workout-calories {
+    color: var(--accent-1);
+    font-weight: 700;
+}
+
+.progress-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.progress-circle {
+    --value: 0;
+    --size: 220px;
+    --thickness: 18px;
+    --progress-color: var(--accent-1);
+    --track-color: var(--bg-input);
+    --animated-value: 0;
+
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(circle at 50% calc(var(--thickness) / 2), var(--progress-color) calc(var(--thickness) / 2), transparent 0),
+        conic-gradient(var(--progress-color) calc(var(--animated-value) * 1%), var(--track-color) 0);
+}
+
+.progress-circle::before {
+    content: "";
+    position: absolute;
+    inset: var(--thickness);
+    background-color: var(--bg-primary);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.progress-circle::after {
+    content: "";
+    position: absolute;
+    width: var(--thickness);
+    height: var(--thickness);
+    background-color: var(--progress-color);
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform-origin: 50% calc(var(--size) / 2);
+    transform: translateX(-50%) rotate(calc(var(--animated-value) * 3.6deg));
+    z-index: 1;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--progress-color) 70%, transparent);
+}
+
+.progress-circle-total {
+    --size: 172px;
+    --thickness: 16px;
+}
+
+.progress-circle-small {
+    --size: 92px;
+    --thickness: 10px;
+}
+
+.progress-inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.progress-value,
+.progress-value-small {
+    color: var(--text-primary);
+    font-weight: 800;
+}
+
+.progress-value {
+    font-size: 1.45rem;
+}
+
+.progress-value-small {
+    font-size: 0.95rem;
+}
+
+.progress-sublabel {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+}
+
+@media (max-width: 1399px) {
+    .week-progress-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1199px) {
+    .workout-shell {
+        height: 100vh;
+        overflow-y: auto;
+        margin-left: 0;
+        padding: 1rem;
+        scrollbar-width: 1rem;
+        scrollbar-color: var(--bg-secondary) var(--bg-secondary);
+    }
+
+    .workout-main-card {
+        min-height: auto;
+    }
+
+    .tracker-panel {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .analytics-header,
+    .progress-summary,
+    .recent-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .week-progress-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
