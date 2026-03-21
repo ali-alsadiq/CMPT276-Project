@@ -78,7 +78,6 @@ body.theme-bg {
   background-color: var(--bg-primary) !important;
   border: var(--card-border);
   box-shadow: var(--card-shadow);
-  transition: all 0.5s ease;
 }
 
 .theme-bg-container {
