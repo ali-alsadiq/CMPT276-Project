@@ -1,13 +1,26 @@
-:root {
-    --sidebar-collapsed-width: 100px;
-    --sidebar-expanded-width: 350px;
+.navbar-main {
+    width: 110px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    height: 100vh;
+    background-color: var(--bg-primary) !important; /* Matches bg-primary hex but stays hardcoded */
+}
+
+#dynamic-sidebar-container {
+    position: relative;
+    width: 78px;
 }
 
 #dynamic-sidebar {
     width: 78px; /* Default collapsed */
     overflow: hidden; 
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    background-color: var(--bg-primary);
+    background-color: #181718 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    position: absolute;
+    z-index: 1060;
 }
 
 #dynamic-sidebar.is-expanded {
@@ -39,6 +52,13 @@
     margin-top: 5px;
 }
 
+.logout-btn {
+    width: 60px;
+    height: 60px;
+    background-color: #232124 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
 .rr-glow {
     background-color: #cf9fff !important;
     box-shadow: 0 0 12px rgba(207, 159, 255, 0.8);
@@ -48,4 +68,45 @@
 
 #dynamic-sidebar .progress {
     border-radius: 50px;
+}
+
+/* NAVBAR UPPER */
+
+.profile-pic-container {
+    width: 76px;
+}
+
+.profile-pic-box {
+    width: 56px;
+    height: 56px;
+    background-color: #232124 !important;
+}
+
+.tier-name {
+    font-size: 0.75rem;
+}
+
+.rr-info {
+    font-size: 0.75rem;
+    color: #b1b1ae !important;
+}
+
+.rr-progress-container {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    overflow: visible;
+}
+
+.nav-link-pod {
+    height: 60px;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+}
+
+.nav-link-pod:hover:not(.bg-static-accent) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-icon {
+    width: 60px;
 }

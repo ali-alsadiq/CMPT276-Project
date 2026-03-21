@@ -1,15 +1,12 @@
-<!-- Note for injecting navbar -->
-<!-- Use: <div th:replace="~{fragments/navbar :: navbar}"></div> -->
-<!-- Put in body at the top level or near the top level -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="navbar(activePage)" class="d-flex flex-column h-100 p-3 bg-secondary flex-shrink-0" style="width: 110px; position: fixed; top: 0; left: 0; z-index: 1050;">
+    <div th:fragment="navbar(activePage)" class="d-flex flex-column p-3 bg-secondary flex-shrink-0 navbar-main">
 
         <!-- Upper Navbar Pod -->
-        <div id="dynamic-sidebar-container" style="position: relative; width: 78px;"> 
-            <div id="dynamic-sidebar" class="rounded-4 py-3 px-0 pod-collapsed" style="background-color: #181718; border: 1px solid rgba(255, 255, 255, 0.05); position: absolute; z-index: 1060;">
-                <div th:replace="~{fragments/navbarUpper :: navbar-upper(activePage=${activePage})}"></div>
+        <div id="dynamic-sidebar-container"> 
+            <div id="dynamic-sidebar" class="rounded-4 py-3 px-0 pod-collapsed">
+                <div th:replace="~{fragments/navbar-upper :: navbar-upper(activePage=${activePage})}"></div>
             </div>
         </div>
 
@@ -24,8 +21,7 @@
             </a>
 
             <a href="/logout" 
-               class="d-flex justify-content-center align-items-center text-white text-decoration-none rounded-3" 
-               style="width: 60px; height: 60px; background-color: #232124; border: 1px solid rgba(255, 255, 255, 0.05);" 
+               class="d-flex justify-content-center align-items-center text-white text-decoration-none rounded-3 logout-btn" 
                title="Logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </a>
