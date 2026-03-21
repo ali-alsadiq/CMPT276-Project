@@ -1,17 +1,72 @@
-:root {
-  /* --- Dark Mode --- */
+/* --- Dark Mode --- */
+:root[data-theme="dark"] {
+  /* Main Background Colors */
+  --bg-primary: #181718; /* Slightly lighter gray used for surface elements like cards and panels */
+  --bg-secondary: #111111;   /* Very dark gray/black used for the main application background */
+  --bg-accent: #6a6a67;    /* Mid-tone gray/brown used for inputs and subtle active states */
 
-  --bg-secondary: #111111;
-  --bg-primary: #181718; 
-  --bg-accent: #DBB8FF;
+  /* Text Colors */
+  --text-primary: #ffffff;   /* Pure white for primary readable text */
+  --text-secondary: #b1b1ae; /* Muted but readable gray for placeholders and secondary text */
 
-  --text-primary: #ffffff;
-  --text-secondary: #b1b1ae;
-
-
+  /* Accents */
   --accent-1: #cf9fff;
-
+  
+  /* Input Background */
   --bg-input: #232124;
+
+  /* Global Outline */
+  --outline-main: 1px solid rgba(255, 255, 255, 0.05);
+
+  /* Card Themes */
+  --card-border: var(--outline-main);
+  --card-shadow: none;
+}
+
+/* --- Light Mode --- */
+:root[data-theme="light"] {
+  /* Main Background Colors */
+  --bg-primary: #ffffff;     /* Pure white for panels */
+  --bg-secondary: #f1f2f7;
+  --bg-accent: #f1eff2;      /* Light gray for inputs */
+
+  /* Text Colors */
+  --text-primary: #181718;   /* Near-black for readability */
+  --text-secondary: #6c757d; /* Muted gray */
+
+  /* Accents */
+  --accent-1: #cf9fff; 
+  
+  /* Input Background */
+  --bg-input: #f1f2f7;
+
+  /* Global Outline */
+  --outline-main: 1px solid rgba(125, 125, 125, 0.1);
+
+  /* Card Themes */
+  --card-border: 1px solid transparent;
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+}
+
+.text-theme-icon {
+    color: var(--text-primary) !important; 
+}
+
+.text-theme-primary {
+  color: var(--text-primary) !important;
+}
+
+.bg-static-accent {
+  background-color: #cf9fff !important;
+}
+
+.btn-send-theme {
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary) !important;
 }
 
 body.theme-bg {
@@ -19,12 +74,10 @@ body.theme-bg {
   color: var(--text-primary) !important;
 }
 
-.bg-secondary {
-  background-color: var(--bg-secondary) !important;
-}
-
 .bg-primary {
   background-color: var(--bg-primary) !important;
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
 }
 
 .theme-bg-container {
@@ -40,10 +93,6 @@ body.theme-bg {
   background-color: var(--accent-1) !important;
 }
 
-.text-accent-1 {
-  color: var(--accent-1) !important;
-}
-
 .theme-input {
   background-color: var(--bg-accent) !important;
   color: var(--text-primary) !important;
@@ -53,7 +102,7 @@ body.theme-bg {
   color: var(--text-secondary) !important;
 }
 
-.text-bg-primary {
+.text-theme-dark {
   color: var(--bg-primary) !important;
 }
 
@@ -86,3 +135,37 @@ body.theme-bg {
   border-color: #a8a892 !important;
 }
 
+.login-bg-image {
+  background-image: url('/images/login-beach.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.login-bg-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* add a subtle dark overlay to ensure text is readable */
+  z-index: 1;
+}
+
+.login-bg-image > * {
+  position: relative;
+  z-index: 2;
+}
+
+.auth-bg-image {
+  background-image: url('/gymm.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-overlay {
+  background-color: rgba(17, 17, 17, 0.6) !important;
+}

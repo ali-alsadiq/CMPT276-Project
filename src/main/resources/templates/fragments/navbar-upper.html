@@ -1,0 +1,67 @@
+<div th:fragment="navbar-upper(activePage)" class="d-flex flex-column w-100" th:if="${session.session_user != null}">
+    <div class="mb-4 mt-2 d-flex flex-column gap-3 w-100">    
+
+        <!-- User Info -->
+        <div class="d-flex align-items-center">
+            <div class="d-flex justify-content-center align-items-center flex-shrink-0 profile-pic-container">
+                <div class="rounded-3 profile-pic-box"></div>
+            </div>
+            
+            <div class="sidebar-text d-flex flex-column justify-content-center">
+                <strong class="text-uppercase text-white fw-bold lh-1 mb-1 small" th:text="${session.session_user?.username}">admin</strong>
+                <span class="text-uppercase lh-1 text-secondary tier-name" th:text="${@rankService.getTierName(session.session_user?.rankProfile?.rr)}">Member</span>
+            </div>
+        </div>
+
+        <!-- RR -->
+        <div class="w-100 px-3">
+            <div class="d-flex justify-content-between align-items-center mb-2 text-nowrap overflow-hidden rr-info">
+                <span class="fw-bold flex-shrink-0 text-white" th:text="${session.session_user?.rankProfile?.rr} + ' RR'">0 RR</span>
+                <span class="sidebar-text" th:text="${session.session_user?.rankProfile?.rr + @rankService.getPointsToNextRank(session.session_user?.rankProfile?.rr)} + ' RR'">100 RR</span>
+            </div>
+
+            <div class="progress rr-progress-container">
+                <div class="progress-bar rr-glow" role="progressbar" th:style="'width: ' + ${@rankService.getProgressPercentage(session.session_user?.rankProfile?.rr)} + '%;'"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <div class="d-flex flex-column gap-3 w-100 m-0 px-2">
+        <a th:href="@{/adminDashboard}" 
+           class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
+           th:classappend="${activePage == 'adminDashboard' ? 'bg-static-accent text-black' : 'text-white'}">
+
+            <i class="fa-solid fa-unlock flex-shrink-0 text-center nav-icon"></i>
+
+            <span class="sidebar-text fw-semibold">Admin Dashboard</span>
+        </a>
+        
+        <a th:href="@{/dashboard}" 
+           class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
+           th:classappend="${activePage == 'dashboard' ? 'bg-static-accent text-black' : 'text-white'}">
+
+            <i class="fa-solid fa-arrow-up-right-dots flex-shrink-0 text-center nav-icon"></i>
+
+            <span class="sidebar-text fw-semibold">Dashboard</span>
+        </a>
+        
+        <a th:href="@{/calorieTracker}" 
+           class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
+           th:classappend="${activePage == 'calorieTracker' ? 'bg-static-accent text-black' : 'text-white'}">
+
+            <i class="fa-solid fa-apple-whole flex-shrink-0 text-center nav-icon"></i>
+
+            <span class="sidebar-text fw-semibold">Calorie Tracker</span>
+        </a>
+        
+        <a th:href="@{/add-workout}" 
+           class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
+           th:classappend="${activePage == 'add-workout' ? 'bg-static-accent text-black' : 'text-white'}">
+
+            <i class="fa-solid fa-dumbbell flex-shrink-0 text-center nav-icon"></i>
+
+            <span class="sidebar-text fw-semibold">Workout Tracker</span>
+        </a>
+    </div>
+</div>
