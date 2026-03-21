@@ -9,10 +9,11 @@
     <link href="/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/workoutTracker.css">
 </head>
-<body class="theme-bg overflow-hidden vh-100 m-0 d-flex flex-row">
-    <div th:replace="~{fragments/navbar :: navbar('add-workout')}"></div>
+<body class="theme-bg overflow-hidden vh-100 m-0">
+    <div class="d-flex h-100 w-100">
+        <div th:replace="~{fragments/navbar :: navbar('add-workout')}"></div>
 
-    <div class="workout-shell">
+        <div class="flex-grow-1 workout-shell ms-0">
         <div class="workout-main-card">
             <div class="row g-4 h-100">
                 <div class="col-xl-7 d-flex">
@@ -118,6 +119,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script th:src="@{/js/workoutTracker.js}"></script>
