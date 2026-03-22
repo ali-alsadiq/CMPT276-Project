@@ -81,6 +81,19 @@
 
 /* MEAL LOG */
 
+.meals-scrollable {
+    position: relative;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--accent-1) var(--bg-input);
+    border-radius: 10px;
+    background: var(--bg-input);
+    padding: 1.2rem 1.25rem;
+    max-height: 32vh;
+    flex: 1;
+    min-height: 0;
+}
+
 .meal-row {
     display: flex;
     align-items: center;
