@@ -22,7 +22,7 @@
     position: absolute;
     top: 50%;
     left: calc(var(--value) * 1%);
-    transform: translate(-100%, -50%);
+    transform: translate(-75%, -50%);
     width: 34px;
     height: 34px;
     background-color: var(--accent-1);

@@ -249,46 +249,7 @@ public class UserController {
         return "dashboard";
     }
 
-    // -- Calorie Tracker --
 
-    /**
-     * Handles calorie tracker page requests.
-     *
-     * - Only accessible by logged-in users.
-     *
-     * @param request request used to retrieve the current session
-     * @param model   model used to pass progress values to the view
-     * @return the calorie tracker view, or redirect to login if user is not logged
-     *         in
-     */
-    @GetMapping("/calorieTracker")
-    public String getCalorieTracker(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("session_user");
-
-        // If user is not logged in, redirect to login
-        // if (user == null) {
-        // return "redirect:/login";
-        // }
-
-        model.addAttribute("totalPercent", 67);
-        model.addAttribute("totalSpent", 1340);
-        model.addAttribute("totalGoal", 2000);
-
-        model.addAttribute("proteinPercent", 82);
-        model.addAttribute("proteinSpent", 123);
-        model.addAttribute("proteinGoal", 150);
-
-        model.addAttribute("carbsPercent", 74);
-        model.addAttribute("carbsSpent", 185);
-        model.addAttribute("carbsGoal", 250);
-
-        model.addAttribute("macrosPercent", 91);
-        model.addAttribute("fatsSpent", 64);
-        model.addAttribute("fatsGoal", 70);
-
-        return "calorieTracker";
-    }
 
     @RestController
     @RequestMapping("/api")
