@@ -1,4 +1,3 @@
-/* Constants */
 const GENERATING_PHRASES = [
     "Consulting my nutrition database...",
     "Crunching the macro numbers...",
@@ -17,6 +16,7 @@ const INITIAL_DELAY = 500;
 const GENERATING_DELAY = 700;
 const PHRASE_TRANSITION_DELAY = 300; 
 const WELCOME_DELAY = 600;
+const FINAL_RESPONSE_HOLD_DELAY = 1000;
 
 /* Helper: Pauses for X milliseconds */
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -25,6 +25,34 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const scrollToBottom = (elementId = "chat-history") => {
     const el = document.getElementById(elementId);
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+}
+
+/* Helper: Returns current local datetime in yyyy-MM-ddTHH:mm format */
+function getCurrentDateTimeLocal() {
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+
+  return (
+    now.getFullYear() +
+    "-" +
+    pad(now.getMonth() + 1) +
+    "-" +
+    pad(now.getDate()) +
+    "T" +
+    pad(now.getHours()) +
+    ":" +
+    pad(now.getMinutes())
+  );
+}
+
+/* Helper: Escapes text before inserting into HTML */
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 /* Appends a message to the chat history */
@@ -64,129 +92,13 @@ const appendMessage = (text, isUser = true) => {
     return { bubble, avatar }; 
 };
 
-/* Plays the generation animation and then submits the form for a real page refresh. */
-const playAnimationAndSubmit = async () => {
-    const { bubble, avatar } = appendMessage("", false);
-    avatar.classList.add('avatar-breathing');
-    bubble.className = 'text-secondary px-3 py-2 fst-italic fade-text';
-    bubble.style.backgroundColor = 'transparent';
-    bubble.style.opacity = 0;
-
-    await delay(INITIAL_DELAY);
-    
-    // Animate phrases
-    for (const phrase of GENERATING_PHRASES) {
-        bubble.textContent = phrase;
-        bubble.style.opacity = 1;
-        scrollToBottom();
-        await delay(GENERATING_DELAY);
-        bubble.style.opacity = 0;
-        await delay(PHRASE_TRANSITION_DELAY);
-    }
-
-    avatar.classList.remove('avatar-breathing');
-
-    // Show mock form
-    bubble.innerHTML = `
-        <div class="d-flex flex-column gap-3" style="font-size: 0.9rem;">
-            <p class="mb-0 text-white fw-bold">Review Your Meal</p>
-            
-            <!-- Title -->
-            <div>
-                <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Title</label>
-                <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
-                    <input type="text" class="bg-transparent border-0 text-white w-100" value="Morning Scramble" style="outline: none;">
-                </div>
-            </div>
-
-            <!-- Type -->
-            <div>
-                <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Type</label>
-                <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
-                    <select class="bg-transparent border-0 text-white w-100" style="outline: none; -webkit-appearance: none; appearance: none; cursor: pointer;">
-                        <option value="breakfast" selected class="text-black">Breakfast</option>
-                        <option value="lunch" class="text-black">Lunch</option>
-                        <option value="dinner" class="text-black">Dinner</option>
-                        <option value="snack" class="text-black">Snack</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Foods (No Sub Container) -->
-            <div>
-                <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Detected Foods</label>
-                
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: rgba(255,255,255,0.05);">
-                        <input type="text" class="bg-transparent border-0 text-white w-100" value="Scrambled Eggs" style="outline: none;">
-                    </div>
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05); width: 85px; flex-shrink: 0;">
-                        <input type="number" class="bg-transparent border-0 text-white w-100 text-center" value="150" style="outline: none;">
-                        <span class="text-secondary ms-1">g</span>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center gap-2">
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: rgba(255,255,255,0.05);">
-                        <input type="text" class="bg-transparent border-0 text-white w-100" value="Whole Wheat Toast" style="outline: none;">
-                    </div>
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05); width: 85px; flex-shrink: 0;">
-                        <input type="number" class="bg-transparent border-0 text-white w-100 text-center" value="60" style="outline: none;">
-                        <span class="text-secondary ms-1">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <button id="mock-done-btn" class="btn btn-sm w-100 fw-bold mt-2" style="background-color: var(--accent-1); color: #172018; border-radius: 12px; border: none; padding: 0.6rem;">Done</button>
-        </div>
-    `;
-    bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm fade-text';
-    bubble.style.backgroundColor = 'var(--bg-input)';
-    bubble.style.opacity = 1;
-    scrollToBottom();
-
-    // Wait for click
-    await new Promise(resolve => {
-        const btn = document.getElementById("mock-done-btn");
-        if(btn) {
-            btn.addEventListener("click", () => {
-                // Collapse the form by fading it out
-                bubble.style.opacity = 0;
-                setTimeout(resolve, 300);
-            });
-        } else {
-            resolve();
-        }
-    });
-
-    // Show random final response
-    const randomResponse = FINAL_RESPONSE[Math.floor(Math.random() * FINAL_RESPONSE.length)];
-    bubble.innerHTML = ''; // Clear form
-    bubble.textContent = randomResponse;
-    bubble.className = 'text-white rounded-4 px-3 py-2 shadow-sm fade-text';
-    bubble.style.opacity = 1;
-    scrollToBottom();
-
-    // Re-enable input so it's sent with the form
-    const input = document.getElementById("logging-input");
-    if (input) input.disabled = false;
-
-    // Small delay before refresh
-    await delay(1000);
-
-    // Submit the form at the end
-    document.getElementById("logging-form").submit();
-};
-
-/**
- * Locks the send button
- */
 const toggleChatLock = (isLocked) => {
     const input = document.getElementById("logging-input");
     const sendBtn = document.getElementById("send-meal-btn");
     if (!input || !sendBtn) return;
 
     input.disabled = isLocked;
+
     if (isLocked) {
         sendBtn.classList.remove('bg-white', 'text-bg-primary');
         sendBtn.classList.add('bg-secondary', 'text-white-50');
@@ -198,7 +110,182 @@ const toggleChatLock = (isLocked) => {
     }
 };
 
-/* Handles the send button click or enter key */
+const playAnimationAndSubmit = async (query) => {
+    const { bubble, avatar } = appendMessage("", false);
+    avatar.classList.add('avatar-breathing');
+    bubble.className = 'text-secondary px-3 py-2 fst-italic fade-text';
+    bubble.style.backgroundColor = 'transparent';
+    bubble.style.opacity = 0;
+
+    await delay(INITIAL_DELAY);
+    
+    // Play the generating animation
+    for (const phrase of GENERATING_PHRASES) {
+        bubble.textContent = phrase;
+        bubble.style.opacity = 1;
+
+        scrollToBottom();
+
+        await delay(GENERATING_DELAY);
+        bubble.style.opacity = 0;
+        await delay(PHRASE_TRANSITION_DELAY);
+    }
+
+    bubble.textContent = ""; 
+    bubble.style.opacity = 0;
+
+    try {
+        // Fetch food data from the API
+        const response = await fetch("/calorieTracker/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+                "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            body: new URLSearchParams({ foodDescription: query }),
+        });
+
+        if (!response.ok) throw new Error("Search failed");
+        const foods = await response.json();
+
+        // Handle Empty Results
+        if (!foods || foods.length === 0) {
+            bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm';
+            bubble.style.backgroundColor = 'var(--bg-input)';
+            bubble.innerHTML = `<span class="text-danger fw-bold">No foods found.</span> Please try being more specific!`;
+            toggleChatLock(false);
+            return;
+        }
+
+        // Build the in-chat form
+        bubble.style.opacity = 0;
+        await delay(PHRASE_TRANSITION_DELAY);
+
+        let dynamicFoodsHtml = "";
+        let foodNames = [];
+
+        foods.forEach(food => {
+            const foodName = escapeHtml(food.foodName ?? food.name ?? "Unknown food");
+            foodNames.push(foodName);
+            
+            // Restore actual serving size from API
+            const servSize = Number(food.servSize ?? food.serving_size_g ?? 100); 
+
+            dynamicFoodsHtml += `
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: rgba(255,255,255,0.05);">
+                        <input type="text" class="bg-transparent border-0 text-white w-100" value="${foodName}" readonly style="outline: none;">
+                        
+                        <input type="hidden" name="foodOrder" value="${foodName}" />
+                    </div>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05); width: 85px; flex-shrink: 0;">
+                        
+                        <input type="number" step="0.1" min="0.1" name="requestedServSizes[${foodName}]" class="bg-transparent border-0 text-white w-100 text-center" value="${servSize}" style="outline: none;">
+                        <span class="text-secondary ms-1">g</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Inject the full form into the bubble
+        bubble.innerHTML = `
+            <form id="chat-save-form" class="d-flex flex-column gap-3" style="font-size: 0.9rem;">
+                <input type="hidden" name="consumedDate" value="${getCurrentDateTimeLocal()}">
+
+                <p class="mb-0 text-white fw-bold">Review Your Meal</p>
+                
+                <div>
+                    <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Title</label>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
+                        <input type="text" name="mealName" class="bg-transparent border-0 text-white w-100" value="${foodNames.join(', ')}" style="outline: none;" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Type</label>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
+                        <select name="mealType" class="bg-transparent border-0 text-white w-100" style="outline: none; -webkit-appearance: none; appearance: none; cursor: pointer;" required>
+                            <option value="Breakfast" class="text-black">Breakfast</option>
+                            <option value="Lunch" class="text-black">Lunch</option>
+                            <option value="Dinner" class="text-black">Dinner</option>
+                            <option value="Snack" class="text-black" selected>Snack</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Detected Foods</label>
+                    ${dynamicFoodsHtml}
+                </div>
+
+                <button type="submit" class="btn btn-sm w-100 fw-bold mt-2" style="background-color: var(--accent-1); color: #172018; border-radius: 12px; border: none; padding: 0.6rem;">Confirm & Save</button>
+            </form>
+        `;
+        
+        bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm fade-text';
+        bubble.style.backgroundColor = 'var(--bg-input)';
+        bubble.style.opacity = 1;
+        scrollToBottom();
+
+        // Listener for the form submission
+        const chatForm = document.getElementById('chat-save-form');
+        if (chatForm) {
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Stop default HTML submission behavior
+                
+                const submitBtn = chatForm.querySelector('button[type="submit"]');
+                submitBtn.textContent = "Saving...";
+                submitBtn.style.opacity = "0.7";
+                submitBtn.disabled = true;
+
+                try {
+                    // Post the data to teammate's backend
+                    const saveResponse = await fetch("/meals/add", {
+                        method: 'POST',
+                        body: new URLSearchParams(new FormData(chatForm)),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                    });
+
+                    if (!saveResponse.ok) throw new Error("Save failed");
+                    
+                    avatar.classList.remove('avatar-breathing');
+                    bubble.style.opacity = 0;
+
+                    await delay(PHRASE_TRANSITION_DELAY);
+
+                    const randomResponse = FINAL_RESPONSE[Math.floor(Math.random() * FINAL_RESPONSE.length)];
+
+                    bubble.textContent = randomResponse;
+                    bubble.className = 'text-white rounded-4 px-3 py-2 shadow-sm fade-text';
+                    bubble.style.backgroundColor = 'var(--bg-input)';
+                    bubble.style.opacity = 1;
+
+                    scrollToBottom();
+
+                    await delay(FINAL_RESPONSE_HOLD_DELAY); 
+
+                    window.location.reload(); 
+
+                } catch (err) {
+                    console.error("Save error:", err);
+                    submitBtn.textContent = "Error Saving";
+                    submitBtn.style.backgroundColor = "#dc3545"; 
+                    submitBtn.style.color = "white";
+                }
+            });
+        }
+
+    } catch (error) {
+        console.error(error);
+        bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm';
+        bubble.style.backgroundColor = 'var(--bg-input)';
+        bubble.innerHTML = `<span class="text-danger fw-bold">Server Error.</span> Could not process your request.`;
+    }
+
+    toggleChatLock(false);
+};
+
 const handleMessageSend = async (e) => {
     if (e) e.preventDefault();
     const container = document.getElementById("logging-container");
@@ -208,10 +295,9 @@ const handleMessageSend = async (e) => {
 
     const messageText = input.value.trim();
     
-    // Messages blocked during this sequence
     toggleChatLock(true);
 
-    if (!container.classList.contains("chat-mode")) {
+    if (container && !container.classList.contains("chat-mode")) {
         const welcome = document.getElementById("welcome-section");
         container.classList.add("chat-mode");
         if (welcome) {
@@ -221,7 +307,9 @@ const handleMessageSend = async (e) => {
     } 
     
     appendMessage(messageText, true);
-    await playAnimationAndSubmit();
+    input.value = ""; // Clear input immediately
+    
+    await playAnimationAndSubmit(messageText);
 };
 
 /* Initialize */

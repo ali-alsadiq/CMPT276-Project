@@ -249,39 +249,7 @@ public class UserController {
         return "dashboard";
     }
 
-<<<<<<< HEAD
 
-
-    @RestController
-    @RequestMapping("/api")
-    public class NutritionApiController {
-
-        @GetMapping("/nutrition")
-        public List<Map<String, Object>> getNutrition(@RequestParam String query) {
-
-            List<Map<String, Object>> foods = new ArrayList<>();
-
-            Map<String, Object> food1 = new HashMap<>();
-            food1.put("name", "Prime Rib");
-            food1.put("calories", 850);
-            food1.put("fat_total_g", 65);
-            food1.put("carbohydrates_total_g", 2);
-
-            Map<String, Object> food2 = new HashMap<>();
-            food2.put("name", "Mashed Potatoes");
-            food2.put("calories", 240);
-            food2.put("fat_total_g", 10);
-            food2.put("carbohydrates_total_g", 35);
-
-            foods.add(food1);
-            foods.add(food2);
-
-            return foods;
-        }
-    }
-
-=======
->>>>>>> bc30584017f6a0a0191ef7d89b9bf9f26d8873a9
     // -- Logout --
 
     /**

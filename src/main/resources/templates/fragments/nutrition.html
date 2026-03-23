@@ -11,12 +11,12 @@
             <div class="progress-bar-container">
                 <div class="progress-labels progress-labels-bottom">
                     <span>Calories</span>
-                    <span th:text="${totalCalories} + ' / ' + ${dailyGoalCals} + ' kcal'">1340 / 2000 kcal</span>
+                    <span th:text="${totalSpent} + ' / ' + ${totalGoal} + ' kcal'">1340 / 2000 kcal</span>
                 </div>
                 <div class="progress-bar-fill" th:style="'--value: ' + ${totalPercent}">
                     <div class="progress-labels progress-labels-top">
                         <span>Calories</span>
-                        <span th:text="${totalCalories} + ' / ' + ${dailyGoalCals} + ' kcal'">1340 / 2000 kcal</span>
+                        <span th:text="${totalSpent} + ' / ' + ${totalGoal} + ' kcal'">1340 / 2000 kcal</span>
                     </div>
                 </div>
                 <div class="progress-bar-glow" th:style="'--value: ' + ${totalPercent}"></div>
@@ -53,9 +53,9 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value:' + ${fatsPercent} + '; --progress-color: #ffffba;'">
+                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #ffffba;'">
                     <div class="progress-inner">
-                        <span class="progress-value-small" th:text="${fatsPercent} + '%'">91%</span>
+                        <span class="progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
                         <span class="progress-sublabel">Fats</span>
                     </div>
                 </div>
@@ -65,9 +65,9 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small" id="progress-fiber"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value:' + ${fiberPercent} + '; --progress-color: #baffc9;'">
+                    th:style="'--value: 0; --progress-color: #baffc9;'">
                     <div class="progress-inner">
-                        <span class="progress-value-small" id="progress-val-fiber" th:text="${fiberPercent} + '%'">59%</span>
+                        <span class="progress-value-small" id="progress-val-fiber" th:text="'0%'">59%</span>
                         <span class="progress-sublabel">Fibre</span>
                     </div>
                 </div>
