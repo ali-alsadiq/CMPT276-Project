@@ -19,7 +19,7 @@
                         <span th:text="${totalSpent} + ' / ' + ${totalGoal} + ' kcal'">1340 / 2000 kcal</span>
                     </div>
                 </div>
-                <div class="progress-bar-glow" th:style="'--value: ' + ${totalPercent}"></div>
+                <div class="progress-bar-glow" th:if="${totalPercent > 0}" th:style="'--value: ' + ${totalPercent}"></div>
             </div>
         </div>
 
