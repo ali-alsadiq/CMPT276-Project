@@ -27,9 +27,7 @@ const scrollToBottom = (elementId = "chat-history") => {
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
 }
 
-/**
- * Appends a message to the chat history
- */
+/* Appends a message to the chat history */
 const appendMessage = (text, isUser = true) => {
     const chatHistory = document.getElementById("chat-history");
 
@@ -66,9 +64,7 @@ const appendMessage = (text, isUser = true) => {
     return { bubble, avatar }; 
 };
 
-/**
- * Plays the generation animation and then submits the form for a real page refresh.
- */
+/* Plays the generation animation and then submits the form for a real page refresh. */
 const playAnimationAndSubmit = async () => {
     const { bubble, avatar } = appendMessage("", false);
     avatar.classList.add('avatar-breathing');
@@ -88,9 +84,95 @@ const playAnimationAndSubmit = async () => {
         await delay(PHRASE_TRANSITION_DELAY);
     }
 
+    avatar.classList.remove('avatar-breathing');
+
+    // Show mock form
+    bubble.innerHTML = `
+        <div class="d-flex flex-column gap-3" style="font-size: 0.9rem;">
+            <p class="mb-0 text-white fw-bold">Review Your Meal</p>
+            
+            <!-- Title -->
+            <div>
+                <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Title</label>
+                <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
+                    <input type="text" class="bg-transparent border-0 text-white w-100" value="Morning Scramble" style="outline: none;">
+                </div>
+            </div>
+
+            <!-- Type -->
+            <div>
+                <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Type</label>
+                <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
+                    <select class="bg-transparent border-0 text-white w-100" style="outline: none; -webkit-appearance: none; appearance: none; cursor: pointer;">
+                        <option value="breakfast" selected class="text-black">Breakfast</option>
+                        <option value="lunch" class="text-black">Lunch</option>
+                        <option value="dinner" class="text-black">Dinner</option>
+                        <option value="snack" class="text-black">Snack</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Foods (No Sub Container) -->
+            <div>
+                <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Detected Foods</label>
+                
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: rgba(255,255,255,0.05);">
+                        <input type="text" class="bg-transparent border-0 text-white w-100" value="Scrambled Eggs" style="outline: none;">
+                    </div>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05); width: 85px; flex-shrink: 0;">
+                        <input type="number" class="bg-transparent border-0 text-white w-100 text-center" value="150" style="outline: none;">
+                        <span class="text-secondary ms-1">g</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: rgba(255,255,255,0.05);">
+                        <input type="text" class="bg-transparent border-0 text-white w-100" value="Whole Wheat Toast" style="outline: none;">
+                    </div>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05); width: 85px; flex-shrink: 0;">
+                        <input type="number" class="bg-transparent border-0 text-white w-100 text-center" value="60" style="outline: none;">
+                        <span class="text-secondary ms-1">g</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="mock-done-btn" class="btn btn-sm w-100 fw-bold mt-2" style="background-color: var(--accent-1); color: #172018; border-radius: 12px; border: none; padding: 0.6rem;">Done</button>
+        </div>
+    `;
+    bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm fade-text';
+    bubble.style.backgroundColor = 'var(--bg-input)';
+    bubble.style.opacity = 1;
+    scrollToBottom();
+
+    // Wait for click
+    await new Promise(resolve => {
+        const btn = document.getElementById("mock-done-btn");
+        if(btn) {
+            btn.addEventListener("click", () => {
+                // Collapse the form by fading it out
+                bubble.style.opacity = 0;
+                setTimeout(resolve, 300);
+            });
+        } else {
+            resolve();
+        }
+    });
+
+    // Show random final response
+    const randomResponse = FINAL_RESPONSE[Math.floor(Math.random() * FINAL_RESPONSE.length)];
+    bubble.innerHTML = ''; // Clear form
+    bubble.textContent = randomResponse;
+    bubble.className = 'text-white rounded-4 px-3 py-2 shadow-sm fade-text';
+    bubble.style.opacity = 1;
+    scrollToBottom();
+
     // Re-enable input so it's sent with the form
     const input = document.getElementById("logging-input");
     if (input) input.disabled = false;
+
+    // Small delay before refresh
+    await delay(1000);
 
     // Submit the form at the end
     document.getElementById("logging-form").submit();
@@ -116,9 +198,7 @@ const toggleChatLock = (isLocked) => {
     }
 };
 
-/**
- * Handles the send button click or enter key
- */
+/* Handles the send button click or enter key */
 const handleMessageSend = async (e) => {
     if (e) e.preventDefault();
     const container = document.getElementById("logging-container");

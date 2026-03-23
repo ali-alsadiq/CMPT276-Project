@@ -3,7 +3,7 @@ package com.cmpt276.project.porject.CalorieTracker;
 import org.springframework.stereotype.Component;
 
 /**
- * Computes macro targets based on a user's daily calorie goal.
+ * Computes macro targets based on a user's daily calorie goal
  * 
  * Formulas:
  * - Protein: 30% of calories (4 kcal/g)
