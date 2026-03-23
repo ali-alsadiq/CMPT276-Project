@@ -50,7 +50,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <form method="post" th:action="@{/calorieTracker/search}">
                 <div
                   class="mt-auto p-3 d-flex flex-column border-0 rounded-4"
@@ -306,7 +306,12 @@
     >
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
-          <form method="post" th:action="@{/meals/add}" id="addMealForm">
+          <form
+            method="post"
+            th:action="@{/meals/add}"
+            id="addMealForm"
+            style="background-color: rgba(0, 0, 0, 0.792)"
+          >
             <div class="modal-header">
               <h5 class="modal-title" id="addMealModalLabel">Add Meal</h5>
               <button
