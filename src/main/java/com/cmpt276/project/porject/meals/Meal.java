@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /**
  * Represents a meal logged by a user.
@@ -35,7 +36,8 @@ public class Meal {
     @ManyToOne
     @JoinColumn(name = "uid", nullable = false)
     private User user;
-
+    
+    private String mealName;
     private String mealType;
     private LocalDateTime consumedDate;
 
@@ -45,12 +47,13 @@ public class Meal {
     public Meal() {
     }
 
-    public Meal(User user, String mealType, LocalDateTime consumedDate, List<Food> foods) {
+    public Meal(User user, String mealName, String mealType, LocalDateTime consumedDate, List<Food> foods) {
         if (foods == null || foods.isEmpty()) {
             throw new IllegalArgumentException("A meal must contain at least one food.");
         }
 
         this.user = user;
+        this.mealName = mealName;
         this.mealType = mealType;
         this.consumedDate = consumedDate;
         setFoods(foods);
@@ -82,6 +85,14 @@ public class Meal {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getMealName() {
+        return mealName;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
     }
 
     /**
@@ -139,5 +150,91 @@ public class Meal {
 
         this.foods.add(food);
         food.setMeal(this);
+    }
+
+    // CHANGE: calculate meal calories from all foods
+    @Transient
+    public double getCalories() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getCalories();
+        }
+        return total;
+    }
+
+    // CHANGE: calculate meal protein from all foods
+    @Transient
+    public double getProtein() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getProtien();
+        }
+        return total;
+    }
+
+    // CHANGE: calculate meal carbs from all foods
+    @Transient
+    public double getCarbs() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getCarbs();
+        }
+        return total;
+    }
+
+    // CHANGE: calculate meal fats from all foods
+    @Transient
+    public double getFats() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getFats();
+        }
+        return total;
+    }
+
+    // CHANGE: optional extra totals if needed later
+    @Transient
+    public double getFiber() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getFiber();
+        }
+        return total;
+    }
+
+    @Transient
+    public double getSugar() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getSugar();
+        }
+        return total;
+    }
+
+    @Transient
+    public double getSodium() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getSodium();
+        }
+        return total;
+    }
+
+    @Transient
+    public double getPotassium() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getPotassium();
+        }
+        return total;
+    }
+
+    @Transient
+    public double getCholesterol() {
+        double total = 0.0;
+        for (Food food : foods) {
+            total += food.getCholesterol();
+        }
+        return total;
     }
 }
