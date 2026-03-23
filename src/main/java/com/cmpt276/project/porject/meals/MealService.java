@@ -23,9 +23,12 @@ import com.cmpt276.project.porject.auth.User;
  */
 @Service
 public class MealService {
-    
+
     @Autowired
     private MealRepository mealEntryRepository;
+
+    @Autowired
+    private com.cmpt276.project.porject.rank.RewardService rewardService;
 
     /**
      * Adds a new meal for a user.
@@ -38,6 +41,9 @@ public class MealService {
     public void addMeal(User user, String mealName, String mealType, LocalDateTime consumedDate, List<Food> foods) {
         Meal mealEntry = new Meal(user, mealName, mealType, consumedDate, foods);
         mealEntryRepository.save(mealEntry);
+
+        // Reward the user for completing the task of logging a meal
+        rewardService.rewardForLoggingMeal(user);
     }
 
     /**
