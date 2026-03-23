@@ -45,6 +45,7 @@ public class User {
     
     // Cals burned targets
     @Column(name = "targets")
+    //check user has set targets at all
     private boolean userSetTargets;
     private double weeklyCaloriesBurned;
     private double dailyCaloriesBurned;
@@ -55,10 +56,6 @@ public class User {
     private double weeklyCarbsConsumed;
     private double weeklyFatsConsumed;
     private double weeklyFibresConsumed;
-    private double weeklySugarsConsumed; 
-    private double weeklySodiumConsumed; 
-    private double weeklyPotassiumConsumed; 
-    private double weeklyCholesterolConsumed; 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -75,6 +72,7 @@ public class User {
         this.password = password;
         this.role = role;
         this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
+        this.userSetTargets = false;
     }
 
     // -- Getters and Setters --
@@ -116,6 +114,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean checkUserSetTargets() {
+        return userSetTargets;
+    }
+
+    public void setUserSetTargets(boolean userSetTargets) {
+        this.userSetTargets = userSetTargets;
     }
 
     public String getRole() {
@@ -219,38 +225,6 @@ public class User {
 
     public void setWeeklyFibresConsumed(double weeklyFibresConsumed) {
         this.weeklyFibresConsumed = weeklyFibresConsumed;
-    }
-
-    public double getWeeklySugarsConsumed() {
-        return weeklySugarsConsumed;
-    }
-
-    public void setWeeklySugarsConsumed(double weeklySugarsConsumed) {
-        this.weeklySugarsConsumed = weeklySugarsConsumed;
-    }
-
-    public double getWeeklySodiumConsumed() {
-        return weeklySodiumConsumed;
-    }
-
-    public void setWeeklySodiumConsumed(double weeklySodiumConsumed) {
-        this.weeklySodiumConsumed = weeklySodiumConsumed;
-    }
-
-    public double getWeeklyPotassiumConsumed() {
-        return weeklyPotassiumConsumed;
-    }
-
-    public void setWeeklyPotassiumConsumed(double weeklyPotassiumConsumed) {
-        this.weeklyPotassiumConsumed = weeklyPotassiumConsumed;
-    }
-
-    public double getWeeklyCholesterolConsumed() {
-        return weeklyCholesterolConsumed;
-    }
-
-    public void setWeeklyCholesterolConsumed(double weeklyCholesterolConsumed) {
-        this.weeklyCholesterolConsumed = weeklyCholesterolConsumed;
     }
 
     public double getDailyCaloriesBurned() {

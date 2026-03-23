@@ -149,6 +149,9 @@ public class UserController {
             if (user.isAdmin()) {
                 return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
             } else {
+                if (!user.checkUserSetTargets()) {
+                    return "redirect:/onBoarding";
+                }
                 return "redirect:/dashboard"; // Redirect to nothing / home for now
             }
         }
