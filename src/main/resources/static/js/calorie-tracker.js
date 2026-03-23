@@ -264,8 +264,15 @@ const playAnimationAndSubmit = async (query) => {
                     scrollToBottom();
 
                     await delay(FINAL_RESPONSE_HOLD_DELAY); 
-
-                    window.location.reload(); 
+                    
+                    // Save the chat history and the UI state before refreshing
+                    const historyContainer = document.getElementById("chat-history");
+                    if (historyContainer) {
+                        sessionStorage.setItem("savedChatHistory", historyContainer.innerHTML);
+                        sessionStorage.setItem("isChatMode", "true");
+                    }
+                    
+                    window.location.reload();
 
                 } catch (err) {
                     console.error("Save error:", err);
@@ -314,6 +321,36 @@ const handleMessageSend = async (e) => {
 
 /* Initialize */
 document.addEventListener("DOMContentLoaded", () => {
+    
+    // Restore Chat History if it exists
+    // - Note: Temporary, history is wiped when tab is closed
+    const savedChat = sessionStorage.getItem("savedChatHistory");
+    const isChatMode = sessionStorage.getItem("isChatMode");
+    const container = document.getElementById("logging-container");
+    const chatHistory = document.getElementById("chat-history");
+
+    if (savedChat && chatHistory) {
+        // Paste the old chat bubbles back in
+        chatHistory.innerHTML = savedChat;
+        
+        // Hide the welcome section and trigger chat mode
+        if (isChatMode === "true" && container) {
+            container.classList.add("chat-mode");
+            const welcome = document.getElementById("welcome-section");
+            if (welcome) welcome.style.display = "none";
+        }
+        
+
+        const oldButtons = chatHistory.querySelectorAll('button[type="submit"]');
+        oldButtons.forEach(btn => {
+            btn.disabled = true;
+            btn.textContent = "Saved";
+            btn.style.opacity = "0.5";
+        });
+
+        scrollToBottom();
+    }
+
     // Progress Circles Init
     document.querySelectorAll(".progress-circle").forEach(circle => {
         const value = circle.style.getPropertyValue("--value").trim();
