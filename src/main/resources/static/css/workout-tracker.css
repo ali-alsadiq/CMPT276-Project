@@ -121,7 +121,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 3rem;
 }
 
 .progress-summary {
@@ -134,7 +134,7 @@
 
 .summary-total {
     font-size: 1.7rem;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.6rem;
 }
 
 .week-progress-grid {
@@ -201,4 +201,3 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
-

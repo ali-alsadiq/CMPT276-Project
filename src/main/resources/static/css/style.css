@@ -1,51 +1,65 @@
-:root {
-  /* --- Dark Mode --- */
+/* THEME VARIABLES (Do Not Rename) */
 
+/* --- Dark Mode (Default) --- */
+:root {
   --bg-secondary: #111111;
   --bg-primary: #181718; 
   --bg-accent: #DBB8FF;
+  --theme-accent: #cf9fff; 
+  --accent-1: #cf9fff;
+  
+  --bg-input: #232124;
+  --bg-subtle-box: rgba(255, 255, 255, 0.06);
 
   --text-primary: #ffffff;
   --text-secondary: #b1b1ae;
 
-
-  --accent-1: #cf9fff;
-
-  --bg-input: #232124;
+  /* Global Outlines & Cards */
+  --outline-main: 1px solid rgba(255, 255, 255, 0.05);
+  --card-border: var(--outline-main);
+  --card-shadow: none;
 }
 
-body.theme-bg {
+/* --- Light Mode --- */
+:root[data-theme="light"] {
+  --bg-secondary: #f1f2f7;
+  --bg-primary: #ffffff;     
+  --bg-accent: #f1eff2;      
+  --theme-accent: #cf9fff; 
+  --accent-1: #cf9fff; 
+  
+  --bg-input: #f1f2f7;
+  --bg-subtle-box: rgba(0, 0, 0, 0.04);
+
+  --text-primary: #181718;   
+  --text-secondary: #6c757d; 
+
+  /* Global Outlines & Cards */
+  --outline-main: 1px solid rgba(125, 125, 125, 0.1);
+  --card-border: 1px solid transparent;
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+}
+
+/* GLOBAL LAYOUT & BACKGROUNDS */
+body.theme-bg,
+.theme-bg-container {
   background-color: var(--bg-primary) !important;
   color: var(--text-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--bg-primary) !important;
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
 }
 
 .bg-secondary {
   background-color: var(--bg-secondary) !important;
 }
 
-.bg-primary {
-  background-color: var(--bg-primary) !important;
-}
-
-.theme-bg-container {
-  background-color: var(--bg-primary) !important;
-  color: var(--text-primary) !important;
-}
-
-.bg-accent {
-  background-color: var(--bg-accent) !important;
-}
-
-.bg-accent-1 {
-  background-color: var(--accent-1) !important;
-}
-
-.text-accent-1 {
-  color: var(--accent-1) !important;
-}
-
-.theme-input {
-  background-color: var(--bg-accent) !important;
+/* TEXT & ACCENT UTILITIES */
+.text-theme-icon,
+.text-theme-primary {
   color: var(--text-primary) !important;
 }
 
@@ -53,36 +67,73 @@ body.theme-bg {
   color: var(--text-secondary) !important;
 }
 
-.text-bg-primary {
-  color: var(--bg-primary) !important;
+/* Hardcoded for dark text on light elements regardless of theme */
+.text-theme-dark {
+  color: #181718 !important;
+}
+
+.text-accent-1 {
+  color: var(--accent-1) !important;
+}
+
+.bg-accent {
+  background-color: var(--bg-accent) !important;
+}
+
+.bg-accent-1,
+.bg-static-accent {
+  background-color: var(--accent-1) !important;
+}
+
+/* INPUTS & FORMS */
+.theme-input {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid transparent;
 }
 
 ::placeholder, 
-.form-control::placeholder {
+.form-control::placeholder,
+.theme-input::placeholder {
   color: var(--text-secondary) !important;
   opacity: 1 !important;
 }
 
-.theme-input::placeholder {
-  color: var(--text-secondary) !important;
-}
-
 .theme-input:focus {
-  background-color: var(--bg-accent) !important;
+  background-color: var(--bg-input) !important;
   color: var(--text-primary) !important;
   border-color: var(--accent-1) !important;
-  box-shadow: 0 0 0 0.25rem rgba(193, 193, 169, 0.25) !important;
+  box-shadow: 0 0 0 0.25rem rgba(207, 159, 255, 0.25) !important; 
 }
 
+/* BUTTONS */
 .btn-primary {
   background-color: var(--accent-1) !important;
-  color: #000000 !important; /* contrasting text for sage green */
+  color: #111111 !important; 
   border-color: var(--accent-1) !important;
 }
 
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  background-color: #a8a892 !important; /* slightly darker sage */
-  color: #000000 !important;
-  border-color: #a8a892 !important;
+.btn-primary:hover, 
+.btn-primary:active, 
+.btn-primary:focus {
+  background-color: #b580eb !important; /* Proper purple hover state */
+  color: #111111 !important;
+  border-color: #b580eb !important;
 }
 
+.btn-send-theme {
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+}
+
+/* AUTH & LOGIN BACKGROUNDS */
+.auth-bg-image {
+  background-image: url('/gymm.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-overlay {
+  background-color: rgba(17, 17, 17, 0.7) !important;
+}
