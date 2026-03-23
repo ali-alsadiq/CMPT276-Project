@@ -1,0 +1,227 @@
+/* PROGRESS BAR */
+
+.progress-bar-container {
+    position: relative;
+    height: 34px;
+    background-color: var(--bg-input);
+    border-radius: 50px;
+    user-select: none;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--accent-1);
+    width: calc(var(--value) * 1%);
+    animation: fillWidth 1.8s ease-in-out forwards;
+    position: relative;
+    overflow: hidden; 
+    border-radius: 50px; 
+}
+
+.progress-bar-glow {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--value) * 1%);
+    transform: translate(-75%, -50%);
+    width: 34px;
+    height: 34px;
+    background-color: var(--accent-1);
+    border-radius: 50%;
+    box-shadow: 0 0 16px 4px color-mix(in srgb, var(--accent-1) 80%, transparent);
+    animation: moveGlow 1.8s ease-in-out forwards;
+    z-index: 3;
+}
+
+@keyframes fillWidth {
+    from { width: 0; }
+    to   { width: calc(var(--value) * 1%); }
+}
+
+@keyframes moveGlow {
+    0%   { left: 0%; opacity: 0; }
+    5%   { opacity: 1; }
+    100% { left: calc(var(--value) * 1%); opacity: 1; }
+}
+
+.progress-labels {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+    
+.progress-labels-bottom {
+    color: var(--text-secondary);
+}
+
+.progress-labels-top {
+    color: var(--bg-primary);
+    width: calc(10000% / var(--value));
+    min-width: 400px; /* Fallback for very small fill values */
+}
+
+.progress-sublabel {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+
+
+/* MEAL LOG */
+
+.meals-scrollable {
+    position: relative;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--accent-1) var(--bg-input);
+    border-radius: 10px;
+    background: var(--bg-input);
+    padding: 1rem 1.25rem;
+    max-height: 38vh;
+    flex: 1;
+    min-height: 0;
+}
+
+.meal-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: transparent;
+    border-bottom: 1px solid var(--bg-secondary);
+    padding: 1.25rem 0;
+    width: 100%;
+}
+
+.meal-row:last-child {
+    border-bottom: none;
+}
+
+.meal-image {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.meal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.meal-name-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.meal-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.meal-cals {
+    color: var(--accent-1);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.meal-meta {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* CHAT MODE TRANSITIONS */
+
+#welcome-section {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#logging-container.chat-mode #welcome-section {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+}
+
+.top-spacer,
+.bottom-spacer {
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#logging-container.chat-mode .top-spacer,
+#logging-container.chat-mode .bottom-spacer {
+    flex-grow: 0 !important;
+}
+
+#chat-history {
+    flex-grow: 0;
+    overflow-y: hidden;
+    min-height: 0;
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#logging-container.chat-mode #chat-history {
+    flex-grow: 1;
+    overflow-y: hidden;
+    min-height: 0;
+    flex-basis: 0;
+    height: 0;
+}
+
+#logging-container {
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+}
+
+.chat-bubble-wrapper {
+    animation: bubbleEnter 0.35s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    margin-bottom: 0.75rem;
+}
+
+@keyframes bubbleEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* CHAT MESSAGE ANIMATIONS */
+
+@keyframes breathe {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+    50% { transform: scale(1.1); box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.avatar-breathing {
+    animation: breathe 1.4s infinite ease-in-out;
+}
+
+/* The Fading Text */
+.fade-text {
+    transition: opacity 0.3s ease-in-out;
+}
