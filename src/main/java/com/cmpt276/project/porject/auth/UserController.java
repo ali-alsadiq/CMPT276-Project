@@ -519,6 +519,11 @@ public class UserController {
         if (user == null) {
             return "redirect:/login";
         }
+
+         if (user.checkUserSetTargets() == true) {
+            return "redirect:/dashboard";
+        }
+
         return "users/onBoarding";
     }
 
