@@ -318,6 +318,13 @@ public class UserController {
         String weeklyCaloriesBurnedTargetStr = profileData.get("weeklyCaloriesBurnedTarget") != null
                 ? profileData.get("weeklyCaloriesBurnedTarget").trim()
                 : "";
+        String weeklyCaloriesConsumedTargetStr = profileData.get("weeklyCaloriesConsumedTarget") != null
+                ? profileData.get("weeklyCaloriesConsumedTarget").trim()
+                : "";
+        String weeklyProteinTargetStr = profileData.get("weeklyProteinTarget") != null ? profileData.get("weeklyProteinTarget").trim() : "";
+        String weeklyCarbsTargetStr = profileData.get("weeklyCarbsTarget") != null ? profileData.get("weeklyCarbsTarget").trim() : "";
+        String weeklyFatsTargetStr = profileData.get("weeklyFatsTarget") != null ? profileData.get("weeklyFatsTarget").trim() : "";
+        String weeklyFiberTargetStr = profileData.get("weeklyFiberTarget") != null ? profileData.get("weeklyFiberTarget").trim() : "";
 
         model.addAttribute("firstnameVal", firstname);
         model.addAttribute("lastnameVal", lastname);
@@ -528,7 +535,7 @@ public class UserController {
     }
 
     @PostMapping("/onBoarding")
-    public String setUserInfo(@RequestParam Map<String, String> userInfo, Model model,
+    public String setUserInfo(@RequestParam Map<String, String> profileData, Model model,
             HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -547,20 +554,20 @@ public class UserController {
 
         boolean hasError = false;
 
-        String sex = userInfo.get("sex") != null ? userInfo.get("sex").trim() : "";
-        String dateOfBirthStr = userInfo.get("dateOfBirth") != null ? userInfo.get("dateOfBirth").trim() : "";
-        String heightStr = userInfo.get("height") != null ? userInfo.get("height").trim() : "";
-        String weightStr = userInfo.get("weight") != null ? userInfo.get("weight").trim() : "";
-        String weeklyCaloriesBurnedTargetStr = userInfo.get("weeklyCaloriesBurnedTarget") != null
-                ? userInfo.get("weeklyCaloriesBurnedTarget").trim()
+        String sex = profileData.get("sex") != null ? profileData.get("sex").trim() : "";
+        String dateOfBirthStr = profileData.get("dateOfBirth") != null ? profileData.get("dateOfBirth").trim() : "";
+        String heightStr = profileData.get("height") != null ? profileData.get("height").trim() : "";
+        String weightStr = profileData.get("weight") != null ? profileData.get("weight").trim() : "";
+        String weeklyCaloriesBurnedTargetStr = profileData.get("weeklyCaloriesBurnedTarget") != null
+                ? profileData.get("weeklyCaloriesBurnedTarget").trim()
                 : "";
-        String weeklyCaloriesConsumedTargetStr = userInfo.get("weeklyCaloriesConsumedTarget") != null
-                ? userInfo.get("weeklyCaloriesConsumedTarget").trim()
+        String weeklyCaloriesConsumedTargetStr = profileData.get("weeklyCaloriesConsumedTarget") != null
+                ? profileData.get("weeklyCaloriesConsumedTarget").trim()
                 : "";
-        String weeklyProteinTargetStr = userInfo.get("weeklyProteinTarget") != null ? userInfo.get("weeklyProteinTarget").trim() : "";
-        String weeklyCarbsTargetStr = userInfo.get("weeklyCarbsTarget") != null ? userInfo.get("weeklyCarbsTarget").trim() : "";
-        String weeklyFatsTargetStr = userInfo.get("weeklyFatsTarget") != null ? userInfo.get("weeklyFatsTarget").trim() : "";
-        String weeklyFiberTargetStr = userInfo.get("weeklyFiberTarget") != null ? userInfo.get("weeklyFiberTarget").trim() : "";
+        String weeklyProteinTargetStr = profileData.get("weeklyProteinTarget") != null ? profileData.get("weeklyProteinTarget").trim() : "";
+        String weeklyCarbsTargetStr = profileData.get("weeklyCarbsTarget") != null ? profileData.get("weeklyCarbsTarget").trim() : "";
+        String weeklyFatsTargetStr = profileData.get("weeklyFatsTarget") != null ? profileData.get("weeklyFatsTarget").trim() : "";
+        String weeklyFiberTargetStr = profileData.get("weeklyFiberTarget") != null ? profileData.get("weeklyFiberTarget").trim() : "";
 
         model.addAttribute("sexVal", sex);
         model.addAttribute("dateOfBirthVal", dateOfBirthStr);
