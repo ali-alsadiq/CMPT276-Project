@@ -680,10 +680,10 @@ public class UserController {
         model.addAttribute("weightVal", weightStr);
         model.addAttribute("weeklyCaloriesBurnedTargetVal", weeklyCaloriesBurnedTargetStr);
         model.addAttribute("weeklyCaloriesConsumedTargetVal", weeklyCaloriesConsumedTargetStr);
-        model.addAttribute("ProtienVal", weeklyProtienTargetStr);
-        model.addAttribute("carbsVal", weeklyCarbsTargetStr);
-        model.addAttribute("fatsVal", weeklyFatsTargetStr);
-        model.addAttribute("FibreVal", weeklyFibreTargetStr);
+        model.addAttribute("weeklyProtienTargetVal", weeklyProtienTargetStr);
+        model.addAttribute("weeklyCarbsTargetVal", weeklyCarbsTargetStr);
+        model.addAttribute("weeklyFatsTargetVal", weeklyFatsTargetStr);
+        model.addAttribute("weeklyFibreTargetVal", weeklyFibreTargetStr);
 
 
         if (sex.isEmpty()) {
@@ -793,14 +793,14 @@ public class UserController {
 
         double weeklyProtienTarget = 0;
         if (weeklyProtienTargetStr.isEmpty()) {
-            model.addAttribute("weeklyCaloriesTargetError", true);
+            model.addAttribute("weeklyProtienTargetError", true);
             hasError = true;
         } else {
             try {
                 weeklyProtienTarget = Double.parseDouble(weeklyProtienTargetStr);
 
                 if (weeklyProtienTarget < 200 || weeklyProtienTarget > 10000) {
-                    model.addAttribute("weeklyCaloriesTargetError", true);
+                    model.addAttribute("weeklyProtienTargetError", true);
                     model.addAttribute("error", "Weekly protien goal must be between 200 and 10000.");
                     hasError = true;
                 }
@@ -813,7 +813,7 @@ public class UserController {
 
         double weeklyCarbsTarget = 0;
         if (weeklyCarbsTargetStr.isEmpty()) {
-            model.addAttribute("weeklyCaloriesTargetError", true);
+            model.addAttribute("weeklyCarbsTargetError", true);
             hasError = true;
         } else {
             try {
