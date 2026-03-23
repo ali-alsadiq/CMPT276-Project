@@ -58,7 +58,7 @@ public class MealController {
         double fatsSpent = todayTotals.getOrDefault("fats", 0.0);
 
         // Placehodler values
-        double totalGoal = user.getCaloriesDailyGoal() > 0 ? user.getCaloriesDailyGoal() : 2000.0;
+        double totalGoal = user.getWeeklyCaloriesConsumedTarget() > 0 ? user.getWeeklyCaloriesConsumedTarget() : 2000.0;
         double proteinGoal = 150.0;
         double carbsGoal = 250.0;
         double fatsGoal = 70.0;
