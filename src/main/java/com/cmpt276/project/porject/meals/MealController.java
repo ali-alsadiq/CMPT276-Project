@@ -3,6 +3,7 @@ package com.cmpt276.project.porject.meals;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import com.cmpt276.project.porject.auth.User;
 
@@ -34,62 +35,95 @@ import jakarta.servlet.http.HttpSession;
 public class MealController {
 
     @Autowired
-    private MealService mealEntryService;
+    private MealService mealService;
 
     @Autowired
     private FoodApiService foodApiService;
+
+    private User getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (User) session.getAttribute("session_user");
+    }
+
+    private void populateCalorieTrackerData(Model model, User user) {
+        List<Meal> meals = mealService.getUserMeals(user.getUid());
+        Map<String, Double> todayTotals = mealService.getTodayTotals(user.getUid());
+
+        model.addAttribute("meals", meals);
+        model.addAttribute("todayTotals", todayTotals);
+
+        double totalSpent = todayTotals.getOrDefault("calories", 0.0);
+        double proteinSpent = todayTotals.getOrDefault("protein", 0.0);
+        double carbsSpent = todayTotals.getOrDefault("carbs", 0.0);
+        double fatsSpent = todayTotals.getOrDefault("fats", 0.0);
+
+        // Placehodler values
+        double totalGoal = user.getCaloriesDailyGoal() > 0 ? user.getCaloriesDailyGoal() : 2000.0;
+        double proteinGoal = 150.0;
+        double carbsGoal = 250.0;
+        double fatsGoal = 70.0;
+
+        int totalPercent = calculatePercentage(totalSpent, totalGoal);
+        int proteinPercent = calculatePercentage(proteinSpent, proteinGoal);
+        int carbsPercent = calculatePercentage(carbsSpent, carbsGoal);
+        int macrosPercent = calculatePercentage(fatsSpent, fatsGoal);
+
+        model.addAttribute("totalPercent", totalPercent);
+        model.addAttribute("totalSpent", (int) totalSpent);
+        model.addAttribute("totalGoal", (int) totalGoal);
+
+        model.addAttribute("proteinPercent", proteinPercent);
+        model.addAttribute("proteinSpent", (int) proteinSpent);
+        model.addAttribute("proteinGoal", (int) proteinGoal);
+
+        model.addAttribute("carbsPercent", carbsPercent);
+        model.addAttribute("carbsSpent", (int) carbsSpent);
+        model.addAttribute("carbsGoal", (int) carbsGoal);
+
+        model.addAttribute("macrosPercent", macrosPercent);
+        model.addAttribute("fatsSpent", (int) fatsSpent);
+        model.addAttribute("fatsGoal", (int) fatsGoal);
+
+    }
 
     /**
      * Displays the add-food page.
      *
      */
-    @GetMapping("/add-food")
+    @GetMapping("/calorieTracker")
     public String getAddFoodPage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("session_user");
-
+        User user = getCurrentUser(request);
         if (user == null) {
             return "redirect:/login";
         }
 
-        return "add-food";
+        populateCalorieTrackerData(model, user);
+        return "calorieTracker";
     }
 
     /**
      * Handles food description input and calculates nutrition results.
      * 
      */
-    @PostMapping("/add-food")
-    public String calculateFoodNutrition(
+    @PostMapping("/calorieTracker/search")
+    @ResponseBody
+    public List<Food> searchMealFromCalorieTracker(
             @RequestParam String foodDescription,
-            Model model,
             HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("session_user");
-
+        User user = getCurrentUser(request);
         if (user == null) {
-            return "redirect:/login";
+            return List.of();
         }
 
         String trimmedDescription = foodDescription.trim();
-        model.addAttribute("foodDescriptionVal", trimmedDescription);
-
         if (trimmedDescription.isEmpty()) {
-            model.addAttribute("error", "Please enter a food description.");
-            return "add-food";
+            return List.of();
         }
 
         List<Food> mealFoods = foodApiService.getMealNutrition(trimmedDescription);
-
-        if (mealFoods == null || mealFoods.isEmpty()) {
-            model.addAttribute("error", "No foods were found for that description.");
-            return "add-food";
-        }
-
-        model.addAttribute("mealFoods", mealFoods);
-
-        return "add-food";
+        System.out.println(mealFoods.toString());
+        return mealFoods != null ? mealFoods : List.of();
     }
 
     /**
@@ -97,69 +131,85 @@ public class MealController {
      * 
      */
     @PostMapping("/meals/add")
-        public String addMeal(
-                @RequestParam String mealType,
-                @RequestParam String consumedDate,
-                @RequestParam(name = "foodName") List<String> foodNames,
-                @RequestParam(name = "servSize") List<Double> servSizes,
-                @RequestParam(name = "calories") List<Double> calories,
-                @RequestParam(name = "protien") List<Double> protiens,
-                @RequestParam(name = "carbs") List<Double> carbs,
-                @RequestParam(name = "fats") List<Double> fats,
-                @RequestParam(name = "fiber") List<Double> fibers,
-                @RequestParam(name = "sugar") List<Double> sugars,
-                @RequestParam(name = "sodium") List<Double> sodiums,
-                @RequestParam(name = "potassium") List<Double> potassiums,
-                @RequestParam(name = "cholesterol") List<Double> cholesterols,
-                RedirectAttributes redirectAttributes,
-                HttpServletRequest request) {
+    public String addMeal(
+            @RequestParam String mealType,
+            @RequestParam String consumedDate,
+            @RequestParam(required = false, defaultValue = "") String mealName,
+            @RequestParam(name = "foodOrder") List<String> foodOrder,
+            @RequestParam Map<String, String> allParams,
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
 
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("session_user");
+        User user = getCurrentUser(request);
+        if (user == null) {
+            return "redirect:/login";
+        }
 
-            if (user == null) {
-                return "redirect:/login";
-            }
+        LocalDateTime parsedConsumedDate;
+        try {
+            parsedConsumedDate = LocalDateTime.parse(consumedDate);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Please enter a valid consumed date and time.");
+            return "redirect:/calorieTracker";
+        }
 
-            LocalDateTime parsedConsumedDate;
-            try {
-                parsedConsumedDate = LocalDateTime.parse(consumedDate);
-            } catch (Exception e) {
-                redirectAttributes.addFlashAttribute("error", "Please enter a valid consumed date and time.");
-                return "redirect:/add-food";
-            }
+        try {
+            List<String> queryParts = new ArrayList<>();
 
-            try {
-                List<Food> foods = new ArrayList<>();
+            for (String foodName : foodOrder) {
+                String paramKey = "requestedServSizes[" + foodName + "]";
+                String servingSizeValue = allParams.get(paramKey);
 
-                for (int i = 0; i < foodNames.size(); i++) {
-
-                    System.out.println(foodNames.get(i));
-                    Food food = new Food();
-                    food.setFoodName(foodNames.get(i));
-                    food.setServSize(servSizes.get(i));
-                    food.setCalories(calories.get(i));
-                    food.setProtien(protiens.get(i));
-                    food.setCarbs(carbs.get(i));
-                    food.setFats(fats.get(i));
-                    food.setFiber(fibers.get(i));
-                    food.setSugar(sugars.get(i));
-                    food.setSodium(sodiums.get(i));
-                    food.setPotassium(potassiums.get(i));
-                    food.setCholesterol(cholesterols.get(i));
-
-                    foods.add(food);
+                if (servingSizeValue == null || servingSizeValue.isBlank()) {
+                    redirectAttributes.addFlashAttribute("error", "Missing serving size for food: " + foodName);
+                    return "redirect:/calorieTracker";
                 }
 
-                mealEntryService.addMeal(user, mealType, parsedConsumedDate, foods);
+                double servingSize = Double.parseDouble(servingSizeValue);
 
-                redirectAttributes.addFlashAttribute("successMessage", "Meal added successfully!");
-                return "redirect:/add-food";
+                if (servingSize <= 0) {
+                    redirectAttributes.addFlashAttribute("error",
+                            "Serving size must be greater than 0 for food: " + foodName);
+                    return "redirect:/calorieTracker";
+                }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                redirectAttributes.addFlashAttribute("error", "Failed to add meal.");
-                return "redirect:/add-food";
+                // Fix 10x multiplier bug: CalorieNinja evaluates '100.0 grams' as '1000 grams'
+                // by accidentally stripping the decimal point
+                String formattedServingSize;
+                if (servingSize == Math.floor(servingSize) && !Double.isInfinite(servingSize)) {
+                    formattedServingSize = String.valueOf((long) servingSize);
+                } else {
+                    formattedServingSize = String.valueOf(servingSize);
+                }
+
+                queryParts.add(formattedServingSize + " grams " + foodName);
             }
+
+            String adjustedQuery = String.join(", ", queryParts);
+            System.out.println("adjustedQuery = " + adjustedQuery);
+
+            List<Food> foods = foodApiService.getMealNutrition(adjustedQuery);
+
+            if (foods == null || foods.isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "No foods were returned from the updated serving sizes.");
+                return "redirect:/calorieTracker";
+            }
+
+            mealService.addMeal(user, mealName, mealType, parsedConsumedDate, foods);
+            redirectAttributes.addFlashAttribute("successMessage", "Meal added successfully!");
+            return "redirect:/calorieTracker";
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to add meal.");
+            return "redirect:/calorieTracker";
         }
+    }
+
+    private int calculatePercentage(double spent, double goal) {
+        if (goal <= 0) {
+            return 0;
+        }
+
+        return (int) Math.min(100, Math.round((spent / goal) * 100));
+    }
 }
