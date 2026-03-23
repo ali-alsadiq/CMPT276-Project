@@ -42,7 +42,23 @@ public class User {
     private LocalDate dateOfBirth;
     private double height;
     private double weight;
-    private int caloriesDailyGoal;
+    
+    // Cals burned targets
+    @Column(name = "targets")
+    private boolean userSetTargets;
+    private double weeklyCaloriesBurned;
+    private double dailyCaloriesBurned;
+
+    //Nutrition consumtion targets
+    private double weeklyCaloriesConsumed;
+    private double weeklyProtienConsumed;
+    private double weeklyCarbsConsumed;
+    private double weeklyFatsConsumed;
+    private double weeklyFibresConsumed;
+    private double weeklySugarsConsumed; 
+    private double weeklySodiumConsumed; 
+    private double weeklyPotassiumConsumed; 
+    private double weeklyCholesterolConsumed; 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -142,14 +158,6 @@ public class User {
         this.weight = weight;
     }
 
-    public int getCaloriesDailyGoal() {
-        return caloriesDailyGoal;
-    }
-
-    public void setCaloriesDailyGoal(int caloriesDailyGoal) {
-        this.caloriesDailyGoal = caloriesDailyGoal;
-    }
-
     public boolean isAdmin() {
         return this.role.equals("ADMIN");
     }
@@ -164,4 +172,94 @@ public class User {
     public void setRankProfile(RankProfile rankProfile) {
         this.rankProfile = rankProfile;
     }
+
+    public double getWeeklyCaloriesBurned() {
+        return weeklyCaloriesBurned;
+    }
+
+    public void setWeeklyCaloriesBurned(double weeklyCaloriesBurned) {
+        this.weeklyCaloriesBurned = weeklyCaloriesBurned;
+    }
+
+    public double getWeeklyCaloriesConsumed() {
+        return weeklyCaloriesConsumed;
+    }
+
+    public void setWeeklyCaloriesConsumed(double weeklyCaloriesConsumed) {
+        this.weeklyCaloriesConsumed = weeklyCaloriesConsumed;
+    }
+
+    public double getWeeklyProtienConsumed() {
+        return weeklyProtienConsumed;
+    }
+
+    public void setWeeklyProtienConsumed(double weeklyProtienConsumed) {
+        this.weeklyProtienConsumed = weeklyProtienConsumed;
+    }
+
+    public double getWeeklyCarbsConsumed() {
+        return weeklyCarbsConsumed;
+    }
+
+    public void setWeeklyCarbsConsumed(double weeklyCarbsConsumed) {
+        this.weeklyCarbsConsumed = weeklyCarbsConsumed;
+    }
+
+    public double getWeeklyFatsConsumed() {
+        return weeklyFatsConsumed;
+    }
+
+    public void setWeeklyFatsConsumed(double weeklyFatsConsumed) {
+        this.weeklyFatsConsumed = weeklyFatsConsumed;
+    }
+
+    public double getWeeklyFibresConsumed() {
+        return weeklyFibresConsumed;
+    }
+
+    public void setWeeklyFibresConsumed(double weeklyFibresConsumed) {
+        this.weeklyFibresConsumed = weeklyFibresConsumed;
+    }
+
+    public double getWeeklySugarsConsumed() {
+        return weeklySugarsConsumed;
+    }
+
+    public void setWeeklySugarsConsumed(double weeklySugarsConsumed) {
+        this.weeklySugarsConsumed = weeklySugarsConsumed;
+    }
+
+    public double getWeeklySodiumConsumed() {
+        return weeklySodiumConsumed;
+    }
+
+    public void setWeeklySodiumConsumed(double weeklySodiumConsumed) {
+        this.weeklySodiumConsumed = weeklySodiumConsumed;
+    }
+
+    public double getWeeklyPotassiumConsumed() {
+        return weeklyPotassiumConsumed;
+    }
+
+    public void setWeeklyPotassiumConsumed(double weeklyPotassiumConsumed) {
+        this.weeklyPotassiumConsumed = weeklyPotassiumConsumed;
+    }
+
+    public double getWeeklyCholesterolConsumed() {
+        return weeklyCholesterolConsumed;
+    }
+
+    public void setWeeklyCholesterolConsumed(double weeklyCholesterolConsumed) {
+        this.weeklyCholesterolConsumed = weeklyCholesterolConsumed;
+    }
+
+    public double getDailyCaloriesBurned() {
+        return dailyCaloriesBurned;
+    }
+
+    public void setDailyCaloriesBurned(double dailyCaloriesBurned) {
+        this.dailyCaloriesBurned = dailyCaloriesBurned;
+    }
+
+    
 }

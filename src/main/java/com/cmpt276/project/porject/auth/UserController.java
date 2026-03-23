@@ -237,18 +237,6 @@ public class UserController {
         return "users/register";
     }
 
-    // -- New User Onboarding --
-
-    @GetMapping("/onBoarding")
-    public String onboarding(Model model, HttpServletRequest request, HttpServletResponse response) {
-         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("session_user");
-        
-        if (user == null) {
-            return "redirect:/login";
-    }
-        return "users/onBoarding";
-    }
 
     @GetMapping("/dashboard")
     public String getDashboard(HttpServletRequest request, Model model) {
@@ -511,7 +499,7 @@ public class UserController {
         user.setDateOfBirth(dateOfBirth);
         user.setHeight(height);
         user.setWeight(weight);
-        user.setCaloriesDailyGoal(caloriesDailyGoal);
+        user.setDailyCaloriesBurned(caloriesDailyGoal);
 
         userRepository.save(user);
         session.setAttribute("session_user", user);
@@ -585,5 +573,18 @@ public class UserController {
         }
 
         return score;
+    }
+
+    // -- New User Onboarding --
+
+    @GetMapping("/onBoarding")
+    public String onboarding(Model model, HttpServletRequest request, HttpServletResponse response) {
+         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        
+        if (user == null) {
+            return "redirect:/login";
+    }
+        return "users/onBoarding";
     }
 }

@@ -172,9 +172,9 @@
                 min="500"
                 max="10000"
                 th:class="${caloriesDailyGoalError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                th:value="${caloriesDailyGoalVal != null ? caloriesDailyGoalVal : user.caloriesDailyGoal}"
-                id="caloriesDailyGoal"
-                name="caloriesDailyGoal"
+                th:value="${caloriesDailyGoalVal != null ? caloriesDailyGoalVal : user.dailyCaloriesBurned}"
+                id="dailyCaloriesBurned"
+                name="dailyCaloriesBurned"
                 placeholder="Enter your daily calorie goal"
               />
               <div class="invalid-feedback">
