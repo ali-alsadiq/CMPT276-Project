@@ -4,6 +4,8 @@
   --bg-secondary: #111111;
   --bg-primary: #181718; 
   --bg-accent: #DBB8FF;
+  --theme-accent: #cf9fff; 
+  --bg-subtle-box: rgba(255, 255, 255, 0.06);
 
   --text-primary: #ffffff;
   --text-secondary: #b1b1ae;
@@ -27,6 +29,8 @@
   --bg-primary: #ffffff;     /* Pure white for panels */
   --bg-secondary: #f1f2f7;
   --bg-accent: #f1eff2;      /* Light gray for inputs */
+  --theme-accent: #cf9fff; 
+  --bg-subtle-box: rgba(0, 0, 0, 0.04);
 
   /* Text Colors */
   --text-primary: #181718;   /* Near-black for readability */
@@ -89,6 +93,10 @@ body.theme-bg {
 
 .bg-accent-1 {
   background-color: var(--accent-1) !important;
+}
+
+.text-accent-1 {
+  color: var(--accent-1) !important;
 }
 
 .theme-input {

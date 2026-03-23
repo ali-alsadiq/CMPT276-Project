@@ -29,8 +29,6 @@ public class SettingsController {
 
     @PostMapping("/settings")
     public String updateSettings(@RequestParam String theme, HttpServletRequest request) {
-        // For now, we only handle theme, and it's mostly client-side
-        // But we redirect back to settings to show the changes
         return "redirect:/settings";
     }
 }

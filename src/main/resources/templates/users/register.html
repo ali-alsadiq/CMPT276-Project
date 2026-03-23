@@ -20,20 +20,20 @@
                 <form action="/register" method="POST">
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" th:class="${firstnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" th:value="${firstnameVal}" id="firstname" name="firstname" placeholder="First Name">
+                            <input type="text" th:class="${firstnameError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" th:value="${firstnameVal}" id="firstname" name="firstname" placeholder="First Name">
                         </div>
 
                         <div class="col">
-                            <input type="text" th:class="${lastnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" th:value="${lastnameVal}" id="lastname" name="lastname" placeholder="Last Name">
+                            <input type="text" th:class="${lastnameError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" th:value="${lastnameVal}" id="lastname" name="lastname" placeholder="Last Name">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" th:class="${usernameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username">
+                        <input type="text" th:class="${usernameError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username">
                     </div>
 
                     <div class="mb-4">
-                        <input type="password" th:class="${passwordError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" id="password" name="password" placeholder="Password">
+                        <input type="password" th:class="${passwordError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" id="password" name="password" placeholder="Password">
 
                         <div class="d-flex align-items-center mt-2">
                             <div class="progress flex-grow-1 me-3" style="height: 8px;" id="password-strength-container">

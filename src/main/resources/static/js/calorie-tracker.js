@@ -78,7 +78,7 @@ const appendMessage = (text, isUser = true) => {
         wrapper.append(bubble, avatar);
     } else {
         wrapper.className = 'd-flex justify-content-start w-100 chat-bubble-wrapper mb-3 gap-3';
-        bubble.className = 'text-white rounded-4 px-3 py-2 shadow-sm';
+        bubble.className = 'text-theme-primary rounded-4 px-3 py-2 shadow-sm';
         bubble.style.backgroundColor = 'var(--bg-input)'; 
         avatar.textContent = 'A.';
         avatar.style.backgroundColor = 'var(--accent-1)';
@@ -150,7 +150,7 @@ const playAnimationAndSubmit = async (query) => {
 
         // Handle Empty Results
         if (!foods || foods.length === 0) {
-            bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm';
+            bubble.className = 'text-theme-primary rounded-4 px-3 py-3 shadow-sm';
             bubble.style.backgroundColor = 'var(--bg-input)';
             bubble.innerHTML = `<span class="text-danger fw-bold">No foods found.</span> Please try being more specific!`;
             toggleChatLock(false);
@@ -173,14 +173,14 @@ const playAnimationAndSubmit = async (query) => {
 
             dynamicFoodsHtml += `
                 <div class="d-flex align-items-center gap-2 mb-2">
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: rgba(255,255,255,0.05);">
-                        <input type="text" class="bg-transparent border-0 text-white w-100" value="${foodName}" readonly style="outline: none;">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: var(--bg-subtle-box);">
+                        <input type="text" class="bg-transparent border-0 text-theme-primary w-100" value="${foodName}" readonly style="outline: none;">
                         
                         <input type="hidden" name="foodOrder" value="${foodName}" />
                     </div>
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05); width: 85px; flex-shrink: 0;">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-subtle-box); width: 85px; flex-shrink: 0;">
                         
-                        <input type="number" step="0.1" min="0.1" name="requestedServSizes[${foodName}]" class="bg-transparent border-0 text-white w-100 text-center" value="${servSize}" style="outline: none;">
+                        <input type="number" step="0.1" min="0.1" name="requestedServSizes[${foodName}]" class="bg-transparent border-0 text-theme-primary w-100 text-center" value="${servSize}" style="outline: none;">
                         <span class="text-secondary ms-1">g</span>
                     </div>
                 </div>
@@ -192,19 +192,19 @@ const playAnimationAndSubmit = async (query) => {
             <form id="chat-save-form" class="d-flex flex-column gap-3" style="font-size: 0.9rem;">
                 <input type="hidden" name="consumedDate" value="${getCurrentDateTimeLocal()}">
 
-                <p class="mb-0 text-white fw-bold">Review Your Meal</p>
+                <p class="mb-0 text-theme-primary fw-bold">Review Your Meal</p>
                 
                 <div>
                     <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Title</label>
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
-                        <input type="text" name="mealName" class="bg-transparent border-0 text-white w-100" value="${foodNames.join(', ')}" style="outline: none;" required>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-subtle-box);">
+                        <input type="text" name="mealName" class="bg-transparent border-0 text-theme-primary w-100" value="${foodNames.join(', ')}" style="outline: none;" required>
                     </div>
                 </div>
 
                 <div>
                     <label class="form-label text-secondary mb-1" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Meal Type</label>
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: rgba(255,255,255,0.05);">
-                        <select name="mealType" class="bg-transparent border-0 text-white w-100" style="outline: none; -webkit-appearance: none; appearance: none; cursor: pointer;" required>
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-subtle-box);">
+                        <select name="mealType" class="bg-transparent border-0 text-theme-primary w-100" style="outline: none; -webkit-appearance: none; appearance: none; cursor: pointer;" required>
                             <option value="Breakfast" class="text-black">Breakfast</option>
                             <option value="Lunch" class="text-black">Lunch</option>
                             <option value="Dinner" class="text-black">Dinner</option>
@@ -256,7 +256,7 @@ const playAnimationAndSubmit = async (query) => {
                     const randomResponse = FINAL_RESPONSE[Math.floor(Math.random() * FINAL_RESPONSE.length)];
 
                     bubble.textContent = randomResponse;
-                    bubble.className = 'text-white rounded-4 px-3 py-2 shadow-sm fade-text';
+                    bubble.className = 'text-theme-primary rounded-4 px-3 py-2 shadow-sm fade-text';
                     bubble.style.backgroundColor = 'var(--bg-input)';
                     bubble.style.opacity = 1;
 
@@ -282,7 +282,7 @@ const playAnimationAndSubmit = async (query) => {
 
     } catch (error) {
         console.error(error);
-        bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm';
+        bubble.className = 'text-theme-primary rounded-4 px-3 py-3 shadow-sm';
         bubble.style.backgroundColor = 'var(--bg-input)';
         bubble.innerHTML = `<span class="text-danger fw-bold">Server Error.</span> Could not process your request.`;
     }
