@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -8,32 +8,32 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
-<body class="theme-bg overflow-hidden vh-100 m-0">
+<body class="theme-bg auth-bg-image overflow-hidden vh-100 m-0">
     <div class="row g-0 h-100">
-        <div class="col-4 d-none d-md-block bg-accent-1 p-4">
-            <h2 class="fw-bold text-bg-primary" style="letter-spacing: 2px;">ASCEND.</h2>
+        <div class="col-4 d-none d-md-block bg-transparent p-4">
+            <h1 class="fw-bold" style="letter-spacing: 2px;">ASCEND.</h1>
         </div>
-        <div class="col-12 col-md-8 d-flex align-items-center justify-content-center h-100">
-            <div class="theme-bg-container p-5" style="width: 100%; max-width: 500px;">
+        <div class="col-12 col-md-8 d-flex align-items-center justify-content-center h-100 auth-overlay">
+            <div class="p-5" style="width: 100%; max-width: 500px;">
                 <h1 class="text-start mb-4 fw-bold">Register</h1>
 
                 <form action="/register" method="POST">
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" th:class="${firstnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" th:value="${firstnameVal}" id="firstname" name="firstname" placeholder="First Name">
+                            <input type="text" th:class="${firstnameError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" th:value="${firstnameVal}" id="firstname" name="firstname" placeholder="First Name">
                         </div>
 
                         <div class="col">
-                            <input type="text" th:class="${lastnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" th:value="${lastnameVal}" id="lastname" name="lastname" placeholder="Last Name">
+                            <input type="text" th:class="${lastnameError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" th:value="${lastnameVal}" id="lastname" name="lastname" placeholder="Last Name">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" th:class="${usernameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username">
+                        <input type="text" th:class="${usernameError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" th:value="${usernameVal}" id="username" name="username" placeholder="Username">
                     </div>
 
                     <div class="mb-4">
-                        <input type="password" th:class="${passwordError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}" id="password" name="password" placeholder="Password">
+                        <input type="password" th:class="${passwordError != null ? 'form-control bg-white text-dark p-3 border border-danger' : 'form-control bg-white text-dark p-3 border-0'}" id="password" name="password" placeholder="Password">
 
                         <div class="d-flex align-items-center mt-2">
                             <div class="progress flex-grow-1 me-3" style="height: 8px;" id="password-strength-container">

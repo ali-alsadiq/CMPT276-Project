@@ -1,71 +1,30 @@
-<!-- Note for injecting navbar -->
-<!-- Use: <div th:replace="~{fragments/navbar :: navbar}"></div> -->
-<!-- Put in body at the top level or near the top level -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="navbar(activePage)" class="bg-primary p-4 d-flex flex-column" style="width: 350px; flex-shrink: 1;">
-        <div class="mb-5 mt-3 d-flex flex-column gap-3">
-            <div class="d-flex gap-3">
-                <div class="rounded" style="width: 40px; height: 40px; background-color: var(--bg-accent); flex-shrink: 0;"></div>
-                <div class="d-flex flex-column justify-content-start pt-2">
-                    <strong class="text-uppercase text-white fw-bold lh-1 mb-1" style="font-size: 13px; letter-spacing: 1px;" th:text="${session.session_user.username}">admin</strong>
+    <div th:fragment="navbar(activePage)" class="d-flex flex-column p-3 bg-secondary flex-shrink-0 navbar-main">
 
-                    <span class="text-uppercase lh-1" style="font-size: 11px; color: var(--text-secondary); letter-spacing: 0.5px;" th:text="${@rankService.getTierName(session.session_user.rankProfile.rr)}">Member</span>
-                </div>
+        <!-- Upper Navbar Pod -->
+        <div id="dynamic-sidebar-container"> 
+            <div id="dynamic-sidebar" class="rounded-4 py-3 px-0 pod-collapsed">
+                <div th:replace="~{fragments/navbar-upper :: navbar-upper(activePage=${activePage})}"></div>
             </div>
-            <div class="px-2">
-                <div class="d-flex justify-content-between align-items-center mb-2" style="font-size: 12px; color: var(--text-secondary);">
-                    <span th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}" th:text="${session.session_user.rankProfile.rr} + ' RR'"></span>
-                    <span th:if="${@rankService.isMaxRank(session.session_user.rankProfile.rr)}" class="fw-bold text-accent-1">Max Rank Reached!</span>
-                    <span th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}" th:text="${session.session_user.rankProfile.rr + @rankService.getPointsToNextRank(session.session_user.rankProfile.rr)} + ' RR'"></span>
-                </div>
-                <div class="progress" style="height: 4px; background-color: var(--bg-secondary);">
-                    <div class="progress-bar bg-accent-1" role="progressbar" th:style="'width: ' + ${@rankService.getProgressPercentage(session.session_user.rankProfile.rr)} + '%'" th:attr="aria-valuenow=${@rankService.getProgressPercentage(session.session_user.rankProfile.rr)}" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-            
         </div>
-        
-        <ul class="nav flex-column gap-2 mb-auto" style="font-size: 14px;">
-            <li class="nav-item">
-                <a th:href="@{/adminDashboard}" class="nav-link rounded px-3 py-2 fw-semibold"
-                th:classappend="${activePage == 'adminDashboard' ? 'bg-accent-1 text-black' : 'text-white'}">
-                    Admin Dashboard
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a th:href="@{/dashboard}" class="nav-link rounded px-3 py-2 fw-semibold"
-                th:classappend="${activePage == 'dashboard' ? 'bg-accent-1 text-black' : 'text-white'}">
-                    Dashboard
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a th:href="@{/calorieTracker}" class="nav-link rounded px-3 py-2 fw-semibold"
-                th:classappend="${activePage == 'calorieTracker' ? 'bg-accent-1 text-black' : 'text-white'}">
-                    Calorie Tracker
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a th:href="@{/add-workout}" class="nav-link rounded px-3 py-2 fw-semibold"
-                th:classappend="${activePage == 'add-workout' ? 'bg-accent-1 text-black' : 'text-white'}">
-                    Workout Tracker
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a href="#" class="nav-link text-white rounded px-3 py-2 fw-semibold">
-                    Settings
-                </a>
-            </li>
-        </ul>
 
-        <div class="mt-auto pt-4 w-100">
-            <a href="/logout" class="btn btn-outline-danger w-100 fw-semibold" style="font-size: 14px;" onclick="sessionStorage.clear()">
-                Logout
+        <!-- Lower Navbar (Stays fixed) -->
+        <div class="mt-auto d-flex flex-column align-items-center gap-4 pb-3">
+            <a href="#" id="theme-toggle" class="text-theme-icon text-decoration-none" title="Toggle Theme">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </a>
+
+            <a href="#" class="text-theme-icon text-decoration-none" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </a>
+
+            <a href="/logout" 
+               class="d-flex justify-content-center align-items-center text-white text-decoration-none rounded-3 logout-btn" 
+               title="Logout"
+               onclick="sessionStorage.clear()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </a>
         </div>
     </div>

@@ -9,12 +9,14 @@
     <link href="/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/components.css">
     <link rel="stylesheet" href="/css/workout-tracker.css">
+    <script src="/js/theme.js"></script>
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body class="theme-bg overflow-hidden vh-100 m-0" style="background-color: var(--bg-secondary) !important;">
     <div class="d-flex h-100 w-100">
         <div th:replace="~{fragments/navbar :: navbar('add-workout')}"></div>
 
-        <div class="flex-grow-1 workout-shell ms-0">
+        <div class="flex-grow-1 workout-shell overflow-auto" style="margin-left: 110px;">
         <div class="workout-main-card">
             <div class="row g-4 h-100">
                 <div class="col-xl-7 d-flex">
@@ -22,7 +24,7 @@
                         <div>
                             <p class="eyebrow mb-2">Workout Tracker</p>
                             <h1 class="panel-title">LOG WORKOUT</h1>
-                            <p class="panel-copy">sweat off that calories and see the numbers burned throughout the week.</p>
+                            <p class="panel-copy">Sweat off those calories and see the numbers burned throughout the week.</p>
                         </div>
 
                         <form method="post" th:action="@{/add-workout}" class="workout-form">
@@ -51,7 +53,7 @@
                         <div class="analytics-header">
                             <div>
                                 <p class="eyebrow mb-2">Weekly Progress</p>
-                                <h2 class="panel-subtitle">Calories Burned</h2>
+                                <h2 class="panel-subtitle">CALORIES BURNED</h2>
                             </div>
                             <p class="goal-note mb-0">
                                 Goal:
@@ -78,7 +80,6 @@
                                     <span th:text="${weeklyWorkoutCalories}">0</span> calories
                                 </p>
                                 <p class="summary-detail">Burned so far this week.</p>
-                                <p class="summary-detail">See your progress reach toward your weekly target.</p>
                             </div>
                         </div>
 
@@ -124,5 +125,6 @@
     </div>
 
     <script th:src="@{/js/workoutTracker.js}"></script>
+    <script src="/js/navbar.js"></script>
 </body>
 </html>

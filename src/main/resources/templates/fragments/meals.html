@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="meals" class="tracker-panel gradient-tr d-flex flex-column flex-grow-1 overflow-hidden" style="min-height: 0; padding-bottom: 0.5rem !important;">
+    <div th:fragment="meals" class="tracker-panel gradient-tr d-flex flex-column flex-grow-1 overflow-hidden" style="min-height: 0; padding-bottom: 2rem !important;">
         
         <!-- Header Section -->
         <div class="mb-2">
             <p class="eyebrow mb-1 text-accent-1">MEALS</p>
-            <h2 class="text-white fw-bold mb-0" style="font-size: 1.35rem;">YOUR LOGS</h2>
+            <h1 class="text-theme-primary fw-bold mb-0" style="font-size: 1.35rem;">YOUR LOGS</h1>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2 gap-3">
             <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
@@ -23,7 +23,7 @@
         <!-- Scrollable Meal List -->
         <div class="meals-scrollable">
 
-            <!-- Scrollable Meal List container to prepend AJAX entries -->
+            <!-- Scrollable Meal List -->
             <div id="meals-list-container">
                 <!-- Meal Rows -->
                 <div class="meal-row" th:each="meal : ${meals}" th:id="'meal-' + ${meal.id}">
