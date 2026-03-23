@@ -47,15 +47,14 @@ public class User {
     @Column(name = "targets")
     //check user has set targets at all
     private boolean userSetTargets;
-    private double weeklyCaloriesBurned;
-    private double dailyCaloriesBurned;
+    private double weeklyCaloriesBurnedTarget;
 
     //Nutrition consumtion targets
-    private double weeklyCaloriesConsumed;
-    private double weeklyProtienConsumed;
-    private double weeklyCarbsConsumed;
-    private double weeklyFatsConsumed;
-    private double weeklyFibresConsumed;
+    private double weeklyCaloriesConsumedTarget;
+    private double weeklyProtienTarget;
+    private double weeklyCarbsTarget;
+    private double weeklyFatsTarget;
+    private double weeklyFibresTarget;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -120,8 +119,8 @@ public class User {
         return userSetTargets;
     }
 
-    public void setUserSetTargets(boolean userSetTargets) {
-        this.userSetTargets = userSetTargets;
+    public void setUserSetTargets(boolean val) {
+        this.userSetTargets = val;
     }
 
     public String getRole() {
@@ -179,61 +178,52 @@ public class User {
         this.rankProfile = rankProfile;
     }
 
-    public double getWeeklyCaloriesBurned() {
-        return weeklyCaloriesBurned;
+    public double getWeeklyCaloriesBurnedTarget() {
+        return weeklyCaloriesBurnedTarget;
     }
 
-    public void setWeeklyCaloriesBurned(double weeklyCaloriesBurned) {
-        this.weeklyCaloriesBurned = weeklyCaloriesBurned;
+    public void setWeeklyCaloriesBurnedTarget(double weeklyCaloriesTarget) {
+        this.weeklyCaloriesBurnedTarget = weeklyCaloriesTarget;
     }
 
-    public double getWeeklyCaloriesConsumed() {
-        return weeklyCaloriesConsumed;
+    public double getWeeklyCaloriesConsumedTarget() {
+        return weeklyCaloriesConsumedTarget;
     }
 
-    public void setWeeklyCaloriesConsumed(double weeklyCaloriesConsumed) {
-        this.weeklyCaloriesConsumed = weeklyCaloriesConsumed;
+    public void setWeeklyCaloriesConsumedTarget(double weeklyCaloriesTarget) {
+        this.weeklyCaloriesConsumedTarget = weeklyCaloriesTarget;
     }
 
-    public double getWeeklyProtienConsumed() {
-        return weeklyProtienConsumed;
+    public double getWeeklyProtienTarget() {
+        return weeklyProtienTarget;
     }
 
-    public void setWeeklyProtienConsumed(double weeklyProtienConsumed) {
-        this.weeklyProtienConsumed = weeklyProtienConsumed;
+    public void setWeeklyProtienTarget(double weeklyProtienTarget) {
+        this.weeklyProtienTarget = weeklyProtienTarget;
     }
 
-    public double getWeeklyCarbsConsumed() {
-        return weeklyCarbsConsumed;
+    public double getWeeklyCarbsTarget() {
+        return weeklyCarbsTarget;
     }
 
-    public void setWeeklyCarbsConsumed(double weeklyCarbsConsumed) {
-        this.weeklyCarbsConsumed = weeklyCarbsConsumed;
+    public void setWeeklyCarbsTarget(double weeklyCarbsTarget) {
+        this.weeklyCarbsTarget = weeklyCarbsTarget;
     }
 
-    public double getWeeklyFatsConsumed() {
-        return weeklyFatsConsumed;
+    public double getWeeklyFatsTarget() {
+        return weeklyFatsTarget;
     }
 
-    public void setWeeklyFatsConsumed(double weeklyFatsConsumed) {
-        this.weeklyFatsConsumed = weeklyFatsConsumed;
+    public void setWeeklyFatsTarget(double weeklyFatsTarget) {
+        this.weeklyFatsTarget = weeklyFatsTarget;
     }
 
-    public double getWeeklyFibresConsumed() {
-        return weeklyFibresConsumed;
+    public double getWeeklyFibresTarget() {
+        return weeklyFibresTarget;
     }
 
-    public void setWeeklyFibresConsumed(double weeklyFibresConsumed) {
-        this.weeklyFibresConsumed = weeklyFibresConsumed;
+    public void setWeeklyFibresTarget(double weeklyFibresTarget) {
+        this.weeklyFibresTarget = weeklyFibresTarget;
     }
-
-    public double getDailyCaloriesBurned() {
-        return dailyCaloriesBurned;
-    }
-
-    public void setDailyCaloriesBurned(double dailyCaloriesBurned) {
-        this.dailyCaloriesBurned = dailyCaloriesBurned;
-    }
-
-    
+ 
 }

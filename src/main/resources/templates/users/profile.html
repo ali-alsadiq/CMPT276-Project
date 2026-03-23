@@ -164,18 +164,18 @@
             </div>
 
             <div class="mb-4">
-              <label for="caloriesDailyGoal" class="form-label">
-                <i class="bi bi-bullseye me-2"></i>Daily Calorie Goal
+              <label for="weeklyCaloriesBurnedTarget" class="form-label">
+                <i class="bi bi-bullseye me-2"></i>Weekly Calorie Burn Goal
               </label>
               <input
                 type="number"
                 min="500"
                 max="10000"
-                th:class="${caloriesDailyGoalError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                th:value="${caloriesDailyGoalVal != null ? caloriesDailyGoalVal : user.dailyCaloriesBurned}"
-                id="dailyCaloriesBurned"
-                name="dailyCaloriesBurned"
-                placeholder="Enter your daily calorie goal"
+                th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}"
+                id="weeklyCaloriesBurnedTarget"
+                name="weeklyCaloriesBurnedTarget"
+                placeholder="Enter your daily calorie burn goal"
               />
               <div class="invalid-feedback">
                 Daily calorie goal must be between 500 and 10000.

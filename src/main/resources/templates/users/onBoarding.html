@@ -29,7 +29,7 @@
             <i class="bi bi-person-circle fs-1"></i>
           </div>
 
-          <form th:action="@{/onboarding}" method="post" novalidate>
+          <form th:action="@{/onBoarding}" method="post" novalidate>
 
             <!-- Personal Info -->
             <div class="row mb-3">
@@ -41,6 +41,7 @@
                   class="form-select theme-input p-3 border-0"
                   id="sex"
                   name="sex"
+                  required
                 >
                   <option value="" disabled selected>Select your sex</option>
                   <option value="Male">Male</option>
@@ -59,6 +60,7 @@
                   class="form-control theme-input p-3 border-0"
                   id="dateOfBirth"
                   name="dateOfBirth"
+                  required
                 />
               </div>
             </div>
@@ -77,6 +79,7 @@
                   id="height"
                   name="height"
                   placeholder="Enter your height in cm"
+                  required
                 />
               </div>
 
@@ -93,6 +96,7 @@
                   id="weight"
                   name="weight"
                   placeholder="Enter your weight in kg"
+                  required
                 />
               </div>
             </div>
@@ -100,30 +104,32 @@
             <!-- Calorie Goals -->
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="dailyCaloriesBurned" class="form-label">
-                  <i class="bi bi-bullseye me-2"></i>Daily Calorie Goal (kcal)
+                <label for="weeklyCaloriesConsumedTarget" class="form-label">
+                  <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
                 </label>
                 <input
                   type="number"
                   min="0"
                   class="form-control theme-input p-3 border-0"
-                  id="dailyCaloriesBurned"
-                  name="dailyCaloriesBurned"
-                  placeholder="e.g. 2000"
+                  id="weeklyCaloriesConsumedTarget"
+                  name="weeklyCaloriesConsumedTarget"
+                  placeholder="e.g. 14000"
+                  required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyCaloriesConsumed" class="form-label">
-                  <i class="bi bi-calendar-week me-2"></i>Weekly Calorie Goal (kcal)
+                <label for="weeklyCaloriesBurnedTarget" class="form-label">
+                  <i class="bi bi-fire me-2"></i>Weekly Calories Burned Goal (kcal)
                 </label>
                 <input
                   type="number"
                   min="0"
                   class="form-control theme-input p-3 border-0"
-                  id="weeklyCaloriesConsumed"
-                  name="weeklyCaloriesConsumed"
-                  placeholder="e.g. 14000"
+                  id="weeklyCaloriesBurnedTarget"
+                  name="weeklyCaloriesBurnedTarget"
+                  placeholder="e.g. 2000"
+                  required
                 />
               </div>
             </div>
@@ -131,60 +137,64 @@
             <!-- Nutrient Goals -->
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyProtienConsumed" class="form-label">
+                <label for="weeklyProteinTarget" class="form-label">
                   <i class="bi bi-egg-fried me-2"></i>Weekly Protein Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
                   class="form-control theme-input p-3 border-0"
-                  id="weeklyProtienConsumed"
-                  name="weeklyProtienConsumed"
+                  id="weeklyProteinTarget"
+                  name="weeklyProteinTarget"
                   placeholder="e.g. 1050"
+                  required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyCarbsConsumed" class="form-label">
+                <label for="weeklyCarbsTarget" class="form-label">
                   <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
                   class="form-control theme-input p-3 border-0"
-                  id="weeklyCarbsConsumed"
-                  name="weeklyCarbsConsumed"
+                  id="weeklyCarbsTarget"
+                  name="weeklyCarbsTarget"
                   placeholder="e.g. 1400"
+                  required
                 />
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyFatsConsumed" class="form-label">
+                <label for="weeklyFatsTarget" class="form-label">
                   <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
                   class="form-control theme-input p-3 border-0"
-                  id="weeklyFatsConsumed"
-                  name="weeklyFatsConsumed"
+                  id="weeklyFatsTarget"
+                  name="weeklyFatsTarget"
                   placeholder="e.g. 455"
+                  required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyFibresConsumed" class="form-label">
+                <label for="weeklyFiberTarget" class="form-label">
                   <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
                   class="form-control theme-input p-3 border-0"
-                  id="weeklyFibresConsumed"
-                  name="weeklyFibresConsumed"
+                  id="weeklyFiberTarget"
+                  name="weeklyFiberTarget"
                   placeholder="e.g. 210"
+                  required
                 />
               </div>
             </div>
