@@ -249,7 +249,6 @@ public class UserController {
         return "dashboard";
     }
 
-
     // -- Logout --
 
     /**
