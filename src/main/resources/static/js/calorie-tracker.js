@@ -16,7 +16,6 @@ const INITIAL_DELAY = 500;
 const GENERATING_DELAY = 700;
 const PHRASE_TRANSITION_DELAY = 300; 
 const WELCOME_DELAY = 600;
-const FINAL_RESPONSE_HOLD_DELAY = 1000;
 
 /* Helper: Pauses for X milliseconds */
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -263,8 +262,6 @@ const playAnimationAndSubmit = async (query) => {
 
                     scrollToBottom();
 
-                    await delay(FINAL_RESPONSE_HOLD_DELAY); 
-                    
                     // Save the chat history and the UI state before refreshing
                     const historyContainer = document.getElementById("chat-history");
                     if (historyContainer) {
@@ -339,7 +336,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const welcome = document.getElementById("welcome-section");
             if (welcome) welcome.style.display = "none";
         }
-        
 
         const oldButtons = chatHistory.querySelectorAll('button[type="submit"]');
         oldButtons.forEach(btn => {
