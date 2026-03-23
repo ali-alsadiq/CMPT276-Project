@@ -249,6 +249,7 @@ public class UserController {
         return "dashboard";
     }
 
+<<<<<<< HEAD
 
 
     @RestController
@@ -279,6 +280,8 @@ public class UserController {
         }
     }
 
+=======
+>>>>>>> bc30584017f6a0a0191ef7d89b9bf9f26d8873a9
     // -- Logout --
 
     /**

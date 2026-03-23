@@ -34,8 +34,8 @@ public class MealService {
      * @param consumedDate Date and time the meal was consumed.
      * @param foods        List of foods in the meal.
      */
-    public void addMeal(User user, String mealType, LocalDateTime consumedDate, List<Food> foods) {
-        Meal mealEntry = new Meal(user, mealType, consumedDate, foods);
+    public void addMeal(User user, String mealName, String mealType, LocalDateTime consumedDate, List<Food> foods) {
+        Meal mealEntry = new Meal(user, mealName, mealType, consumedDate, foods);
         mealEntryRepository.save(mealEntry);
     }
 
