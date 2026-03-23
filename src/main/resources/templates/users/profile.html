@@ -67,57 +67,59 @@
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="sex" class="form-label">
-                <i class="bi bi-gender-ambiguous me-2"></i>Sex
-              </label>
-              <select
-                th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
-                id="sex"
-                name="sex"
-              >
-                <option value="">Select your sex</option>
-                <option
-                  value="Male"
-                  th:selected="${(sexVal != null ? sexVal : user.sex) == 'Male'}"
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="sex" class="form-label">
+                  <i class="bi bi-gender-ambiguous me-2"></i>Sex
+                </label>
+                <select
+                  th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
+                  id="sex"
+                  name="sex"
                 >
-                  Male
-                </option>
-                <option
-                  value="Female"
-                  th:selected="${(sexVal != null ? sexVal : user.sex) == 'Female'}"
-                >
-                  Female
-                </option>
-                <option
-                  value="Other"
-                  th:selected="${(sexVal != null ? sexVal : user.sex) == 'Other'}"
-                >
-                  Other
-                </option>
-                <option
-                  value="Prefer not to say"
-                  th:selected="${(sexVal != null ? sexVal : user.sex) == 'Prefer not to say'}"
-                >
-                  Prefer not to say
-                </option>
-              </select>
-              <div class="invalid-feedback">Please select your sex.</div>
-            </div>
+                  <option value="">Select your sex</option>
+                  <option
+                    value="Male"
+                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Male'}"
+                  >
+                    Male
+                  </option>
+                  <option
+                    value="Female"
+                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Female'}"
+                  >
+                    Female
+                  </option>
+                  <option
+                    value="Other"
+                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Other'}"
+                  >
+                    Other
+                  </option>
+                  <option
+                    value="Prefer not to say"
+                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Prefer not to say'}"
+                  >
+                    Prefer not to say
+                  </option>
+                </select>
+                <div class="invalid-feedback">Please select your sex.</div>
+              </div>
 
-            <div class="mb-3">
-              <label for="dateOfBirth" class="form-label">
-                <i class="bi bi-calendar-date me-2"></i>Date of Birth
-              </label>
-              <input
-                type="date"
-                th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                th:value="${dateOfBirthVal != null ? dateOfBirthVal : user.dateOfBirth}"
-                id="dateOfBirth"
-                name="dateOfBirth"
-              />
-              <div class="invalid-feedback">
-                Please enter a valid date of birth.
+              <div class="col-md-6">
+                <label for="dateOfBirth" class="form-label">
+                  <i class="bi bi-calendar-date me-2"></i>Date of Birth
+                </label>
+                <input
+                  type="date"
+                  th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dateOfBirthVal != null ? dateOfBirthVal : user.dateOfBirth}"
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                />
+                <div class="invalid-feedback">
+                  Please enter a valid date of birth.
+                </div>
               </div>
             </div>
 
@@ -163,22 +165,89 @@
               </div>
             </div>
 
-            <div class="mb-4">
-              <label for="weeklyCaloriesBurnedTarget" class="form-label">
-                <i class="bi bi-bullseye me-2"></i>Weekly Calorie Burn Goal
-              </label>
-              <input
-                type="number"
-                min="500"
-                max="10000"
-                th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}"
-                id="weeklyCaloriesBurnedTarget"
-                name="weeklyCaloriesBurnedTarget"
-                placeholder="Enter your daily calorie burn goal"
-              />
-              <div class="invalid-feedback">
-                Daily calorie goal must be between 500 and 10000.
+            <div class="row mb-3 align-items-end">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="weeklyCaloriesBurnedTarget" class="form-label">
+                  <i class="bi bi-fire me-2"></i>Weekly Calories Burned Goal (kcal)
+                </label>
+                <input
+                  type="number"
+                  min="500"
+                  max="10000"
+                  th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}"
+                  id="weeklyCaloriesBurnedTarget"
+                  name="weeklyCaloriesBurnedTarget"
+                  placeholder="Enter your daily calorie burn goal"
+                />
+                <div class="invalid-feedback">
+                  Daily calorie goal must be between 500 and 10000.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="weeklyCaloriesConsumedTarget" class="form-label">
+                  <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  th:class="${weeklyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : user.weeklyCaloriesConsumedTarget}"
+                  id="weeklyCaloriesConsumedTarget"
+                  name="weeklyCaloriesConsumedTarget"
+                  placeholder="e.g. 14000"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="weeklyProtienTarget" class="form-label">
+                  <i class="bi bi-egg-fried me-2"></i>Weekly Protein Goal (g)
+                </label>
+                <input
+                  type="number" min="0"
+                  th:class="${weeklyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : user.weeklyProtienTarget}"
+                  id="weeklyProtienTarget" name="weeklyProtienTarget" placeholder="e.g. 1050"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="weeklyCarbsTarget" class="form-label">
+                  <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
+                </label>
+                <input
+                  type="number" min="0"
+                  th:class="${weeklyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : user.weeklyCarbsTarget}"
+                  id="weeklyCarbsTarget" name="weeklyCarbsTarget" placeholder="e.g. 1400"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="weeklyFatsTarget" class="form-label">
+                  <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
+                </label>
+                <input
+                  type="number" min="0"
+                  th:class="${weeklyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : user.weeklyFatsTarget}"
+                  id="weeklyFatsTarget" name="weeklyFatsTarget" placeholder="e.g. 455"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="weeklyFibresTarget" class="form-label">
+                  <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
+                </label>
+                <input
+                  type="number" min="0"
+                  th:class="${weeklyFibresTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyFibresTargetVal != null ? weeklyFibresTargetVal : user.weeklyFibresTarget}"
+                  id="weeklyFibresTarget" name="weeklyFibresTarget" placeholder="e.g. 210"
+                />
               </div>
             </div>
 
