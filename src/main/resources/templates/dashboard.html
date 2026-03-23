@@ -1,33 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ascend - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascend Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/618d4f1d54.js" crossorigin="anonymous"></script>
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
 </head>
 <body class="theme-bg overflow-hidden vh-100 m-0">
     <div class="d-flex h-100 w-100">
-        <!-- Sidebar -->
         <div th:replace="~{fragments/navbar :: navbar('dashboard')}"></div>
-        
-        <div class="flex-grow-1 w-100 p-4 p-md-5 overflow-auto h-100 bg-secondary">
-            <!-- Remaining dashboard logic / placeholder content -->
-            <h2 class="fw-bold mb-4" style="letter-spacing: 2px;">DASHBOARD</h2>
-            <div class="theme-bg-container p-5" style="width: 100%; max-width: 500px;">
-                <p>Welcome to your Ascend dashboard. Select an option from the sidebar to get started.</p>
+        <main class="flex-grow-1 dashboard-shell">
+            <div class="dashboard-main-card">
+                <section class="dashboard-row h-100">
+                    <div class="hero-copy-container">
+                            <div class="hero-copy">
+                                <p class="eyebrow mb-2">Dashboard</p>
+                                <h1 class="dashboard-title">
+                                    Welcome back!
+                                    <span th:text="${session.session_user.firstname}">User</span>
+                                </h1>
+                                <p class="dashboard-copy">
+                                    Keep your momentum going with a quick view of your rank progress, weekly consistency,
+                                    and how you're stacking up against your friends.
+                                </p>
+                            </div>
+                            <div class="profile-card neon-heat">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <div class="profile-card-main">
+                                        <div class="badge-placeholder">
+                                            <img src="/images/rank8.png" alt="Rank badge" class="badge-image">
+                                        </div>
+                                        <div class="profile-copy">
+                                            <div class="profile-label">Current Rank</div>
+                                            <h2 class="profile-name mb-1" th:text="${session.session_user.username}">username</h2>
+                                            <p class="profile-rank mb-2" th:text="${@rankService.getTierName(session.session_user.rankProfile.rr)}">Silver</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column p-3">
+                                        <span class="eyebrow">Rank Status:</span>
+                                        <strong class="pt-2" th:text="${@rankService.isMaxRank(session.session_user.rankProfile.rr)} ? 'Elite peak' : 'Climbing steady'">Climbing steady</strong>
+                                    </div>
+                                </div>
+                                <div class="profile-meta-grid">
+                                    <div class="meta-chip">
+                                        <span class="meta-chip-label">Current RR</span>
+                                        <strong th:text="${session.session_user.rankProfile.rr} + ' RR'">420 RR</strong>
+                                    </div>
+                                    <div class="meta-chip" th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}">
+                                        <span class="meta-chip-label">Next Rank</span>
+                                        <strong th:text="${@rankService.getPointsToNextRank(session.session_user.rankProfile.rr)} + ' RR left'">80 RR left</strong>
+                                    </div>
+                                </div>
+                                <div class="rank-progress-card">
+                                    <div class="rank-progress-header">
+                                        <div>
+                                            <p class="rank-progress-kicker mb-1">Rank Progress</p>
+                                            <h3 class="rank-progress-title mb-0">Road to the next badge</h3>
+                                        </div>
+                                        <span class="rank-progress-status"
+                                            th:text="${@rankService.isMaxRank(session.session_user.rankProfile.rr) ? 'Maxed out' : @rankService.getProgressPercentage(session.session_user.rankProfile.rr) + '%'}">76%</span>
+                                    </div>
+                                    <div class="rank-progress-scale">
+                                        <div class="rank-progress-labels">
+                                            <span th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}"
+                                                th:text="${session.session_user.rankProfile.rr} + ' RR'">420 RR</span>
+                                            <span th:if="${@rankService.isMaxRank(session.session_user.rankProfile.rr)}">Max Rank Reached</span>
+                                            <span th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}"
+                                                th:text="${session.session_user.rankProfile.rr + @rankService.getPointsToNextRank(session.session_user.rankProfile.rr)} + ' RR'">500 RR</span>
+                                        </div>
+                                        <div class="rank-progress-bar">
+                                            <div class="rank-progress-fill"
+                                                th:style="'--value:' + ${@rankService.getProgressPercentage(session.session_user.rankProfile.rr)}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="friends-panel neon-heat">
+                        <div class="friends-header">
+                            <div>
+                                <p class="eyebrow mb-2">Leaderboard</p>
+                                <h2 class="friends-title mb-0">You vs Friends</h2>
+                            </div>
+                            <span class="friends-note">4 players</span>
+                        </div>
+                        <div class="friends-grid">
+                            <article class="friend-card">
+                                <span class="leader-place">1st</span>
+                                <div class="friend-badge-placeholder">
+                                    <img src="/images/rank9.png" alt="Rank badge" class="friend-badge-image">
+                                </div>
+                                <div class="friend-card-copy">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <p class="friend-name mb-1">Jason</p>
+                                        <div class="text-end">
+                                            <p class="friend-rank mb-1">Angel Horse</p>
+                                            <p class="friend-meta mb-2">792 RR</p>
+                                        </div>
+                                    </div>
+                                    <div class="friend-progress-bar">
+                                        <div class="friend-progress-fill" style="--value: 92;"></div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="friend-card is-user">
+                                <span class="leader-place">2nd</span>
+                                <div class="friend-badge-placeholder">
+                                    <img src="/images/rank8.png" alt="Rank badge" class="friend-badge-image">
+                                </div>
+                                <div class="friend-card-copy">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <p class="friend-name mb-1">admin_test2</p>
+                                        <div class="text-end">
+                                            <p class="friend-rank mb-1">Fierce Phoenix</p>
+                                            <p class="friend-meta mb-2">776 RR</p>
+                                        </div>
+                                    </div>
+                                    <div class="friend-progress-bar">
+                                        <div class="friend-progress-fill" style="--value: 76;"></div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="friend-card">
+                                <span class="leader-place">3rd</span>
+                                <div class="friend-badge-placeholder">
+                                    <img src="/images/rank6.png" alt="Rank badge" class="friend-badge-image">
+                                </div>
+                                <div class="friend-card-copy">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <p class="friend-name mb-1">Nadine</p>
+                                        <div class="text-end">
+                                            <p class="friend-rank mb-1">Emerald Elite</p>
+                                            <p class="friend-meta mb-2">660 RR</p>
+                                        </div>
+                                    </div>
+                                    <div class="friend-progress-bar">
+                                        <div class="friend-progress-fill" style="--value: 70;"></div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="friend-card">
+                                <span class="leader-place">4th</span>
+                                <div class="friend-badge-placeholder">
+                                    <img src="/images/rank5.png" alt="Rank badge" class="friend-badge-image">
+                                </div>
+                                <div class="friend-card-copy">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <p class="friend-name mb-1">Devon</p>
+                                        <div class="text-end">
+                                            <p class="friend-rank mb-1">Platinum Ice</p>
+                                            <p class="friend-meta mb-2">588 RR</p>
+                                        </div>
+                                    </div>
+                                    <div class="friend-progress-bar">
+                                        <div class="friend-progress-fill" style="--value: 64;"></div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="user-porgress">
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
+        </main>
     </div>
 
-    <script>
-        document.querySelectorAll(".progress-circle").forEach(circle => {
-            const value = circle.style.getPropertyValue("--value").trim();
-            const text = circle.querySelector(".progress-value");
-            if (text) text.textContent = `${value}%`;
-        });
-    </script>
+    <script src="/js/dashboard.js"></script>
 </body>
-
 </html>
