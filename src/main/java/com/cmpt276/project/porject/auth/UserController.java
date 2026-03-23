@@ -237,6 +237,19 @@ public class UserController {
         return "users/register";
     }
 
+    // -- New User Onboarding --
+
+    @GetMapping("/onBoarding")
+    public String onboarding(Model model, HttpServletRequest request, HttpServletResponse response) {
+         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        
+        if (user == null) {
+            return "redirect:/login";
+    }
+        return "users/onBoarding";
+    }
+
     @GetMapping("/dashboard")
     public String getDashboard(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
