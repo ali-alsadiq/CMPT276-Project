@@ -1,284 +1,212 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Profile</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link href="/css/style.css" rel="stylesheet" />
-  </head>
 
-  <body class="theme-bg min-vh-100 m-0">
-    <div class="container py-5">
-      <div class="d-flex justify-content-center">
-        <div
-          class="theme-bg-container p-5"
-          style="width: 100%; max-width: 700px"
-        >
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <div>
-              <h1 class="fw-bold mb-1">Your Profile</h1>
-              <p
-                class="mb-0 text-white-50"
-                th:text="'Welcome, ' + ${user.firstname} + ' ' + ${user.lastname} + '.'"
-              ></p>
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body class="theme-bg min-vh-100 m-0">
+  <div class="container py-5">
+    <div class="d-flex justify-content-center">
+      <div class="theme-bg-container p-5" style="width: 100%; max-width: 700px">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div>
+            <h1 class="fw-bold mb-1">Your Profile</h1>
+            <p class="mb-0 text-white-50" th:text="'Welcome, ' + ${user.firstname} + ' ' + ${user.lastname} + '.'"></p>
+          </div>
+          <i class="bi bi-person-circle fs-1"></i>
+        </div>
+
+        <form action="/profile" method="POST" id="profileForm" novalidate>
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="firstname" class="form-label">
+                <i class="bi bi-person me-2"></i>First Name
+              </label>
+              <input type="text"
+                th:class="${firstnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${firstnameVal != null ? firstnameVal : user.firstname}" id="firstname" name="firstname"
+                placeholder="Enter your first name" />
+              <div class="invalid-feedback">
+                Please enter your first name.
+              </div>
             </div>
-            <i class="bi bi-person-circle fs-1"></i>
+
+            <div class="col-md-6">
+              <label for="lastname" class="form-label">
+                <i class="bi bi-person me-2"></i>Last Name
+              </label>
+              <input type="text"
+                th:class="${lastnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${lastnameVal != null ? lastnameVal : user.lastname}" id="lastname" name="lastname"
+                placeholder="Enter your last name" />
+              <div class="invalid-feedback">Please enter your last name.</div>
+            </div>
           </div>
 
-          <form action="/profile" method="POST" id="profileForm" novalidate>
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="firstname" class="form-label">
-                  <i class="bi bi-person me-2"></i>First Name
-                </label>
-                <input
-                  type="text"
-                  th:class="${firstnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${firstnameVal != null ? firstnameVal : user.firstname}"
-                  id="firstname"
-                  name="firstname"
-                  placeholder="Enter your first name"
-                />
-                <div class="invalid-feedback">
-                  Please enter your first name.
-                </div>
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="sex" class="form-label">
+                <i class="bi bi-gender-ambiguous me-2"></i>Sex
+              </label>
+              <select
+                th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
+                id="sex" name="sex">
+                <option value="">Select your sex</option>
+                <option value="Male" th:selected="${(sexVal != null ? sexVal : user.sex) == 'Male'}">
+                  Male
+                </option>
+                <option value="Female" th:selected="${(sexVal != null ? sexVal : user.sex) == 'Female'}">
+                  Female
+                </option>
+                <option value="Other" th:selected="${(sexVal != null ? sexVal : user.sex) == 'Other'}">
+                  Other
+                </option>
+                <option value="Prefer not to say"
+                  th:selected="${(sexVal != null ? sexVal : user.sex) == 'Prefer not to say'}">
+                  Prefer not to say
+                </option>
+              </select>
+              <div class="invalid-feedback">Please select your sex.</div>
+            </div>
 
-              <div class="col-md-6">
-                <label for="lastname" class="form-label">
-                  <i class="bi bi-person me-2"></i>Last Name
-                </label>
-                <input
-                  type="text"
-                  th:class="${lastnameError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${lastnameVal != null ? lastnameVal : user.lastname}"
-                  id="lastname"
-                  name="lastname"
-                  placeholder="Enter your last name"
-                />
-                <div class="invalid-feedback">Please enter your last name.</div>
+            <div class="col-md-6">
+              <label for="dateOfBirth" class="form-label">
+                <i class="bi bi-calendar-date me-2"></i>Date of Birth
+              </label>
+              <input type="date"
+                th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${dateOfBirthVal != null ? dateOfBirthVal : user.dateOfBirth}" id="dateOfBirth"
+                name="dateOfBirth" />
+              <div class="invalid-feedback">
+                Please enter a valid date of birth.
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="height" class="form-label">
+                <i class="bi bi-rulers me-2"></i>Height (cm)
+              </label>
+              <input type="number" step="0.1" min="50" max="300"
+                th:class="${heightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${heightVal != null ? heightVal : user.height}" id="height" name="height"
+                placeholder="Enter your height in cm" />
+              <div class="invalid-feedback">
+                Height must be between 50 cm and 300 cm.
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="sex" class="form-label">
-                  <i class="bi bi-gender-ambiguous me-2"></i>Sex
-                </label>
-                <select
-                  th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
-                  id="sex"
-                  name="sex"
-                >
-                  <option value="">Select your sex</option>
-                  <option
-                    value="Male"
-                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Male'}"
-                  >
-                    Male
-                  </option>
-                  <option
-                    value="Female"
-                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Female'}"
-                  >
-                    Female
-                  </option>
-                  <option
-                    value="Other"
-                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Other'}"
-                  >
-                    Other
-                  </option>
-                  <option
-                    value="Prefer not to say"
-                    th:selected="${(sexVal != null ? sexVal : user.sex) == 'Prefer not to say'}"
-                  >
-                    Prefer not to say
-                  </option>
-                </select>
-                <div class="invalid-feedback">Please select your sex.</div>
+            <div class="col-md-6">
+              <label for="weight" class="form-label">
+                <i class="bi bi-speedometer2 me-2"></i>Weight (kg)
+              </label>
+              <input type="number" step="0.1" min="20" max="500"
+                th:class="${weightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weightVal != null ? weightVal : user.weight}" id="weight" name="weight"
+                placeholder="Enter your weight in kg" />
+              <div class="invalid-feedback">
+                Weight must be between 20 kg and 500 kg.
               </div>
+            </div>
+          </div>
 
-              <div class="col-md-6">
-                <label for="dateOfBirth" class="form-label">
-                  <i class="bi bi-calendar-date me-2"></i>Date of Birth
-                </label>
-                <input
-                  type="date"
-                  th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${dateOfBirthVal != null ? dateOfBirthVal : user.dateOfBirth}"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                />
-                <div class="invalid-feedback">
-                  Please enter a valid date of birth.
-                </div>
+          <div class="row mb-3 align-items-end">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="weeklyCaloriesBurnedTarget" class="form-label">
+                <i class="bi bi-fire me-2"></i>Weekly Calories Burned Goal (kcal)
+              </label>
+              <input type="number" min="500" max="10000"
+                th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}"
+                id="weeklyCaloriesBurnedTarget" name="weeklyCaloriesBurnedTarget"
+                placeholder="Enter your daily calorie burn goal" />
+              <div class="invalid-feedback">
+                Daily calorie goal must be between 500 and 10000.
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="height" class="form-label">
-                  <i class="bi bi-rulers me-2"></i>Height (cm)
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="50"
-                  max="300"
-                  th:class="${heightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${heightVal != null ? heightVal : user.height}"
-                  id="height"
-                  name="height"
-                  placeholder="Enter your height in cm"
-                />
-                <div class="invalid-feedback">
-                  Height must be between 50 cm and 300 cm.
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <label for="weight" class="form-label">
-                  <i class="bi bi-speedometer2 me-2"></i>Weight (kg)
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="20"
-                  max="500"
-                  th:class="${weightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weightVal != null ? weightVal : user.weight}"
-                  id="weight"
-                  name="weight"
-                  placeholder="Enter your weight in kg"
-                />
-                <div class="invalid-feedback">
-                  Weight must be between 20 kg and 500 kg.
-                </div>
-              </div>
+            <div class="col-md-6">
+              <label for="weeklyCaloriesConsumedTarget" class="form-label">
+                <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
+              </label>
+              <input type="number" min="0"
+                th:class="${weeklyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : user.weeklyCaloriesConsumedTarget}"
+                id="weeklyCaloriesConsumedTarget" name="weeklyCaloriesConsumedTarget" placeholder="e.g. 14000" />
             </div>
+          </div>
 
-            <div class="row mb-3 align-items-end">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyCaloriesBurnedTarget" class="form-label">
-                  <i class="bi bi-fire me-2"></i>Weekly Calories Burned Goal (kcal)
-                </label>
-                <input
-                  type="number"
-                  min="500"
-                  max="10000"
-                  th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}"
-                  id="weeklyCaloriesBurnedTarget"
-                  name="weeklyCaloriesBurnedTarget"
-                  placeholder="Enter your daily calorie burn goal"
-                />
-                <div class="invalid-feedback">
-                  Daily calorie goal must be between 500 and 10000.
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <label for="weeklyCaloriesConsumedTarget" class="form-label">
-                  <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${weeklyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : user.weeklyCaloriesConsumedTarget}"
-                  id="weeklyCaloriesConsumedTarget"
-                  name="weeklyCaloriesConsumedTarget"
-                  placeholder="e.g. 14000"
-                />
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="weeklyProtienTarget" class="form-label">
+                <i class="bi bi-egg-fried me-2"></i>Weekly Protien Goal (g)
+              </label>
+              <input type="number" min="0"
+                th:class="${weeklyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : user.weeklyProtienTarget}"
+                id="weeklyProtienTarget" name="weeklyProtienTarget" placeholder="e.g. 1050" />
             </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyProtienTarget" class="form-label">
-                  <i class="bi bi-egg-fried me-2"></i>Weekly Protien Goal (g)
-                </label>
-                <input
-                  type="number" min="0"
-                  th:class="${weeklyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : user.weeklyProtienTarget}"
-                  id="weeklyProtienTarget" name="weeklyProtienTarget" placeholder="e.g. 1050"
-                />
-              </div>
-              <div class="col-md-6">
-                <label for="weeklyCarbsTarget" class="form-label">
-                  <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
-                </label>
-                <input
-                  type="number" min="0"
-                  th:class="${weeklyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : user.weeklyCarbsTarget}"
-                  id="weeklyCarbsTarget" name="weeklyCarbsTarget" placeholder="e.g. 1400"
-                />
-              </div>
+            <div class="col-md-6">
+              <label for="weeklyCarbsTarget" class="form-label">
+                <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
+              </label>
+              <input type="number" min="0"
+                th:class="${weeklyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : user.weeklyCarbsTarget}"
+                id="weeklyCarbsTarget" name="weeklyCarbsTarget" placeholder="e.g. 1400" />
             </div>
+          </div>
 
-            <div class="row mb-4">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyFatsTarget" class="form-label">
-                  <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
-                </label>
-                <input
-                  type="number" min="0"
-                  th:class="${weeklyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : user.weeklyFatsTarget}"
-                  id="weeklyFatsTarget" name="weeklyFatsTarget" placeholder="e.g. 455"
-                />
-              </div>
-              <div class="col-md-6">
-                <label for="weeklyFibresTarget" class="form-label">
-                  <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
-                </label>
-                <input
-                  type="number" min="0"
-                  th:class="${weeklyFibresTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyFibresTargetVal != null ? weeklyFibresTargetVal : user.weeklyFibresTarget}"
-                  id="weeklyFibresTarget" name="weeklyFibresTarget" placeholder="e.g. 210"
-                />
-              </div>
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="weeklyFatsTarget" class="form-label">
+                <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
+              </label>
+              <input type="number" min="0"
+                th:class="${weeklyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : user.weeklyFatsTarget}"
+                id="weeklyFatsTarget" name="weeklyFatsTarget" placeholder="e.g. 455" />
             </div>
-
-            <div th:if="${error}" class="text-danger text-start mb-3 small">
-              <span th:text="${error}"></span>
+            <div class="col-md-6">
+              <label for="weeklyFibreTarget" class="form-label">
+                <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
+              </label>
+              <input type="number" min="0"
+                th:class="${weeklyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyFibreTargetVal != null ? weeklyFibreTargetVal : user.weeklyFibreTarget}"
+                id="weeklyFibreTarget" name="weeklyFibreTarget" placeholder="e.g. 210" />
             </div>
+          </div>
 
-            <div th:if="${success}" class="text-success text-start mb-3 small">
-              <span th:text="${success}"></span>
-            </div>
+          <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-primary w-100 p-3 rounded-pill">
+              <i class="bi bi-floppy me-2"></i>Save Changes
+            </button>
 
-            <div class="d-flex gap-3">
-              <button
-                type="submit"
-                class="btn btn-primary w-100 p-3 rounded-pill"
-              >
-                <i class="bi bi-floppy me-2"></i>Save Changes
-              </button>
+            <a href="/dashboard" class="btn btn-outline-light w-100 p-3 rounded-pill">
+              <i class="bi bi-arrow-left me-2"></i>Back
+            </a>
+          </div>
 
-              <a
-                href="/dashboard"
-                class="btn btn-outline-light w-100 p-3 rounded-pill"
-              >
-                <i class="bi bi-arrow-left me-2"></i>Back
-              </a>
-            </div>
-          </form>
-        </div>
+          <div th:if="${error}" class="text-danger text-start mb-3 small">
+            <span th:text="${error}"></span>
+          </div>
+
+          <div th:if="${success}" class="text-success text-start mb-3 small">
+            <span th:text="${success}"></span>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <script src="/js/profile-validation.js"></script>
-  </body>
+  <script src="/js/profile-validation.js"></script>
+</body>
+
 </html>

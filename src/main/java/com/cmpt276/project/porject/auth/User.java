@@ -54,7 +54,7 @@ public class User {
     private double weeklyProtienTarget;
     private double weeklyCarbsTarget;
     private double weeklyFatsTarget;
-    private double weeklyFibresTarget;
+    private double weeklyFibreTarget;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -218,12 +218,12 @@ public class User {
         this.weeklyFatsTarget = weeklyFatsTarget;
     }
 
-    public double getWeeklyFibresTarget() {
-        return weeklyFibresTarget;
+    public double getWeeklyFibreTarget() {
+        return weeklyFibreTarget;
     }
 
-    public void setWeeklyFibresTarget(double weeklyFibresTarget) {
-        this.weeklyFibresTarget = weeklyFibresTarget;
+    public void setWeeklyFibreTarget(double weeklyFibreTarget) {
+        this.weeklyFibreTarget = weeklyFibreTarget;
     }
  
 }
