@@ -321,7 +321,7 @@ public class UserController {
         String weeklyCaloriesConsumedTargetStr = profileData.get("weeklyCaloriesConsumedTarget") != null
                 ? profileData.get("weeklyCaloriesConsumedTarget").trim()
                 : "";
-        String weeklyProteinTargetStr = profileData.get("weeklyProteinTarget") != null ? profileData.get("weeklyProteinTarget").trim() : "";
+        String weeklyProtienTargetStr = profileData.get("weeklyProteinTarget") != null ? profileData.get("weeklyProteinTarget").trim() : "";
         String weeklyCarbsTargetStr = profileData.get("weeklyCarbsTarget") != null ? profileData.get("weeklyCarbsTarget").trim() : "";
         String weeklyFatsTargetStr = profileData.get("weeklyFatsTarget") != null ? profileData.get("weeklyFatsTarget").trim() : "";
         String weeklyFiberTargetStr = profileData.get("weeklyFiberTarget") != null ? profileData.get("weeklyFiberTarget").trim() : "";
@@ -332,7 +332,13 @@ public class UserController {
         model.addAttribute("dateOfBirthVal", dateOfBirthStr);
         model.addAttribute("heightVal", heightStr);
         model.addAttribute("weightVal", weightStr);
-        model.addAttribute("weeklyCaloriesBurnedTarget", weeklyCaloriesBurnedTargetStr);
+        model.addAttribute("weeklyCaloriesBurnedTargetVal", weeklyCaloriesBurnedTargetStr);
+        model.addAttribute("weeklyCaloriesConsumedTargetVal", weeklyCaloriesConsumedTargetStr);
+        model.addAttribute("weeklyProtienTargetVal", weeklyProtienTargetStr);
+        model.addAttribute("weeklyCarbsTargetVal", weeklyCarbsTargetStr);
+        model.addAttribute("weeklyFatsTargetVal", weeklyFatsTargetStr);
+        model.addAttribute("weeklyFiberTargetVal", weeklyFiberTargetStr);
+        
 
         if (firstname.isEmpty()) {
             model.addAttribute("firstnameError", true);
@@ -429,6 +435,106 @@ public class UserController {
             }
         }
 
+        double weeklyCaloriesConsumedTarget = 0;
+        if (weeklyCaloriesConsumedTargetStr.isEmpty()) {
+            model.addAttribute("weeklyCaloriesConsumedTargetError", true);
+            hasError = true;
+        } else {
+            try {
+                weeklyCaloriesConsumedTarget = Double.parseDouble(weeklyCaloriesConsumedTargetStr);
+
+                if (weeklyCaloriesConsumedTarget < 500 || weeklyCaloriesConsumedTarget > 10000) {
+                    model.addAttribute("weeklyCaloriesConsumedTargetError", true);
+                    model.addAttribute("error", "Weekly calorie consumption goal must be between 500 and 10000.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyCaloriesConsumedTargetError", true);
+                model.addAttribute("error", "Please enter a valid weekly calorie consumption goal.");
+                hasError = true;
+            }
+        }
+
+        double weeklyProtienTarget = 0;
+        if (weeklyProtienTargetStr.isEmpty()) {
+            model.addAttribute("weeklyProtienTargetError", true);
+            hasError = true;
+        } else {
+            try {
+                weeklyProtienTarget = Double.parseDouble(weeklyProtienTargetStr);
+
+                if (weeklyProtienTarget < 200 || weeklyProtienTarget > 10000) {
+                    model.addAttribute("weeklyProtienTargetError", true);
+                    model.addAttribute("error", "Weekly protien goal must be between 200 and 10000.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyProteinTargetError", true);
+                model.addAttribute("error", "Please enter a valid weekly protien goal.");
+                hasError = true;
+            }
+        }
+
+        double weeklyCarbsTarget = 0;
+        if (weeklyCarbsTargetStr.isEmpty()) {
+            model.addAttribute("weeklyCarbsTargetError", true);
+            hasError = true;
+        } else {
+            try {
+                weeklyCarbsTarget = Double.parseDouble(weeklyCarbsTargetStr);
+
+                if (weeklyCarbsTarget < 200 || weeklyCarbsTarget > 10000) {
+                    model.addAttribute("weeklyCarbsTargetError", true);
+                    model.addAttribute("error", "Weekly carb goal must be between 200 and 10000.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyCarbsTargetError", true);
+                model.addAttribute("error", "Please enter a valid weekly carb goal.");
+                hasError = true;
+            }
+        }
+
+        double weeklyFatsTarget = 0;
+        if (weeklyFatsTargetStr.isEmpty()) {
+            model.addAttribute("weeklyFatsTargetError", true);
+            hasError = true;
+        } else {
+            try {
+                weeklyFatsTarget = Double.parseDouble(weeklyFatsTargetStr);
+
+                if (weeklyFatsTarget < 200 || weeklyFatsTarget > 10000) {
+                    model.addAttribute("weeklyFatsTargetError", true);
+                    model.addAttribute("error", "Weekly fats goal must be between 200 and 10000.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyFatsTargetError", true);
+                model.addAttribute("error", "Please enter a valid weekly fats goal.");
+                hasError = true;
+            }
+        }
+
+        double weeklyFiberTarget = 0;
+        if (weeklyFiberTargetStr.isEmpty()) {
+            model.addAttribute("weeklyFibreTargetError", true);
+            hasError = true;
+        } else {
+            try {
+                weeklyFiberTarget = Double.parseDouble(weeklyFiberTargetStr);
+
+                if (weeklyFiberTarget < 200 || weeklyFiberTarget > 10000) {
+                    model.addAttribute("weeklyFibreTargetError", true);
+                    model.addAttribute("error", "Weekly fiber goal must be between 200 and 10000.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyFibreTargetError", true);
+                model.addAttribute("error", "Please enter a valid weekly fiber goal.");
+                hasError = true;
+            }
+        }
+
         if (hasError) {
             model.addAttribute("user", user);
             return "users/profile";
@@ -441,6 +547,11 @@ public class UserController {
         user.setHeight(height);
         user.setWeight(weight);
         user.setWeeklyCaloriesBurnedTarget(weeklyCaloriesBurnedTarget);
+        user.setWeeklyCaloriesConsumedTarget(weeklyCaloriesConsumedTarget);
+        user.setWeeklyProtienTarget(weeklyProtienTarget);
+        user.setWeeklyCarbsTarget(weeklyCarbsTarget);
+        user.setWeeklyFatsTarget(weeklyFatsTarget);
+        user.setWeeklyFibresTarget(weeklyFiberTarget);
 
         userRepository.save(user);
         session.setAttribute("session_user", user);
