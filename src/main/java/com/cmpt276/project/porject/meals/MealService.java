@@ -3,6 +3,7 @@ package com.cmpt276.project.porject.meals;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,12 @@ import com.cmpt276.project.porject.auth.User;
  */
 @Service
 public class MealService {
-    
+
     @Autowired
     private MealRepository mealEntryRepository;
+
+    @Autowired
+    private com.cmpt276.project.porject.rank.RewardService rewardService;
 
     /**
      * Adds a new meal for a user.
@@ -37,6 +41,9 @@ public class MealService {
     public void addMeal(User user, String mealName, String mealType, LocalDateTime consumedDate, List<Food> foods) {
         Meal mealEntry = new Meal(user, mealName, mealType, consumedDate, foods);
         mealEntryRepository.save(mealEntry);
+
+        // Reward the user for completing the task of logging a meal
+        rewardService.rewardForLoggingMeal(user);
     }
 
     /**
@@ -90,7 +97,7 @@ public class MealService {
      * @return Map containing nutrition totals consumed today
      */
     public Map<String, Double> getTodayTotals(int uid) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Vancouver"));
 
         LocalDateTime start = today.atStartOfDay();
         LocalDateTime end = today.plusDays(1).atStartOfDay();
@@ -109,7 +116,7 @@ public class MealService {
      * @return Map containing nutrition totals consumed this week
      */
     public Map<String, Double> getWeeklyTotals(int uid) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Vancouver"));
         LocalDate monday = today.with(DayOfWeek.MONDAY);
 
         LocalDateTime start = monday.atStartOfDay();
@@ -127,7 +134,7 @@ public class MealService {
      * @return Map containing nutrition totals consumed this month
      */
     public Map<String, Double> getMonthlyTotals(int uid) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Vancouver"));
         LocalDate firstDayOfMonth = today.withDayOfMonth(1);
         LocalDate firstDayOfNextMonth = firstDayOfMonth.plusMonths(1);
 
