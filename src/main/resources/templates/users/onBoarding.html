@@ -7,16 +7,49 @@
     <script src="https://kit.fontawesome.com/618d4f1d54.js" crossorigin="anonymous"></script>
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body class="theme-bg vh-100 m-0 overflow-hidden">
-    <div class="d-flex h-100 w-100">
-
-        <!-- Target Fields -->
-        <div class="flex-grow-1 p-4 p-md-5 overflow-auto h-100 bg-secondary d-flex flex-column align-items-center justify-content-center">
-            <div style="width: 100%; max-width: 700px;">
-            <h2 class="fw-bold mb-1">Set Your Goals</h2>
-            <p class="mb-4" style="color: var(--text-secondary);">Tell us your weekly nutrition targets so we can track your progress.</p>
+<body class="theme-bg vh-100 m-0 overflow-auto">
+    <div class="p-4 p-md-5 d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;">
+        <div style="width: 100%; max-width: 700px;">
+            <h2 class="fw-bold mb-1">Welcome! Let's get you set up.</h2>
+            <p class="mb-4" style="color: var(--text-secondary);">Tell us a bit about yourself and set your nutrition targets.</p>
 
             <form th:action="@{/onboarding}" method="post">
+
+                <!-- Personal Info -->
+                <div class="p-4 bg-primary rounded-4 mb-4">
+                    <h5 class="text-secondary mb-4">Personal Info</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-white" style="font-size: 0.85rem;">Sex</label>
+                            <select name="sex" class="form-select border-0 rounded-3 text-white" style="background-color: var(--bg-input) !important;">
+                                <option value="" disabled selected>Select your sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-white" style="font-size: 0.85rem;">Date of Birth</label>
+                            <input type="date" name="dateOfBirth" class="form-control bg-transparent text-white border-0 rounded-3"
+                                   style="background-color: var(--bg-input) !important;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-white" style="font-size: 0.85rem;">Height (cm)</label>
+                            <input type="number" name="height" step="0.1" min="50" max="300"
+                                   class="form-control bg-transparent text-white border-0 rounded-3"
+                                   style="background-color: var(--bg-input) !important;"
+                                   placeholder="e.g. 175">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-white" style="font-size: 0.85rem;">Weight (kg)</label>
+                            <input type="number" name="weight" step="0.1" min="20" max="500"
+                                   class="form-control bg-transparent text-white border-0 rounded-3"
+                                   style="background-color: var(--bg-input) !important;"
+                                   placeholder="e.g. 70">
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Calorie Goal -->
                 <div class="p-4 bg-primary rounded-4 mb-4">
@@ -101,7 +134,6 @@
                 </div>
 
             </form>
-            </div>
         </div>
     </div>
 </body>
