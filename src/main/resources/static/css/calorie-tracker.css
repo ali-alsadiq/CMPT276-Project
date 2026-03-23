@@ -90,6 +90,7 @@
     border-radius: 10px;
     background: var(--bg-input);
     padding: 1rem 1.25rem;
+    max-height: 35vh;
     flex: 1;
     min-height: 0;
 }
