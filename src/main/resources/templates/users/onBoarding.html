@@ -41,7 +41,7 @@
                   <i class="bi bi-gender-ambiguous me-2"></i>Sex
                 </label>
                 <select
-                  class="form-select theme-input p-3 border-0"
+                  th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
                   id="sex"
                   name="sex"
                   required
@@ -60,7 +60,8 @@
                 </label>
                 <input
                   type="date"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dateOfBirthVal != null ? dateOfBirthVal : ''}"
                   id="dateOfBirth"
                   name="dateOfBirth"
                   required
@@ -78,7 +79,8 @@
                   step="0.1"
                   min="50"
                   max="300"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${heightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${heightVal != null ? heightVal : ''}"
                   id="height"
                   name="height"
                   placeholder="Enter your height in cm"
@@ -95,7 +97,8 @@
                   step="0.1"
                   min="20"
                   max="500"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weightVal != null ? weightVal : ''}"
                   id="weight"
                   name="weight"
                   placeholder="Enter your weight in kg"
@@ -113,7 +116,8 @@
                 <input
                   type="number"
                   min="0"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weeklyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : ''}"
                   id="weeklyCaloriesConsumedTarget"
                   name="weeklyCaloriesConsumedTarget"
                   placeholder="e.g. 14000"
@@ -128,7 +132,8 @@
                 <input
                   type="number"
                   min="0"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : ''}"
                   id="weeklyCaloriesBurnedTarget"
                   name="weeklyCaloriesBurnedTarget"
                   placeholder="e.g. 2000"
@@ -146,7 +151,8 @@
                 <input
                   type="number"
                   min="0"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weeklyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : ''}"
                   id="weeklyProtienTarget"
                   name="weeklyProtienTarget"
                   placeholder="e.g. 1050"
@@ -161,7 +167,8 @@
                 <input
                   type="number"
                   min="0"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weeklyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : ''}"
                   id="weeklyCarbsTarget"
                   name="weeklyCarbsTarget"
                   placeholder="e.g. 1400"
@@ -178,7 +185,8 @@
                 <input
                   type="number"
                   min="0"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weeklyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : ''}"
                   id="weeklyFatsTarget"
                   name="weeklyFatsTarget"
                   placeholder="e.g. 455"
@@ -193,7 +201,8 @@
                 <input
                   type="number"
                   min="0"
-                  class="form-control theme-input p-3 border-0"
+                  th:class="${weeklyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyFibreTargetVal != null ? weeklyFibreTargetVal : ''}"
                   id="weeklyFibreTarget"
                   name="weeklyFibreTarget"
                   placeholder="e.g. 210"
@@ -201,6 +210,7 @@
                 />
               </div>
             </div>
+            
 
             <div class="d-flex gap-3">
               <button
@@ -219,6 +229,9 @@
             </div>
 
           </form>
+          <div th:if="${error}" class="text-danger text-start mb-3 small">
+              <span th:text="${error}"></span>
+            </div>
         </div>
       </div>
     </div>
