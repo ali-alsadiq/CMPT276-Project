@@ -72,6 +72,13 @@ public class User {
         this.role = role;
         this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
         this.userSetTargets = false;
+
+        this.weeklyCaloriesBurnedTarget = 0;
+        this.weeklyCaloriesConsumedTarget = 0;
+        this.weeklyProtienTarget = 0;
+        this.weeklyFatsTarget = 0;
+        this.weeklyCarbsTarget = 0;
+        this.weeklyFibreTarget = 0;
     }
 
     // -- Getters and Setters --
@@ -115,7 +122,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean checkUserSetTargets() {
+    public boolean getUserSetTargets() {
         return userSetTargets;
     }
 

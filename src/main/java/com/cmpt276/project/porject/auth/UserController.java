@@ -144,7 +144,7 @@ public class UserController {
             if (user.isAdmin()) {
                 return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
             } else {
-                if (!user.checkUserSetTargets()) {
+                if (!user.getUserSetTargets()) {
                     return "redirect:/onBoarding";
                 }
                 return "redirect:/dashboard"; // Redirect to nothing / home for now
@@ -632,7 +632,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-         if (user.checkUserSetTargets() == true) {
+         if (user.getUserSetTargets() == true) {
             return "redirect:/dashboard";
         }
 
@@ -653,7 +653,7 @@ public class UserController {
 
         // check if already onboarded, should use settings page to change info not
         // onBoarding
-        if (user.checkUserSetTargets() == true) {
+        if (user.getUserSetTargets() == true) {
             return "redirect:/dashboard";
         }
 
