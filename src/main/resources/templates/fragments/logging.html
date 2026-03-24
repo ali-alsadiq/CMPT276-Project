@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="logging" class="col-xl-7 d-flex flex-column overflow-hidden" style="min-height: 0;">
+        <section class="tracker-panel tracker-panel-form gradient-tl h-100 d-flex flex-column" style="min-height: 0;">
+
+            <div class="mb-4">
+                <p class="eyebrow mb-2 text-accent-1">MEAL TRACKER</p>
+                <h1 class="panel-title text-theme-primary" style="font-weight: 500; letter-spacing: normal;">LOG MEAL</h1>
+                <p class="panel-copy text-secondary">Record a meal and see your daily macros.</p>
+            </div>
+            
+            <div id="logging-container" class="flex-grow-1 d-flex flex-column align-items-center overflow-hidden" style="min-height: 0;">
+
+                <!-- Top spacer: pushes content to center; collapses in chat-mode -->
+                <div class="top-spacer" style="flex-grow: 1;"></div>
+
+                <!-- Welcome text -->
+                <div id="welcome-section" class="w-100 mb-3 ps-2" style="max-width: 600px;">
+                    <p class="text-secondary mb-0">Hi <span th:text="${session.session_user?.firstname}">User</span>,</p>
+                    <h3 class="text-theme-primary fw-bold">Let's Add a Meal!</h3>
+                </div>
+
+                <!-- Chat history: hidden initially, expands in chat-mode -->
+                <div id="chat-history" class="w-100 d-flex flex-column overflow-hidden px-2 mb-3" style="max-width: 600px; min-height: 0;">
+                </div>
+
+                <!-- Chat Input Box: shifts down on first send -->
+                <div id="input-section" class="w-100" style="max-width: 600px;">
+                    <form id="logging-form" th:action="@{/calorie-tracker/log}" method="post">
+                        <div class="p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
+                            <textarea id="logging-input" name="description" class="form-control bg-transparent border-0 text-theme-primary shadow-none px-2 pt-2 mb-2"
+                                    rows="3"
+                                    placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..."
+                                    style="resize: none; outline: none;"></textarea>
+
+                            <div class="d-flex justify-content-between align-items-center px-2 pb-1">
+                                <div class="text-theme-primary" style="cursor: pointer;">
+                                    <i class="fa-solid fa-circle-plus fs-5"></i>
+                                </div>
+
+                                <button type="submit" id="send-meal-btn" class="bg-primary text-theme-primary rounded-circle d-flex align-items-center justify-content-center border-0"
+                                    style="width: 36px; height: 36px; cursor: pointer;">
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Bottom spacer: collapses in chat-mode -->
+                <div class="bottom-spacer" style="flex-grow: 1;"></div>
+
+            </div>
+        </div>
+    </div>
+</body>

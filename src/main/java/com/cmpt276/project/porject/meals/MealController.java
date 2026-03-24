@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.cmpt276.project.porject.auth.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +39,7 @@ public class MealController {
 
     @Autowired
     private FoodApiService foodApiService;
-    
+
     private User getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return (User) session.getAttribute("session_user");
@@ -53,21 +52,37 @@ public class MealController {
         model.addAttribute("meals", meals);
         model.addAttribute("todayTotals", todayTotals);
 
-        model.addAttribute("totalPercent", 67);
-        model.addAttribute("totalSpent", 1340);
-        model.addAttribute("totalGoal", 2000);
+        double totalSpent = todayTotals.getOrDefault("calories", 0.0);
+        double proteinSpent = todayTotals.getOrDefault("protein", 0.0);
+        double carbsSpent = todayTotals.getOrDefault("carbs", 0.0);
+        double fatsSpent = todayTotals.getOrDefault("fats", 0.0);
 
-        model.addAttribute("proteinPercent", 82);
-        model.addAttribute("proteinSpent", 123);
-        model.addAttribute("proteinGoal", 150);
+        // Placehodler values
+        double totalGoal = user.getCaloriesDailyGoal() > 0 ? user.getCaloriesDailyGoal() : 2000.0;
+        double proteinGoal = 150.0;
+        double carbsGoal = 250.0;
+        double fatsGoal = 70.0;
 
-        model.addAttribute("carbsPercent", 74);
-        model.addAttribute("carbsSpent", 185);
-        model.addAttribute("carbsGoal", 250);
+        int totalPercent = calculatePercentage(totalSpent, totalGoal);
+        int proteinPercent = calculatePercentage(proteinSpent, proteinGoal);
+        int carbsPercent = calculatePercentage(carbsSpent, carbsGoal);
+        int macrosPercent = calculatePercentage(fatsSpent, fatsGoal);
 
-        model.addAttribute("macrosPercent", 91);
-        model.addAttribute("fatsSpent", 64);
-        model.addAttribute("fatsGoal", 70);
+        model.addAttribute("totalPercent", totalPercent);
+        model.addAttribute("totalSpent", (int) totalSpent);
+        model.addAttribute("totalGoal", (int) totalGoal);
+
+        model.addAttribute("proteinPercent", proteinPercent);
+        model.addAttribute("proteinSpent", (int) proteinSpent);
+        model.addAttribute("proteinGoal", (int) proteinGoal);
+
+        model.addAttribute("carbsPercent", carbsPercent);
+        model.addAttribute("carbsSpent", (int) carbsSpent);
+        model.addAttribute("carbsGoal", (int) carbsGoal);
+
+        model.addAttribute("macrosPercent", macrosPercent);
+        model.addAttribute("fatsSpent", (int) fatsSpent);
+        model.addAttribute("fatsGoal", (int) fatsGoal);
 
     }
 
@@ -93,8 +108,8 @@ public class MealController {
     @PostMapping("/calorieTracker/search")
     @ResponseBody
     public List<Food> searchMealFromCalorieTracker(
-        @RequestParam String foodDescription,
-        HttpServletRequest request) {
+            @RequestParam String foodDescription,
+            HttpServletRequest request) {
 
         User user = getCurrentUser(request);
         if (user == null) {
@@ -153,11 +168,21 @@ public class MealController {
                 double servingSize = Double.parseDouble(servingSizeValue);
 
                 if (servingSize <= 0) {
-                    redirectAttributes.addFlashAttribute("error", "Serving size must be greater than 0 for food: " + foodName);
+                    redirectAttributes.addFlashAttribute("error",
+                            "Serving size must be greater than 0 for food: " + foodName);
                     return "redirect:/calorieTracker";
                 }
 
-                queryParts.add(servingSize + " grams " + foodName);
+                // Fix 10x multiplier bug: CalorieNinja evaluates '100.0 grams' as '1000 grams'
+                // by accidentally stripping the decimal point
+                String formattedServingSize;
+                if (servingSize == Math.floor(servingSize) && !Double.isInfinite(servingSize)) {
+                    formattedServingSize = String.valueOf((long) servingSize);
+                } else {
+                    formattedServingSize = String.valueOf(servingSize);
+                }
+
+                queryParts.add(formattedServingSize + " grams " + foodName);
             }
 
             String adjustedQuery = String.join(", ", queryParts);
@@ -178,5 +203,13 @@ public class MealController {
             redirectAttributes.addFlashAttribute("error", "Failed to add meal.");
             return "redirect:/calorieTracker";
         }
+    }
+
+    private int calculatePercentage(double spent, double goal) {
+        if (goal <= 0) {
+            return 0;
+        }
+
+        return (int) Math.min(100, Math.round((spent / goal) * 100));
     }
 }
