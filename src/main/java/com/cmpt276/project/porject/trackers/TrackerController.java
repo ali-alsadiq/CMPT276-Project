@@ -26,7 +26,6 @@ import jakarta.servlet.http.HttpSession;
  */
 @Controller
 public class TrackerController {
-    private static final int WEEKLY_WORKOUT_GOAL = 3500;
 
     @Autowired
     private WorkoutApiService workoutApiService;
@@ -45,6 +44,7 @@ public class TrackerController {
     private void populateWorkoutTrackerModel(HttpServletRequest request, Model model) {
         User user = getCurrentUser(request);
         List<Workout> workouts = new ArrayList<>();
+        int weeklyBurnGoal = (int) user.getWeeklyCaloriesBurnedTarget();
 
         if (user != null) {
             workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
@@ -71,8 +71,8 @@ public class TrackerController {
             weeklyCalories += workout.getCalsBurned();
         }
 
-        int weeklyPercent = Math.min(100, (int) Math.round((weeklyCalories * 100.0) / WEEKLY_WORKOUT_GOAL));
-        int maxDailyCalories = Math.max(1, Math.max(WEEKLY_WORKOUT_GOAL / 7, findMax(dailyCalories)));
+        int weeklyPercent = Math.min(100, (int) Math.round((weeklyCalories * 100.0) / weeklyBurnGoal));
+        int maxDailyCalories = Math.max(1, (int) Math.max(weeklyBurnGoal / 7, findMax(dailyCalories)));
 
         List<String> dayLabels = List.of("M", "T", "W", "Th", "F", "Sa", "Su");
         List<String> dayColors = List.of("#962EFF", "#3A86FF", "#00F5FF", "#A8FF60", "#39FF14", "#FFC857", "#FF5C8A");
@@ -87,7 +87,7 @@ public class TrackerController {
         model.addAttribute("workoutWeek", workoutWeek);
         model.addAttribute("weeklyWorkoutCalories", weeklyCalories);
         model.addAttribute("weeklyWorkoutPercent", weeklyPercent);
-        model.addAttribute("weeklyWorkoutGoal", WEEKLY_WORKOUT_GOAL);
+        model.addAttribute("weeklyWorkoutGoal", weeklyBurnGoal);
         model.addAttribute("recentWorkouts", workouts.stream().limit(5).toList());
     }
 
@@ -125,6 +125,7 @@ public class TrackerController {
     public String addWorkout(@RequestParam String activity, int duration, HttpServletRequest request, Model model) {
         User user = getCurrentUser(request);
         Workout workout = workoutApiService.getWorkout(activity, duration);
+        
 
         // Check valid obj
         if (workout == null) {
