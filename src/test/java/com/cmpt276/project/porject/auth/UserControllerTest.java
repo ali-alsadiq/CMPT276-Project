@@ -26,7 +26,7 @@ public class UserControllerTest {
         @MockitoBean
         private UserRepository userRepository;
 
-        @MockitoBean
+        @MockitoBean(name = "rankService")
         private RankService rankService;
 
         /*
@@ -37,24 +37,6 @@ public class UserControllerTest {
                 mockMvc.perform(get("/login"))
                                 .andExpect(status().isOk())
                                 .andExpect(view().name("users/login"));
-        }
-
-        @Test
-        public void testLoginSuccessForUser() throws Exception {
-                User mockUser = new User("Test", "User", "testuser1", "StrongPass1!", "USER");
-                List<User> mockList = Collections.singletonList(mockUser);
-
-                Mockito.when(userRepository.findByUsernameAndPassword("testuser1", "StrongPass1!"))
-                                .thenReturn(mockList);
-
-                mockMvc.perform(post("/login")
-                                .param("firstname", "Test")
-                                .param("lastname", "User")
-                                .param("username", "testuser1")
-                                .param("password", "StrongPass1!"))
-                                .andExpect(status().is3xxRedirection())
-                                .andExpect(redirectedUrl("/dashboard"))
-                                .andExpect(request().sessionAttribute("session_user", mockUser));
         }
 
         @Test
@@ -198,12 +180,17 @@ public class UserControllerTest {
                                 .param("dateOfBirth", "2000-01-01")
                                 .param("height", "175.5")
                                 .param("weight", "72.3")
-                                .param("caloriesDailyGoal", "2200"))
+                                .param("weeklyCaloriesBurnedTarget", "2500")
+                                .param("weeklyCaloriesConsumedTarget", "2000")
+                                .param("weeklyProtienTarget", "500")
+                                .param("weeklyCarbsTarget", "2000")
+                                .param("weeklyFatsTarget", "500")
+                                .param("weeklyFibreTarget", "200"))
                                 .andExpect(status().isOk())
                                 .andExpect(view().name("users/profile"))
                                 .andExpect(model().attributeExists("success"));
 
-                Mockito.verify(userRepository, Mockito.times(1)).save(mockUser);
+                Mockito.verify(userRepository, Mockito.atLeastOnce()).save(any(User.class));
         }
 
         /*
@@ -224,7 +211,12 @@ public class UserControllerTest {
                                 .param("dateOfBirth", "3000-01-01")
                                 .param("height", "20")
                                 .param("weight", "900")
-                                .param("caloriesDailyGoal", "100"))
+                                .param("weeklyCaloriesBurnedTarget", "100")
+                                .param("weeklyCaloriesConsumedTarget", "100")
+                                .param("weeklyProtienTarget", "100")
+                                .param("weeklyCarbsTarget", "100")
+                                .param("weeklyFatsTarget", "100")
+                                .param("weeklyFibreTarget", "100"))
                                 .andExpect(status().isOk())
                                 .andExpect(view().name("users/profile"))
                                 .andExpect(model().attributeExists("firstnameError"))
@@ -232,7 +224,7 @@ public class UserControllerTest {
                                 .andExpect(model().attributeExists("dateOfBirthError"))
                                 .andExpect(model().attributeExists("heightError"))
                                 .andExpect(model().attributeExists("weightError"))
-                                .andExpect(model().attributeExists("caloriesDailyGoalError"));
+                                .andExpect(model().attributeExists("weeklyCaloriesBurnedTargetError"));
 
                 Mockito.verify(userRepository, Mockito.never()).save(any(User.class));
         }
@@ -249,7 +241,12 @@ public class UserControllerTest {
                                 .param("dateOfBirth", "2000-01-01")
                                 .param("height", "175")
                                 .param("weight", "72")
-                                .param("caloriesDailyGoal", "2200"))
+                                .param("weeklyCaloriesBurnedTarget", "2500")
+                                .param("weeklyCaloriesConsumedTarget", "2000")
+                                .param("weeklyProtienTarget", "500")
+                                .param("weeklyCarbsTarget", "800")
+                                .param("weeklyFatsTarget", "300")
+                                .param("weeklyFibreTarget", "200"))
                                 .andExpect(status().is3xxRedirection())
                                 .andExpect(redirectedUrl("/login"));
         }

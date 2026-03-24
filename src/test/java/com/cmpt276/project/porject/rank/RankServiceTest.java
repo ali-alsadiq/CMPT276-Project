@@ -1,14 +1,13 @@
-package com.cmpt276.project.porject;
+package com.cmpt276.project.porject.rank;
 
 import org.junit.jupiter.api.Test;
-import com.cmpt276.project.porject.rank.RankService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RankServiceTest {
-    
+
     private RankService rankService = new RankService();
-    
+
     @Test
     public void testCalculateRank() {
         // Test standard rank values
