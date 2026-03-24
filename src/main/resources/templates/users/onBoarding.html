@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ascend - Onboarding</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="/js/theme.js"></script>
+    <link rel="stylesheet" href="/css/navbar.css">
+  </head>
+
+  <body class="theme-bg min-vh-100 m-0">
+    <div class="container py-5">
+      <div class="d-flex justify-content-center">
+        <div
+          class="theme-bg-container p-5"
+          style="width: 100%; max-width: 700px"
+        >
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+              <h1 class="fw-bold mb-1">Welcome!</h1>
+              <p class="mb-0 text-white-50">Let's get your profile set up.</p>
+            </div>
+            <i class="bi bi-person-circle fs-1"></i>
+          </div>
+
+          <form th:action="@{/onBoarding}" method="post" novalidate>
+
+            <!-- Personal Info -->
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="sex" class="form-label">
+                  <i class="bi bi-gender-ambiguous me-2"></i>Sex
+                </label>
+                <select
+                  class="form-select theme-input p-3 border-0"
+                  id="sex"
+                  name="sex"
+                  required
+                >
+                  <option value="" disabled selected>Select your sex</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="dateOfBirth" class="form-label">
+                  <i class="bi bi-calendar-date me-2"></i>Date of Birth
+                </label>
+                <input
+                  type="date"
+                  class="form-control theme-input p-3 border-0"
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="height" class="form-label">
+                  <i class="bi bi-rulers me-2"></i>Height (cm)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="50"
+                  max="300"
+                  class="form-control theme-input p-3 border-0"
+                  id="height"
+                  name="height"
+                  placeholder="Enter your height in cm"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="weight" class="form-label">
+                  <i class="bi bi-speedometer2 me-2"></i>Weight (kg)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="20"
+                  max="500"
+                  class="form-control theme-input p-3 border-0"
+                  id="weight"
+                  name="weight"
+                  placeholder="Enter your weight in kg"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Calorie Goals -->
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="weeklyCaloriesConsumedTarget" class="form-label">
+                  <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control theme-input p-3 border-0"
+                  id="weeklyCaloriesConsumedTarget"
+                  name="weeklyCaloriesConsumedTarget"
+                  placeholder="e.g. 14000"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="weeklyCaloriesBurnedTarget" class="form-label">
+                  <i class="bi bi-fire me-2"></i>Weekly Calories Burned Goal (kcal)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control theme-input p-3 border-0"
+                  id="weeklyCaloriesBurnedTarget"
+                  name="weeklyCaloriesBurnedTarget"
+                  placeholder="e.g. 2000"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Nutrient Goals -->
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="weeklyProtienTarget" class="form-label">
+                  <i class="bi bi-egg-fried me-2"></i>Weekly Protien Goal (g)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control theme-input p-3 border-0"
+                  id="weeklyProtienTarget"
+                  name="weeklyProtienTarget"
+                  placeholder="e.g. 1050"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="weeklyCarbsTarget" class="form-label">
+                  <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control theme-input p-3 border-0"
+                  id="weeklyCarbsTarget"
+                  name="weeklyCarbsTarget"
+                  placeholder="e.g. 1400"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="weeklyFatsTarget" class="form-label">
+                  <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control theme-input p-3 border-0"
+                  id="weeklyFatsTarget"
+                  name="weeklyFatsTarget"
+                  placeholder="e.g. 455"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="weeklyFibreTarget" class="form-label">
+                  <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control theme-input p-3 border-0"
+                  id="weeklyFibreTarget"
+                  name="weeklyFibreTarget"
+                  placeholder="e.g. 210"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="d-flex gap-3">
+              <button
+                type="submit"
+                class="btn btn-primary w-100 p-3 rounded-pill"
+              >
+                <i class="bi bi-floppy me-2"></i>Save Goals
+              </button>
+
+              <a
+                th:href="@{/dashboard}"
+                class="btn btn-outline-light w-100 p-3 rounded-pill"
+              >
+                <i class="bi bi-skip-forward me-2"></i>Skip for now
+              </a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

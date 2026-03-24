@@ -42,7 +42,19 @@ public class User {
     private LocalDate dateOfBirth;
     private double height;
     private double weight;
-    private int caloriesDailyGoal;
+    
+    // Cals burned targets
+    @Column(name = "targets")
+    //check user has set targets at all
+    private boolean userSetTargets;
+    private double weeklyCaloriesBurnedTarget;
+
+    //Nutrition consumtion targets
+    private double weeklyCaloriesConsumedTarget;
+    private double weeklyProtienTarget;
+    private double weeklyCarbsTarget;
+    private double weeklyFatsTarget;
+    private double weeklyFibreTarget;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -59,6 +71,7 @@ public class User {
         this.password = password;
         this.role = role;
         this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
+        this.userSetTargets = false;
     }
 
     // -- Getters and Setters --
@@ -102,6 +115,14 @@ public class User {
         this.password = password;
     }
 
+    public boolean checkUserSetTargets() {
+        return userSetTargets;
+    }
+
+    public void setUserSetTargets(boolean val) {
+        this.userSetTargets = val;
+    }
+
     public String getRole() {
         return role;
     }
@@ -142,14 +163,6 @@ public class User {
         this.weight = weight;
     }
 
-    public int getCaloriesDailyGoal() {
-        return caloriesDailyGoal;
-    }
-
-    public void setCaloriesDailyGoal(int caloriesDailyGoal) {
-        this.caloriesDailyGoal = caloriesDailyGoal;
-    }
-
     public boolean isAdmin() {
         return this.role.equals("ADMIN");
     }
@@ -164,4 +177,53 @@ public class User {
     public void setRankProfile(RankProfile rankProfile) {
         this.rankProfile = rankProfile;
     }
+
+    public double getWeeklyCaloriesBurnedTarget() {
+        return weeklyCaloriesBurnedTarget;
+    }
+
+    public void setWeeklyCaloriesBurnedTarget(double weeklyCaloriesTarget) {
+        this.weeklyCaloriesBurnedTarget = weeklyCaloriesTarget;
+    }
+
+    public double getWeeklyCaloriesConsumedTarget() {
+        return weeklyCaloriesConsumedTarget;
+    }
+
+    public void setWeeklyCaloriesConsumedTarget(double weeklyCaloriesTarget) {
+        this.weeklyCaloriesConsumedTarget = weeklyCaloriesTarget;
+    }
+
+    public double getWeeklyProtienTarget() {
+        return weeklyProtienTarget;
+    }
+
+    public void setWeeklyProtienTarget(double weeklyProtienTarget) {
+        this.weeklyProtienTarget = weeklyProtienTarget;
+    }
+
+    public double getWeeklyCarbsTarget() {
+        return weeklyCarbsTarget;
+    }
+
+    public void setWeeklyCarbsTarget(double weeklyCarbsTarget) {
+        this.weeklyCarbsTarget = weeklyCarbsTarget;
+    }
+
+    public double getWeeklyFatsTarget() {
+        return weeklyFatsTarget;
+    }
+
+    public void setWeeklyFatsTarget(double weeklyFatsTarget) {
+        this.weeklyFatsTarget = weeklyFatsTarget;
+    }
+
+    public double getWeeklyFibreTarget() {
+        return weeklyFibreTarget;
+    }
+
+    public void setWeeklyFibreTarget(double weeklyFibreTarget) {
+        this.weeklyFibreTarget = weeklyFibreTarget;
+    }
+ 
 }
