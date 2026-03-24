@@ -53,9 +53,9 @@
             <div class="progress-wrapper">
                 <div class="progress-circle progress-circle-small"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value:' + ${macrosPercent} + '; --progress-color: #ffffba;'">
+                    th:style="'--value:' + ${fatsPercent} + '; --progress-color: #ffffba;'">
                     <div class="progress-inner">
-                        <span class="progress-value-small" th:text="${macrosPercent} + '%'">91%</span>
+                        <span class="progress-value-small" th:text="${fatsPercent} + '%'">91%</span>
                         <span class="progress-sublabel">Fats</span>
                     </div>
                 </div>
@@ -63,11 +63,11 @@
 
             <!-- Fibre -->
             <div class="progress-wrapper">
-                <div class="progress-circle progress-circle-small" id="progress-fiber"
+                <div class="progress-circle progress-circle-small" id="progress-fibre"
                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    th:style="'--value: 0; --progress-color: #baffc9;'">
+                    th:style="'--value:' + ${fibrePercent} + '; --progress-color: #baffc9;'">
                     <div class="progress-inner">
-                        <span class="progress-value-small" id="progress-val-fiber" th:text="'0%'">59%</span>
+                        <span class="progress-value-small" id="progress-val-fibre" th:text="${fibrePercent} + '%'">59%</span>
                         <span class="progress-sublabel">Fibre</span>
                     </div>
                 </div>

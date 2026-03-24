@@ -56,17 +56,20 @@ public class MealController {
         double proteinSpent = todayTotals.getOrDefault("protein", 0.0);
         double carbsSpent = todayTotals.getOrDefault("carbs", 0.0);
         double fatsSpent = todayTotals.getOrDefault("fats", 0.0);
+        double fibreSpent = todayTotals.getOrDefault("fiber", 0.0);
 
         // Placehodler values
         double totalGoal = user.getWeeklyCaloriesConsumedTarget() > 0 ? user.getWeeklyCaloriesConsumedTarget() : 2000.0;
-        double proteinGoal = 150.0;
-        double carbsGoal = 250.0;
-        double fatsGoal = 70.0;
+        double proteinGoal = user.getWeeklyProtienTarget() > 0 ? user.getWeeklyProtienTarget() : 2000.0;
+        double carbsGoal = user.getWeeklyCarbsTarget() > 0 ? user.getWeeklyCarbsTarget() : 2000.0;
+        double fatsGoal = user.getWeeklyFatsTarget() > 0 ? user.getWeeklyFatsTarget() : 2000.0;
+        double fibreGoal = user.getWeeklyFibreTarget() > 0 ? user.getWeeklyFibreTarget() : 2000.0;
 
         int totalPercent = calculatePercentage(totalSpent, totalGoal);
         int proteinPercent = calculatePercentage(proteinSpent, proteinGoal);
         int carbsPercent = calculatePercentage(carbsSpent, carbsGoal);
-        int macrosPercent = calculatePercentage(fatsSpent, fatsGoal);
+        int fatsPercent = calculatePercentage(fatsSpent, fatsGoal);
+        int fibrePercent = calculatePercentage(fibreSpent, fibreGoal);
 
         model.addAttribute("totalPercent", totalPercent);
         model.addAttribute("totalSpent", (int) totalSpent);
@@ -80,9 +83,13 @@ public class MealController {
         model.addAttribute("carbsSpent", (int) carbsSpent);
         model.addAttribute("carbsGoal", (int) carbsGoal);
 
-        model.addAttribute("macrosPercent", macrosPercent);
+        model.addAttribute("fatsPercent", fatsPercent);
         model.addAttribute("fatsSpent", (int) fatsSpent);
         model.addAttribute("fatsGoal", (int) fatsGoal);
+
+        model.addAttribute("fibrePercent", fibrePercent);
+        model.addAttribute("fibreSpent", (int) fibreSpent);
+        model.addAttribute("fibreGoal", (int) fibreGoal);
 
     }
 
