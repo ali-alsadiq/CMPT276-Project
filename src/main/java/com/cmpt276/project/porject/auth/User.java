@@ -122,7 +122,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean checkUserSetTargets() {
+    public boolean getUserSetTargets() {
         return userSetTargets;
     }
 
