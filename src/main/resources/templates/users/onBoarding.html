@@ -110,16 +110,16 @@
             <!-- Calorie Goals -->
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyCaloriesConsumedTarget" class="form-label">
-                  <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
+                <label for="dailyCaloriesConsumedTarget" class="form-label">
+                  <i class="bi bi-calendar-week me-2"></i>Daily Calories Consumed Goal (kcal)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : ''}"
-                  id="weeklyCaloriesConsumedTarget"
-                  name="weeklyCaloriesConsumedTarget"
+                  th:class="${dailyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyCaloriesConsumedTargetVal != null ? dailyCaloriesConsumedTargetVal : ''}"
+                  id="dailyCaloriesConsumedTarget"
+                  name="dailyCaloriesConsumedTarget"
                   placeholder="e.g. 14000"
                   required
                 />
@@ -145,32 +145,32 @@
             <!-- Nutrient Goals -->
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyProtienTarget" class="form-label">
-                  <i class="bi bi-egg-fried me-2"></i>Weekly Protien Goal (g)
+                <label for="dailyProtienTarget" class="form-label">
+                  <i class="bi bi-egg-fried me-2"></i>Daily Protien Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : ''}"
-                  id="weeklyProtienTarget"
-                  name="weeklyProtienTarget"
+                  th:class="${dailyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyProtienTargetVal != null ? dailyProtienTargetVal : ''}"
+                  id="dailyProtienTarget"
+                  name="dailyProtienTarget"
                   placeholder="e.g. 1050"
                   required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyCarbsTarget" class="form-label">
-                  <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
+                <label for="dailyCarbsTarget" class="form-label">
+                  <i class="bi bi-basket me-2"></i>Daily Carbs Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : ''}"
-                  id="weeklyCarbsTarget"
-                  name="weeklyCarbsTarget"
+                  th:class="${dailyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : ''}"
+                  id="dailyCarbsTarget"
+                  name="dailyCarbsTarget"
                   placeholder="e.g. 1400"
                   required
                 />
@@ -179,32 +179,32 @@
 
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyFatsTarget" class="form-label">
-                  <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
+                <label for="dailyFatsTarget" class="form-label">
+                  <i class="bi bi-droplet me-2"></i>Daily Fats Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : ''}"
-                  id="weeklyFatsTarget"
-                  name="weeklyFatsTarget"
+                  th:class="${dailyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyFatsTargetVal != null ? dailyFatsTargetVal : ''}"
+                  id="dailyFatsTarget"
+                  name="dailyFatsTarget"
                   placeholder="e.g. 455"
                   required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyFibreTarget" class="form-label">
-                  <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
+                <label for="dailyFibreTarget" class="form-label">
+                  <i class="bi bi-flower1 me-2"></i>Daily Fibre Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyFibreTargetVal != null ? weeklyFibreTargetVal : ''}"
-                  id="weeklyFibreTarget"
-                  name="weeklyFibreTarget"
+                  th:class="${dailyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyFibreTargetVal != null ? dailyFibreTargetVal : ''}"
+                  id="dailyFibreTarget"
+                  name="dailyFibreTarget"
                   placeholder="e.g. 210"
                   required
                 />
