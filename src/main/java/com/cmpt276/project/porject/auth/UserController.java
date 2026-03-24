@@ -872,6 +872,9 @@ public class UserController {
         }
 
         if (hasError) {
+            if (model.getAttribute("error") == null) {
+                model.addAttribute("error", "Please fill in all required fields correctly.");
+            }
             model.addAttribute("user", user);
             return "users/onBoarding";
         }
