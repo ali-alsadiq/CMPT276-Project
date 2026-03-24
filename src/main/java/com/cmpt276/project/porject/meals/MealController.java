@@ -59,11 +59,11 @@ public class MealController {
         double fibreSpent = todayTotals.getOrDefault("fiber", 0.0);
 
         // Placehodler values
-        double totalGoal = user.getWeeklyCaloriesConsumedTarget() > 0 ? user.getWeeklyCaloriesConsumedTarget() : 2000.0;
-        double proteinGoal = user.getWeeklyProtienTarget() > 0 ? user.getWeeklyProtienTarget() : 2000.0;
-        double carbsGoal = user.getWeeklyCarbsTarget() > 0 ? user.getWeeklyCarbsTarget() : 2000.0;
-        double fatsGoal = user.getWeeklyFatsTarget() > 0 ? user.getWeeklyFatsTarget() : 2000.0;
-        double fibreGoal = user.getWeeklyFibreTarget() > 0 ? user.getWeeklyFibreTarget() : 2000.0;
+        double totalGoal = user.getDailyCaloriesConsumedTarget() > 0 ? user.getDailyCaloriesConsumedTarget() : 2000.0;
+        double proteinGoal = user.getDailyProtienTarget() > 0 ? user.getDailyProtienTarget() : 2000.0;
+        double carbsGoal = user.getDailyCarbsTarget() > 0 ? user.getDailyCarbsTarget() : 2000.0;
+        double fatsGoal = user.getDailyFatsTarget() > 0 ? user.getDailyFatsTarget() : 2000.0;
+        double fibreGoal = user.getDailyFibreTarget() > 0 ? user.getDailyFibreTarget() : 2000.0;
 
         int totalPercent = calculatePercentage(totalSpent, totalGoal);
         int proteinPercent = calculatePercentage(proteinSpent, proteinGoal);

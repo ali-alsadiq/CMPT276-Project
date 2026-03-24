@@ -50,11 +50,11 @@ public class User {
     private double weeklyCaloriesBurnedTarget;
 
     //Nutrition consumtion targets
-    private double weeklyCaloriesConsumedTarget;
-    private double weeklyProtienTarget;
-    private double weeklyCarbsTarget;
-    private double weeklyFatsTarget;
-    private double weeklyFibreTarget;
+    private double dailyCaloriesConsumedTarget;
+    private double dailyProtienTarget;
+    private double dailyCarbsTarget;
+    private double dailyFatsTarget;
+    private double dailyFibreTarget;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -74,11 +74,11 @@ public class User {
         this.userSetTargets = false;
 
         this.weeklyCaloriesBurnedTarget = 0;
-        this.weeklyCaloriesConsumedTarget = 0;
-        this.weeklyProtienTarget = 0;
-        this.weeklyFatsTarget = 0;
-        this.weeklyCarbsTarget = 0;
-        this.weeklyFibreTarget = 0;
+        this.dailyCaloriesConsumedTarget = 0;
+        this.dailyProtienTarget = 0;
+        this.dailyFatsTarget = 0;
+        this.dailyCarbsTarget = 0;
+        this.dailyFibreTarget = 0;
     }
 
     // -- Getters and Setters --
@@ -193,44 +193,46 @@ public class User {
         this.weeklyCaloriesBurnedTarget = weeklyCaloriesTarget;
     }
 
-    public double getWeeklyCaloriesConsumedTarget() {
-        return weeklyCaloriesConsumedTarget;
+    public double getDailyCaloriesConsumedTarget() {
+        return dailyCaloriesConsumedTarget;
     }
 
-    public void setWeeklyCaloriesConsumedTarget(double weeklyCaloriesTarget) {
-        this.weeklyCaloriesConsumedTarget = weeklyCaloriesTarget;
+    public void setDailyCaloriesConsumedTarget(double dailyCaloriesConsumedTarget) {
+        this.dailyCaloriesConsumedTarget = dailyCaloriesConsumedTarget;
     }
 
-    public double getWeeklyProtienTarget() {
-        return weeklyProtienTarget;
+    public double getDailyProtienTarget() {
+        return dailyProtienTarget;
     }
 
-    public void setWeeklyProtienTarget(double weeklyProtienTarget) {
-        this.weeklyProtienTarget = weeklyProtienTarget;
+    public void setDailyProtienTarget(double dailyProtienTarget) {
+        this.dailyProtienTarget = dailyProtienTarget;
     }
 
-    public double getWeeklyCarbsTarget() {
-        return weeklyCarbsTarget;
+    public double getDailyCarbsTarget() {
+        return dailyCarbsTarget;
     }
 
-    public void setWeeklyCarbsTarget(double weeklyCarbsTarget) {
-        this.weeklyCarbsTarget = weeklyCarbsTarget;
+    public void setDailyCarbsTarget(double dailyCarbsTarget) {
+        this.dailyCarbsTarget = dailyCarbsTarget;
     }
 
-    public double getWeeklyFatsTarget() {
-        return weeklyFatsTarget;
+    public double getDailyFatsTarget() {
+        return dailyFatsTarget;
     }
 
-    public void setWeeklyFatsTarget(double weeklyFatsTarget) {
-        this.weeklyFatsTarget = weeklyFatsTarget;
+    public void setDailyFatsTarget(double dailyFatsTarget) {
+        this.dailyFatsTarget = dailyFatsTarget;
     }
 
-    public double getWeeklyFibreTarget() {
-        return weeklyFibreTarget;
+    public double getDailyFibreTarget() {
+        return dailyFibreTarget;
     }
 
-    public void setWeeklyFibreTarget(double weeklyFibreTarget) {
-        this.weeklyFibreTarget = weeklyFibreTarget;
+    public void setDailyFibreTarget(double dailyFibreTarget) {
+        this.dailyFibreTarget = dailyFibreTarget;
     }
+
+    
  
 }
