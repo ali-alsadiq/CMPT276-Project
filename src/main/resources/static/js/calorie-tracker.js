@@ -135,7 +135,7 @@ const playAnimationAndSubmit = async (query) => {
 
     try {
         // Fetch food data from the API
-        const response = await fetch("/calorieTracker/search", {
+        const response = await fetch("/calorie-tracker/search", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",

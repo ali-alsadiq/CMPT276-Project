@@ -36,7 +36,7 @@ public class UserController {
      * @param request Request to get session from.
      * @return String representing the view to return.
      */
-    @GetMapping("/adminDashboard")
+    @GetMapping("/admin-dashboard")
     public String getAllUsers(Model model, HttpServletRequest request) {
         // Check if user is logged in has "ADMIN" role
         HttpSession session = request.getSession();
@@ -50,7 +50,7 @@ public class UserController {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 
-        return "adminDashboard";
+        return "admin-dashboard";
     }
 
     /**
@@ -86,7 +86,7 @@ public class UserController {
         // If user is logged in, redirect to dashboard
         if (user != null) {
             if (user.isAdmin()) {
-                return "redirect:/adminDashboard";
+                return "redirect:/admin-dashboard";
             }
 
             else {
@@ -142,7 +142,7 @@ public class UserController {
             request.getSession().setAttribute("session_user", user);
 
             if (user.isAdmin()) {
-                return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
+                return "redirect:/admin-dashboard"; // Redirect to admin dashboard endpoint
             } else {
                 if (!user.getUserSetTargets()) {
                     return "redirect:/onBoarding";
@@ -225,7 +225,7 @@ public class UserController {
         // If user is logged in, redirect to dashboard
         if (user != null) {
             if (user.isAdmin()) {
-                return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
+                return "redirect:/admin-dashboard"; // Redirect to admin dashboard endpoint
             } else {
                 return "redirect:/dashboard"; // Redirect to nothing / home for now
             }

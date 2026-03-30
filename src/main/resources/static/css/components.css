@@ -12,7 +12,13 @@
     transition: all 0.3s ease; /* Smooth fade when toggling modes */
 }
 
-/* TRACKER PANELS */
+/* TRACKER PANELS & SHELLS */
+ 
+.tracker-shell {
+    padding: 1.5rem !important;
+    display: flex;
+    flex-direction: column;
+}
 
 .tracker-panel {
     border-radius: 28px;

@@ -97,7 +97,7 @@ public class MealController {
      * Displays the add-food page.
      *
      */
-    @GetMapping("/calorieTracker")
+    @GetMapping("/calorie-tracker")
     public String getAddFoodPage(Model model, HttpServletRequest request) {
         User user = getCurrentUser(request);
         if (user == null) {
@@ -105,14 +105,14 @@ public class MealController {
         }
 
         populateCalorieTrackerData(model, user);
-        return "calorieTracker";
+        return "calorie-tracker/calorie-tracker";
     }
 
     /**
      * Handles food description input and calculates nutrition results.
      * 
      */
-    @PostMapping("/calorieTracker/search")
+    @PostMapping("/calorie-tracker/search")
     @ResponseBody
     public List<Food> searchMealFromCalorieTracker(
             @RequestParam String foodDescription,
@@ -157,7 +157,7 @@ public class MealController {
             parsedConsumedDate = LocalDateTime.parse(consumedDate);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Please enter a valid consumed date and time.");
-            return "redirect:/calorieTracker";
+            return "redirect:/calorie-tracker";
         }
 
         try {
@@ -169,7 +169,7 @@ public class MealController {
 
                 if (servingSizeValue == null || servingSizeValue.isBlank()) {
                     redirectAttributes.addFlashAttribute("error", "Missing serving size for food: " + foodName);
-                    return "redirect:/calorieTracker";
+                    return "redirect:/calorie-tracker";
                 }
 
                 double servingSize = Double.parseDouble(servingSizeValue);
@@ -177,7 +177,7 @@ public class MealController {
                 if (servingSize <= 0) {
                     redirectAttributes.addFlashAttribute("error",
                             "Serving size must be greater than 0 for food: " + foodName);
-                    return "redirect:/calorieTracker";
+                    return "redirect:/calorie-tracker";
                 }
 
                 // Fix 10x multiplier bug: CalorieNinja evaluates '100.0 grams' as '1000 grams'
@@ -199,16 +199,16 @@ public class MealController {
 
             if (foods == null || foods.isEmpty()) {
                 redirectAttributes.addFlashAttribute("error", "No foods were returned from the updated serving sizes.");
-                return "redirect:/calorieTracker";
+                return "redirect:/calorie-tracker";
             }
 
             mealService.addMeal(user, mealName, mealType, parsedConsumedDate, foods);
             redirectAttributes.addFlashAttribute("successMessage", "Meal added successfully!");
-            return "redirect:/calorieTracker";
+            return "redirect:/calorie-tracker";
 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Failed to add meal.");
-            return "redirect:/calorieTracker";
+            return "redirect:/calorie-tracker";
         }
     }
 
