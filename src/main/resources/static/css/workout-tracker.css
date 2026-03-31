@@ -2,7 +2,8 @@
 
 .workout-shell {
     height: 100vh;
-    margin-left: 110px;
+    margin-left: 280px;
+    padding: 2rem;
 }
 
 .workout-main-card {
