@@ -1,0 +1,42 @@
+/* The outer box that holds both the label and the input */
+.stacked-input-group {
+    background-color: var(--bg-input, #1e1e1e);
+    border-radius: 0.75rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 64px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: border-color 0.2s ease-in-out;
+}
+
+.stacked-input-group:focus-within {
+    border-color: var(--theme-primary, #cf9fff); 
+}
+
+/* Upper label section */
+.stacked-input-group label {
+    font-size: 0.75rem; 
+    color: var(--text-secondary, #a0a0a0);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Lower input section */
+.stacked-input-group input,
+.stacked-input-group select {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-primary, #ffffff) !important;
+    padding: 0 !important;
+    font-size: 1rem;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.stacked-input-group select option {
+    background-color: var(--bg-input, #1e1e1e);
+    color: var(--text-primary, #ffffff);
+}
