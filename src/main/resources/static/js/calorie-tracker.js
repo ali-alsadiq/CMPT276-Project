@@ -12,9 +12,17 @@ const FINAL_RESPONSE = [
     "Macros crunched, ratios calculated, and totals updated."
 ]
 
+const FAILURE_RESPONSE = [
+    "No foods found. Try being more specific!",
+    "I couldn't find any foods. Try again!",
+    "Hmm, I'm having trouble finding that. Please retry.",
+    "No luck this time. Let's try a different search!",
+    "Wasn't in my database. Check your spelling or try again."
+]
+
 const INITIAL_DELAY = 500;
 const GENERATING_DELAY = 700;
-const PHRASE_TRANSITION_DELAY = 300; 
+const PHRASE_TRANSITION_DELAY = 300;
 const WELCOME_DELAY = 600;
 
 /* Helper: Pauses for X milliseconds */
@@ -28,30 +36,30 @@ const scrollToBottom = (elementId = "chat-history") => {
 
 /* Helper: Returns current local datetime in yyyy-MM-ddTHH:mm format */
 function getCurrentDateTimeLocal() {
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
 
-  return (
-    now.getFullYear() +
-    "-" +
-    pad(now.getMonth() + 1) +
-    "-" +
-    pad(now.getDate()) +
-    "T" +
-    pad(now.getHours()) +
-    ":" +
-    pad(now.getMinutes())
-  );
+    return (
+        now.getFullYear() +
+        "-" +
+        pad(now.getMonth() + 1) +
+        "-" +
+        pad(now.getDate()) +
+        "T" +
+        pad(now.getHours()) +
+        ":" +
+        pad(now.getMinutes())
+    );
 }
 
 /* Helper: Escapes text before inserting into HTML */
 function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 /* Appends a message to the chat history */
@@ -71,7 +79,7 @@ const appendMessage = (text, isUser = true) => {
     bubble.style.maxWidth = '85%';
     bubble.style.wordBreak = 'break-word';
     bubble.textContent = text;
-    
+
     if (isUser) {
         wrapper.className = 'd-flex justify-content-end w-100 chat-bubble-wrapper mb-3 gap-3';
         bubble.className = 'bg-accent-1 text-black rounded-4 px-3 py-2 shadow-sm';
@@ -79,7 +87,7 @@ const appendMessage = (text, isUser = true) => {
     } else {
         wrapper.className = 'd-flex justify-content-start w-100 chat-bubble-wrapper mb-3 gap-3';
         bubble.className = 'text-theme-primary rounded-4 px-3 py-2 shadow-sm';
-        bubble.style.backgroundColor = 'var(--bg-input)'; 
+        bubble.style.backgroundColor = 'var(--bg-input)';
         avatar.textContent = 'A.';
         avatar.style.backgroundColor = 'var(--accent-1)';
         avatar.style.color = 'black';
@@ -88,7 +96,7 @@ const appendMessage = (text, isUser = true) => {
 
     chatHistory.appendChild(wrapper);
     scrollToBottom();
-    return { bubble, avatar }; 
+    return { bubble, avatar };
 };
 
 const toggleChatLock = (isLocked) => {
@@ -117,7 +125,7 @@ const playAnimationAndSubmit = async (query) => {
     bubble.style.opacity = 0;
 
     await delay(INITIAL_DELAY);
-    
+
     // Play the generating animation
     for (const phrase of GENERATING_PHRASES) {
         bubble.textContent = phrase;
@@ -130,7 +138,7 @@ const playAnimationAndSubmit = async (query) => {
         await delay(PHRASE_TRANSITION_DELAY);
     }
 
-    bubble.textContent = ""; 
+    bubble.textContent = "";
     bubble.style.opacity = 0;
 
     try {
@@ -150,6 +158,7 @@ const playAnimationAndSubmit = async (query) => {
 
         // Handle Empty Results
         if (!foods || foods.length === 0) {
+            avatar.classList.remove('avatar-breathing');
             bubble.className = 'text-theme-primary rounded-4 px-3 py-3 shadow-sm';
             bubble.style.backgroundColor = 'var(--bg-input)';
             bubble.innerHTML = `<span class="text-danger fw-bold">No foods found.</span> Please try being more specific!`;
@@ -167,22 +176,25 @@ const playAnimationAndSubmit = async (query) => {
         foods.forEach(food => {
             const foodName = escapeHtml(food.foodName ?? food.name ?? "Unknown food");
             foodNames.push(foodName);
-            
+
             // Restore actual serving size from API
-            const servSize = Number(food.servSize ?? food.serving_size_g ?? 100); 
+            const servSize = Number(food.servSize ?? food.serving_size_g ?? 100);
 
             dynamicFoodsHtml += `
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2 w-100" style="background-color: var(--bg-subtle-box);">
+                <div class="food-item-row d-flex align-items-center gap-2 mb-2">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2 flex-grow-1" style="background-color: var(--bg-subtle-box);">
                         <input type="text" class="bg-transparent border-0 text-theme-primary w-100" value="${foodName}" readonly style="outline: none;">
                         
                         <input type="hidden" name="foodOrder" value="${foodName}" />
                     </div>
-                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-subtle-box); width: 85px; flex-shrink: 0;">
+                    <div class="d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-subtle-box); width: 120px; flex-shrink: 0;">
                         
                         <input type="number" step="0.1" min="0.1" name="requestedServSizes[${foodName}]" class="bg-transparent border-0 text-theme-primary w-100 text-center" value="${servSize}" style="outline: none;">
                         <span class="text-secondary ms-1">g</span>
                     </div>
+                    <button type="button" class="btn btn-sm d-flex align-items-center justify-content-center rounded-3 text-secondary remove-food-btn" style="background-color: var(--bg-subtle-box); width: 42px; height: 42px; flex-shrink: 0; border: none; outline: none; box-shadow: none;" title="Remove Food">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
             `;
         });
@@ -221,18 +233,44 @@ const playAnimationAndSubmit = async (query) => {
                 <button type="submit" class="btn btn-sm w-100 fw-bold mt-2" style="background-color: var(--accent-1); color: #172018; border-radius: 12px; border: none; padding: 0.6rem;">Confirm & Save</button>
             </form>
         `;
-        
+
         bubble.className = 'text-white rounded-4 px-3 py-3 shadow-sm fade-text';
         bubble.style.backgroundColor = 'var(--bg-input)';
+        bubble.style.maxWidth = '100%';
         bubble.style.opacity = 1;
         scrollToBottom();
 
         // Listener for the form submission
         const chatForm = document.getElementById('chat-save-form');
         if (chatForm) {
+            // Setup delete food button listeners
+            const deleteBtns = chatForm.querySelectorAll('.remove-food-btn');
+            deleteBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const row = e.target.closest('.food-item-row');
+                    if (row) {
+                        row.remove();
+                        // If all food items are removed, show failure response and unlock chat
+                        if (chatForm.querySelectorAll('.food-item-row').length === 0) {
+                            const randomFailure = FAILURE_RESPONSE[Math.floor(Math.random() * FAILURE_RESPONSE.length)];
+
+                            avatar.classList.remove('avatar-breathing');
+                            bubble.style.opacity = 0;
+                            setTimeout(() => {
+                                bubble.innerHTML = randomFailure;
+                                bubble.className = 'text-theme-primary rounded-4 px-3 py-2 shadow-sm fade-text';
+                                bubble.style.backgroundColor = 'var(--bg-input)';
+                                bubble.style.opacity = 1;
+                                toggleChatLock(false);
+                            }, PHRASE_TRANSITION_DELAY);
+                        }
+                    }
+                });
+            });
+
             chatForm.addEventListener('submit', async (e) => {
                 e.preventDefault(); // Stop default HTML submission behavior
-                
+
                 const submitBtn = chatForm.querySelector('button[type="submit"]');
                 submitBtn.textContent = "Saving...";
                 submitBtn.style.opacity = "0.7";
@@ -247,7 +285,7 @@ const playAnimationAndSubmit = async (query) => {
                     });
 
                     if (!saveResponse.ok) throw new Error("Save failed");
-                    
+
                     avatar.classList.remove('avatar-breathing');
                     bubble.style.opacity = 0;
 
@@ -268,13 +306,14 @@ const playAnimationAndSubmit = async (query) => {
                         sessionStorage.setItem("savedChatHistory", historyContainer.innerHTML);
                         sessionStorage.setItem("isChatMode", "true");
                     }
-                    
+
                     window.location.reload();
 
                 } catch (err) {
                     console.error("Save error:", err);
+                    avatar.classList.remove('avatar-breathing');
                     submitBtn.textContent = "Error Saving";
-                    submitBtn.style.backgroundColor = "#dc3545"; 
+                    submitBtn.style.backgroundColor = "#dc3545";
                     submitBtn.style.color = "white";
                 }
             });
@@ -282,6 +321,7 @@ const playAnimationAndSubmit = async (query) => {
 
     } catch (error) {
         console.error(error);
+        avatar.classList.remove('avatar-breathing');
         bubble.className = 'text-theme-primary rounded-4 px-3 py-3 shadow-sm';
         bubble.style.backgroundColor = 'var(--bg-input)';
         bubble.innerHTML = `<span class="text-danger fw-bold">Server Error.</span> Could not process your request.`;
@@ -294,11 +334,11 @@ const handleMessageSend = async (e) => {
     if (e) e.preventDefault();
     const container = document.getElementById("logging-container");
     const input = document.getElementById("logging-input");
-    
+
     if (!input || input.value.trim() === "") return;
 
     const messageText = input.value.trim();
-    
+
     toggleChatLock(true);
 
     if (container && !container.classList.contains("chat-mode")) {
@@ -308,17 +348,17 @@ const handleMessageSend = async (e) => {
             welcome.addEventListener("transitionend", () => welcome.style.display = "none", { once: true });
         }
         await delay(WELCOME_DELAY);
-    } 
-    
+    }
+
     appendMessage(messageText, true);
     input.value = ""; // Clear input immediately
-    
+
     await playAnimationAndSubmit(messageText);
 };
 
 /* Initialize */
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // Restore Chat History if it exists
     // - Note: Temporary, history is wiped when tab is closed
     const savedChat = sessionStorage.getItem("savedChatHistory");
@@ -329,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedChat && chatHistory) {
         // Paste the old chat bubbles back in
         chatHistory.innerHTML = savedChat;
-        
+
         // Hide the welcome section and trigger chat mode
         if (isChatMode === "true" && container) {
             container.classList.add("chat-mode");
