@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-<<<<<<< HEAD
+import com.cmpt276.project.porject.rank.RankService;
+
+import com.cmpt276.project.porject.rank.RankService;
+
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
-=======
 import jakarta.servlet.http.Cookie;
->>>>>>> 223892e (add cookie auto-login and RR-based leaderboard)
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RankService rankService;
 
     @Autowired
     private WorkoutRepository workoutRepository;
@@ -294,6 +298,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("users", users);
+        model.addAttribute("rankService", rankService);
 
         return "dashboard";
     }

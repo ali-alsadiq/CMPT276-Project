@@ -34,7 +34,7 @@
                                 <div class="d-flex flex-row justify-content-between">
                                     <div class="profile-card-main">
                                         <div class="badge-placeholder">
-                                            <img src="/images/rank8.png" alt="Rank badge" class="badge-image">
+                                            <img th:src="${rankService.getRankImagePath(user.rankProfile.rr)}" alt="Rank badge" class="badge-image">
                                         </div>
                                         <div class="profile-copy">
                                             <div class="profile-label">Current Rank</div>
@@ -128,7 +128,7 @@
                                 <span class="leader-place" th:text="${stat.count}">1st</span>
                                 <!-- Fix later -->
                                 <div class="friend-badge-placeholder">
-                                    <img src="/images/rank9.png" alt="Rank badge" class="friend-badge-image">
+                                    <img th:src="${rankService.getRankImagePath(listedUser.rankProfile.rr)}" alt="Rank badge" class="friend-badge-image">
                                 </div>
                                 <div class="friend-card-copy">
                                     <div class="d-flex flex-row justify-content-between">
