@@ -108,6 +108,9 @@ public class TrackerController {
      */
     @GetMapping("/add-workout")
     public String showAddWorkout(HttpServletRequest request, Model model) {
+        if (getCurrentUser(request) == null) {
+            return "redirect:/login";
+        }
         populateWorkoutTrackerModel(request, model);
         return "add-workout";
     }
@@ -124,6 +127,9 @@ public class TrackerController {
     @PostMapping("/add-workout")
     public String addWorkout(@RequestParam String activity, int duration, HttpServletRequest request, Model model) {
         User user = getCurrentUser(request);
+        if (user == null) {
+            return "redirect:/login";
+        }
         Workout workout = workoutApiService.getWorkout(activity, duration);
         
 
