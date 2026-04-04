@@ -6,7 +6,7 @@ import com.cmpt276.project.porject.auth.User;
 @Service
 public class RankService {
 
-    private static final int MAX_RR = 1000;
+    private static final int MAX_RR = 2000;
     private static final int TOTAL_RANKS = 10;
     private static final int RR_PER_RANK = MAX_RR / TOTAL_RANKS; // 100
 
@@ -33,7 +33,7 @@ public class RankService {
                 "Diamond I", "Diamond II",
         };
 
-        int index = rr / 100;
+        int index = rr / RR_PER_RANK;
         if (index >= ranks.length) {
             return ranks[ranks.length - 1];
         }
@@ -65,10 +65,10 @@ public class RankService {
 
     /**
      * Returns the rank level from 1 to 10 based on RR.
-     * 0-99   -> rank1
-     * 100-199 -> rank2
+     * 0-199   -> rank1
+     * 200-399 -> rank2
      * ...
-     * 900+    -> rank10
+     * 1800+    -> rank10
      */
     private int getRankLevel(int rr) {
         int normalizedRr = Math.max(0, rr);

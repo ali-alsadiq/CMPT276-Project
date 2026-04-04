@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 
@@ -25,6 +28,30 @@ public class RankProfile {
     @Column(name = "rr", nullable = false)
     @org.hibernate.annotations.ColumnDefault("0")
     private int rr = 0;
+
+    @Column(name = "food_reward_week_start")
+    private LocalDate foodRewardWeekStart;
+
+    @Column(name = "food_logged_days_mask", nullable = false)
+    private int foodLoggedDaysMask = 0;
+
+    @Column(name = "weekly_food_goal_awarded", nullable = false)
+    private boolean weeklyFoodGoalAwarded = false;
+
+    @Column(name = "weekly_food_streak_bonus_awarded", nullable = false)
+    private boolean weeklyFoodStreakBonusAwarded = false;
+
+    @Column(name = "workout_reward_week_start")
+    private LocalDate workoutRewardWeekStart;
+
+    @Column(name = "workout_logged_days_mask", nullable = false)
+    private int workoutLoggedDaysMask = 0;
+
+    @Column(name = "weekly_workout_goal_awarded", nullable = false)
+    private boolean weeklyWorkoutGoalAwarded = false;
+
+    @Column(name = "weekly_workout_streak_bonus_awarded", nullable = false)
+    private boolean weeklyWorkoutStreakBonusAwarded = false;
 
     // Transient field, not stored in the database
     @Transient
@@ -49,6 +76,70 @@ public class RankProfile {
 
     public void setRr(int rr) {
         this.rr = rr;
+    }
+
+    public LocalDate getFoodRewardWeekStart() {
+        return foodRewardWeekStart;
+    }
+
+    public void setFoodRewardWeekStart(LocalDate foodRewardWeekStart) {
+        this.foodRewardWeekStart = foodRewardWeekStart;
+    }
+
+    public int getFoodLoggedDaysMask() {
+        return foodLoggedDaysMask;
+    }
+
+    public void setFoodLoggedDaysMask(int foodLoggedDaysMask) {
+        this.foodLoggedDaysMask = foodLoggedDaysMask;
+    }
+
+    public boolean isWeeklyFoodGoalAwarded() {
+        return weeklyFoodGoalAwarded;
+    }
+
+    public void setWeeklyFoodGoalAwarded(boolean weeklyFoodGoalAwarded) {
+        this.weeklyFoodGoalAwarded = weeklyFoodGoalAwarded;
+    }
+
+    public boolean isWeeklyFoodStreakBonusAwarded() {
+        return weeklyFoodStreakBonusAwarded;
+    }
+
+    public void setWeeklyFoodStreakBonusAwarded(boolean weeklyFoodStreakBonusAwarded) {
+        this.weeklyFoodStreakBonusAwarded = weeklyFoodStreakBonusAwarded;
+    }
+
+    public LocalDate getWorkoutRewardWeekStart() {
+        return workoutRewardWeekStart;
+    }
+
+    public void setWorkoutRewardWeekStart(LocalDate workoutRewardWeekStart) {
+        this.workoutRewardWeekStart = workoutRewardWeekStart;
+    }
+
+    public int getWorkoutLoggedDaysMask() {
+        return workoutLoggedDaysMask;
+    }
+
+    public void setWorkoutLoggedDaysMask(int workoutLoggedDaysMask) {
+        this.workoutLoggedDaysMask = workoutLoggedDaysMask;
+    }
+
+    public boolean isWeeklyWorkoutGoalAwarded() {
+        return weeklyWorkoutGoalAwarded;
+    }
+
+    public void setWeeklyWorkoutGoalAwarded(boolean weeklyWorkoutGoalAwarded) {
+        this.weeklyWorkoutGoalAwarded = weeklyWorkoutGoalAwarded;
+    }
+
+    public boolean isWeeklyWorkoutStreakBonusAwarded() {
+        return weeklyWorkoutStreakBonusAwarded;
+    }
+
+    public void setWeeklyWorkoutStreakBonusAwarded(boolean weeklyWorkoutStreakBonusAwarded) {
+        this.weeklyWorkoutStreakBonusAwarded = weeklyWorkoutStreakBonusAwarded;
     }
 
     public String getRankImageName() {

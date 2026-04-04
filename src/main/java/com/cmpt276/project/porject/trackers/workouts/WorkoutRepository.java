@@ -2,6 +2,8 @@ package com.cmpt276.project.porject.trackers.workouts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,4 +18,5 @@ public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
     
     List<Workout> findByWorkoutName(String workoutName);
     List<Workout> findByUserIdOrderByWorkoutDateDesc(int userId);
+    List<Workout> findByUserIdAndWorkoutDateBetween(int userId, LocalDateTime start, LocalDateTime end);
 }
