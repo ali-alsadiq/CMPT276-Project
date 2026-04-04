@@ -81,9 +81,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-4 d-flex">
+                                    <div class="meta-chip w-100 d-flex flex-column justify-content-center align-items-center text-center p-4" style="height: 20vh;">
+                                        <p class="mb-n2">
+                                            <strong style="font-size: 3rem; line-height: 1;"> 7</strong>
+                                            <i class="fa-solid fa-fire mb-3" style="font-size: 3rem; color: #56B6FF;"></i>
+                                        </p>
+                                        <span class="meta-chip-label mb-0">Current Streak</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex">
+                                    <div class="rank-progress-card neon-glow w-100 d-flex flex-column justify-content-center">
+                                        <p class="rank-progress-kicker mb-2">Today's Push</p>
+                                        <h3 class="rank-progress-title mb-2">Lock in and stay consistent</h3>
+                                        <p class="dashboard-copy mb-0">
+                                            You're one solid workout away from building your weekly consistency and protecting your rank.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
 
-                    <div class="friends-panel neon-heat">
+                    <div class="friends-panel">
                         <div class="friends-header">
                             <div>
                                 <p class="eyebrow mb-2">Leaderboard</p>
@@ -97,7 +117,7 @@
                                 <input id="friendSearch" type="search" placeholder="Search friends">
                             </label>
                             <div class="friends-actions">
-                                <button type="button" class="friends-action-btn">Invite Friends</button>
+                                <button type="button" class="friends-action-btn"><i class="fas fa-user-friends"></i> Invite Friends</button>
                                 <button type="button" class="friends-action-btn is-secondary">Referrals</button>
                             </div>
                         </div>
@@ -111,8 +131,7 @@
                                     <div class="d-flex flex-row justify-content-between">
                                         <p class="friend-name mb-1">Jason</p>
                                         <div class="text-end">
-                                            <p class="friend-rank mb-1">Angel Horse</p>
-                                            <p class="friend-meta mb-2">792 RR</p>
+                                            <p class="friend-rank mb-1 p-1">Angel Horse • 792 RR</p>
                                         </div>
                                     </div>
                                     <div class="friend-progress-bar">
@@ -130,8 +149,7 @@
                                     <div class="d-flex flex-row justify-content-between">
                                         <p class="friend-name mb-1">admin_test2</p>
                                         <div class="text-end">
-                                            <p class="friend-rank mb-1">Fierce Phoenix</p>
-                                            <p class="friend-meta mb-2">776 RR</p>
+                                            <p class="friend-rank mb-1 p-1">Fierce Phoenix • 776 RR</p>
                                         </div>
                                     </div>
                                     <div class="friend-progress-bar">
@@ -149,8 +167,7 @@
                                     <div class="d-flex flex-row justify-content-between">
                                         <p class="friend-name mb-1">Nadine</p>
                                         <div class="text-end">
-                                            <p class="friend-rank mb-1">Emerald Elite</p>
-                                            <p class="friend-meta mb-2">660 RR</p>
+                                            <p class="friend-rank mb-1 p-1">Emerald Elite • 660 RR</p>
                                         </div>
                                     </div>
                                     <div class="friend-progress-bar">
@@ -168,8 +185,7 @@
                                     <div class="d-flex flex-row justify-content-between">
                                         <p class="friend-name mb-1">Devon</p>
                                         <div class="text-end">
-                                            <p class="friend-rank mb-1">Platinum Ice</p>
-                                            <p class="friend-meta mb-2">588 RR</p>
+                                            <p class="friend-rank mb-1">Platinum Ice • 588 RR</p>
                                         </div>
                                     </div>
                                     <div class="friend-progress-bar">
@@ -181,7 +197,7 @@
                         <div class="user-progress neon-heat">
                             <div class="user-progress-header">
                                 <div>
-                                    <p class="eyebrow mb-2">User Progress</p>
+                                    <p class="eyebrow mb-2">Your Progress</p>
                                     <h3 class="user-progress-title mb-0">Weekly Calories</h3>
                                 </div>
                                 <span class="user-progress-note">Sunday to Saturday</span>
@@ -204,17 +220,17 @@
 
                             <p class="progress-warning mb-0">
                                 <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                                3 inconsistent days may reduce rank by 100 RR.
+                                3 inconsistent days may reduce rank by 100 RR
                             </p>
 
                             <div class="dashboard-stats-grid">
                                 <article class="dashboard-stat-card">
-                                    <span class="dashboard-stat-label">Total Workouts This Week</span>
+                                    <span class="dashboard-stat-label"><i class="fa-solid fa-dumbbell"></i> Total Workouts This Week</span>
                                     <strong class="dashboard-stat-value"
                                             th:text="${weeklyWorkoutSessions} + '/' + ${weeklyWorkoutGoalCount}">0/4</strong>
                                 </article>
                                 <article class="dashboard-stat-card">
-                                    <span class="dashboard-stat-label">Total Calories Burned</span>
+                                    <span class="dashboard-stat-label"><i class="fa-solid fa-fire"></i> Total Calories Burned</span>
                                     <strong class="dashboard-stat-value"
                                             th:text="${weeklyWorkoutCalories} + ' cal'">0 cal</strong>
                                 </article>
