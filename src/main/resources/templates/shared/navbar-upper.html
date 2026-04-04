@@ -30,7 +30,8 @@
     <div class="d-flex flex-column gap-3 w-100 m-0 px-2">
         <a th:href="@{/admin-dashboard}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
-           th:classappend="${activePage == 'admin-dashboard' ? 'bg-static-accent text-black' : 'text-white'}">
+           th:classappend="${activePage == 'admin-dashboard' ? 'bg-static-accent text-black' : 'text-white'}"
+           th:if="${session.session_user?.role == 'ADMIN'}">
 
             <i class="fa-solid fa-unlock flex-shrink-0 text-center nav-icon"></i>
 
