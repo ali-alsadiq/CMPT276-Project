@@ -158,10 +158,17 @@ const playAnimationAndSubmit = async (query) => {
 
         // Handle Empty Results
         if (!foods || foods.length === 0) {
+            const randomFailure = FAILURE_RESPONSE[Math.floor(Math.random() * FAILURE_RESPONSE.length)];
+
             avatar.classList.remove('avatar-breathing');
-            bubble.className = 'text-theme-primary rounded-4 px-3 py-3 shadow-sm';
+            bubble.style.opacity = 0;
+
+            // Re-apply correct styling instead of the red text span
+            bubble.textContent = randomFailure;
+            bubble.className = 'text-theme-primary rounded-4 px-3 py-2 shadow-sm fade-text';
             bubble.style.backgroundColor = 'var(--bg-input)';
-            bubble.innerHTML = `<span class="text-danger fw-bold">No foods found.</span> Please try being more specific!`;
+            bubble.style.opacity = 1;
+
             toggleChatLock(false);
             return;
         }
@@ -177,8 +184,8 @@ const playAnimationAndSubmit = async (query) => {
             const foodName = escapeHtml(food.foodName ?? food.name ?? "Unknown food");
             foodNames.push(foodName);
 
-            // Restore actual serving size from API
-            const servSize = Number(food.servSize ?? food.serving_size_g ?? 100);
+            // Round value to avoid API bug where it misinterperates decimals
+            const servSize = Math.round(Number(food.servSize ?? food.serving_size_g ?? 100));
 
             dynamicFoodsHtml += `
                 <div class="food-item-row d-flex align-items-center gap-2 mb-2">

@@ -128,8 +128,30 @@ public class MealController {
             return List.of();
         }
 
-        List<Food> mealFoods = foodApiService.getMealNutrition(trimmedDescription);
-        System.out.println(mealFoods.toString());
+        // Fix CalorieNinja bug where it treats decimals as part of the number by
+        // stripping them
+        java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("(\\d+)\\.(\\d+)")
+                .matcher(trimmedDescription);
+        StringBuilder sb = new StringBuilder();
+        while (matcher.find()) {
+            double val = Double.parseDouble(matcher.group());
+            matcher.appendReplacement(sb, String.valueOf(Math.round(val)));
+        }
+        matcher.appendTail(sb);
+        String sanitizedDescription = sb.toString();
+
+        List<Food> mealFoods = foodApiService.getMealNutrition(sanitizedDescription);
+
+        if (mealFoods != null) {
+            double totalCalories = mealFoods.stream().mapToDouble(Food::getCalories).sum();
+            if (totalCalories > 10000) {
+                return List.of();
+            }
+        }
+
+        if (mealFoods != null) {
+            System.out.println(mealFoods.toString());
+        }
         return mealFoods != null ? mealFoods : List.of();
     }
 
@@ -180,14 +202,9 @@ public class MealController {
                     return "redirect:/calorie-tracker";
                 }
 
-                // Fix 10x multiplier bug: CalorieNinja evaluates '100.0 grams' as '1000 grams'
-                // by accidentally stripping the decimal point
-                String formattedServingSize;
-                if (servingSize == Math.floor(servingSize) && !Double.isInfinite(servingSize)) {
-                    formattedServingSize = String.valueOf((long) servingSize);
-                } else {
-                    formattedServingSize = String.valueOf(servingSize);
-                }
+                // Fix multiplier bug: CalorieNinja evaluates '100.0' as '1000' by ignoring the
+                // decimal point.
+                String formattedServingSize = String.valueOf(Math.round(servingSize));
 
                 queryParts.add(formattedServingSize + " grams " + foodName);
             }
@@ -198,6 +215,12 @@ public class MealController {
             List<Food> foods = foodApiService.getMealNutrition(adjustedQuery);
 
             if (foods == null || foods.isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "No foods were returned from the updated serving sizes.");
+                return "redirect:/calorie-tracker";
+            }
+
+            double totalCalories = foods.stream().mapToDouble(Food::getCalories).sum();
+            if (totalCalories > 10000) {
                 redirectAttributes.addFlashAttribute("error", "No foods were returned from the updated serving sizes.");
                 return "redirect:/calorie-tracker";
             }
