@@ -9,6 +9,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.cmpt276.project.porject.auth.User;
+import com.cmpt276.project.porject.rank.RewardService;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
@@ -27,6 +28,9 @@ public class TrackerControllerTest {
 
     @MockitoBean
     private WorkoutRepository workoutRepository;
+
+    @MockitoBean
+    private RewardService rewardService;
 
     @MockitoBean(name = "rankService")
     private com.cmpt276.project.porject.rank.RankService rankService;

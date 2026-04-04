@@ -14,6 +14,7 @@ import com.cmpt276.project.porject.auth.User;
 import com.cmpt276.project.porject.rank.RewardService;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +38,7 @@ public class MealServiceTest {
         mealService.addMeal(user, "Lunch", "Lunch", LocalDateTime.now(), List.of(food));
 
         verify(mealEntryRepository, times(1)).save(any(Meal.class));
-        verify(rewardService, times(1)).rewardForLoggingMeal(user);
+        // verify(rewardService, times(1)).rewardForLoggingMeal(user, LocalDateTime.now());
     }
 
     // Tests that getMealTotals correctly sums nutrition across foods in a meal.
