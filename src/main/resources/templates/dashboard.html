@@ -117,7 +117,11 @@
                                 <input id="friendSearch" type="search" placeholder="Search friends">
                             </label>
                             <div class="friends-actions">
-                                <button type="button" class="friends-action-btn"><i class="fas fa-user-friends"></i> Invite Friends</button>
+                                <a th:href="@{/addFriends}" class="text-decoration-none">
+                                    <button type="button" class="friends-action-btn">
+                                        <i class="fas fa-user-friends"></i> Add Friends
+                                    </button>
+                                </a>
                                 <button type="button" class="friends-action-btn is-secondary">Referrals</button>
                             </div>
                         </div>
