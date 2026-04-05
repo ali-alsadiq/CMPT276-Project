@@ -17,6 +17,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.mockito.ArgumentCaptor;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(UserController.class)
 public class ProfileTest {
@@ -35,6 +39,7 @@ public class ProfileTest {
     @org.junit.jupiter.api.BeforeEach
     public void setup() {
         defaultParams = new java.util.HashMap<>();
+        
         defaultParams.put("firstname", "User_test1");
         defaultParams.put("lastname", "TestLastname");
         defaultParams.put("sex", "Male");
@@ -83,7 +88,8 @@ public class ProfileTest {
         Mockito.when(userRepository.save(any(User.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder requestBuilder = post("/profile").session(session);
+        org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder requestBuilder = post("/profile")
+                .session(session);
         for (java.util.Map.Entry<String, String> entry : defaultParams.entrySet()) {
             requestBuilder.param(entry.getKey(), entry.getValue());
         }
@@ -112,7 +118,8 @@ public class ProfileTest {
         badParams.put("weight", "900");
         badParams.put("weeklyCaloriesBurnedTarget", "100");
 
-        org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder requestBuilder = post("/profile").session(session);
+        org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder requestBuilder = post("/profile")
+                .session(session);
         for (java.util.Map.Entry<String, String> entry : badParams.entrySet()) {
             requestBuilder.param(entry.getKey(), entry.getValue());
         }
@@ -169,6 +176,48 @@ public class ProfileTest {
                     .andExpect(status().isOk())
                     .andExpect(model().attributeDoesNotExist(errorKey));
         }
+    }
+
+    // Persistence & Session Tests
+
+    @Test
+    public void profile_validSubmission_doesNotChangeUserSetTargets() throws Exception {
+        User mockUser = new User("Old", "Name", "testuser1", "StrongPass1!", "USER");
+        mockUser.setUserSetTargets(true);
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_user", mockUser);
+
+        Mockito.when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
+
+        var requestBuilder = post("/profile").session(session);
+        defaultParams.forEach(requestBuilder::param);
+
+        mockMvc.perform(requestBuilder).andExpect(status().isOk());
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        Mockito.verify(userRepository, Mockito.atLeastOnce()).save(userCaptor.capture());
+        assertTrue(userCaptor.getValue().getUserSetTargets());
+    }
+
+    @Test
+    public void profile_validSubmission_updatesSessionUser() throws Exception {
+        User mockUser = new User("Old", "Name", "testuser1", "StrongPass1!", "USER");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_user", mockUser);
+
+        Mockito.when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
+
+        var requestBuilder = post("/profile").session(session);
+        defaultParams.forEach(requestBuilder::param);
+
+        MvcResult result = mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andReturn();
+
+        User updatedSessionUser = (User) result.getRequest().getSession().getAttribute("session_user");
+        assertEquals("User_test1", updatedSessionUser.getFirstname());
+        assertEquals("TestLastname", updatedSessionUser.getLastname());
     }
 
     /* Height Bounds */

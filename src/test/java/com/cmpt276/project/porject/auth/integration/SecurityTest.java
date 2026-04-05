@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
-public class UserSecurityTest {
+public class SecurityTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -49,9 +49,22 @@ public class UserSecurityTest {
                 .andExpect(redirectedUrl("/login"));
     }
 
+    /* Tests that GET /register page loads for unauthenticated users */
     @Test
-    public void onBoarding_noSession_redirectsToLogin() throws Exception {
-        mockMvc.perform(get("/onBoarding"))
+    public void getRegisterPage_noSession_returnsRegisterView() throws Exception {
+        mockMvc.perform(get("/register"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("users/register"));
+    }
+
+    /* Tests that GET /logout invalidates session and redirects to login */
+    @Test
+    public void logout_invalidatesSessionAndRedirectsToLogin() throws Exception {
+        User testUser = new User("User_test1", "TestLastname", "user123", "pass", "USER");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_user", testUser);
+
+        mockMvc.perform(get("/logout").session(session))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"));
     }
@@ -80,7 +93,10 @@ public class UserSecurityTest {
                 .andExpect(redirectedUrl("/dashboard"));
     }
 
-    /* Tests that visiting login page while logged in redirects to dashboard */
+    /*
+     * Tests that visiting login page while logged in as admin redirects to
+     * admin-dashboard
+     */
     @Test
     public void login_activeSession_redirectsForAdmin() throws Exception {
         User testUser = new User("Admin_test1", "TestLastname", "admin123", "pass", "ADMIN");
@@ -92,7 +108,10 @@ public class UserSecurityTest {
                 .andExpect(redirectedUrl("/admin-dashboard"));
     }
 
-    /* Tests that visiting register page while logged in redirects to dashboard */
+    /*
+     * Tests that visiting register page while logged in as admin redirects to
+     * admin-dashboard
+     */
     @Test
     public void register_activeSession_redirectsForAdmin() throws Exception {
         User testUser = new User("Admin_test1", "TestLastname", "admin123", "pass", "ADMIN");

@@ -153,10 +153,16 @@ public class ProfileTest {
     @Test
     public void macroTarget_10000_isAccepted() {
         testField("weeklyProtienTarget", "10000", "weeklyProtienTargetError", false);
+        testField("weeklyCarbsTarget", "10000", "weeklyCarbsTargetError", false);
+        testField("weeklyFatsTarget", "10000", "weeklyFatsTargetError", false);
+        testField("weeklyFibreTarget", "10000", "weeklyFibreTargetError", false);
     }
 
     @Test
     public void macroTarget_10000point1_isRejected() {
         testField("weeklyProtienTarget", "10000.1", "weeklyProtienTargetError", true);
+        testField("weeklyCarbsTarget", "10000.1", "weeklyCarbsTargetError", true);
+        testField("weeklyFatsTarget", "10000.1", "weeklyFatsTargetError", true);
+        testField("weeklyFibreTarget", "10000.1", "weeklyFibreTargetError", true);
     }
 }

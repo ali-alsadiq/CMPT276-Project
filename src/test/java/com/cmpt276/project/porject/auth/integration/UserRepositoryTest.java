@@ -63,12 +63,12 @@ public class UserRepositoryTest {
     /** Tests that saving a new user persists it and can be found. */
     @Test
     public void register_persistsNewUserInDatabase() {
-        User newUser = new User("John", "Doe", "johndoe", "pass123", "USER");
+        User newUser = new User("User_test1", "TestLastname", "user_test1", "pass123", "USER");
         userRepository.save(newUser);
 
-        List<User> users = userRepository.findByUsername("johndoe");
+        List<User> users = userRepository.findByUsername("user_test1");
         assertFalse(users.isEmpty());
-        assertEquals("johndoe", users.get(0).getUsername());
+        assertEquals("user_test1", users.get(0).getUsername());
     }
 
     /** Tests that user registration defaults to role USER if not specified. */
