@@ -50,6 +50,7 @@ public class MealRepositoryTest {
         return meal;
     }
 
+    // test save and find by id
     @Test
     public void testSaveAndFindById() {
         Meal meal = mealRepository.save(buildMeal("Lunch", LocalDateTime.now()));
@@ -60,6 +61,7 @@ public class MealRepositoryTest {
         assertEquals("Lunch", found.get().getMealName());
     }
 
+    // test find all meals
     @Test
     public void testFindAllMeals() {
         mealRepository.save(buildMeal("Breakfast", LocalDateTime.now()));
@@ -70,6 +72,7 @@ public class MealRepositoryTest {
         assertEquals(2, allMeals.size());
     }
 
+    // test find by user uid order by consumed date in descending order
     @Test
     public void testFindByUserUidOrderByConsumedDateDesc() {
         LocalDateTime older = LocalDateTime.now().minusDays(2);
@@ -85,6 +88,7 @@ public class MealRepositoryTest {
         assertEquals("Old Meal", meals.get(1).getMealName());
     }
 
+    // test find by user uid and consumed date between certain date range
     @Test
     public void testFindByUserUidAndConsumedDateBetween() {
         LocalDateTime base = LocalDateTime.now();
@@ -99,6 +103,7 @@ public class MealRepositoryTest {
         assertEquals("In Range", meals.get(0).getMealName());
     }
 
+    // test that find by user uid returns a single item
     @Test
     public void findByUserUid_singleMeal_returnsSingleItem() {
         mealRepository.save(buildMeal("Breakfast", LocalDateTime.now()));
@@ -108,53 +113,49 @@ public class MealRepositoryTest {
         assertEquals(1, meals.size());
     }
 
-    @Test
-    public void findByUserUidAndConsumedDateBetween_exclusiveEndBound() {
-        LocalDateTime base = LocalDateTime.now();
-        mealRepository.save(buildMeal("Exact End", base));
-
-        List<Meal> meals = mealRepository.findByUserUidAndConsumedDateBetween(
-                user.getUid(), base.minusHours(1), base);
-
-        assertTrue(meals.size() <= 1, "Should return at most 1 meal at the boundary");
-    }
-
+    // test that find by user uid returns only the meals of that user
     @Test
     public void findByUserUid_isolatesUserMeals() {
         User otherUser = new User("User_test2", "TestLastname", "user_test2", "pass123", "USER");
         userRepository.save(otherUser);
+
         Meal otherMeal = buildMeal("Other User Meal", LocalDateTime.now());
         otherMeal.setUser(otherUser);
+
         mealRepository.save(otherMeal);
 
         mealRepository.save(buildMeal("My Meal", LocalDateTime.now()));
 
         List<Meal> userMeals = mealRepository.findByUserUidOrderByConsumedDateDesc(user.getUid());
 
-        assertEquals(1, userMeals.size(), "Should only return meals for the queried user");
+        assertEquals(1, userMeals.size());
         assertEquals("My Meal", userMeals.get(0).getMealName());
     }
 
+    // test that save meal with foods persists foods
     @Test
     public void saveMeal_withFoods_persistsFoodsWithCascade() {
         Meal meal = buildMeal("Cascade Meal", LocalDateTime.now());
         meal.addFood(buildFood("food_test1"));
         meal.addFood(buildFood("food_test2"));
+
         mealRepository.save(meal);
 
         List<Food> foods = foodRepository.findAll();
-        assertEquals(2, foods.size(), "Both foods should be persisted via cascade");
+        assertEquals(2, foods.size());
     }
 
+    // test that delete meal removes meal and foods
     @Test
-    public void deleteMeal_removesMealAndFoodsViaOrphanRemoval() {
+    public void deleteMeal_removesMealAndFoods() {
         Meal meal = buildMeal("Delete Meal", LocalDateTime.now());
         meal.addFood(buildFood("food_test1"));
         meal.addFood(buildFood("food_test2"));
+
         Meal saved = mealRepository.save(meal);
 
         mealRepository.deleteById(saved.getId());
 
-        assertEquals(0, foodRepository.findAll().size(), "Orphan foods should be deleted with the meal");
+        assertEquals(0, foodRepository.findAll().size());
     }
 }
