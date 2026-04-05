@@ -47,6 +47,7 @@ public class User {
     @Column(name = "targets")
     //check user has set targets at all
     private boolean userSetTargets;
+    private int weeklyWorkoutGoalCount;
     private double weeklyCaloriesBurnedTarget;
 
     //Nutrition consumtion targets
@@ -232,5 +233,14 @@ public class User {
     public void setDailyFibreTarget(double weeklyFibreTarget) {
         this.dailyFibreTarget = weeklyFibreTarget;
     }
+
+    public int getWeeklyWorkoutGoalCount() {
+        return weeklyWorkoutGoalCount;
+    }
+
+    public void setWeeklyWorkoutGoalCount(int weeklyWorkoutGoalCount) {
+        this.weeklyWorkoutGoalCount = weeklyWorkoutGoalCount;
+    }
+    
  
 }

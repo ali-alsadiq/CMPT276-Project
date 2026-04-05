@@ -479,7 +479,7 @@ public class UserController {
             try {
                 weeklyCaloriesBurnedTarget = Double.parseDouble(weeklyCaloriesBurnedTargetStr);
 
-                if (weeklyCaloriesBurnedTarget < 500 || weeklyCaloriesBurnedTarget > 10000) {
+                if (weeklyCaloriesBurnedTarget < 100 || weeklyCaloriesBurnedTarget > 10000) {
                     model.addAttribute("weeklyCaloriesBurnedTargetError", true);
                     model.addAttribute("error", "Weekly calorie burn goal must be between 500 and 10000.");
                     hasError = true;
@@ -499,7 +499,7 @@ public class UserController {
             try {
                 weeklyCaloriesConsumedTarget = Double.parseDouble(weeklyCaloriesConsumedTargetStr);
 
-                if (weeklyCaloriesConsumedTarget < 500 || weeklyCaloriesConsumedTarget > 10000) {
+                if (weeklyCaloriesConsumedTarget < 7000 || weeklyCaloriesConsumedTarget > 20000) {
                     model.addAttribute("weeklyCaloriesConsumedTargetError", true);
                     model.addAttribute("error", "Weekly calorie consumption goal must be between 500 and 10000.");
                     hasError = true;
@@ -519,9 +519,9 @@ public class UserController {
             try {
                 dailyProtienTarget = Double.parseDouble(dailyProtienTargetStr);
 
-                if (dailyProtienTarget < 200 || dailyProtienTarget > 10000) {
+                if (dailyProtienTarget < 10 || dailyProtienTarget > 1000) {
                     model.addAttribute("dailyProtienTargetError", true);
-                    model.addAttribute("error", "daily protien goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily protien goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -539,9 +539,9 @@ public class UserController {
             try {
                 dailyCarbsTarget = Double.parseDouble(dailyCarbsTargetStr);
 
-                if (dailyCarbsTarget < 200 || dailyCarbsTarget > 10000) {
+                if (dailyCarbsTarget < 10 || dailyCarbsTarget > 1000) {
                     model.addAttribute("dailyCarbsTargetError", true);
-                    model.addAttribute("error", "daily carb goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily carb goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -559,9 +559,9 @@ public class UserController {
             try {
                 dailyFatsTarget = Double.parseDouble(dailyFatsTargetStr);
 
-                if (dailyFatsTarget < 200 || dailyFatsTarget > 10000) {
+                if (dailyFatsTarget < 10 || dailyFatsTarget > 1000) {
                     model.addAttribute("dailyFatsTargetError", true);
-                    model.addAttribute("error", "daily fats goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily fats goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -579,9 +579,9 @@ public class UserController {
             try {
                 dailyFibreTarget = Double.parseDouble(dailyFibreTargetStr);
 
-                if (dailyFibreTarget < 200 || dailyFibreTarget > 10000) {
+                if (dailyFibreTarget < 10 || dailyFibreTarget > 1000) {
                     model.addAttribute("dailyFibreTargetError", true);
-                    model.addAttribute("error", "daily Fibre goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily Fibre goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -821,9 +821,9 @@ public class UserController {
             try {
                 weeklyCaloriesBurnedTarget = Double.parseDouble(weeklyCaloriesBurnedTargetStr);
 
-                if (weeklyCaloriesBurnedTarget < 500 || weeklyCaloriesBurnedTarget > 10000) {
+                if (weeklyCaloriesBurnedTarget < 100 || weeklyCaloriesBurnedTarget > 10000) {
                     model.addAttribute("weeklyCaloriesBurnedTargetError", true);
-                    model.addAttribute("error", "Weekly calorie burn goal must be between 500 and 10000.");
+                    model.addAttribute("error", "Weekly calorie burn goal must be between 100 and 10000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -841,9 +841,9 @@ public class UserController {
             try {
                 weeklyCaloriesConsumedTarget = Double.parseDouble(weeklyCaloriesConsumedTargetStr);
 
-                if (weeklyCaloriesConsumedTarget < 500 || weeklyCaloriesConsumedTarget > 10000) {
+                if (weeklyCaloriesConsumedTarget < 7000 || weeklyCaloriesConsumedTarget > 20000) {
                     model.addAttribute("weeklyCaloriesConsumedTargetError", true);
-                    model.addAttribute("error", "Weekly calorie consumption goal must be between 500 and 10000.");
+                    model.addAttribute("error", "Weekly calorie consumption goal must be between 7000 and 20000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -861,9 +861,9 @@ public class UserController {
             try {
                 dailyProtienTarget = Double.parseDouble(dailyProtienTargetStr);
 
-                if (dailyProtienTarget < 200 || dailyProtienTarget > 10000) {
+                if (dailyProtienTarget < 10 || dailyProtienTarget > 1000) {
                     model.addAttribute("dailyProtienTargetError", true);
-                    model.addAttribute("error", "daily protien goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily protien goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -881,9 +881,9 @@ public class UserController {
             try {
                 dailyCarbsTarget = Double.parseDouble(dailyCarbsTargetStr);
 
-                if (dailyCarbsTarget < 200 || dailyCarbsTarget > 10000) {
+                if (dailyCarbsTarget < 10 || dailyCarbsTarget > 1000) {
                     model.addAttribute("dailyCarbsTargetError", true);
-                    model.addAttribute("error", "daily carb goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily carb goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -901,9 +901,9 @@ public class UserController {
             try {
                 dailyFatsTarget = Double.parseDouble(dailyFatsTargetStr);
 
-                if (dailyFatsTarget < 200 || dailyFatsTarget > 10000) {
+                if (dailyFatsTarget < 10 || dailyFatsTarget > 1000) {
                     model.addAttribute("dailyFatsTargetError", true);
-                    model.addAttribute("error", "daily fats goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily fats goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
@@ -921,9 +921,9 @@ public class UserController {
             try {
                 dailyFibreTarget = Double.parseDouble(dailyFibreTargetStr);
 
-                if (dailyFibreTarget < 200 || dailyFibreTarget > 10000) {
+                if (dailyFibreTarget < 1 || dailyFibreTarget > 1000) {
                     model.addAttribute("dailyFibreTargetError", true);
-                    model.addAttribute("error", "daily Fibre goal must be between 200 and 10000.");
+                    model.addAttribute("error", "Daily Fibre goal must be between 10 and 1000.");
                     hasError = true;
                 }
             } catch (Exception e) {
