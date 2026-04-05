@@ -12,7 +12,7 @@
     <script src="/js/theme.js"></script>
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
-<body class="theme-bg overflow-hidden vh-100 m-0">
+<body class="theme-bg overflow-hidden dashboard-viewport m-0">
     <div class="d-flex h-100 w-100">
         <div th:replace="~{fragments/navbar :: navbar('dashboard')}"></div>
         <main class="flex-grow-1 dashboard-shell bg-secondary">
@@ -81,12 +81,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row g-3 mt-1">
+                            <div class="row g-3 mt-1 dashboard-summary-row">
                                 <div class="col-md-4 d-flex">
-                                    <div class="meta-chip w-100 d-flex flex-column justify-content-center align-items-center text-center p-4" style="height: 20vh;">
+                                    <div class="meta-chip dashboard-streak-card w-100 d-flex flex-column justify-content-center align-items-center text-center p-4">
                                         <p class="mb-n2">
-                                            <strong style="font-size: 3rem; line-height: 1;"> 7</strong>
-                                            <i class="fa-solid fa-fire mb-3" style="font-size: 3rem; color: #56B6FF;"></i>
+                                            <strong class="dashboard-streak-value"> 7</strong>
+                                            <i class="fa-solid fa-fire mb-3 dashboard-streak-icon"></i>
                                         </p>
                                         <span class="meta-chip-label mb-0">Current Streak</span>
                                     </div>
