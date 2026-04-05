@@ -14,11 +14,11 @@
 </head>
 <body class="theme-bg overflow-hidden vh-100 m-0" style="background-color: var(--bg-secondary) !important;">
     <div class="d-flex h-100 w-100">
-        <div th:replace="~{fragments/navbar :: navbar('add-workout')}"></div>
+        <div th:replace="~{shared/navbar :: navbar('add-workout')}"></div>
 
-        <div class="flex-grow-1 workout-shell overflow-auto" style="margin-left: 110px;">
+        <div class="flex-grow-1 workout-shell tracker-shell overflow-auto" style="margin-left: 110px;">
         <div class="workout-main-card">
-            <div class="row g-4 h-100">
+            <div class="row g-4 h-100 m-0">
                 <div class="col-xl-7 d-flex">
                     <section class="tracker-panel tracker-panel-form neon-heat w-100">
                         <div>

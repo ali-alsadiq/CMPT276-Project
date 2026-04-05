@@ -28,9 +28,10 @@
     
     <!-- Navigation -->
     <div class="d-flex flex-column gap-3 w-100 m-0 px-2">
-        <a th:href="@{/adminDashboard}" 
+        <a th:href="@{/admin-dashboard}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
-           th:classappend="${activePage == 'adminDashboard' ? 'bg-static-accent text-black' : 'text-white'}">
+           th:classappend="${activePage == 'admin-dashboard' ? 'bg-static-accent text-black' : 'text-white'}"
+           th:if="${session.session_user?.role == 'ADMIN'}">
 
             <i class="fa-solid fa-unlock flex-shrink-0 text-center nav-icon"></i>
 
@@ -46,9 +47,9 @@
             <span class="sidebar-text fw-semibold">Dashboard</span>
         </a>
         
-        <a th:href="@{/calorieTracker}" 
+        <a th:href="@{/calorie-tracker}" 
            class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
-           th:classappend="${activePage == 'calorieTracker' ? 'bg-static-accent text-black' : 'text-white'}">
+           th:classappend="${activePage == 'calorie-tracker' ? 'bg-static-accent text-black' : 'text-white'}">
 
             <i class="fa-solid fa-apple-whole flex-shrink-0 text-center nav-icon"></i>
 

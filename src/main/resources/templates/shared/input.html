@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div
+      th:fragment="tallInput(id, label, icon, type, placeholder, val, hasError)"
+      class="mb-3"
+    >
+      <div
+        class="stacked-input-group"
+        th:classappend="${hasError != null and hasError ? 'border-danger' : ''}"
+      >
+        <label th:for="${id}">
+          <i th:class="${icon} + ' me-1'"></i> <span th:text="${label}"></span>
+        </label>
+
+        <input
+          th:type="${type}"
+          th:id="${id}"
+          th:name="${id}"
+          th:placeholder="${placeholder}"
+          th:value="${val}"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div
+      th:fragment="tallSelect(id, label, icon, options, placeholder, val, hasError)"
+      class="mb-3"
+    >
+      <div
+        class="stacked-input-group"
+        th:classappend="${hasError != null and hasError ? 'border-danger' : ''}"
+      >
+        <label th:for="${id}">
+          <i th:class="${icon} + ' me-1'"></i>
+          <span th:text="${label}"></span>
+        </label>
+
+        <select th:id="${id}" th:name="${id}" class="form-select form-control">
+          <option
+            value=""
+            th:text="${placeholder}"
+            th:selected="${val == null or val == ''}"
+          ></option>
+
+          <option
+            th:each="opt : ${options}"
+            th:value="${opt}"
+            th:text="${opt}"
+            th:selected="${val == opt}"
+          ></option>
+        </select>
+      </div>
+    </div>
+  </body>
+</html>
