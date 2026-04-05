@@ -51,10 +51,10 @@ public class User {
 
     //Nutrition consumtion targets
     private double weeklyCaloriesConsumedTarget;
-    private double weeklyProtienTarget;
-    private double weeklyCarbsTarget;
-    private double weeklyFatsTarget;
-    private double weeklyFibreTarget;
+    private double dailyProtienTarget;
+    private double dailyCarbsTarget;
+    private double dailyFatsTarget;
+    private double dailyFibreTarget;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
@@ -75,10 +75,10 @@ public class User {
 
         this.weeklyCaloriesBurnedTarget = 0;
         this.weeklyCaloriesConsumedTarget = 0;
-        this.weeklyProtienTarget = 0;
-        this.weeklyFatsTarget = 0;
-        this.weeklyCarbsTarget = 0;
-        this.weeklyFibreTarget = 0;
+        this.dailyProtienTarget = 0;
+        this.dailyFatsTarget = 0;
+        this.dailyCarbsTarget = 0;
+        this.dailyFibreTarget = 0;
     }
 
     // -- Getters and Setters --
@@ -201,36 +201,36 @@ public class User {
         this.weeklyCaloriesConsumedTarget = weeklyCaloriesTarget;
     }
 
-    public double getWeeklyProtienTarget() {
-        return weeklyProtienTarget;
+    public double getDailyProtienTarget() {
+        return dailyProtienTarget;
     }
 
-    public void setWeeklyProtienTarget(double weeklyProtienTarget) {
-        this.weeklyProtienTarget = weeklyProtienTarget;
+    public void setDailyProtienTarget(double weeklyProtienTarget) {
+        this.dailyProtienTarget = weeklyProtienTarget;
     }
 
-    public double getWeeklyCarbsTarget() {
-        return weeklyCarbsTarget;
+    public double getDailyCarbsTarget() {
+        return dailyCarbsTarget;
     }
 
-    public void setWeeklyCarbsTarget(double weeklyCarbsTarget) {
-        this.weeklyCarbsTarget = weeklyCarbsTarget;
+    public void setDailyCarbsTarget(double weeklyCarbsTarget) {
+        this.dailyCarbsTarget = weeklyCarbsTarget;
     }
 
-    public double getWeeklyFatsTarget() {
-        return weeklyFatsTarget;
+    public double getDailyFatsTarget() {
+        return dailyFatsTarget;
     }
 
-    public void setWeeklyFatsTarget(double weeklyFatsTarget) {
-        this.weeklyFatsTarget = weeklyFatsTarget;
+    public void setDailyFatsTarget(double weeklyFatsTarget) {
+        this.dailyFatsTarget = weeklyFatsTarget;
     }
 
-    public double getWeeklyFibreTarget() {
-        return weeklyFibreTarget;
+    public double getDailyFibreTarget() {
+        return dailyFibreTarget;
     }
 
-    public void setWeeklyFibreTarget(double weeklyFibreTarget) {
-        this.weeklyFibreTarget = weeklyFibreTarget;
+    public void setDailyFibreTarget(double weeklyFibreTarget) {
+        this.dailyFibreTarget = weeklyFibreTarget;
     }
  
 }

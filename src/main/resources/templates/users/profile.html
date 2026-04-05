@@ -75,7 +75,7 @@
                                 <p class="eyebrow mb-2 text-accent-1 mt-4">TEMPORARY</p>
                                 <div class="row mb-3 align-items-end">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyCaloriesBurnedTarget', label='Weekly Calories Burned Goal (kcal)', icon='bi bi-fire', type='number', placeholder='Enter your daily calorie burn goal', val=${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}, hasError=${weeklyCaloriesBurnedTargetError})}"></div>
+                                        <div th:replace="~{shared/input :: tallInput(id='weeklyCaloriesBurnedTarget', label='Weekly Calories Burned Goal (kcal)', icon='bi bi-fire', type='number', placeholder='Enter your Daily calorie burn goal', val=${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}, hasError=${weeklyCaloriesBurnedTargetError})}"></div>
                                     </div>
 
                                     <div class="col-md-6">
@@ -85,21 +85,21 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyProtienTarget', label='Weekly Protien Goal (g)', icon='bi bi-egg-fried', type='number', placeholder='e.g. 1050', val=${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : user.weeklyProtienTarget}, hasError=${weeklyProtienTargetError})}"></div>
+                                        <div th:replace="~{shared/input :: tallInput(id='dailyProtienTarget', label='Daily Protien Goal (g)', icon='bi bi-egg-fried', type='number', placeholder='e.g. 1050', val=${dailyProtienTargetVal != null ? dailyProtienTargetVal : user.dailyProtienTarget}, hasError=${dailyProtienTargetError})}"></div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyCarbsTarget', label='Weekly Carbs Goal (g)', icon='bi bi-basket', type='number', placeholder='e.g. 1400', val=${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : user.weeklyCarbsTarget}, hasError=${weeklyCarbsTargetError})}"></div>
+                                        <div th:replace="~{shared/input :: tallInput(id='dailyCarbsTarget', label='Daily Carbs Goal (g)', icon='bi bi-basket', type='number', placeholder='e.g. 1400', val=${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : user.dailyCarbsTarget}, hasError=${dailyCarbsTargetError})}"></div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyFatsTarget', label='Weekly Fats Goal (g)', icon='bi bi-droplet', type='number', placeholder='e.g. 455', val=${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : user.weeklyFatsTarget}, hasError=${weeklyFatsTargetError})}"></div>
+                                        <div th:replace="~{shared/input :: tallInput(id='dailyFatsTarget', label='Daily Fats Goal (g)', icon='bi bi-droplet', type='number', placeholder='e.g. 455', val=${dailyFatsTargetVal != null ? dailyFatsTargetVal : user.dailyFatsTarget}, hasError=${dailyFatsTargetError})}"></div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyFibreTarget', label='Weekly Fibre Goal (g)', icon='bi bi-flower1', type='number', placeholder='e.g. 210', val=${weeklyFibreTargetVal != null ? weeklyFibreTargetVal : user.weeklyFibreTarget}, hasError=${weeklyFibreTargetError})}"></div>
+                                        <div th:replace="~{shared/input :: tallInput(id='dailyFibreTarget', label='Daily Fibre Goal (g)', icon='bi bi-flower1', type='number', placeholder='e.g. 210', val=${dailyFibreTargetVal != null ? dailyFibreTargetVal : user.dailyFibreTarget}, hasError=${dailyFibreTargetError})}"></div>
                                     </div>
                                 </div>
 
