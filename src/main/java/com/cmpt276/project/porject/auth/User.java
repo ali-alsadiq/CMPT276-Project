@@ -74,6 +74,7 @@ public class User {
         this.rankProfile = new RankProfile(); // Give a rank profile by default to new users
         this.userSetTargets = false;
 
+        this.weeklyWorkoutGoalCount = 1; //1 default
         this.weeklyCaloriesBurnedTarget = 0;
         this.weeklyCaloriesConsumedTarget = 0;
         this.dailyProtienTarget = 0;
