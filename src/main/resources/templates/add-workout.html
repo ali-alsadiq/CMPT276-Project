@@ -31,7 +31,8 @@
                             <div>
                                 <label for="activity" class="form-label tracker-label">Activity</label>
                                 <input type="text" class="form-control tracker-input" id="activity" name="activity"
-                                       placeholder="Running, cycling, basketball..." required>
+                                       placeholder="Running, cycling, basketball..." required minlength="3" 
+                                       oninvalid="this.setCustomValidity('Must be at least 3 characters')" oninput="this.setCustomValidity('')">
                             </div>
 
                             <div>
