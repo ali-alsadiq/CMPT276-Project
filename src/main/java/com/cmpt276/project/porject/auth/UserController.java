@@ -1,6 +1,9 @@
 package com.cmpt276.project.porject.auth;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.cmpt276.project.porject.trackers.workouts.Workout;
+import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,6 +38,9 @@ public class UserController {
     @Autowired
     private FriendsRepository friendsRepository;
 
+    @Autowired
+    private WorkoutRepository workoutRepository;
+
     /**
      * Admin Dashboard, shows list of all users.
      * 
@@ -41,7 +50,7 @@ public class UserController {
      * @param request Request to get session from.
      * @return String representing the view to return.
      */
-    @GetMapping("/adminDashboard")
+    @GetMapping("/admin-dashboard")
     public String getAllUsers(Model model, HttpServletRequest request) {
         // Check if user is logged in has "ADMIN" role
         HttpSession session = request.getSession();
@@ -55,7 +64,7 @@ public class UserController {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 
-        return "adminDashboard";
+        return "admin-dashboard";
     }
 
     /**
@@ -91,7 +100,7 @@ public class UserController {
         // If user is logged in, redirect to dashboard
         if (user != null) {
             if (user.isAdmin()) {
-                return "redirect:/adminDashboard";
+                return "redirect:/admin-dashboard";
             }
 
             else {
@@ -147,7 +156,7 @@ public class UserController {
             request.getSession().setAttribute("session_user", user);
 
             if (user.isAdmin()) {
-                return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
+                return "redirect:/admin-dashboard"; // Redirect to admin dashboard endpoint
             } else {
                 if (!user.getUserSetTargets()) {
                     return "redirect:/onBoarding";
@@ -230,7 +239,7 @@ public class UserController {
         // If user is logged in, redirect to dashboard
         if (user != null) {
             if (user.isAdmin()) {
-                return "redirect:/adminDashboard"; // Redirect to admin dashboard endpoint
+                return "redirect:/admin-dashboard"; // Redirect to admin dashboard endpoint
             } else {
                 return "redirect:/dashboard"; // Redirect to nothing / home for now
             }
@@ -249,7 +258,60 @@ public class UserController {
             return "redirect:/login";
         }
 
+        populateDashboardWorkoutModel(user, model);
         return "dashboard";
+    }
+
+    private void populateDashboardWorkoutModel(User user, Model model) {
+        List<Workout> workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
+        LocalDate today = LocalDate.now();
+        LocalDate weekStart = today.with(DayOfWeek.SUNDAY);
+        int[] dailyCalories = new int[7];
+        int weeklyWorkoutSessions = 0;
+        int weeklyWorkoutCalories = 0;
+
+        for (Workout workout : workouts) {
+            LocalDateTime workoutDate = workout.getWorkoutDate();
+            if (workoutDate == null) {
+                continue;
+            }
+
+            LocalDate workoutDay = workoutDate.toLocalDate();
+            if (workoutDay.isBefore(weekStart) || workoutDay.isAfter(weekStart.plusDays(6))) {
+                continue;
+            }
+
+            int dayIndex = workoutDay.getDayOfWeek().getValue() % 7;
+            dailyCalories[dayIndex] += workout.getCalsBurned();
+            weeklyWorkoutSessions++;
+            weeklyWorkoutCalories += workout.getCalsBurned();
+        }
+
+        List<String> dayLabels = List.of("S", "M", "T", "W", "T", "F", "S");
+        List<DashboardWorkoutDaySummary> dashboardWorkoutWeek = new ArrayList<>();
+        int missedWorkoutDays = 0;
+
+        for (int i = 0; i < 7; i++) {
+            boolean accomplished = dailyCalories[i] > 0;
+            if (!accomplished) {
+                missedWorkoutDays++;
+            }
+
+            dashboardWorkoutWeek.add(new DashboardWorkoutDaySummary(
+                    dayLabels.get(i),
+                    accomplished ? 100 : 100,
+                    accomplished ? "#39FF88" : "#FF5C72",
+                    accomplished));
+        }
+
+        model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
+        model.addAttribute("weeklyWorkoutSessions", weeklyWorkoutSessions);
+        model.addAttribute("weeklyWorkoutGoalCount", 4);
+        model.addAttribute("weeklyWorkoutCalories", weeklyWorkoutCalories);
+        model.addAttribute("missedWorkoutDays", missedWorkoutDays);
+    }
+
+    public record DashboardWorkoutDaySummary(String label, int percent, String color, boolean accomplished) {
     }
 
     // -- Logout --

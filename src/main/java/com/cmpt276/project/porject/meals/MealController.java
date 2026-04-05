@@ -97,7 +97,7 @@ public class MealController {
      * Displays the add-food page.
      *
      */
-    @GetMapping("/calorieTracker")
+    @GetMapping("/calorie-tracker")
     public String getAddFoodPage(Model model, HttpServletRequest request) {
         User user = getCurrentUser(request);
         if (user == null) {
@@ -105,14 +105,14 @@ public class MealController {
         }
 
         populateCalorieTrackerData(model, user);
-        return "calorieTracker";
+        return "calorie-tracker/calorie-tracker";
     }
 
     /**
      * Handles food description input and calculates nutrition results.
      * 
      */
-    @PostMapping("/calorieTracker/search")
+    @PostMapping("/calorie-tracker/search")
     @ResponseBody
     public List<Food> searchMealFromCalorieTracker(
             @RequestParam String foodDescription,
@@ -128,8 +128,30 @@ public class MealController {
             return List.of();
         }
 
-        List<Food> mealFoods = foodApiService.getMealNutrition(trimmedDescription);
-        System.out.println(mealFoods.toString());
+        // Fix CalorieNinja bug where it treats decimals as part of the number by
+        // stripping them
+        java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("(\\d+)\\.(\\d+)")
+                .matcher(trimmedDescription);
+        StringBuilder sb = new StringBuilder();
+        while (matcher.find()) {
+            double val = Double.parseDouble(matcher.group());
+            matcher.appendReplacement(sb, String.valueOf(Math.round(val)));
+        }
+        matcher.appendTail(sb);
+        String sanitizedDescription = sb.toString();
+
+        List<Food> mealFoods = foodApiService.getMealNutrition(sanitizedDescription);
+
+        if (mealFoods != null) {
+            double totalCalories = mealFoods.stream().mapToDouble(Food::getCalories).sum();
+            if (totalCalories > 10000) {
+                return List.of();
+            }
+        }
+
+        if (mealFoods != null) {
+            System.out.println(mealFoods.toString());
+        }
         return mealFoods != null ? mealFoods : List.of();
     }
 
@@ -157,7 +179,7 @@ public class MealController {
             parsedConsumedDate = LocalDateTime.parse(consumedDate);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Please enter a valid consumed date and time.");
-            return "redirect:/calorieTracker";
+            return "redirect:/calorie-tracker";
         }
 
         try {
@@ -169,7 +191,7 @@ public class MealController {
 
                 if (servingSizeValue == null || servingSizeValue.isBlank()) {
                     redirectAttributes.addFlashAttribute("error", "Missing serving size for food: " + foodName);
-                    return "redirect:/calorieTracker";
+                    return "redirect:/calorie-tracker";
                 }
 
                 double servingSize = Double.parseDouble(servingSizeValue);
@@ -177,17 +199,12 @@ public class MealController {
                 if (servingSize <= 0) {
                     redirectAttributes.addFlashAttribute("error",
                             "Serving size must be greater than 0 for food: " + foodName);
-                    return "redirect:/calorieTracker";
+                    return "redirect:/calorie-tracker";
                 }
 
-                // Fix 10x multiplier bug: CalorieNinja evaluates '100.0 grams' as '1000 grams'
-                // by accidentally stripping the decimal point
-                String formattedServingSize;
-                if (servingSize == Math.floor(servingSize) && !Double.isInfinite(servingSize)) {
-                    formattedServingSize = String.valueOf((long) servingSize);
-                } else {
-                    formattedServingSize = String.valueOf(servingSize);
-                }
+                // Fix multiplier bug: CalorieNinja evaluates '100.0' as '1000' by ignoring the
+                // decimal point.
+                String formattedServingSize = String.valueOf(Math.round(servingSize));
 
                 queryParts.add(formattedServingSize + " grams " + foodName);
             }
@@ -199,16 +216,22 @@ public class MealController {
 
             if (foods == null || foods.isEmpty()) {
                 redirectAttributes.addFlashAttribute("error", "No foods were returned from the updated serving sizes.");
-                return "redirect:/calorieTracker";
+                return "redirect:/calorie-tracker";
+            }
+
+            double totalCalories = foods.stream().mapToDouble(Food::getCalories).sum();
+            if (totalCalories > 10000) {
+                redirectAttributes.addFlashAttribute("error", "No foods were returned from the updated serving sizes.");
+                return "redirect:/calorie-tracker";
             }
 
             mealService.addMeal(user, mealName, mealType, parsedConsumedDate, foods);
             redirectAttributes.addFlashAttribute("successMessage", "Meal added successfully!");
-            return "redirect:/calorieTracker";
+            return "redirect:/calorie-tracker";
 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Failed to add meal.");
-            return "redirect:/calorieTracker";
+            return "redirect:/calorie-tracker";
         }
     }
 
