@@ -71,6 +71,26 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <label for="workoutCount" class="form-label">
+                                            <i class="bi bi-speedometer2 me-2"></i>Weekly Workout Target
+                                        </label>
+                                        <input
+                                            type="number"
+                                            step="0.1"
+                                            min="20"
+                                            max="500"
+                                            th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                                            th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : user.weeklyWorkoutGoalCount}"
+                                            id="weeklyWorkoutGoalCount"
+                                            name="weeklyWorkoutGoalCount"
+                                            placeholder="How often you'll aim to workout weekly"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
                                 
                                 <p class="eyebrow mb-2 text-accent-1 mt-4">TEMPORARY</p>
                                 <div class="row mb-3 align-items-end">

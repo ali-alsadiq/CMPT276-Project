@@ -1,5 +1,6 @@
 package com.cmpt276.project.porject.auth;
 
+import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,11 +31,17 @@ import jakarta.servlet.http.HttpSession;
  */
 @Controller
 public class UserController {
+    private final WorkoutApiService workoutApiService;
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private WorkoutRepository workoutRepository;
+
+    UserController(WorkoutApiService workoutApiService) {
+        this.workoutApiService = workoutApiService;
+    }
 
     /**
      * Admin Dashboard, shows list of all users.
@@ -299,9 +306,12 @@ public class UserController {
                     accomplished));
         }
 
+        int weeklyWorkoutGoalCount = user.getWeeklyWorkoutGoalCount();
+        if (weeklyWorkoutGoalCount < 1) weeklyWorkoutGoalCount = 1;
+
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
         model.addAttribute("weeklyWorkoutSessions", weeklyWorkoutSessions);
-        model.addAttribute("weeklyWorkoutGoalCount", 4);
+        model.addAttribute("weeklyWorkoutGoalCount", weeklyWorkoutGoalCount);
         model.addAttribute("weeklyWorkoutCalories", weeklyWorkoutCalories);
         model.addAttribute("missedWorkoutDays", missedWorkoutDays);
     }
@@ -371,6 +381,7 @@ public class UserController {
         String dateOfBirthStr = profileData.get("dateOfBirth") != null ? profileData.get("dateOfBirth").trim() : "";
         String heightStr = profileData.get("height") != null ? profileData.get("height").trim() : "";
         String weightStr = profileData.get("weight") != null ? profileData.get("weight").trim() : "";
+        String weeklyWorkoutGoalCountStr = profileData.get("weeklyWorkoutGoalCount") != null ? profileData.get("weeklyWorkoutGoalCount").trim() : "";
         String weeklyCaloriesBurnedTargetStr = profileData.get("weeklyCaloriesBurnedTarget") != null
                 ? profileData.get("weeklyCaloriesBurnedTarget").trim()
                 : "";
@@ -388,6 +399,7 @@ public class UserController {
         model.addAttribute("dateOfBirthVal", dateOfBirthStr);
         model.addAttribute("heightVal", heightStr);
         model.addAttribute("weightVal", weightStr);
+        model.addAttribute("weeklyWorkoutGoalCountVal", weeklyWorkoutGoalCountStr);
         model.addAttribute("weeklyCaloriesBurnedTargetVal", weeklyCaloriesBurnedTargetStr);
         model.addAttribute("weeklyCaloriesConsumedTargetVal", weeklyCaloriesConsumedTargetStr);
         model.addAttribute("dailyProtienTargetVal", dailyProtienTargetStr);
@@ -467,6 +479,26 @@ public class UserController {
             } catch (Exception e) {
                 model.addAttribute("weightError", true);
                 model.addAttribute("error", "Please enter a valid weight.");
+                hasError = true;
+            }
+        }
+
+        int weeklyWorkoutGoalCount = 1;
+        if (weeklyWorkoutGoalCountStr.isEmpty()) {
+            model.addAttribute("weeklyWorkoutGoalCountError");
+            hasError = true;
+        } else {
+            try {
+                weeklyWorkoutGoalCount = Integer.parseInt(weeklyWorkoutGoalCountStr);
+
+                if (weeklyWorkoutGoalCount < 1 || weeklyWorkoutGoalCount > 30) {
+                    model.addAttribute("weeklyWorkoutGoalCountError", true);
+                    model.addAttribute("error", "Workout goal must be between 1 and 30.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyWorkoutGoalCountError", true);
+                model.addAttribute("error", "Please enter a valid goal.");
                 hasError = true;
             }
         }
@@ -602,6 +634,7 @@ public class UserController {
         user.setDateOfBirth(dateOfBirth);
         user.setHeight(height);
         user.setWeight(weight);
+        user.setWeeklyWorkoutGoalCount(weeklyWorkoutGoalCount);
         user.setWeeklyCaloriesBurnedTarget(weeklyCaloriesBurnedTarget);
         user.setWeeklyCaloriesConsumedTarget(weeklyCaloriesConsumedTarget);
         user.setDailyProtienTarget(dailyProtienTarget);
@@ -725,6 +758,7 @@ public class UserController {
         String dateOfBirthStr = profileData.get("dateOfBirth") != null ? profileData.get("dateOfBirth").trim() : "";
         String heightStr = profileData.get("height") != null ? profileData.get("height").trim() : "";
         String weightStr = profileData.get("weight") != null ? profileData.get("weight").trim() : "";
+        String weeklyWorkoutGoalCountStr = profileData.get("weeklyWorkoutGoalCount") != null ? profileData.get("weeklyWorkoutGoalCount").trim() : "";
         String weeklyCaloriesBurnedTargetStr = profileData.get("weeklyCaloriesBurnedTarget") != null
                 ? profileData.get("weeklyCaloriesBurnedTarget").trim()
                 : "";
@@ -740,6 +774,7 @@ public class UserController {
         model.addAttribute("dateOfBirthVal", dateOfBirthStr);
         model.addAttribute("heightVal", heightStr);
         model.addAttribute("weightVal", weightStr);
+        model.addAttribute("weeklyWorkoutGoalCountVal", weeklyWorkoutGoalCountStr);
         model.addAttribute("weeklyCaloriesBurnedTargetVal", weeklyCaloriesBurnedTargetStr);
         model.addAttribute("weeklyCaloriesConsumedTargetVal", weeklyCaloriesConsumedTargetStr);
         model.addAttribute("dailyProtienTargetVal", dailyProtienTargetStr);
@@ -809,6 +844,26 @@ public class UserController {
             } catch (Exception e) {
                 model.addAttribute("weightError", true);
                 model.addAttribute("error", "Please enter a valid weight.");
+                hasError = true;
+            }
+        }
+
+        int weeklyWorkoutGoalCount = 1;
+        if (weeklyWorkoutGoalCountStr.isEmpty()) {
+            model.addAttribute("weeklyWorkoutGoalCountError");
+            hasError = true;
+        } else {
+            try {
+                weeklyWorkoutGoalCount = Integer.parseInt(weeklyWorkoutGoalCountStr);
+
+                if (weeklyWorkoutGoalCount < 1 || weeklyWorkoutGoalCount > 30) {
+                    model.addAttribute("weeklyWorkoutGoalCountError", true);
+                    model.addAttribute("error", "Workout goal must be between 1 and 30.");
+                    hasError = true;
+                }
+            } catch (Exception e) {
+                model.addAttribute("weeklyWorkoutGoalCountError", true);
+                model.addAttribute("error", "Please enter a valid goal.");
                 hasError = true;
             }
         }
@@ -945,6 +1000,7 @@ public class UserController {
         user.setDateOfBirth(dateOfBirth);
         user.setHeight(height);
         user.setWeight(weight);
+        user.setWeeklyWorkoutGoalCount(weeklyWorkoutGoalCount);
         user.setWeeklyCaloriesBurnedTarget(weeklyCaloriesBurnedTarget);
         user.setWeeklyCaloriesConsumedTarget(weeklyCaloriesConsumedTarget);
         user.setDailyProtienTarget(dailyProtienTarget);
