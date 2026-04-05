@@ -910,14 +910,13 @@ public class UserController {
         }
 
         if (search != null && !search.trim().isEmpty()) {
-            // Assuming your repository has a method to search by username
             List<User> results = userRepository.findByUsernameContainingIgnoreCase(search);
 
             // remove yourself
             List<User> filtered = results.stream()
                 .filter(u -> u.getUid() != user.getUid())
                 .collect(Collectors.toList());
-                
+
             model.addAttribute("searchResults", filtered);
             model.addAttribute("searchQuery", search);
         }
