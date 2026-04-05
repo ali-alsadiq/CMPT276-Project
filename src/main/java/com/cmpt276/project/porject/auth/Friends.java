@@ -24,8 +24,8 @@ public class Friends {
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "reciever_id")
-    private User reciever;
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
 
     private String status;
 
@@ -34,7 +34,7 @@ public class Friends {
 
     public Friends(User from, User to) {
         this.sender = from;
-        this.reciever = to;
+        this.receiver = to;
         this.status = "WAITING";
     }
 
@@ -54,12 +54,12 @@ public class Friends {
         this.sender = sender;
     }
 
-    public User getReciever() {
-        return reciever;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setReciever(User reciever) {
-        this.reciever = reciever;
+    public void setReceiver(User reciever) {
+        this.receiver = reciever;
     }
 
     public String getStatus() {
