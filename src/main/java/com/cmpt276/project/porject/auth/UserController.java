@@ -23,10 +23,14 @@ import jakarta.servlet.http.HttpSession;
  * - To check if a user is loggin in, on your own controller, use:
  * User user = (User) request.getSession().getAttribute("session_user");
  */
+import org.springframework.web.bind.annotation.RequestBody;
+
 @Controller
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private FriendsRepository friendsRepository;
 
     /**
      * Admin Dashboard, shows list of all users.
@@ -915,6 +919,7 @@ public class UserController {
             // remove yourself
             List<User> filtered = results.stream()
                 .filter(u -> u.getUid() != user.getUid())
+                .filter(u -> !hasExistingFriends(user, u))
                 .collect(Collectors.toList());
 
             model.addAttribute("searchResults", filtered);
@@ -922,6 +927,48 @@ public class UserController {
         }
         return "users/addFriends";
     }
+
+    private boolean hasExistingFriends(User user1, User user2) {
+        Friends existing1 = friendsRepository.findBySenderAndReceiver(user1, user2);
+        if (existing1 != null && (existing1.getStatus().equals("WAITING") || existing1.getStatus().equals("FRIENDS"))) {
+            return true;
+        }
+        
+        Friends existing2 = friendsRepository.findBySenderAndReceiver(user2, user1);
+        if (existing2 != null && (existing2.getStatus().equals("WAITING") || existing2.getStatus().equals("FRIENDS"))) {
+            return true;
+        }
+        
+        return false;
+    }
+
+
+    @PostMapping("/sendFriendRequest")
+    public String sendFriendRequest(@RequestParam("friendId") int friendId, HttpServletRequest request, Model model) {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        //find targert
+        User fTarget = userRepository.findByUid(friendId);
+
+        //Check valid
+        if (fTarget == null) {
+            model.addAttribute("error", "User not found.");
+            return "redirect:/addFriends";
+        }
+
+        Friends friendRequest = new Friends(user, fTarget);
+        friendsRepository.save(friendRequest);
+        
+        model.addAttribute("success", "Friend request sent to " + fTarget.getUsername());
+        return "redirect:/addFriends?search=" + fTarget.getUsername();
+    }
+    
 }
 
 

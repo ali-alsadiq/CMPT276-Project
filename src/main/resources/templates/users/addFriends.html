@@ -54,7 +54,7 @@
                 <!-- results -->
                 <div th:if="${searchResults != null}">
                     <div th:if="${#lists.isEmpty(searchResults)}" class="text-center py-4">
-                        <p class="text-white-50 mb-0">No users found with that username.</p>
+                        <p class="text-white-50 mb-0">No users found with that username you haven't already requested.</p>
                     </div>
 
                     <div th:unless="${#lists.isEmpty(searchResults)}">
