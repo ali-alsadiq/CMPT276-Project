@@ -3,6 +3,7 @@ package com.cmpt276.project.porject.auth;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -897,4 +898,31 @@ public class UserController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/addFriends")
+    String addFriend(Model model, HttpServletRequest request, @RequestParam(value = "search", required = false) String search) {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        // validate logged in
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        if (search != null && !search.trim().isEmpty()) {
+            // Assuming your repository has a method to search by username
+            List<User> results = userRepository.findByUsernameContainingIgnoreCase(search);
+
+            // remove yourself
+            List<User> filtered = results.stream()
+                .filter(u -> u.getUid() != user.getUid())
+                .collect(Collectors.toList());
+                
+            model.addAttribute("searchResults", filtered);
+            model.addAttribute("searchQuery", search);
+        }
+        return "users/addFriends";
+    }
 }
+
+

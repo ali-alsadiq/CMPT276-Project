@@ -17,5 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByUsernameAndPassword(String username, String password);
 
+    List<User> findByUsernameContainingIgnoreCase(String username);
+
     User findByUid(int uid);
 }
