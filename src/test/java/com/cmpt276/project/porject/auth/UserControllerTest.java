@@ -3,6 +3,8 @@ package com.cmpt276.project.porject.auth;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import com.cmpt276.project.porject.rank.RankService;
+import com.cmpt276.project.porject.rank.RewardService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -28,6 +30,9 @@ public class UserControllerTest {
 
         @MockitoBean(name = "rankService")
         private RankService rankService;
+
+        @MockitoBean
+        private RewardService rewardService;
 
         /*
          * Tests login page is displayed when the user visits the login page.
