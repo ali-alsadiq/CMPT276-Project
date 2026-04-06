@@ -18,9 +18,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.cmpt276.project.porject.rank.RankService;
 import com.cmpt276.project.porject.rank.RewardService;
-
-import com.cmpt276.project.porject.rank.RankService;
-
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
