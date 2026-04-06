@@ -160,8 +160,9 @@
 .meta-chip {
     padding: 0.95rem 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .meta-chip-label {
@@ -261,8 +262,9 @@
     min-height: 50px;
     padding: 0 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .friends-search i {
@@ -278,7 +280,8 @@
 }
 
 .friends-search input::placeholder {
-    color: rgba(255, 255, 255, 0.38);
+    color: var(--text-secondary);
+    opacity: 0.7;
 }
 
 .friends-actions {
@@ -312,6 +315,7 @@
 .friends-grid {
     display: grid;
     grid-template-columns: 1fr;
+    align-content: start;
     gap: 0.75rem;
     flex: 1;
     min-height: 0;
@@ -325,8 +329,9 @@
     gap: 0.85rem;
     padding: clamp(0.68rem, 1vw, 0.9rem);
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .friend-card.is-user {
@@ -370,7 +375,8 @@
 .user-progress {
     padding: clamp(0.9rem, 1.2vw, 1rem);
     border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
     gap: 0.95rem;
@@ -447,8 +453,9 @@
 .dashboard-stat-card {
     padding: 0.95rem 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .dashboard-stat-label {
