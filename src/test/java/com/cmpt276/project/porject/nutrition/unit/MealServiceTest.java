@@ -1,4 +1,4 @@
-package com.cmpt276.project.porject.meals.unit;
+package com.cmpt276.project.porject.nutrition.unit;
 
 import com.cmpt276.project.porject.auth.User;
 import com.cmpt276.project.porject.meals.Food;
