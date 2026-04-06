@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.cmpt276.project.porject.rank.RankService;
+import com.cmpt276.project.porject.rank.RewardService;
 
 import com.cmpt276.project.porject.rank.RankService;
 
@@ -50,6 +51,7 @@ public class UserController {
     UserController(WorkoutApiService workoutApiService) {
         this.workoutApiService = workoutApiService;
     }
+    private RewardService rewardService;
 
     /**
      * Admin Dashboard, shows list of all users.
@@ -293,6 +295,8 @@ public class UserController {
         if (user == null) {
             return "redirect:/login";
         }
+
+        rewardService.applyMissedWeekPenalties(user);
 
         List<User> users = userRepository.findAllByOrderByRankProfileRrDesc();
 

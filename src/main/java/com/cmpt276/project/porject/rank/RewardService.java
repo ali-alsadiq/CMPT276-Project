@@ -35,6 +35,8 @@ public class RewardService {
     private static final int DAILY_LOG_RR = 5;
     private static final int WEEKLY_GOAL_RR = 50;
     private static final int PERFECT_WEEK_BONUS_RR = 15;
+    private static final int WEEKLY_INACTIVITY_PENALTY_RR = 25;
+
 
     private static final int ALL_DAYS_LOGGED_MASK = 0b1111111;
 
@@ -58,6 +60,59 @@ public class RewardService {
 
         userRepository.save(user);
     }
+
+    @Transactional
+    public void applyMissedWeekPenalties(User user) {
+        if (user == null) {
+            return;
+        }
+
+        RankProfile rankProfile = user.getRankProfile();
+
+        LocalDate today = LocalDate.now();
+        LocalDate currentWeekStart = getWeekStart(today);
+        LocalDate completedWeekStart = currentWeekStart.minusWeeks(1);
+
+        applyFoodInactivityPenalty(user, rankProfile, completedWeekStart);
+        applyWorkoutInactivityPenalty(user, rankProfile, completedWeekStart);
+
+        userRepository.save(user);
+    }
+    
+    private void applyFoodInactivityPenalty(User user, RankProfile rankProfile, LocalDate completedWeekStart) {
+        if (completedWeekStart.equals(rankProfile.getLastFoodPenaltyWeekStart())) {
+            return;
+        }
+
+        LocalDateTime start = completedWeekStart.atStartOfDay();
+        LocalDateTime end = completedWeekStart.plusDays(7).atStartOfDay();
+
+        List<Meal> meals = mealRepository.findByUserUidAndConsumedDateBetween(user.getUid(), start, end);
+
+        if (meals.isEmpty()) {
+            rankService.decreaseRR(user, WEEKLY_INACTIVITY_PENALTY_RR);
+        }
+
+        rankProfile.setLastFoodPenaltyWeekStart(completedWeekStart);
+    }
+
+    private void applyWorkoutInactivityPenalty(User user, RankProfile rankProfile, LocalDate completedWeekStart) {
+        if (completedWeekStart.equals(rankProfile.getLastWorkoutPenaltyWeekStart())) {
+            return;
+        }
+
+        LocalDateTime start = completedWeekStart.atStartOfDay();
+        LocalDateTime end = completedWeekStart.plusDays(7).atStartOfDay();
+
+        List<Workout> workouts = workoutRepository.findByUserIdAndWorkoutDateBetween(user.getUid(), start, end);
+
+        if (workouts.isEmpty()) {
+            rankService.decreaseRR(user, WEEKLY_INACTIVITY_PENALTY_RR);
+        }
+
+        rankProfile.setLastWorkoutPenaltyWeekStart(completedWeekStart);
+    }
+    
 
     private void resetFoodTrackingForNewWeek(RankProfile rankProfile, LocalDate weekStart) {
         if (rankProfile.getFoodRewardWeekStart() == null

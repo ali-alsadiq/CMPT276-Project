@@ -53,6 +53,12 @@ public class RankProfile {
     @Column(name = "weekly_workout_streak_bonus_awarded", nullable = false)
     private boolean weeklyWorkoutStreakBonusAwarded = false;
 
+    @Column(name = "last_food_penalty_week_start")
+    private LocalDate lastFoodPenaltyWeekStart;
+
+    @Column(name = "last_workout_penalty_week_start")
+    private LocalDate lastWorkoutPenaltyWeekStart;
+
     // Transient field, not stored in the database
     @Transient
     private String rankImageName;
@@ -140,6 +146,22 @@ public class RankProfile {
 
     public void setWeeklyWorkoutStreakBonusAwarded(boolean weeklyWorkoutStreakBonusAwarded) {
         this.weeklyWorkoutStreakBonusAwarded = weeklyWorkoutStreakBonusAwarded;
+    }
+
+     public LocalDate getLastFoodPenaltyWeekStart() {
+        return lastFoodPenaltyWeekStart;
+    }
+
+    public void setLastFoodPenaltyWeekStart(LocalDate lastFoodPenaltyWeekStart) {
+        this.lastFoodPenaltyWeekStart = lastFoodPenaltyWeekStart;
+    }
+
+    public LocalDate getLastWorkoutPenaltyWeekStart() {
+        return lastWorkoutPenaltyWeekStart;
+    }
+
+    public void setLastWorkoutPenaltyWeekStart(LocalDate lastWorkoutPenaltyWeekStart) {
+        this.lastWorkoutPenaltyWeekStart = lastWorkoutPenaltyWeekStart;
     }
 
     public String getRankImageName() {

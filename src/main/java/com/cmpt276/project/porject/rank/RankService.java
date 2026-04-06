@@ -104,6 +104,6 @@ public class RankService {
 
     public void decreaseRR(User user, int decreaseAmount) {
         int updated = user.getRankProfile().getRr() - decreaseAmount;
-        user.getRankProfile().setRr(updated);
-    }
+    user.getRankProfile().setRr(Math.max(0, updated));
+    }    
 }
