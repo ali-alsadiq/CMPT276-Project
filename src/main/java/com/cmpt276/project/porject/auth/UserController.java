@@ -1,13 +1,11 @@
 package com.cmpt276.project.porject.auth;
 
-import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +36,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
-    private final WorkoutApiService workoutApiService;
 
     @Autowired
     private UserRepository userRepository;
@@ -52,10 +49,6 @@ public class UserController {
     @Autowired
     private FriendsRepository friendsRepository;
     private RewardService rewardService;
-
-    UserController(WorkoutApiService workoutApiService) {
-        this.workoutApiService = workoutApiService;
-    }
 
     /**
      * Admin Dashboard, shows list of all users.
