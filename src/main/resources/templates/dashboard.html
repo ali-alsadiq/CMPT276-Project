@@ -34,7 +34,7 @@
                                 <div class="d-flex flex-row justify-content-between">
                                     <div class="profile-card-main">
                                         <div class="badge-placeholder">
-                                            <img src="/images/rank8.png" alt="Rank badge" class="badge-image">
+                                            <img th:src="${rankService.getRankImagePath(user.rankProfile.rr)}" alt="Rank badge" class="badge-image">
                                         </div>
                                         <div class="profile-copy">
                                             <div class="profile-label">Current Rank</div>
@@ -109,7 +109,7 @@
                                 <p class="eyebrow mb-2">Leaderboard</p>
                                 <h2 class="friends-title mb-0">You vs Friends</h2>
                             </div>
-                            <span class="friends-note">4 players</span>
+                            <span class="friends-note"><span th:text="${#lists.size(users)}">0</span> players</span>
                         </div>
                         <div class="friends-toolbar">
                             <label class="friends-search" for="friendSearch">
@@ -122,74 +122,30 @@
                             </div>
                         </div>
                         <div class="friends-grid">
-                            <article class="friend-card">
-                                <span class="leader-place">1st</span>
+                            <article class="friend-card"
+                                    th:each="listedUser, stat : ${users}"
+                                    th:classappend="${listedUser.uid == user.uid} ? ' is-user'">
+                                <span class="leader-place" th:text="${stat.count}">1st</span>
+                                <!-- Fix later -->
                                 <div class="friend-badge-placeholder">
-                                    <img src="/images/rank9.png" alt="Rank badge" class="friend-badge-image">
+                                    <img th:src="${rankService.getRankImagePath(listedUser.rankProfile.rr)}" alt="Rank badge" class="friend-badge-image">
                                 </div>
                                 <div class="friend-card-copy">
                                     <div class="d-flex flex-row justify-content-between">
-                                        <p class="friend-name mb-1">Jason</p>
+                                        <p class="friend-name mb-1" th:text="${listedUser.username}">Jason</p>
                                         <div class="text-end">
                                             <p class="friend-rank mb-1 p-1">Angel Horse • 792 RR</p>
+                                            <!-- Figure out rank name -->
+                                            <p class="friend-rank mb-1">Angel Horse</p>
+                                            <p class="friend-meta mb-2"
+                                                th:text="${listedUser.rankProfile != null ? listedUser.rankProfile.rr + ' RR' : '0 RR'}"
+                                            >
+                                                792 RR
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="friend-progress-bar">
                                         <div class="friend-progress-fill" style="--value: 92;"></div>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="friend-card is-user">
-                                <span class="leader-place">2nd</span>
-                                <div class="friend-badge-placeholder">
-                                    <img src="/images/rank8.png" alt="Rank badge" class="friend-badge-image">
-                                </div>
-                                <div class="friend-card-copy">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <p class="friend-name mb-1">admin_test2</p>
-                                        <div class="text-end">
-                                            <p class="friend-rank mb-1 p-1">Fierce Phoenix • 776 RR</p>
-                                        </div>
-                                    </div>
-                                    <div class="friend-progress-bar">
-                                        <div class="friend-progress-fill" style="--value: 76;"></div>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="friend-card">
-                                <span class="leader-place">3rd</span>
-                                <div class="friend-badge-placeholder">
-                                    <img src="/images/rank6.png" alt="Rank badge" class="friend-badge-image">
-                                </div>
-                                <div class="friend-card-copy">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <p class="friend-name mb-1">Nadine</p>
-                                        <div class="text-end">
-                                            <p class="friend-rank mb-1 p-1">Emerald Elite • 660 RR</p>
-                                        </div>
-                                    </div>
-                                    <div class="friend-progress-bar">
-                                        <div class="friend-progress-fill" style="--value: 70;"></div>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="friend-card">
-                                <span class="leader-place">4th</span>
-                                <div class="friend-badge-placeholder">
-                                    <img src="/images/rank5.png" alt="Rank badge" class="friend-badge-image">
-                                </div>
-                                <div class="friend-card-copy">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <p class="friend-name mb-1">Devon</p>
-                                        <div class="text-end">
-                                            <p class="friend-rank mb-1">Platinum Ice • 588 RR</p>
-                                        </div>
-                                    </div>
-                                    <div class="friend-progress-bar">
-                                        <div class="friend-progress-fill" style="--value: 64;"></div>
                                     </div>
                                 </div>
                             </article>

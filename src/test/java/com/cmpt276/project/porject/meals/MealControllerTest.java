@@ -31,7 +31,7 @@ public class MealControllerTest {
 
     @Test
     public void testGetCalorieTrackerRedirectIfNotLoggedIn() throws Exception {
-        mockMvc.perform(get("/calorieTracker"))
+        mockMvc.perform(get("/calorie-tracker"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"));
     }
@@ -43,7 +43,7 @@ public class MealControllerTest {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_user", mockUser);
 
-        mockMvc.perform(get("/calorieTracker").session(session))
+        mockMvc.perform(get("/calorie-tracker").session(session))
                 .andExpect(status().isOk());
     }
 }

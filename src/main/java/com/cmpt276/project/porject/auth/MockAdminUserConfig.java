@@ -24,6 +24,7 @@ public class MockAdminUserConfig {
                 admin2.getRankProfile().setRr(776);
 
                 User user1 = new User("System", "User", "user_test1", "user", "USER");
+                user1.getRankProfile().setRr(1776);
 
                 User user2 = new User("System", "User", "user_test2", "user", "USER");
 
