@@ -105,6 +105,24 @@
                   required
                 />
               </div>
+
+              <div class="col-12">
+                <label for="weight" class="form-label">
+                  <i class="bi bi-speedometer2 me-2"></i>Weekly Workout Target
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="20"
+                  max="500"
+                  th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : ''}"
+                  id="weeklyWorkoutGoalCount"
+                  name="weeklyWorkoutGoalCount"
+                  placeholder="How often you'll aim to workout weekly"
+                  required
+                />
+              </div>
             </div>
 
             <!-- Calorie Goals -->
@@ -145,33 +163,33 @@
             <!-- Nutrient Goals -->
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyProtienTarget" class="form-label">
-                  <i class="bi bi-egg-fried me-2"></i>Weekly Protien Goal (g)
+                <label for="dailyProtienTarget" class="form-label">
+                  <i class="bi bi-egg-fried me-2"></i>Daily Protien Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyProtienTargetVal != null ? weeklyProtienTargetVal : ''}"
-                  id="weeklyProtienTarget"
-                  name="weeklyProtienTarget"
-                  placeholder="e.g. 1050"
+                  th:class="${dailyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyProtienTargetVal != null ? dailyProtienTargetVal : ''}"
+                  id="dailyProtienTarget"
+                  name="dailyProtienTarget"
+                  placeholder="e.g. 100"
                   required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyCarbsTarget" class="form-label">
-                  <i class="bi bi-basket me-2"></i>Weekly Carbs Goal (g)
+                <label for="dailyCarbsTarget" class="form-label">
+                  <i class="bi bi-basket me-2"></i>Daily Carbs Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCarbsTargetVal != null ? weeklyCarbsTargetVal : ''}"
-                  id="weeklyCarbsTarget"
-                  name="weeklyCarbsTarget"
-                  placeholder="e.g. 1400"
+                  th:class="${dailyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : ''}"
+                  id="dailyCarbsTarget"
+                  name="dailyCarbsTarget"
+                  placeholder="e.g. 100"
                   required
                 />
               </div>
@@ -179,33 +197,33 @@
 
             <div class="row mb-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyFatsTarget" class="form-label">
-                  <i class="bi bi-droplet me-2"></i>Weekly Fats Goal (g)
+                <label for="dailyFatsTarget" class="form-label">
+                  <i class="bi bi-droplet me-2"></i>Daily Fats Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyFatsTargetVal != null ? weeklyFatsTargetVal : ''}"
-                  id="weeklyFatsTarget"
-                  name="weeklyFatsTarget"
-                  placeholder="e.g. 455"
+                  th:class="${dailyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyFatsTargetVal != null ? dailyFatsTargetVal : ''}"
+                  id="dailyFatsTarget"
+                  name="dailyFatsTarget"
+                  placeholder="e.g. 50"
                   required
                 />
               </div>
 
               <div class="col-md-6">
-                <label for="weeklyFibreTarget" class="form-label">
-                  <i class="bi bi-flower1 me-2"></i>Weekly Fibre Goal (g)
+                <label for="dailyFibreTarget" class="form-label">
+                  <i class="bi bi-flower1 me-2"></i>Daily Fibre Goal (g)
                 </label>
                 <input
                   type="number"
                   min="0"
-                  th:class="${weeklyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyFibreTargetVal != null ? weeklyFibreTargetVal : ''}"
-                  id="weeklyFibreTarget"
-                  name="weeklyFibreTarget"
-                  placeholder="e.g. 210"
+                  th:class="${dailyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                  th:value="${dailyFibreTargetVal != null ? dailyFibreTargetVal : ''}"
+                  id="dailyFibreTarget"
+                  name="dailyFibreTarget"
+                  placeholder="e.g. 50"
                   required
                 />
               </div>
