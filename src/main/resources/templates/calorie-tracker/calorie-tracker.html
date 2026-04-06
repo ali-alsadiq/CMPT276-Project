@@ -29,11 +29,6 @@
                     <!-- Meals -->
                     <div th:replace="~{calorie-tracker/meals-fragment :: meals}"></div>
 
-                    <!-- Feeback messages for adding meals -->
-                    <div th:if="${successMessage}" class="alert alert-success py-2 px-3 mb-3" role="alert">
-                        <span th:text="${successMessage}"></span>
-                    </div>
-
                     <!-- Error feedback message -->
                     <div th:if="${error}" class="alert alert-danger py-2 px-3 mb-3" role="alert">
                         <span th:text="${error}"></span>
