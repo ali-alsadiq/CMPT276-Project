@@ -177,7 +177,7 @@ public class FriendController {
             friends.add(f.getReceiver());
         }
         for (Friends f : sentFriends) {
-            friends.add(f.getReceiver());
+            friends.add(f.getSender());
         }
 
         List<User> filtered = friends.stream()

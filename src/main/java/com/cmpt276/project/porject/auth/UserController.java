@@ -48,6 +48,8 @@ public class UserController {
 
     @Autowired
     private FriendsRepository friendsRepository;
+
+    @Autowired
     private RewardService rewardService;
 
     /**
@@ -305,6 +307,7 @@ public class UserController {
         return "dashboard";
     }
 
+
     private void populateDashboardWorkoutModel(User user, Model model) {
         List<Workout> workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
         LocalDate today = LocalDate.now();
@@ -350,10 +353,26 @@ public class UserController {
         int weeklyWorkoutGoalCount = user.getWeeklyWorkoutGoalCount();
         if (weeklyWorkoutGoalCount < 1) weeklyWorkoutGoalCount = 1;
 
-        List<Friends> allFriends = new ArrayList<>();
-        allFriends.addAll(friendsRepository.findByReceiverAndStatus(user, "ACCEPTED"));
-        allFriends.addAll(friendsRepository.findBySenderAndStatus(user, "ACCEPTED"));
+        // Convert Friends objects to User objects
+        List<Friends> allFriendsRelations = new ArrayList<>();
+        allFriendsRelations.addAll(friendsRepository.findByReceiverAndStatus(user, "FRIENDS"));
+        allFriendsRelations.addAll(friendsRepository.findBySenderAndStatus(user, "FRIENDS"));
+        
+        List<User> allFriends = new ArrayList<>();
+        for (Friends friendRel : allFriendsRelations) {
+            // Get the friend user (not the current user)
+            if (friendRel.getReceiver().getUid() == user.getUid()) {
+                allFriends.add(friendRel.getSender());
+            } else {
+                allFriends.add(friendRel.getReceiver());
+            }
+        }
 
+        allFriends.sort((f1, f2) -> Integer.compare(
+            f2.getRankProfile().getRr(), 
+            f1.getRankProfile().getRr()
+        ));
+        
         model.addAttribute("friends", allFriends);
         model.addAttribute("friendCount", allFriends.size());
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
