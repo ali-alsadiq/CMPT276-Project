@@ -23,6 +23,10 @@
         <!-- Scrollable Meal List -->
         <div class="meals-scrollable">
 
+             <div th:if="${#lists.isEmpty(meals)}" class="text-secondary text-center py-4">
+                No meals logged yet.
+            </div>
+
             <!-- Scrollable Meal List -->
             <div id="meals-list-container">
                 <!-- Meal Rows -->
@@ -38,6 +42,26 @@
                             <span class="badge rounded-pill" style="background-color: rgba(255,255,255,0.1); color: var(--text-secondary); font-size: 0.7rem; font-weight: normal;" th:each="food : ${meal.foods}" th:text="${food.foodName}">Apple</span>
                         </div>
                     </div>
+                    <form th:action="@{/meals/delete}" method="post" class="m-0">
+                        <input type="hidden" name="mealId" th:value="${meal.id}">
+                        <button type="submit"
+                                class="btn p-0 border-0 bg-transparent meal-delete-btn"
+                                aria-label="Delete meal"
+                                title="Delete meal">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </form>
+                    <style>
+                        .meal-delete-btn {
+                            color: var(--text-secondary);
+                            font-size: 1.1rem;
+                            line-height: 1;
+                        }
+
+                        .meal-delete-btn:hover {
+                            color: var(--accent-1);
+                        }
+                    </style>
                 </div>
             </div>
         </div>
