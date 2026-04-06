@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cmpt276.project.porject.auth.User;
+import com.cmpt276.project.porject.rank.RewardService;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
@@ -32,6 +33,9 @@ public class TrackerController {
 
     @Autowired
     private WorkoutRepository workoutRepository;
+
+    @Autowired
+    private RewardService rewardService;
 
     /**
      * Helper for getting user session
@@ -139,8 +143,9 @@ public class TrackerController {
             if (user != null) {
                 workout.setUserId(user.getUid());
                 workoutRepository.save(workout);
-            }
 
+                rewardService.rewardForWorkoutLog(user, workout.getWorkoutDate());
+            }
         }
 
         populateWorkoutTrackerModel(request, model);

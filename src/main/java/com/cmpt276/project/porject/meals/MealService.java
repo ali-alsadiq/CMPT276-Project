@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cmpt276.project.porject.auth.User;
+import com.cmpt276.project.porject.rank.RewardService;
 
 /**
  * Service for handling meal-related business logic.
@@ -28,7 +29,7 @@ public class MealService {
     private MealRepository mealEntryRepository;
 
     @Autowired
-    private com.cmpt276.project.porject.rank.RewardService rewardService;
+    private RewardService rewardService;
 
     /**
      * Adds a new meal for a user.
@@ -43,7 +44,7 @@ public class MealService {
         mealEntryRepository.save(mealEntry);
 
         // Reward the user for completing the task of logging a meal
-        rewardService.rewardForLoggingMeal(user);
+        rewardService.rewardForFoodLog(user, consumedDate);
     }
 
     /**

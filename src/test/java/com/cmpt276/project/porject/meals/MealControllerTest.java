@@ -1,50 +1,49 @@
-package com.cmpt276.project.porject.trackers;
+package com.cmpt276.project.porject.meals;
 
+import com.cmpt276.project.porject.auth.User;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.cmpt276.project.porject.auth.User;
-import com.cmpt276.project.porject.rank.RewardService;
-import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
-import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
-
+import org.mockito.Mockito;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(TrackerController.class)
-public class TrackerControllerTest {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
+@WebMvcTest(MealController.class)
+public class MealControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private WorkoutApiService workoutApiService;
+    private MealService mealService;
 
     @MockitoBean
-    private WorkoutRepository workoutRepository;
-
-    @MockitoBean
-    private RewardService rewardService;
+    private FoodApiService foodApiService;
 
     @MockitoBean(name = "rankService")
     private com.cmpt276.project.porject.rank.RankService rankService;
 
     @Test
-    public void testGetAddWorkoutPageWithUser() throws Exception {
+    public void testGetCalorieTrackerRedirectIfNotLoggedIn() throws Exception {
+        mockMvc.perform(get("/calorie-tracker"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    public void testGetCalorieTrackerWithUser() throws Exception {
         Mockito.when(rankService.getTierName(anyInt())).thenReturn("Bronze");
         User mockUser = new User("Test", "User", "testuser", "password", "USER");
-
         MockHttpSession session = new MockHttpSession();
-
         session.setAttribute("session_user", mockUser);
 
-        mockMvc.perform(get("/add-workout").session(session))
+        mockMvc.perform(get("/calorie-tracker").session(session))
                 .andExpect(status().isOk());
     }
 }

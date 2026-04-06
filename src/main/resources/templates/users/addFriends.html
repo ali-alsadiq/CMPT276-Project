@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ascend - Add Friend</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/618d4f1d54.js" crossorigin="anonymous"></script>
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="/js/theme.js"></script>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+<body class="theme-bg min-vh-100 m-0">
+    <div class="container py-5">
+        <div th:replace="~{shared/navbar :: navbar('profile')}"></div>
+        <div class="d-flex justify-content-center">
+            <div class="theme-bg-container p-5" style="width: 100%; max-width: 700px">
+                
+                <!-- Header -->
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <a th:href="@{/dashboard}" class="text-decoration-none text-white-50 mb-2 d-inline-block">
+                            <i class="bi bi-arrow-left me-1"></i> Back
+                        </a>
+                        <h1 class="fw-bold mb-1">Add Friend</h1>
+                        <p class="mb-0 text-white-50">Search for users to connect with</p>
+                    </div>
+                    <i class="bi bi-person-plus fs-1"></i>
+                </div>
+
+                <!-- Search bar -->
+                <form th:action="@{/addFriends}" method="get" class="mb-4">
+                    <div class="position-relative">
+                        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-white-50"></i>
+                        <input type="text" 
+                               name="search"
+                               th:value="${searchQuery}"
+                               class="form-control theme-input p-3 ps-5 border-0" 
+                               placeholder="Search by username...">
+                        <button type="submit" class="btn btn-primary position-absolute top-0 end-0 h-100 " style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;">
+                            Search
+                        </button>
+                    </div>
+                </form>
+
+                <!-- status messages -->
+                <div th:if="${error}" class="text-danger text-start mb-3 small">
+                    <span th:text="${error}"></span>
+                </div>
+                <div th:if="${success}" class="text-success text-start mb-3 small">
+                    <span th:text="${success}"></span>
+                </div>
+
+                <!-- results -->
+                <div th:if="${searchResults != null}">
+                    <div th:if="${#lists.isEmpty(searchResults)}" class="text-center py-4">
+                        <p class="text-white-50 mb-0">No users found with that username you haven't already requested.</p>
+                    </div>
+
+                    <div th:unless="${#lists.isEmpty(searchResults)}">
+                        <div th:each="user : ${searchResults}" 
+                             class="d-flex justify-content-between align-items-center theme-input p-3 rounded-3 mb-2">
+                            <div>
+                                <h6 class="text-white mb-0" th:text="${user.firstname + ' ' + user.lastname}"></h6>
+                                <small class="text-white-50">@<span th:text="${user.username}"></span></small>
+                            </div>
+                            
+                            <form th:action="@{/sendFriendRequest}" method="post">
+                                <input type="hidden" name="friendId" th:value="${user.uid}">
+                                <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3">
+                                    <i class="bi bi-person-plus me-1"></i> Add Friend
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
