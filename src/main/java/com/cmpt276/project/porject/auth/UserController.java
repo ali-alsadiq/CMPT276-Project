@@ -1,6 +1,5 @@
 package com.cmpt276.project.porject.auth;
 
-import com.cmpt276.project.porject.trackers.workouts.WorkoutApiService;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.cmpt276.project.porject.friends.Friends;
+import com.cmpt276.project.porject.friends.FriendsRepository;
 import com.cmpt276.project.porject.rank.RankService;
 import com.cmpt276.project.porject.rank.RewardService;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
@@ -32,9 +33,9 @@ import jakarta.servlet.http.HttpSession;
  * - To check if a user is loggin in, on your own controller, use:
  * User user = (User) request.getSession().getAttribute("session_user");
  */
+
 @Controller
 public class UserController {
-    private final WorkoutApiService workoutApiService;
 
     @Autowired
     private UserRepository userRepository;
@@ -46,11 +47,10 @@ public class UserController {
     private WorkoutRepository workoutRepository;
 
     @Autowired
-    private RewardService rewardService;
+    private FriendsRepository friendsRepository;
 
-    UserController(WorkoutApiService workoutApiService) {
-        this.workoutApiService = workoutApiService;
-    }
+    @Autowired
+    private RewardService rewardService;
 
     /**
      * Admin Dashboard, shows list of all users.
@@ -307,6 +307,7 @@ public class UserController {
         return "dashboard";
     }
 
+
     private void populateDashboardWorkoutModel(User user, Model model) {
         List<Workout> workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
         LocalDate today = LocalDate.now();
@@ -352,6 +353,28 @@ public class UserController {
         int weeklyWorkoutGoalCount = user.getWeeklyWorkoutGoalCount();
         if (weeklyWorkoutGoalCount < 1) weeklyWorkoutGoalCount = 1;
 
+        // Convert Friends objects to User objects
+        List<Friends> allFriendsRelations = new ArrayList<>();
+        allFriendsRelations.addAll(friendsRepository.findByReceiverAndStatus(user, "FRIENDS"));
+        allFriendsRelations.addAll(friendsRepository.findBySenderAndStatus(user, "FRIENDS"));
+        
+        List<User> allFriends = new ArrayList<>();
+        for (Friends friendRel : allFriendsRelations) {
+            // Get the friend user (not the current user)
+            if (friendRel.getReceiver().getUid() == user.getUid()) {
+                allFriends.add(friendRel.getSender());
+            } else {
+                allFriends.add(friendRel.getReceiver());
+            }
+        }
+
+        allFriends.sort((f1, f2) -> Integer.compare(
+            f2.getRankProfile().getRr(), 
+            f1.getRankProfile().getRr()
+        ));
+        
+        model.addAttribute("friends", allFriends);
+        model.addAttribute("friendCount", allFriends.size());
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
         model.addAttribute("weeklyWorkoutSessions", weeklyWorkoutSessions);
         model.addAttribute("weeklyWorkoutGoalCount", weeklyWorkoutGoalCount);
@@ -379,6 +402,32 @@ public class UserController {
     }
 
     /**
+     * Helper method for profile
+     * @param user
+     * @return list of users user is friends with
+     */
+    private List<User> getFriendsList(User user) {
+        //get all
+        List<Friends> acceptedFriends = friendsRepository.findByReceiverAndStatus(user, "FRIENDS");
+        List<Friends> sentFriends = friendsRepository.findBySenderAndStatus(user, "FRIENDS");
+        
+        List<User> friends = new ArrayList<>();
+
+        //conv to User list
+        for (Friends friend : acceptedFriends) {
+            friends.add(friend.getSender());
+        }
+        for (Friends friend : sentFriends) {
+            friends.add(friend.getReceiver());
+        }
+
+        //sort
+        friends.sort((f1, f2) -> f1.getUsername().compareToIgnoreCase(f2.getUsername()));
+
+        return friends;
+    }
+
+    /**
      * Displays the user profile page.
      * 
      * @param model   Model to add attributes to.
@@ -393,6 +442,10 @@ public class UserController {
         if (user == null) {
             return "redirect:/login";
         }
+
+        List<User> friends = getFriendsList(user);
+        model.addAttribute("profileFriends", friends);
+        model.addAttribute("profileFriendCount", friends.size());
 
         model.addAttribute("user", user);
         return "users/profile";
@@ -1057,5 +1110,7 @@ public class UserController {
 
         return "redirect:/dashboard";
     }
-
+    
 }
+
+
