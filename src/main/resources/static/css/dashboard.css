@@ -27,6 +27,7 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 0;
+    padding-bottom: clamp(1rem, 1.4vw, 1.25rem);
 }
 
 .hero-copy {
