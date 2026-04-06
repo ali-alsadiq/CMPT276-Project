@@ -261,6 +261,11 @@ public class UserController {
         }
 
         populateDashboardWorkoutModel(user, model);
+        List<User> users = userRepository.findAll();
+
+        model.addAttribute("user", user);
+        model.addAttribute("users", users);
+
         return "dashboard";
     }
 
