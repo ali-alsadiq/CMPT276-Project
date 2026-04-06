@@ -132,9 +132,9 @@ public class OnboardingTest {
         assertEquals(72.0, savedUser.getWeight());
         assertEquals(2500.0, savedUser.getWeeklyCaloriesBurnedTarget());
         assertEquals(2000.0, savedUser.getWeeklyCaloriesConsumedTarget());
-        assertEquals(500.0, savedUser.getWeeklyProtienTarget());
-        assertEquals(2000.0, savedUser.getWeeklyCarbsTarget());
-        assertEquals(500.0, savedUser.getWeeklyFatsTarget());
-        assertEquals(200.0, savedUser.getWeeklyFibreTarget());
+        assertEquals(500.0, savedUser.getDailyProtienTarget());
+        assertEquals(2000.0, savedUser.getDailyCarbsTarget());
+        assertEquals(500.0, savedUser.getDailyFatsTarget());
+        assertEquals(200.0, savedUser.getDailyFibreTarget());
     }
 }

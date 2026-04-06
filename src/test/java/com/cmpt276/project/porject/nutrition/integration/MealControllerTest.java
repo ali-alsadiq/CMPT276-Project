@@ -52,10 +52,10 @@ public class MealControllerTest {
                 mockUser = new User("User_test1", "TestLastname", "user_test1", "pass123", "USER");
 
                 mockUser.setWeeklyCaloriesConsumedTarget(2000);
-                mockUser.setWeeklyProtienTarget(500);
-                mockUser.setWeeklyCarbsTarget(2000);
-                mockUser.setWeeklyFatsTarget(500);
-                mockUser.setWeeklyFibreTarget(200);
+                mockUser.setDailyProtienTarget(500);
+                mockUser.setDailyCarbsTarget(2000);
+                mockUser.setDailyFatsTarget(500);
+                mockUser.setDailyFibreTarget(200);
 
                 session = new MockHttpSession();
                 session.setAttribute("session_user", mockUser);
@@ -121,10 +121,10 @@ public class MealControllerTest {
                 User zeroTargetUser = new User("User_test2", "TestLastname", "user_test2", "pass123", "USER");
 
                 zeroTargetUser.setWeeklyCaloriesConsumedTarget(0);
-                zeroTargetUser.setWeeklyProtienTarget(0);
-                zeroTargetUser.setWeeklyCarbsTarget(0);
-                zeroTargetUser.setWeeklyFatsTarget(0);
-                zeroTargetUser.setWeeklyFibreTarget(0);
+                zeroTargetUser.setDailyProtienTarget(0);
+                zeroTargetUser.setDailyCarbsTarget(0);
+                zeroTargetUser.setDailyFatsTarget(0);
+                zeroTargetUser.setDailyFibreTarget(0);
 
                 MockHttpSession zeroSession = new MockHttpSession();
                 zeroSession.setAttribute("session_user", zeroTargetUser);

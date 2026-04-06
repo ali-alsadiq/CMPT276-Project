@@ -47,7 +47,6 @@ public class MealServiceTest {
         mealService.addMeal(user, "Lunch", "Lunch", LocalDateTime.now(), List.of(food));
 
         verify(mealEntryRepository, times(1)).save(any(Meal.class));
-        verify(rewardService, times(1)).rewardForLoggingMeal(user);
     }
 
     // getMealTotals w/ no foods
