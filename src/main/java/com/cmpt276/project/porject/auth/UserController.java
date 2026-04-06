@@ -401,6 +401,27 @@ public class UserController {
         return "redirect:/login";
     }
 
+    private List<User> getFriendsList(User user) {
+        //get all
+        List<Friends> acceptedFriends = friendsRepository.findByReceiverAndStatus(user, "FRIENDS");
+        List<Friends> sentFriends = friendsRepository.findBySenderAndStatus(user, "FRIENDS");
+        
+        List<User> friends = new ArrayList<>();
+
+        //conv to User list
+        for (Friends friend : acceptedFriends) {
+            friends.add(friend.getSender());
+        }
+        for (Friends friend : sentFriends) {
+            friends.add(friend.getReceiver());
+        }
+
+        //sort
+        friends.sort((f1, f2) -> f1.getUsername().compareToIgnoreCase(f2.getUsername()));
+
+        return friends;
+    }
+
     /**
      * Displays the user profile page.
      * 
@@ -416,6 +437,10 @@ public class UserController {
         if (user == null) {
             return "redirect:/login";
         }
+
+        List<User> friends = getFriendsList(user);
+        model.addAttribute("profileFriends", friends);
+        model.addAttribute("profileFriendCount", friends.size());
 
         model.addAttribute("user", user);
         return "users/profile";

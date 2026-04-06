@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="/css/input.css">
     <script src="/js/theme.js"></script>
 </head>
+
 <body class="theme-bg vh-100 m-0  overflow-hidden">
-   <div class="d-flex h-100 w-100">
+    <div class="d-flex h-100 w-100">
 
         <!-- Navbar -->
         <div th:replace="~{shared/navbar :: navbar('profile')}"></div>
@@ -29,23 +30,29 @@
                         <!-- Header Section-->
                         <header class="mb-4">
                             <p class="eyebrow mb-2 text-accent-1">USER</p>
-                            <h1 class="panel-title text-theme-primary" style="font-weight: 500; letter-spacing: normal;">YOUR PROFILE</h1>
+                            <h1 class="panel-title text-theme-primary"
+                                style="font-weight: 500; letter-spacing: normal;">YOUR PROFILE</h1>
                             <p class="panel-copy text-secondary">Manage and view your profile information.</p>
                         </header>
 
                         <!-- Scrollable Settings Section-->
                         <div class="flex-grow-1 overflow-auto pe-2">
-                            <form action="/profile" method="POST" id="profileForm" class="mx-auto" style="max-width: 90%;" novalidate>
+                            <form action="/profile" method="POST" id="profileForm" class="mx-auto"
+                                style="max-width: 90%;" novalidate>
 
                                 <!-- Account Section -->
                                 <p class="eyebrow mb-2 text-accent-1">ACCOUNT</p>
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='firstname', label='First Name', icon='bi bi-person', type='text', placeholder='Enter your first name', val=${firstnameVal != null ? firstnameVal : user.firstname}, hasError=${firstnameError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='firstname', label='First Name', icon='bi bi-person', type='text', placeholder='Enter your first name', val=${firstnameVal != null ? firstnameVal : user.firstname}, hasError=${firstnameError})}">
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='lastname', label='Last Name', icon='bi bi-person', type='text', placeholder='Enter your last name', val=${lastnameVal != null ? lastnameVal : user.lastname}, hasError=${lastnameError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='lastname', label='Last Name', icon='bi bi-person', type='text', placeholder='Enter your last name', val=${lastnameVal != null ? lastnameVal : user.lastname}, hasError=${lastnameError})}">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -53,21 +60,29 @@
                                 <p class="eyebrow mb-2 text-accent-1 mt-4">PARAMETERS</p>
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallSelect(id='sex', label='Sex', icon='bi bi-gender-ambiguous', options=${ {'Male', 'Female', 'Other', 'Prefer not to say'} }, placeholder='Select your sex', val=${sexVal != null ? sexVal : user.sex}, hasError=${sexError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallSelect(id='sex', label='Sex', icon='bi bi-gender-ambiguous', options=${ {'Male', 'Female', 'Other', 'Prefer not to say'} }, placeholder='Select your sex', val=${sexVal != null ? sexVal : user.sex}, hasError=${sexError})}">
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='dateOfBirth', label='Date of Birth', icon='bi bi-calendar-date', type='date', placeholder='', val=${dateOfBirthVal != null ? dateOfBirthVal : user.dateOfBirth}, hasError=${dateOfBirthError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='dateOfBirth', label='Date of Birth', icon='bi bi-calendar-date', type='date', placeholder='', val=${dateOfBirthVal != null ? dateOfBirthVal : user.dateOfBirth}, hasError=${dateOfBirthError})}">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='height', label='Height (cm)', icon='bi bi-rulers', type='number', placeholder='Enter your height in cm', val=${heightVal != null ? heightVal : user.height}, hasError=${heightError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='height', label='Height (cm)', icon='bi bi-rulers', type='number', placeholder='Enter your height in cm', val=${heightVal != null ? heightVal : user.height}, hasError=${heightError})}">
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='weight', label='Weight (kg)', icon='bi bi-speedometer2', type='number', placeholder='Enter your weight in kg', val=${weightVal != null ? weightVal : user.weight}, hasError=${weightError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='weight', label='Weight (kg)', icon='bi bi-speedometer2', type='number', placeholder='Enter your weight in kg', val=${weightVal != null ? weightVal : user.weight}, hasError=${weightError})}">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -76,50 +91,55 @@
                                         <label for="workoutCount" class="form-label">
                                             <i class="bi bi-speedometer2 me-2"></i>Weekly Workout Target
                                         </label>
-                                        <input
-                                            type="number"
-                                            step="0.1"
-                                            min="20"
-                                            max="500"
+                                        <input type="number" step="0.1" min="20" max="500"
                                             th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
                                             th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : user.weeklyWorkoutGoalCount}"
-                                            id="weeklyWorkoutGoalCount"
-                                            name="weeklyWorkoutGoalCount"
-                                            placeholder="How often you'll aim to workout weekly"
-                                            required
-                                        />
+                                            id="weeklyWorkoutGoalCount" name="weeklyWorkoutGoalCount"
+                                            placeholder="How often you'll aim to workout weekly" required />
                                     </div>
                                 </div>
 
-                                
+
                                 <p class="eyebrow mb-2 text-accent-1 mt-4">TEMPORARY</p>
                                 <div class="row mb-3 align-items-end">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyCaloriesBurnedTarget', label='Weekly Calories Burned Goal (kcal)', icon='bi bi-fire', type='number', placeholder='e.g. 2000', val=${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}, hasError=${weeklyCaloriesBurnedTargetError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='weeklyCaloriesBurnedTarget', label='Weekly Calories Burned Goal (kcal)', icon='bi bi-fire', type='number', placeholder='e.g. 2000', val=${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}, hasError=${weeklyCaloriesBurnedTargetError})}">
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='weeklyCaloriesConsumedTarget', label='Weekly Calories Consumed Goal (kcal)', icon='bi bi-calendar-week', type='number', placeholder='e.g. 14000', val=${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : user.weeklyCaloriesConsumedTarget}, hasError=${weeklyCaloriesConsumedTargetError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='weeklyCaloriesConsumedTarget', label='Weekly Calories Consumed Goal (kcal)', icon='bi bi-calendar-week', type='number', placeholder='e.g. 14000', val=${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : user.weeklyCaloriesConsumedTarget}, hasError=${weeklyCaloriesConsumedTargetError})}">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='dailyProtienTarget', label='Daily Protien Goal (g)', icon='bi bi-egg-fried', type='number', placeholder='e.g. 100', val=${dailyProtienTargetVal != null ? dailyProtienTargetVal : user.dailyProtienTarget}, hasError=${dailyProtienTargetError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='dailyProtienTarget', label='Daily Protien Goal (g)', icon='bi bi-egg-fried', type='number', placeholder='e.g. 100', val=${dailyProtienTargetVal != null ? dailyProtienTargetVal : user.dailyProtienTarget}, hasError=${dailyProtienTargetError})}">
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='dailyCarbsTarget', label='Daily Carbs Goal (g)', icon='bi bi-basket', type='number', placeholder='e.g. 100', val=${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : user.dailyCarbsTarget}, hasError=${dailyCarbsTargetError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='dailyCarbsTarget', label='Daily Carbs Goal (g)', icon='bi bi-basket', type='number', placeholder='e.g. 100', val=${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : user.dailyCarbsTarget}, hasError=${dailyCarbsTargetError})}">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
                                     <div class="col-md-6 mb-3 mb-md-0">
-                                        <div th:replace="~{shared/input :: tallInput(id='dailyFatsTarget', label='Daily Fats Goal (g)', icon='bi bi-droplet', type='number', placeholder='e.g. 50', val=${dailyFatsTargetVal != null ? dailyFatsTargetVal : user.dailyFatsTarget}, hasError=${dailyFatsTargetError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='dailyFatsTarget', label='Daily Fats Goal (g)', icon='bi bi-droplet', type='number', placeholder='e.g. 50', val=${dailyFatsTargetVal != null ? dailyFatsTargetVal : user.dailyFatsTarget}, hasError=${dailyFatsTargetError})}">
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div th:replace="~{shared/input :: tallInput(id='dailyFibreTarget', label='Daily Fibre Goal (g)', icon='bi bi-flower1', type='number', placeholder='e.g. 50', val=${dailyFibreTargetVal != null ? dailyFibreTargetVal : user.dailyFibreTarget}, hasError=${dailyFibreTargetError})}"></div>
+                                        <div
+                                            th:replace="~{shared/input :: tallInput(id='dailyFibreTarget', label='Daily Fibre Goal (g)', icon='bi bi-flower1', type='number', placeholder='e.g. 50', val=${dailyFibreTargetVal != null ? dailyFibreTargetVal : user.dailyFibreTarget}, hasError=${dailyFibreTargetError})}">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -134,11 +154,64 @@
                         </div>
                     </section>
                 </div>
+                <div class="col-xl-4 d-flex flex-column h-100 overflow-hidden py-4">
+                    <section class="tracker-panel gradient-tl d-flex flex-column h-100 overflow-hidden">
+                        <header class="mb-4">
+                            <p class="eyebrow mb-2 text-accent-1">Social</p>
+                            <h1 class="panel-title text-theme-primary"
+                                style="font-weight: 500; letter-spacing: normal;">FRIENDS</h1>
+                            <p class="panel-copy text-secondary">
+                                <span th:text="${profileFriendCount}">0</span>
+                            </p>
+                        </header>
+
+                        <div class="flex-grow-1 overflow-auto pe-2">
+                            <div th:if="${#lists.isEmpty(profileFriends)}" class="text-center py-5">
+                                <i class="fa-solid fa-user-friends fs-1 text-white-50 mb-3"></i>
+                                <p class="text-white-50 mb-0">You haven't added any friends yet.</p>
+                                <a th:href="@{/addFriends}"
+                                    class="btn btn-outline-primary btn-sm mt-3 rounded-pill px-4">
+                                    <i class="bi bi-person-plus me-1"></i>Add Friends
+                                </a>
+                            </div>
+
+                            <div th:unless="${#lists.isEmpty(profileFriends)}" class="d-flex flex-column gap-2">
+                                <div th:each="friend : ${profileFriends}"
+                                    class="d-flex justify-content-between align-items-center theme-input p-3 rounded-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px;">
+                                            <i class="bi bi-person fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-0"
+                                                th:text="${friend.firstname + ' ' + friend.lastname}"></h6>
+                                            <small class="text-white-50">@<span
+                                                    th:text="${friend.username}"></span></small>
+                                            <div class="mt-1">
+                                                <span class="badge"
+                                                    th:text="${@rankService.getTierName(friend.rankProfile.rr)}">Rank</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form th:action="@{/removeFriend}" method="post">
+                                        <input type="hidden" name="friendId" th:value="${friend.uid}">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                            <i class="bi bi-person-dash me-1"></i>Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </main>
     </div>
-  </div>
-  <script src="/js/profile-validation.js"></script>
-  <script src="/js/navbar.js"></script>
+    </div>
+    <script src="/js/profile-validation.js"></script>
+    <script src="/js/navbar.js"></script>
 </body>
+
 </html>

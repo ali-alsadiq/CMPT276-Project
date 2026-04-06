@@ -189,4 +189,35 @@ public class FriendController {
         return filtered;
     }
 
+    @PostMapping("/removeFriend")
+    public String removeFriend(@RequestParam("friendId") int friendId, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        User removeTarget = userRepository.findByUid(friendId);
+
+        if (removeTarget == null) {
+            model.addAttribute("error", "Friend not found.");
+            return "redirect:/profile";
+        }
+
+        Friends sent = friendsRepository.findBySenderAndReceiver(user, removeTarget);
+        Friends recieved = friendsRepository.findBySenderAndReceiver(removeTarget, user);
+        
+        if (sent != null) {
+            friendsRepository.delete(sent);
+        } else if (recieved != null) {
+            friendsRepository.delete(recieved);
+        }
+
+        model.addAttribute("success", "Removed " + removeTarget.getUsername() + " from your friends list.");
+    
+        return "redirect:/profile";
+
+    }
+
 }
