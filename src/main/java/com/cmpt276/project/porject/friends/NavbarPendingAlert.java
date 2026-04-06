@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Controller to handle the info for the inbox request icon
+ */
 @ControllerAdvice
 public class NavbarPendingAlert {
     

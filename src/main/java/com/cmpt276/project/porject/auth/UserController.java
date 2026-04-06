@@ -401,6 +401,11 @@ public class UserController {
         return "redirect:/login";
     }
 
+    /**
+     * Helper method for profile
+     * @param user
+     * @return list of users user is friends with
+     */
     private List<User> getFriendsList(User user) {
         //get all
         List<Friends> acceptedFriends = friendsRepository.findByReceiverAndStatus(user, "FRIENDS");

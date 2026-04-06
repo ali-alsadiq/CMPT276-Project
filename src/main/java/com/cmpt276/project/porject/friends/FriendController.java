@@ -25,6 +25,13 @@ public class FriendController {
     @Autowired
     private FriendsRepository friendsRepository;
 
+    /**
+     * Add friends get mapping
+     * @param model
+     * @param request
+     * @param search
+     * @return
+     */
     @GetMapping("/addFriends")
     String addFriend(Model model, HttpServletRequest request,
             @RequestParam(value = "search", required = false) String search) {
@@ -40,10 +47,10 @@ public class FriendController {
         if (search != null && !search.trim().isEmpty()) {
             List<User> results = userRepository.findByUsernameContainingIgnoreCase(search);
 
-            // remove yourself
+            // remove yourself, those friended
             List<User> filtered = results.stream()
                     .filter(u -> u.getUid() != user.getUid())
-                    .filter(u -> !hasExistingFriends(user, u))
+                    .filter(u -> !hasFriends(user, u))
                     .collect(Collectors.toList());
 
             model.addAttribute("searchResults", filtered);
@@ -52,7 +59,13 @@ public class FriendController {
         return "users/addFriends";
     }
 
-    private boolean hasExistingFriends(User user1, User user2) {
+    /**
+     * Helper method to check if user is friended or pending
+     * @param user1
+     * @param user2
+     * @return
+     */
+    private boolean hasFriends(User user1, User user2) {
         Friends existing1 = friendsRepository.findBySenderAndReceiver(user1, user2);
         if (existing1 != null && (existing1.getStatus().equals("PENDING") || existing1.getStatus().equals("FRIENDS"))) {
             return true;
@@ -66,6 +79,13 @@ public class FriendController {
         return false;
     }
 
+    /**
+     * Post for friend requests
+     * @param friendId
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/sendFriendRequest")
     public String sendFriendRequest(@RequestParam("friendId") int friendId, HttpServletRequest request, Model model) {
 
@@ -92,6 +112,12 @@ public class FriendController {
         return "redirect:/addFriends?search=" + fTarget.getUsername();
     }
 
+    /**
+     * Get mapping for inbox
+     * @param model
+     * @param request
+     * @return
+     */
     @GetMapping("/inbox")
     public String getInbox(Model model, HttpServletRequest request) {
 
@@ -111,6 +137,13 @@ public class FriendController {
         return "inbox";
     }
 
+    /**
+     * Post for accepting friend requests
+     * @param requestId
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/acceptFriendRequest")
     public String acceptFriendRequest(@RequestParam("requestId") int requestId, HttpServletRequest request,
             Model model) {
@@ -136,6 +169,13 @@ public class FriendController {
         return "redirect:/inbox";
     }
 
+    /**
+     * Post for rejecting friend requests
+     * @param requestId
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/rejectFriendRequest")
     public String rejectFriendRequest(@RequestParam("requestId") int requestId, HttpServletRequest request,
             Model model) {
@@ -160,35 +200,14 @@ public class FriendController {
         return "redirect:/inbox";
     }
 
-    @GetMapping("/searchFriends")
-    public List<User> searchFriends(@RequestParam("search") String search, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("session_user");
-
-        if (user == null) {
-            return new ArrayList<>();
-        }
-
-        List<Friends> acceptedFriends = friendsRepository.findByReceiverAndStatus(user, "FRIENDS");
-        List<Friends> sentFriends = friendsRepository.findBySenderAndStatus(user, "FRIENDS");
-
-        List<User> friends = new ArrayList<>();
-        for (Friends f : acceptedFriends) {
-            friends.add(f.getReceiver());
-        }
-        for (Friends f : sentFriends) {
-            friends.add(f.getSender());
-        }
-
-        List<User> filtered = friends.stream()
-                .filter(friend -> friend.getUsername().toLowerCase().contains(search.toLowerCase())
-                        || friend.getFirstname().toLowerCase().contains(search.toLowerCase())
-                        || friend.getLastname().toLowerCase().contains(search.toLowerCase()))
-                .collect(Collectors.toList());
-
-        return filtered;
-    }
-
+    /**
+     * Post for removing friends
+     * 
+     * @param friendId
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/removeFriend")
     public String removeFriend(@RequestParam("friendId") int friendId, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
