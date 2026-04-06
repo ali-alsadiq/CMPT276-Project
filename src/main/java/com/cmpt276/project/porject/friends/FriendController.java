@@ -16,7 +16,6 @@ import com.cmpt276.project.porject.auth.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class FriendController {
