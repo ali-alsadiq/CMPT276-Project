@@ -27,8 +27,21 @@ public class MockAdminUserConfig {
                 user1.getRankProfile().setRr(1776);
 
                 User user2 = new User("System", "User", "user_test2", "user", "USER");
+                user2.getRankProfile().setRr(753);
 
-                List<User> mockUsers = Arrays.asList(admin1, admin2, user1, user2);
+                User user3 = new User("System", "User", "user_test3", "user", "USER");
+                user3.getRankProfile().setRr(352);
+
+                User user4 = new User("System", "User", "user_test4", "user", "USER");
+                user4.getRankProfile().setRr(134);
+
+                User user5 = new User("System", "User", "user_test5", "user", "USER");
+                user5.getRankProfile().setRr(1573);
+
+                User user6 = new User("System", "User", "user_test6", "user", "USER");
+                user6.getRankProfile().setRr(863);
+
+                List<User> mockUsers = Arrays.asList(admin1, admin2, user1, user2, user3, user4);
 
                 userRepository.saveAll(mockUsers);
             }
