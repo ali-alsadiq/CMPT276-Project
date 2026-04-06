@@ -8,15 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
 
-import com.cmpt276.project.porject.auth.Friends;
 import com.cmpt276.project.porject.auth.User;
 import com.cmpt276.project.porject.auth.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -56,12 +53,12 @@ public class FriendController {
 
     private boolean hasExistingFriends(User user1, User user2) {
         Friends existing1 = friendsRepository.findBySenderAndReceiver(user1, user2);
-        if (existing1 != null && (existing1.getStatus().equals("WAITING") || existing1.getStatus().equals("FRIENDS"))) {
+        if (existing1 != null && (existing1.getStatus().equals("PENDING") || existing1.getStatus().equals("FRIENDS"))) {
             return true;
         }
         
         Friends existing2 = friendsRepository.findBySenderAndReceiver(user2, user1);
-        if (existing2 != null && (existing2.getStatus().equals("WAITING") || existing2.getStatus().equals("FRIENDS"))) {
+        if (existing2 != null && (existing2.getStatus().equals("PENDING") || existing2.getStatus().equals("FRIENDS"))) {
             return true;
         }
         
@@ -97,6 +94,7 @@ public class FriendController {
 
     @GetMapping("/inbox")
     public String getInbox(Model model, HttpServletRequest request) {
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
         
@@ -104,9 +102,10 @@ public class FriendController {
             return "redirect:/login";
         }
         
-        // Get pending friend requests
-        List<Friends> pendingRequests = friendsRepository.findByReceiverAndStatus(user, "WAITING");
+        List<Friends> pendingRequests = friendsRepository.findByReceiverAndStatus(user, "PENDING");
+        
         model.addAttribute("pendingRequests", pendingRequests);
+        
         model.addAttribute("pendingRequestCount", pendingRequests.size());
         
         return "inbox";

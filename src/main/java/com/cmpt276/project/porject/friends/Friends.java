@@ -1,4 +1,6 @@
-package com.cmpt276.project.porject.auth;
+package com.cmpt276.project.porject.friends;
+
+import com.cmpt276.project.porject.auth.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +37,7 @@ public class Friends {
     public Friends(User from, User to) {
         this.sender = from;
         this.receiver = to;
-        this.status = "WAITING";
+        this.status = "PENDING";
     }
 
     public int getId() {

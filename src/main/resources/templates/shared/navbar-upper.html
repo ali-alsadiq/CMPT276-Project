@@ -69,14 +69,18 @@
             class="d-flex align-items-center text-decoration-none w-100 overflow-hidden nav-link-pod" 
             th:classappend="${activePage == 'inbox' ? 'bg-static-accent text-black' : 'text-white'}">
 
-                <i class="fa-regular fa-envelope flex-shrink-0 text-center nav-icon"></i>
+                <div class="position-relative d-inline-flex">
+                    <i class="fa-regular fa-envelope flex-shrink-0 text-center nav-icon"></i>
+    
+                    <span th:if="${pendingRequestCount != null && pendingRequestCount > 0}" 
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        style="font-size: 0.65rem; margin-top: -5px; margin-left: -16px;">
+                        <span th:text="${pendingRequestCount > 9 ? '9+' : pendingRequestCount}"></span>
+                        <span class="visually-hidden">unread requests</span>
+                    </span>
+                </div>
 
                 <span class="sidebar-text fw-semibold">Inbox</span>
-                
-                <span th:if="${pendingRequestCount != null && pendingRequestCount > 0}" 
-                    class="ms-auto badge bg-danger rounded-pill">
-                    <span th:text="${pendingRequestCount}"></span>
-                </span>
             </a>
     </div>
 </div>
