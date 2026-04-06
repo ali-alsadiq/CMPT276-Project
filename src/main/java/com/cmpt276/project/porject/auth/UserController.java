@@ -48,10 +48,12 @@ public class UserController {
     @Autowired
     private WorkoutRepository workoutRepository;
 
+    @Autowired
+    private RewardService rewardService;
+
     UserController(WorkoutApiService workoutApiService) {
         this.workoutApiService = workoutApiService;
     }
-    private RewardService rewardService;
 
     /**
      * Admin Dashboard, shows list of all users.
@@ -303,6 +305,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("users", users);
         model.addAttribute("rankService", rankService);
+        populateDashboardWorkoutModel(user, model);
 
         return "dashboard";
     }
