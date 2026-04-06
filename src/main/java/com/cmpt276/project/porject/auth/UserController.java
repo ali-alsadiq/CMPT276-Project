@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.cmpt276.project.porject.friends.Friends;
+import com.cmpt276.project.porject.friends.FriendsRepository;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
@@ -40,6 +42,9 @@ public class UserController {
 
     @Autowired
     private WorkoutRepository workoutRepository;
+
+    @Autowired
+    private FriendsRepository friendsRepository;
 
     UserController(WorkoutApiService workoutApiService) {
         this.workoutApiService = workoutApiService;
@@ -311,6 +316,12 @@ public class UserController {
         int weeklyWorkoutGoalCount = user.getWeeklyWorkoutGoalCount();
         if (weeklyWorkoutGoalCount < 1) weeklyWorkoutGoalCount = 1;
 
+        List<Friends> allFriends = new ArrayList<>();
+        allFriends.addAll(friendsRepository.findByReceiverAndStatus(user, "ACCEPTED"));
+        allFriends.addAll(friendsRepository.findBySenderAndStatus(user, "ACCEPTED"));
+
+        model.addAttribute("friends", allFriends);
+        model.addAttribute("friendCount", allFriends.size());
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
         model.addAttribute("weeklyWorkoutSessions", weeklyWorkoutSessions);
         model.addAttribute("weeklyWorkoutGoalCount", weeklyWorkoutGoalCount);
