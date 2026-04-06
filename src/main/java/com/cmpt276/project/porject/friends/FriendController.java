@@ -14,6 +14,8 @@ import com.cmpt276.project.porject.auth.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -109,6 +111,53 @@ public class FriendController {
         model.addAttribute("pendingRequestCount", pendingRequests.size());
         
         return "inbox";
+    }
+    
+    @PostMapping("/acceptFriendRequest")
+    public String acceptFriendRequest(@RequestParam("requestId") int requestId, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Friends fRequest = friendsRepository.findById(requestId);
+
+        if (fRequest == null) {
+            model.addAttribute("error", "There was an issue accepting the request.");
+            return "redirect:/inbox";
+        }
+
+        fRequest.setStatus("FRIENDS");
+        friendsRepository.save(fRequest);
+
+        model.addAttribute("success", "You are now friends with " + fRequest.getSender().getUsername() + "!");
+        
+        return "redirect:/inbox";
+    }
+    
+    @PostMapping("/rejectFriendRequest")
+    public String rejectFriendRequest(@RequestParam("requestId") int requestId, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Friends fRequest = friendsRepository.findById(requestId);
+
+        if (fRequest == null) {
+            model.addAttribute("error", "There was an issue accepting the request.");
+            return "redirect:/inbox";
+        }
+
+        String senderUsername = fRequest.getSender().getUsername();
+        friendsRepository.delete(fRequest);
+        model.addAttribute("success", "Friend request from " + senderUsername + " has been rejected.");
+        
+        return "redirect:/inbox";
     }
     
 }

@@ -28,6 +28,19 @@
                         <i class="fa-regular fa-envelope fs-1 text-white-50"></i>
                     </div>
 
+                    <!-- Status messages -->
+                    <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span th:text="${error}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                    <div th:if="${success != null}" class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <span th:text="${success}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
                     <div class="theme-bg-container p-4 rounded-4">
                         <h3 class="mb-3">
                             <span th:if="${pendingRequests != null && !#lists.isEmpty(pendingRequests)}" 
