@@ -19,9 +19,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.cmpt276.project.porject.friends.Friends;
 import com.cmpt276.project.porject.friends.FriendsRepository;
+import com.cmpt276.project.porject.rank.RankService;
+import com.cmpt276.project.porject.rank.RewardService;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -41,10 +44,14 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    private RankService rankService;
+
+    @Autowired
     private WorkoutRepository workoutRepository;
 
     @Autowired
     private FriendsRepository friendsRepository;
+    private RewardService rewardService;
 
     UserController(WorkoutApiService workoutApiService) {
         this.workoutApiService = workoutApiService;
@@ -164,6 +171,12 @@ public class UserController {
 
             request.getSession().setAttribute("session_user", user);
 
+             // set cookie (remember user)
+            Cookie cookie = new Cookie("userId", String.valueOf(user.getUid()));
+            cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
             if (user.isAdmin()) {
                 return "redirect:/admin-dashboard"; // Redirect to admin dashboard endpoint
             } else {
@@ -260,14 +273,42 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String getDashboard(HttpServletRequest request, Model model) {
+        
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    try {
+                        int userId = Integer.parseInt(cookie.getValue());
+                        user = userRepository.findByUid(userId);
+
+                        if (user != null) {
+                            session.setAttribute("session_user", user);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+            }
+        }
 
         if (user == null) {
             return "redirect:/login";
         }
 
+        rewardService.applyMissedWeekPenalties(user);
+
+        List<User> users = userRepository.findAllByOrderByRankProfileRrDesc();
+
+        model.addAttribute("user", user);
+        model.addAttribute("users", users);
+        model.addAttribute("rankService", rankService);
         populateDashboardWorkoutModel(user, model);
+
         return "dashboard";
     }
 
