@@ -242,4 +242,26 @@ public class MealController {
 
         return (int) Math.min(100, Math.round((spent / goal) * 100));
     }
+
+    @PostMapping("/meals/delete")
+    public String deleteMeal(
+            @RequestParam int mealId,
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
+
+        User user = getCurrentUser(request);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        boolean deleted = mealService.deleteMeal(mealId, user.getUid());
+
+        if (deleted) {
+            redirectAttributes.addFlashAttribute("successMessage", "Meal deleted successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Unable to delete meal.");
+        }
+
+        return "redirect:/calorie-tracker";
+    }
 }

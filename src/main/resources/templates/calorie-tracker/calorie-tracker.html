@@ -29,6 +29,11 @@
                     <!-- Meals -->
                     <div th:replace="~{calorie-tracker/meals-fragment :: meals}"></div>
 
+                    <!-- Error feedback message -->
+                    <div th:if="${error}" class="alert alert-danger py-2 px-3 mb-3" role="alert">
+                        <span th:text="${error}"></span>
+                    </div>
+
                     <!-- Nutrition -->
                     <div th:replace="~{calorie-tracker/nutrition-fragment :: nutrition}"></div>
                 </div>

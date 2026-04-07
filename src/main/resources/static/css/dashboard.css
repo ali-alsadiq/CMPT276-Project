@@ -1,6 +1,3 @@
-.dashboard-viewport {
-    height: 100dvh;
-}
 
 .neon-heat {
     background:
@@ -10,26 +7,13 @@
         var(--bg-primary);
 }
 
-.dashboard-shell {
-    height: 100dvh;
-    margin-left: 110px;
-    padding: clamp(1rem, 2vw, 2rem);
-    overflow: hidden;
-    min-height: 0;
-}
-
-.dashboard-main-card {
-    height: 100%;
-    min-height: 0;
-}
-
 .dashboard-row {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
     gap: clamp(1rem, 1.5vw, 1.5rem);
-    height: 100%;
-    align-items: stretch;
+    flex: 1;
     min-height: 0;
+    align-items: stretch;
 }
 
 .hero-copy-container,
@@ -41,8 +25,9 @@
 .hero-copy-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: clamp(0.9rem, 1.2vw, 1.25rem);
+    justify-content: space-between;
+    gap: 0;
+    padding-bottom: clamp(1rem, 1.4vw, 1.25rem);
 }
 
 .hero-copy {
@@ -92,11 +77,14 @@
 }
 
 .profile-card {
-    margin-top: 0;
+    margin-top: clamp(0.9rem, 1.2vw, 1.25rem);
     padding: clamp(1rem, 1.8vw, 1.5rem);
     display: flex;
     flex-direction: column;
     gap: clamp(0.8rem, 1.2vw, 1.25rem);
+    flex: 1;
+    min-height: 0;
+    justify-content: space-between;
 }
 
 .profile-card-main {
@@ -172,8 +160,9 @@
 .meta-chip {
     padding: 0.95rem 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .meta-chip-label {
@@ -273,8 +262,9 @@
     min-height: 50px;
     padding: 0 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .friends-search i {
@@ -290,7 +280,8 @@
 }
 
 .friends-search input::placeholder {
-    color: rgba(255, 255, 255, 0.38);
+    color: var(--text-secondary);
+    opacity: 0.7;
 }
 
 .friends-actions {
@@ -324,6 +315,7 @@
 .friends-grid {
     display: grid;
     grid-template-columns: 1fr;
+    align-content: start;
     gap: 0.75rem;
     flex: 1;
     min-height: 0;
@@ -337,8 +329,9 @@
     gap: 0.85rem;
     padding: clamp(0.68rem, 1vw, 0.9rem);
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .friend-card.is-user {
@@ -382,7 +375,8 @@
 .user-progress {
     padding: clamp(0.9rem, 1.2vw, 1rem);
     border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
     gap: 0.95rem;
@@ -459,8 +453,9 @@
 .dashboard-stat-card {
     padding: 0.95rem 1rem;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .dashboard-stat-label {
@@ -514,16 +509,17 @@
 }
 
 @media (max-width: 992px) {
-    .dashboard-shell {
+    .tracker-shell {
         margin-left: 0;
-        height: auto;
+        height: auto !important;
         min-height: 100dvh;
-        overflow-y: auto;
+        overflow-y: auto !important;
     }
 
     .dashboard-row {
         grid-template-columns: 1fr;
         height: auto;
+        flex: none;
     }
 
     .hero-copy-container,

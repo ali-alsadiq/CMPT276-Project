@@ -3,8 +3,10 @@ package com.cmpt276.project.porject.trackers;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class TrackerController {
 
+    private static final int DEFAULT_WEEKLY_BURN_GOAL = 3500;
+
     @Autowired
     private WorkoutApiService workoutApiService;
 
@@ -48,14 +52,18 @@ public class TrackerController {
     private void populateWorkoutTrackerModel(HttpServletRequest request, Model model) {
         User user = getCurrentUser(request);
         List<Workout> workouts = new ArrayList<>();
-        int weeklyBurnGoal = (int) user.getWeeklyCaloriesBurnedTarget();
+        int weeklyBurnGoal = DEFAULT_WEEKLY_BURN_GOAL;
 
         if (user != null) {
+            int configuredGoal = (int) Math.round(user.getWeeklyCaloriesBurnedTarget());
+            if (configuredGoal > 0) {
+                weeklyBurnGoal = configuredGoal;
+            }
             workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
         }
 
         LocalDate today = LocalDate.now();
-        LocalDate weekStart = today.with(DayOfWeek.MONDAY);
+        LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
         int[] dailyCalories = new int[7];
         int weeklyCalories = 0;
 
@@ -70,7 +78,7 @@ public class TrackerController {
                 continue;
             }
 
-            int dayIndex = workoutDay.getDayOfWeek().getValue() - 1;
+            int dayIndex = workoutDay.getDayOfWeek().getValue() % 7;
             dailyCalories[dayIndex] += workout.getCalsBurned();
             weeklyCalories += workout.getCalsBurned();
         }
@@ -78,7 +86,7 @@ public class TrackerController {
         int weeklyPercent = Math.min(100, (int) Math.round((weeklyCalories * 100.0) / weeklyBurnGoal));
         int maxDailyCalories = Math.max(1, (int) Math.max(weeklyBurnGoal / 7, findMax(dailyCalories)));
 
-        List<String> dayLabels = List.of("M", "T", "W", "Th", "F", "Sa", "Su");
+        List<String> dayLabels = List.of("S", "M", "T", "W", "Th", "F", "Sa");
         List<String> dayColors = List.of("#962EFF", "#3A86FF", "#00F5FF", "#A8FF60", "#39FF14", "#FFC857", "#FF5C8A");
         List<WorkoutDaySummary> workoutWeek = new ArrayList<>();
 
@@ -151,6 +159,31 @@ public class TrackerController {
         populateWorkoutTrackerModel(request, model);
 
         // SENDS BACK TO FORM FOR NOW FOR TESTING
+        return "add-workout";
+    }
+
+    @PostMapping("/delete-workout")
+    public String deleteWorkout(@RequestParam int workoutId, HttpServletRequest request, Model model) {
+        User user = getCurrentUser(request);
+
+        if (user == null) {
+            populateWorkoutTrackerModel(request, model);
+            model.addAttribute("messageType", "error");
+            model.addAttribute("message", "You need to be signed in to delete workouts.");
+            return "add-workout";
+        }
+
+        Optional<Workout> workout = workoutRepository.findByIdAndUserId(workoutId, user.getUid());
+        if (workout.isPresent()) {
+            workoutRepository.delete(workout.get());
+            model.addAttribute("messageType", "success");
+            model.addAttribute("message", "Deleted!");
+        } else {
+            model.addAttribute("messageType", "error");
+            model.addAttribute("message", "Workout not found.");
+        }
+
+        populateWorkoutTrackerModel(request, model);
         return "add-workout";
     }
 

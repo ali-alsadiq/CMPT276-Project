@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,25 @@ public class MealService {
     public List<Meal> getUserMeals(int uid) {
         return mealEntryRepository.findByUserUidOrderByConsumedDateDesc(uid);
     }
+
+    // NEW: delete a meal only if it belongs to the logged-in user
+    public boolean deleteMeal(int mealId, int userId) {
+        Optional<Meal> mealOptional = mealEntryRepository.findById(mealId);
+
+        if (mealOptional.isEmpty()) {
+            return false;
+        }
+
+        Meal meal = mealOptional.get();
+
+        if (meal.getUser() == null || meal.getUser().getUid() != userId) {
+            return false;
+        }
+
+        mealEntryRepository.delete(meal);
+        return true;
+    }
+
 
     /**
      * Calculates nutrition totals for a single meal.

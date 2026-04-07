@@ -16,113 +16,164 @@
     <div class="d-flex h-100 w-100">
         <div th:replace="~{shared/navbar :: navbar('add-workout')}"></div>
 
-        <div class="flex-grow-1 workout-shell tracker-shell overflow-auto" style="margin-left: 110px;">
-        <div class="workout-main-card">
-            <div class="row g-4 h-100 m-0">
-                <div class="col-xl-7 d-flex">
-                    <section class="tracker-panel tracker-panel-form neon-heat w-100">
-                        <div>
-                            <p class="eyebrow mb-2">Workout Tracker</p>
-                            <h1 class="panel-title">LOG WORKOUT</h1>
-                            <p class="panel-copy">Sweat off those calories and see the numbers burned throughout the week.</p>
-                        </div>
-
-                        <form method="post" th:action="@{/add-workout}" class="workout-form">
-                            <div>
-                                <label for="activity" class="form-label tracker-label">Activity</label>
-                                <input type="text" class="form-control tracker-input" id="activity" name="activity"
-                                       placeholder="Running, cycling, basketball..." required minlength="3" 
-                                       oninvalid="this.setCustomValidity('Must be at least 3 characters')" oninput="this.setCustomValidity('')">
+        <main class="flex-grow-1 workout-shell tracker-shell overflow-auto" style="margin-left: 110px;">
+            <div class="workout-main-card">
+                <section class="workout-layout">
+                    <div class="workout-column">
+                        <section class="tracker-panel neon-heat workout-hero-panel">
+                            <div class="workout-hero-copy">
+                                <p class="eyebrow mb-2">Workout Tracker</p>
+                                <h1 class="panel-title">Build your week one session at a time.</h1>
+                                <p class="panel-copy mb-0">Log a workout, keep your calorie burn moving, and see how close you are to your weekly target without digging through clutter.</p>
                             </div>
 
-                            <div>
-                                <label for="duration" class="form-label tracker-label">Duration (minutes)</label>
-                                <input type="number" class="form-control tracker-input" id="duration" name="duration"
-                                       min="1" placeholder="45" required>
-                            </div>
-
-                            <button class="btn tracker-submit" type="submit">
-                                <i class="fa-solid fa-fire me-2"></i>
-                                Calculate Calories Burned
-                            </button>
-                        </form>
-                    </section>
-                </div>
-
-                <div class="col-xl-5 d-flex">
-                    <section class="tracker-panel tracker-panel-analytics gradient-tr w-100">
-                        <div class="analytics-header">
-                            <div>
-                                <p class="eyebrow mb-2">Weekly Progress</p>
-                                <h2 class="panel-subtitle">CALORIES BURNED</h2>
-                            </div>
-                            <p class="goal-note mb-0">
-                                Goal:
-                                <span th:text="${weeklyWorkoutGoal}">3500</span>
-                                cal
-                            </p>
-                        </div>
-
-                        <div class="progress-summary">
-                            <div class="progress-wrapper progress-wrapper-total">
-                                <div class="progress-circle progress-circle-total"
-                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                     th:attr="aria-valuenow=${weeklyWorkoutPercent}"
-                                     th:style="'--value:' + ${weeklyWorkoutPercent} + '; --progress-color: #00F5FF;'">
-                                    <div class="progress-inner">
-                                        <span class="progress-value" th:text="${weeklyWorkoutPercent} + '%'">0%</span>
-                                        <span class="progress-sublabel">Week Total</span>
+                            <div class="workout-surface-grid">
+                                <form method="post" th:action="@{/add-workout}" class="form-card workout-form">
+                                    <div class="form-card-header">
+                                        <p class="eyebrow mb-2">Quick Log</p>
+                                        <h2 class="panel-subtitle mb-0">Add a workout</h2>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="summary-copy">
-                                <p class="summary-total">
-                                    <span th:text="${weeklyWorkoutCalories}">0</span> calories
-                                </p>
-                                <p class="summary-detail">Burned so far this week.</p>
-                            </div>
-                        </div>
-
-                        <div class="week-progress-grid">
-                            <div class="progress-wrapper" th:each="day : ${workoutWeek}">
-                                <div class="progress-circle progress-circle-small"
-                                     role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                     th:attr="aria-valuenow=${day.percent}"
-                                     th:style="'--value:' + ${day.percent} + '; --progress-color: ' + ${day.color}">
-                                    <div class="progress-inner">
-                                        <span class="progress-value-small" th:text="${day.calories}">0</span>
-                                        <span class="progress-sublabel" th:text="${day.label}">M</span>
+                                    <div>
+                                        <label for="activity" class="form-label tracker-label">Activity</label>
+                                        <input type="text" class="form-control tracker-input" id="activity" name="activity"
+                                               placeholder="Running, cycling, basketball..." required minlength="3"
+                                               oninvalid="this.setCustomValidity('Must be at least 3 characters')" oninput="this.setCustomValidity('')">
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="recent-workouts">
-                            <div class="recent-header">
-                                <h3 class="recent-title mb-0">Recent Workouts</h3>
-                                <span class="recent-count" th:text="${#lists.size(recentWorkouts)} + ' logged'">0 logged</span>
-                            </div>
+                                    <div>
+                                        <label for="duration" class="form-label tracker-label">Duration (minutes)</label>
+                                        <input type="number" class="form-control tracker-input" id="duration" name="duration"
+                                               min="1" placeholder="45" required>
+                                    </div>
 
-                            <div class="workout-row" th:each="recentWorkout : ${recentWorkouts}">
-                                <div>
-                                    <p class="workout-name mb-1" th:text="${recentWorkout.workoutName}">Running</p>
-                                    <p class="workout-meta mb-0">
-                                        <span th:text="${recentWorkout.duration}">45</span> min
+                                    <div class="workout-form-note">
+                                        <i class="fa-solid fa-bolt"></i>
+                                        Calories are calculated after each workout entry and added to your weekly total.
+                                    </div>
+
+                                    <button class="btn tracker-submit" type="submit">
+                                        <i class="fa-solid fa-fire me-2"></i>
+                                        Calculate Calories Burned
+                                    </button>
+                                </form>
+
+                                <section class="recent-workouts workout-history-card">
+                                    <div class="recent-header">
+                                        <div>
+                                            <p class="eyebrow mb-2">History</p>
+                                            <h3 class="recent-title mb-1">Recent workouts</h3>
+                                            <p class="panel-copy mb-0">Your latest sessions, kept visible for quick review.</p>
+                                        </div>
+                                        <span class="recent-count" th:text="${#lists.size(recentWorkouts)} + ' logged'">0 logged</span>
+                                    </div>
+
+                                    <div class="workout-row" th:each="recentWorkout : ${recentWorkouts}">
+                                        <div>
+                                            <p class="workout-name mb-1" th:text="${recentWorkout.workoutName}">Running</p>
+                                            <p class="workout-meta mb-0">
+                                                <span th:text="${recentWorkout.duration}">45</span> min session
+                                            </p>
+                                        </div>
+                                        <div class="workout-row-actions">
+                                            <span class="workout-calories" th:text="${recentWorkout.calsBurned} + ' cal'">320 cal</span>
+                                            <form method="post" th:action="@{/delete-workout}" class="m-0">
+                                                <input type="hidden" name="workoutId" th:value="${recentWorkout.id}">
+                                                <button type="submit" class="workout-delete-btn" aria-label="Delete workout">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <p class="empty-state mb-0" th:if="${#lists.isEmpty(recentWorkouts)}">
+                                        No workouts logged yet this week. Lock in!
                                     </p>
+
+                                    <div th:if="${message}" class="alert workout-history-alert py-2 px-3 mt-3 mb-0"
+                                         th:classappend="${messageType == 'success'} ? ' alert-success' : ' alert-danger'">
+                                        <i th:if="${messageType == 'success'}" class="fa-solid fa-trash me-2"></i>
+                                        <span th:text="${message}">Status</span>
+                                    </div>
+                                </section>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="workout-column">
+                        <section class="tracker-panel workout-analytics-panel gradient-tr">
+                            <div class="analytics-header">
+                                <div>
+                                    <p class="eyebrow mb-2">Weekly Progress</p>
+                                    <h2 class="panel-subtitle mb-1">Calories burned</h2>
+                                    <p class="goal-note mb-0">Your target is <span th:text="${weeklyWorkoutGoal}">3500</span> calories for the week.</p>
                                 </div>
-                                <span class="workout-calories" th:text="${recentWorkout.calsBurned} + ' cal'">320 cal</span>
+                                <div class="goal-chip">
+                                    <span class="goal-chip-label">Current total</span>
+                                    <strong th:text="${weeklyWorkoutCalories} + ' cal'">0 cal</strong>
+                                </div>
                             </div>
 
-                            <p class="empty-state mb-0" th:if="${#lists.isEmpty(recentWorkouts)}">
-                                No workouts logged yet this week. Add one to start filling the rings.
-                            </p>
-                        </div>
-                    </section>
-                </div>
+                            <div class="progress-summary">
+                                <div class="progress-wrapper progress-wrapper-total">
+                                    <div class="progress-circle progress-circle-total"
+                                         role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                         th:attr="aria-valuenow=${weeklyWorkoutPercent}"
+                                         th:style="'--value:' + ${weeklyWorkoutPercent} + '; --progress-color: #56B6FF;'">
+                                        <div class="progress-inner">
+                                            <span class="progress-value" th:text="${weeklyWorkoutPercent} + '%'">0%</span>
+                                            <span class="progress-sublabel">Week Total</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="summary-copy">
+                                    <p class="summary-total mb-2">
+                                        <span th:text="${weeklyWorkoutCalories}">0</span> calories
+                                    </p>
+                                    <p class="summary-detail mb-0">Burned so far this week. Keep stacking sessions to close the gap on your goal.</p>
+                                </div>
+                            </div>
+
+                            <div class="workout-stats-grid">
+                                <article class="dashboard-stat-card workout-stat-panel">
+                                    <span class="dashboard-stat-label"><i class="fa-solid fa-bullseye"></i> Goal Completion</span>
+                                    <strong class="dashboard-stat-value" th:text="${weeklyWorkoutPercent} + '%'">0%</strong>
+                                </article>
+                                <article class="dashboard-stat-card workout-stat-panel">
+                                    <span class="dashboard-stat-label"><i class="fa-solid fa-fire"></i> Calories Burned</span>
+                                    <strong class="dashboard-stat-value" th:text="${weeklyWorkoutCalories} + ' cal'">0 cal</strong>
+                                </article>
+                            </div>
+
+                            <div class="daily-progress-card">
+                                <div class="daily-progress-header">
+                                    <div>
+                                        <p class="eyebrow mb-2">Daily Activity</p>
+                                        <h3 class="recent-title mb-0">Week at a glance</h3>
+                                    </div>
+                                    <span class="recent-count">Sunday to Saturday</span>
+                                </div>
+
+                                <div class="week-progress-grid">
+                                    <div class="progress-wrapper" th:each="day : ${workoutWeek}">
+                                        <div class="progress-circle progress-circle-small"
+                                             role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                             th:attr="aria-valuenow=${day.percent}"
+                                             th:style="'--value:' + ${day.percent} + '; --progress-color: ' + ${day.color}">
+                                            <div class="progress-inner">
+                                                <span class="progress-value-small" th:text="${day.calories}">0</span>
+                                                <span class="progress-sublabel" th:text="${day.label}">M</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
             </div>
-        </div>
-    </div>
+        </main>
     </div>
 
     <script th:src="@{/js/workoutTracker.js}"></script>

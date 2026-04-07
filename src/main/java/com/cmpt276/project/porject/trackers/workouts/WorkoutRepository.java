@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Database access for workout entity
@@ -19,4 +20,5 @@ public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
     List<Workout> findByWorkoutName(String workoutName);
     List<Workout> findByUserIdOrderByWorkoutDateDesc(int userId);
     List<Workout> findByUserIdAndWorkoutDateBetween(int userId, LocalDateTime start, LocalDateTime end);
+    Optional<Workout> findByIdAndUserId(int id, int userId);
 }
