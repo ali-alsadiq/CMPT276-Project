@@ -87,69 +87,107 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-12">
-                                        <label for="workoutCount" class="form-label">
-                                            <i class="bi bi-speedometer2 me-2"></i>Weekly Workout Target
-                                        </label>
-                                        <input type="number" step="0.1" min="20" max="500"
-                                            th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                                            th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : user.weeklyWorkoutGoalCount}"
-                                            id="weeklyWorkoutGoalCount" name="weeklyWorkoutGoalCount"
-                                            placeholder="How often you'll aim to workout weekly" required />
-                                    </div>
-                                </div>
-
-
-                                <p class="eyebrow mb-2 text-accent-1 mt-4">TEMPORARY</p>
-                                <div class="row mb-3 align-items-end">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <div
-                                            th:replace="~{shared/input :: tallInput(id='weeklyCaloriesBurnedTarget', label='Weekly Calories Burned Goal (kcal)', icon='bi bi-fire', type='number', placeholder='e.g. 2000', val=${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : user.weeklyCaloriesBurnedTarget}, hasError=${weeklyCaloriesBurnedTargetError})}">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <div th:replace="~{shared/input :: tallInput(
+                                                id='weeklyWorkoutGoalCount', 
+                                                label='Weekly Workout Target', 
+                                                icon='bi bi-calendar-check', 
+                                                type='number', 
+                                                placeholder='How many workouts per week?', 
+                                                val=${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : user.weeklyWorkoutGoalCount}, 
+                                                hasError=${weeklyWorkoutGoalCountError}
+                                            )}"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div th:replace="~{shared/input :: tallSelect(
+                                                id='fitnessGoal', 
+                                                label='Fitness Goal', 
+                                                icon='bi bi-bullseye', 
+                                                options=${fitnessGoals}, 
+                                                optionLabelGetter='goalName',
+                                                placeholder='Select your goal', 
+                                                val=${user.fitnessGoal}, 
+                                                hasError=${fitnessGoalError}
+                                            )}"></div>
+                                            <small class="text-white-50 mt-1 d-block">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                Changing your goal will automatically update your nutrition targets
+                                            </small>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div
-                                            th:replace="~{shared/input :: tallInput(id='weeklyCaloriesConsumedTarget', label='Weekly Calories Consumed Goal (kcal)', icon='bi bi-calendar-week', type='number', placeholder='e.g. 14000', val=${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : user.weeklyCaloriesConsumedTarget}, hasError=${weeklyCaloriesConsumedTargetError})}">
+                                    <div class="theme-input p-3 rounded-3 mb-4">
+                                        <p class="small text-accent-1 mb-2">
+                                            <i class="bi bi-calculator-fill me-1"></i>
+                                            Your Current Nutrition Targets (auto-calculated)
+                                        </p>
+                                        <div class="row text-center small">
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Daily Calories</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger((user.weeklyCaloriesConsumedTarget / 7), 0, 'COMMA')}">-</strong>
+                                            </div>
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Daily Protein</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger(user.dailyProtienTarget, 0, 'COMMA')}">-</strong>
+                                                <span class="text-white-50">g</span>
+                                            </div>
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Daily Carbs</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger(user.dailyCarbsTarget, 0, 'COMMA')}">-</strong>
+                                                <span class="text-white-50">g</span>
+                                            </div>
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Daily Fats</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger(user.dailyFatsTarget, 0, 'COMMA')}">-</strong>
+                                                <span class="text-white-50">g</span>
+                                            </div>
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Daily Fibre</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger(user.dailyFibreTarget, 0, 'COMMA')}">-</strong>
+                                                <span class="text-white-50">g</span>
+                                            </div>
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Weekly Calorie Intake</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger(user.weeklyCaloriesConsumedTarget, 0, 'COMMA')}">-</strong>
+                                            </div>
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <div class="text-white-50">Weekly Calorie Burn</div>
+                                                <strong class="text-accent-1"
+                                                    th:text="${#numbers.formatInteger(user.weeklyCaloriesBurnedTarget, 0, 'COMMA')}">-</strong>
+                                                <span class="text-white-50">kcal</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <div
-                                            th:replace="~{shared/input :: tallInput(id='dailyProtienTarget', label='Daily Protien Goal (g)', icon='bi bi-egg-fried', type='number', placeholder='e.g. 100', val=${dailyProtienTargetVal != null ? dailyProtienTargetVal : user.dailyProtienTarget}, hasError=${dailyProtienTargetError})}">
-                                        </div>
+                                    <input type="hidden" id="weeklyCaloriesBurnedTarget"
+                                        name="weeklyCaloriesBurnedTarget" th:value="${user.weeklyCaloriesBurnedTarget}">
+                                    <input type="hidden" id="weeklyCaloriesConsumedTarget"
+                                        name="weeklyCaloriesConsumedTarget"
+                                        th:value="${user.weeklyCaloriesConsumedTarget}">
+                                    <input type="hidden" id="dailyProtienTarget" name="dailyProtienTarget"
+                                        th:value="${user.dailyProtienTarget}">
+                                    <input type="hidden" id="dailyCarbsTarget" name="dailyCarbsTarget"
+                                        th:value="${user.dailyCarbsTarget}">
+                                    <input type="hidden" id="dailyFatsTarget" name="dailyFatsTarget"
+                                        th:value="${user.dailyFatsTarget}">
+                                    <input type="hidden" id="dailyFibreTarget" name="dailyFibreTarget"
+                                        th:value="${user.dailyFibreTarget}">
+
+
+                                    <button type="submit" class="btn btn-primary w-100 p-3 rounded-pill">
+                                        <i class="bi bi-floppy me-2"></i>Save Changes
+                                    </button>
+
+                                    <div th:if="${error}" class="text-danger text-start mt-3 mb-3 small text-center">
+                                        <span th:text="${error}"></span>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div
-                                            th:replace="~{shared/input :: tallInput(id='dailyCarbsTarget', label='Daily Carbs Goal (g)', icon='bi bi-basket', type='number', placeholder='e.g. 100', val=${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : user.dailyCarbsTarget}, hasError=${dailyCarbsTargetError})}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-4">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <div
-                                            th:replace="~{shared/input :: tallInput(id='dailyFatsTarget', label='Daily Fats Goal (g)', icon='bi bi-droplet', type='number', placeholder='e.g. 50', val=${dailyFatsTargetVal != null ? dailyFatsTargetVal : user.dailyFatsTarget}, hasError=${dailyFatsTargetError})}">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div
-                                            th:replace="~{shared/input :: tallInput(id='dailyFibreTarget', label='Daily Fibre Goal (g)', icon='bi bi-flower1', type='number', placeholder='e.g. 50', val=${dailyFibreTargetVal != null ? dailyFibreTargetVal : user.dailyFibreTarget}, hasError=${dailyFibreTargetError})}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary w-100 p-3 rounded-pill">
-                                    <i class="bi bi-floppy me-2"></i>Save Changes
-                                </button>
-
-                                <div th:if="${error}" class="text-danger text-start mt-3 mb-3 small text-center">
-                                    <span th:text="${error}"></span>
-                                </div>
                             </form>
                         </div>
                     </section>
@@ -210,6 +248,7 @@
         </main>
     </div>
     </div>
+    <script src="/js/nutrition-preview.js"></script>
     <script src="/js/profile-validation.js"></script>
     <script src="/js/navbar.js"></script>
 </body>
