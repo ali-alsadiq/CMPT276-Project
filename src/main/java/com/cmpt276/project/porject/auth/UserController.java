@@ -415,6 +415,14 @@ public class UserController {
                 f2.getRankProfile().getRr(),
                 f1.getRankProfile().getRr()));
 
+        String[] pushTitles = {
+                "Time to lock in",
+                "Keep the momentum",
+                "Stay on the grind",
+                "Protect your rank"
+        };
+        model.addAttribute("dailyPushTitle", pushTitles[new java.util.Random().nextInt(pushTitles.length)]);
+
         model.addAttribute("friends", allFriends);
         model.addAttribute("friendCount", allFriends.size());
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);

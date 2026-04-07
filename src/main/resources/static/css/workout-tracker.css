@@ -89,8 +89,8 @@
 .form-card,
 .daily-progress-card,
 .workout-stat-panel {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--outline-main);
 }
 
 .form-card {
@@ -114,7 +114,7 @@
 
 .tracker-input {
     min-height: 56px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: var(--outline-main);
     border-radius: 18px;
     background: var(--bg-input);
     color: var(--text-primary);
@@ -129,7 +129,7 @@
 }
 
 .tracker-input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--text-secondary);
 }
 
 .workout-form-note {
@@ -138,8 +138,8 @@
     gap: 0.65rem;
     padding: 0.9rem 1rem;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--outline-main);
     font-size: 0.85rem;
     line-height: 1.45;
 }
@@ -150,7 +150,7 @@
 }
 
 .tracker-submit {
-    min-height: 56px;
+    min-height: 20px;
     border: none;
     border-radius: 18px;
     background: var(--accent-1);
@@ -174,7 +174,7 @@
     border-radius: 18px;
     background: var(--bg-input);
     padding: 1.15rem 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: var(--outline-main);
 }
 
 .workout-history-card {
@@ -223,8 +223,8 @@
 .goal-chip {
     min-width: 148px;
     padding: 0.9rem 1rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-subtle-box);
+    border: var(--outline-main);
 }
 
 .goal-chip strong {
@@ -245,7 +245,7 @@
 }
 
 .daily-progress-card {
-    padding: 1.15rem 1.25rem;
+    padding: 1.75rem 1.75rem;
 }
 
 .daily-progress-header {
@@ -254,8 +254,9 @@
 
 .week-progress-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    gap: 2.7rem;
 }
 
 .workout-stat-panel {
@@ -272,7 +273,7 @@
     justify-content: space-between;
     gap: 1rem;
     padding: 0.85rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: var(--outline-main);
 }
 
 .workout-row:last-of-type {
@@ -295,9 +296,9 @@
 .workout-delete-btn {
     width: 2.25rem;
     height: 2.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: var(--outline-main);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--bg-subtle-box);
     color: var(--text-secondary);
     display: grid;
     place-items: center;
@@ -312,6 +313,7 @@
 }
 
 @media (max-width: 1399px) {
+
     .workout-layout,
     .workout-surface-grid {
         grid-template-columns: 1fr;
@@ -348,6 +350,7 @@
 }
 
 @media (max-width: 767px) {
+
     .analytics-header,
     .progress-summary,
     .recent-header,

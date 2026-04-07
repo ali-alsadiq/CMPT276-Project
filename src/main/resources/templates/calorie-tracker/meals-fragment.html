@@ -9,12 +9,12 @@
             <h1 class="text-theme-primary fw-bold mb-0" style="font-size: 1.35rem;">YOUR LOGS</h1>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2 gap-3">
-            <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input);">
+            <div class="flex-grow-1 d-flex align-items-center rounded-3 px-3 py-2" style="background-color: var(--bg-input); border: var(--outline-main);">
                 <i class="fa-solid fa-magnifying-glass text-secondary me-2"></i>
                 <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search meals" style="outline: none;">
             </div>
             
-            <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); flex-shrink: 0;">
+            <div class="text-white rounded-3 px-3 py-2 d-flex align-items-center gap-2" style="cursor: pointer; background-color: var(--bg-input); border: var(--outline-main); flex-shrink: 0;">
                 <i class="fa-regular fa-calendar text-secondary"></i>
                 <span class="text-secondary">Today</span>
             </div>
@@ -23,7 +23,7 @@
         <!-- Scrollable Meal List -->
         <div class="meals-scrollable">
 
-             <div th:if="${#lists.isEmpty(meals)}" class="text-secondary text-center py-4">
+             <div th:if="${#lists.isEmpty(meals)}" class="text-secondary d-flex align-items-center justify-content-center w-100 h-100" style="min-height: 150px;">
                 No meals logged yet.
             </div>
 
@@ -31,26 +31,31 @@
             <div id="meals-list-container">
                 <!-- Meal Rows -->
                 <div class="meal-row" th:each="meal : ${meals}" th:id="'meal-' + ${meal.id}">
-                    <img src="" alt="Meal image" class="meal-image">
+                    <div class="meal-icon-wrapper rounded-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background-color: rgba(128, 128, 128, 0.2); flex-shrink: 0;">
+                        <i class="fa-solid fa-utensils text-accent-1" style="font-size: 1.1rem;"></i>
+                    </div>
                     <div class="meal-info">
                         <div class="meal-name-row">
                             <span class="meal-name" th:text="${meal.mealName}">Chicken Salad</span>
-                            <span class="meal-cals" th:text="${#numbers.formatDecimal(meal.calories, 1, 1)} + ' cals'">420 cals</span>
                         </div>
                         <span class="meal-meta" th:text="${#numbers.formatDecimal(meal.protein, 1, 1)} + 'g protein · ' + ${#numbers.formatDecimal(meal.fats, 1, 1)} + 'g fats · ' + ${#numbers.formatDecimal(meal.carbs, 1, 1)} + 'g carbs'">24g protein · 18g fats · 19g carbs</span>
                         <div class="meal-foods mt-1 d-flex flex-wrap gap-1">
                             <span class="badge rounded-pill" style="background-color: rgba(255,255,255,0.1); color: var(--text-secondary); font-size: 0.7rem; font-weight: normal;" th:each="food : ${meal.foods}" th:text="${food.foodName}">Apple</span>
                         </div>
                     </div>
-                    <form th:action="@{/meals/delete}" method="post" class="m-0">
-                        <input type="hidden" name="mealId" th:value="${meal.id}">
-                        <button type="submit"
-                                class="btn p-0 border-0 bg-transparent meal-delete-btn"
-                                aria-label="Delete meal"
-                                title="Delete meal">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </form>
+
+                    <div class="d-flex flex-column align-items-end gap-1">
+                        <span class="meal-cals" th:text="${#numbers.formatDecimal(meal.calories, 1, 1)} + ' cals'">420 cals</span>
+                        <form th:action="@{/meals/delete}" method="post" class="m-0">
+                            <input type="hidden" name="mealId" th:value="${meal.id}">
+                            <button type="submit"
+                                    class="btn p-0 border-0 bg-transparent meal-delete-btn"
+                                    aria-label="Delete meal"
+                                    title="Delete meal">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </form>
+                    </div>
                     <style>
                         .meal-delete-btn {
                             color: var(--text-secondary);
