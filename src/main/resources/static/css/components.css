@@ -99,7 +99,7 @@
     --size: 220px;
     --thickness: 18px;
     --progress-color: var(--accent-1);
-    --track-color: var(--bg-input);
+    --track-color: rgba(128, 128, 128, 0.2);
     --animated-value: 0;
 
     width: var(--size);
