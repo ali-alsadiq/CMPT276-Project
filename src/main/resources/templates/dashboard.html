@@ -141,14 +141,12 @@
                             </div>
                         </div>
 
-                        <div class="friends-grid" id="friendsGrid">
-                            
-                            <div th:if="${#lists.isEmpty(friends)}" class="text-center py-5 w-100">
-                                <i class="fa-solid fa-user-friends fs-1 text-theme-primary opacity-50 mb-3"></i>
-                                <p class="text-theme-primary opacity-50 mb-0">No friends yet. Click "Add Friends" to start competing!</p>
-                            </div>
+                        <div th:if="${#lists.isEmpty(friends)}" class="d-flex flex-column align-items-center justify-content-center flex-grow-1 py-5">
+                            <i class="fa-solid fa-user-friends fs-1 text-theme-primary opacity-50 mb-3"></i>
+                            <p class="text-theme-primary opacity-50 mb-0">No friends yet. Click "Add Friends" to start competing!</p>
+                        </div>
 
-                            
+                        <div th:unless="${#lists.isEmpty(friends)}" class="friends-grid" id="friendsGrid">
                             <article class="friend-card" th:each="friendUser, stat : ${friends}"
                                 th:data-username="${friendUser.username}" th:data-firstname="${friendUser.firstname}"
                                 th:data-lastname="${friendUser.lastname}" th:data-rr="${friendUser.rankProfile.rr}">
@@ -206,7 +204,7 @@
 
                             <p class="progress-warning mb-0">
                                 <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                                3 inconsistent days may reduce rank by 100 RR
+                                Inconsistent days may reduce RR
                             </p>
 
                             <div class="dashboard-stats-grid">
