@@ -41,30 +41,6 @@ public class MacroCalculator {
         }
     }
 
-    public enum ActivityLevel {
-        NOT_ACTIVE("Little or no excersise", 1.2),
-        LIGHTLY_ACTIVE("Lightly active (excersise 1-3 days/week)", 1.375),
-        MODERATELY_ACTIVE("Moderately active (excersise 3-5 days/week)", 1.55),
-        VERY_ACTIVE("Very active (excersise 6-7 days/week)", 1.725),
-        EXTRA_ACTIVE("Extra active (an athlete/physical job)", 1.9);
-
-        private final String displayName;
-        private final double multiplier;
-
-        ActivityLevel(String displayName, double multiplier) {
-            this.displayName = displayName;
-            this.multiplier = multiplier;
-        }
-
-        public String getDisplayName() {
-            return displayName;
-        }
-
-        public double getMultiplier() {
-            return multiplier;
-        }
-    }
-
     //helper to conv dob to age
     private int calcAge(LocalDate dateOfBirth) {
         if (dateOfBirth == null) return 30;
@@ -84,28 +60,48 @@ public class MacroCalculator {
         }
     }
 
-    //calc total daily energy expenditure TDEE
-    public double calcTDEE(User user, ActivityLevel act) {
-        return calcBMR(user) * act.getMultiplier();
+    // Calc activity multiplier based on weekly workout goal
+    public double calcActivityMult(int workoutGoal) {
+        if (workoutGoal <= 1) {
+            return 1.2;  
+        } else if (workoutGoal <= 3) {
+            return 1.375; 
+        } else if (workoutGoal <= 5) {
+            return 1.55;  
+        } else if (workoutGoal <= 6) {
+            return 1.725;
+        } else {
+            return 1.9;  
+        }
     }
 
-    public CalculatedTargets calcNutrients(User user, ActivityLevel act, Goal goal) {
-        double tdee = calcTDEE(user, act);
-        double targetCals = tdee * (1 + goal.calorieAdjustment);
+    //calc total daily energy expenditure TDEE
+    public double calcTDEE(User user, int weeklyWorkoutGoal) {
+        double bmr = calcBMR(user);
+        double multiplier = calcActivityMult(weeklyWorkoutGoal);
+        return bmr * multiplier;
+    }
 
-        //protien
-        double protienGrams = user.getWeight() * goal.proteinPerKg;
-        double protienCals = protienGrams * 4;
-
-        //fat
-        double fatCals = targetCals * goal.fatPercentage;
-        double fatGrams = fatCals / 9;
+    public CalculatedTargets calc(User user, Goal goal, int weeklyWorkoutGoal) {
+        double tdee = calcTDEE(user, weeklyWorkoutGoal);
+        double targetCalories = tdee * (1 + goal.calorieAdjustment);
         
-        //carbs
-        double carbCals = targetCals - protienCals - fatCals;
-        double carbGrams = carbCals / 4;
-
-        return new CalculatedTargets(targetCals, protienGrams, fatGrams, carbGrams, targetCals * 7);
+        double proteinGrams = user.getWeight() * goal.proteinPerKg;
+        double proteinCalories = proteinGrams * 4;
+        
+        double fatCalories = targetCalories * goal.fatPercentage;
+        double fatGrams = fatCalories / 9;
+        
+        double carbCalories = targetCalories - proteinCalories - fatCalories;
+        double carbGrams = carbCalories / 4;
+        
+        return new CalculatedTargets(
+            Math.round(targetCalories),
+            Math.round(proteinGrams),
+            Math.round(carbGrams),
+            Math.round(fatGrams),
+            Math.round(targetCalories * 7)
+        );
     }
 
     public static class CalculatedTargets {

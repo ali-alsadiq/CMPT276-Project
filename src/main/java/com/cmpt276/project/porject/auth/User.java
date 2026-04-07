@@ -57,6 +57,9 @@ public class User {
     private double dailyFatsTarget;
     private double dailyFibreTarget;
 
+    @Column(nullable = true)
+    private String fitnessGoal;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rank_profile_id", referencedColumnName = "id")
     private RankProfile rankProfile;
