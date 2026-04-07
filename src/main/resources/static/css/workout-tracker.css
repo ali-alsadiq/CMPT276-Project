@@ -150,7 +150,7 @@
 }
 
 .tracker-submit {
-    min-height: 56px;
+    min-height: 20px;
     border: none;
     border-radius: 18px;
     background: var(--accent-1);
@@ -245,7 +245,7 @@
 }
 
 .daily-progress-card {
-    padding: 1.15rem 1.25rem;
+    padding: 1.75rem 1.75rem;
 }
 
 .daily-progress-header {
@@ -254,8 +254,9 @@
 
 .week-progress-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    gap: 2.7rem;
 }
 
 .workout-stat-panel {
@@ -312,6 +313,7 @@
 }
 
 @media (max-width: 1399px) {
+
     .workout-layout,
     .workout-surface-grid {
         grid-template-columns: 1fr;
@@ -348,6 +350,7 @@
 }
 
 @media (max-width: 767px) {
+
     .analytics-header,
     .progress-summary,
     .recent-header,
