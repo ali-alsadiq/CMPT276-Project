@@ -3,6 +3,7 @@ package com.cmpt276.project.porject.auth;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -311,7 +312,7 @@ public class UserController {
     private void populateDashboardWorkoutModel(User user, Model model) {
         List<Workout> workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
         LocalDate today = LocalDate.now();
-        LocalDate weekStart = today.with(DayOfWeek.SUNDAY);
+        LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
         int[] dailyCalories = new int[7];
         int weeklyWorkoutSessions = 0;
         int weeklyWorkoutCalories = 0;
@@ -1112,5 +1113,4 @@ public class UserController {
     }
     
 }
-
 

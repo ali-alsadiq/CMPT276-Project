@@ -1,26 +1,43 @@
 /* Workout styles */
 
 .workout-shell {
-    height: 100vh;
-    margin-left: 280px;
-    padding: 2rem;
+    height: 100dvh;
+    margin-left: 110px;
+    padding: clamp(1rem, 2vw, 2rem) !important;
+    min-height: 0;
 }
 
 .workout-main-card {
-    height: 95vh;
+    min-height: 100%;
 }
 
-.eyebrow {
-    color: var(--accent-1);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 0.72rem;
-    font-weight: 800;
+.workout-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+    gap: clamp(1rem, 1.5vw, 1.5rem);
+    min-height: 100%;
+    align-items: stretch;
+}
+
+.workout-column {
+    min-height: 0;
+}
+
+.workout-hero-panel,
+.workout-analytics-panel {
+    height: 100%;
+}
+
+.workout-hero-panel {
+    justify-content: flex-start;
+}
+
+.workout-hero-copy {
+    max-width: 42rem;
 }
 
 .panel-title,
 .panel-subtitle,
-.result-title,
 .recent-title {
     color: var(--text-primary);
 }
@@ -28,9 +45,9 @@
 .panel-title {
     font-size: clamp(2rem, 3vw, 3.1rem);
     line-height: 1.05;
-    max-width: 12ch;
-    font-weight: 500;
-    letter-spacing: normal;
+    max-width: 13ch;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .panel-subtitle {
@@ -41,16 +58,52 @@
 .panel-copy,
 .goal-note,
 .summary-detail,
-.result-copy,
 .workout-meta,
 .empty-state,
-.recent-count {
+.recent-count,
+.goal-chip-label,
+.workout-form-note {
     color: var(--text-secondary);
 }
 
+.workout-surface-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+    gap: 1rem;
+    min-height: 0;
+    flex: 1;
+}
+
 .workout-form {
+    height: 100%;
+}
+
+.form-card,
+.daily-progress-card,
+.goal-chip,
+.workout-history-card,
+.workout-stat-panel {
+    border-radius: 22px;
+}
+
+.form-card,
+.daily-progress-card,
+.workout-stat-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.form-card {
+    padding: 1.4rem;
     display: grid;
     gap: 1rem;
+    height: 100%;
+}
+
+.form-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
 }
 
 .tracker-label {
@@ -79,6 +132,23 @@
     color: rgba(255, 255, 255, 0.35);
 }
 
+.workout-form-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+.workout-form-note i {
+    color: var(--accent-1);
+    margin-top: 0.1rem;
+}
+
 .tracker-submit {
     min-height: 56px;
     border: none;
@@ -94,21 +164,41 @@
     color: #172018;
 }
 
-.result-card,
+.workout-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
 .recent-workouts {
-    border-radius: 10px;
+    border-radius: 18px;
     background: var(--bg-input);
-    padding: 1.2rem 1.25rem;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.workout-history-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.workout-history-alert {
+    margin-top: auto !important;
+    background-color: #DBB8FF;
+    flex-shrink: 0;
+    font-weight: bold;
+    text-align: center;
 }
 
 .recent-workouts {
     position: relative;
-    max-height: 35vh;
+    max-height: min(34vh, 28rem);
     overflow-y: auto;
     scroll-behavior: smooth;
     scrollbar-color: var(--accent-1) var(--bg-input);
 }
-.result-kicker,
+
 .workout-name,
 .summary-total {
     color: var(--text-primary);
@@ -117,30 +207,63 @@
 
 .analytics-header,
 .progress-summary,
-.recent-header {
+.recent-header,
+.daily-progress-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 3rem;
+    gap: 1rem;
 }
 
 .progress-summary {
     align-items: center;
+    gap: clamp(1rem, 2vw, 2rem);
+}
+
+.goal-chip {
+    min-width: 148px;
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.goal-chip strong {
+    color: var(--text-primary);
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-top: 0.2rem;
 }
 
 .summary-copy {
     flex: 1;
+    max-width: 18rem;
 }
 
 .summary-total {
     font-size: 1.7rem;
-    margin-bottom: 0.6rem;
+}
+
+.daily-progress-card {
+    padding: 1.15rem 1.25rem;
+}
+
+.daily-progress-header {
+    margin-bottom: 1rem;
 }
 
 .week-progress-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
+}
+
+.workout-stat-panel {
+    padding: 0.95rem 1rem;
+}
+
+.workout-analytics-panel {
+    overflow: hidden;
 }
 
 .workout-row {
@@ -162,9 +285,38 @@
     font-weight: 700;
 }
 
+.workout-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
 
+.workout-delete-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    display: grid;
+    place-items: center;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.workout-delete-btn:hover,
+.workout-delete-btn:focus {
+    background: rgba(255, 92, 114, 0.12);
+    border-color: rgba(255, 92, 114, 0.28);
+    color: #ff8a9b;
+}
 
 @media (max-width: 1399px) {
+    .workout-layout,
+    .workout-surface-grid {
+        grid-template-columns: 1fr;
+    }
+
     .week-progress-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -172,32 +324,69 @@
 
 @media (max-width: 1199px) {
     .workout-shell {
-        height: 100vh;
+        height: auto;
+        min-height: 100dvh;
         overflow-y: auto;
         margin-left: 0;
-        padding: 1rem;
-        scrollbar-width: 1rem;
-        scrollbar-color: var(--bg-secondary) var(--bg-secondary);
     }
 
     .workout-main-card {
         min-height: auto;
     }
 
-    .tracker-panel {
-        padding: 1.5rem;
+    .workout-analytics-panel,
+    .workout-hero-panel,
+    .recent-workouts {
+        height: auto;
+        max-height: none;
+    }
+
+    .progress-summary {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
 @media (max-width: 767px) {
     .analytics-header,
     .progress-summary,
-    .recent-header {
+    .recent-header,
+    .daily-progress-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
+    .tracker-panel,
+    .form-card,
+    .daily-progress-card,
+    .recent-workouts,
+    .workout-stat-panel {
+        padding: 1rem;
+    }
+
+    .workout-stats-grid,
     .week-progress-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .workout-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .workout-row-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 575px) {
+    .progress-circle-total {
+        --size: 148px;
+        --thickness: 14px;
+    }
+
+    .progress-circle-small {
+        --size: 84px;
     }
 }
