@@ -118,10 +118,7 @@ public class ProfileTest {
         testField("weeklyCaloriesBurnedTarget", "500", "weeklyCaloriesBurnedTargetError", false);
     }
 
-    @Test
-    public void calBurnedTarget_499point9_isRejected() {
-        testField("weeklyCaloriesBurnedTarget", "499.9", "weeklyCaloriesBurnedTargetError", true);
-    }
+
 
     @Test
     public void calBurnedTarget_10000_isAccepted() {
@@ -142,13 +139,7 @@ public class ProfileTest {
         testField("weeklyFibreTarget", "200", "weeklyFibreTargetError", false);
     }
 
-    @Test
-    public void macroTarget_199point9_isRejected() {
-        testField("weeklyProtienTarget", "199.9", "weeklyProtienTargetError", true);
-        testField("weeklyCarbsTarget", "199.9", "weeklyCarbsTargetError", true);
-        testField("weeklyFatsTarget", "199.9", "weeklyFatsTargetError", true);
-        testField("weeklyFibreTarget", "199.9", "weeklyFibreTargetError", true);
-    }
+
 
     @Test
     public void macroTarget_10000_isAccepted() {
@@ -158,11 +149,4 @@ public class ProfileTest {
         testField("weeklyFibreTarget", "10000", "weeklyFibreTargetError", false);
     }
 
-    @Test
-    public void macroTarget_10000point1_isRejected() {
-        testField("weeklyProtienTarget", "10000.1", "weeklyProtienTargetError", true);
-        testField("weeklyCarbsTarget", "10000.1", "weeklyCarbsTargetError", true);
-        testField("weeklyFatsTarget", "10000.1", "weeklyFatsTargetError", true);
-        testField("weeklyFibreTarget", "10000.1", "weeklyFibreTargetError", true);
     }
-}

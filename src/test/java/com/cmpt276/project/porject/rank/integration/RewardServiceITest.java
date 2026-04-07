@@ -1,4 +1,4 @@
-package com.cmpt276.project.porject.rank;
+package com.cmpt276.project.porject.rank.integration;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +15,7 @@ import com.cmpt276.project.porject.auth.User;
 import com.cmpt276.project.porject.auth.UserRepository;
 import com.cmpt276.project.porject.meals.Food;
 import com.cmpt276.project.porject.meals.MealService;
+import com.cmpt276.project.porject.rank.RewardService;
 import com.cmpt276.project.porject.trackers.workouts.Workout;
 import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
 
@@ -26,7 +27,7 @@ import com.cmpt276.project.porject.trackers.workouts.WorkoutRepository;
         "spring.jpa.hibernate.ddl-auto=create-drop",
         "spring.jpa.show-sql=false"
 })
-public class RewardServiceIntegrationTest {
+public class RewardServiceITest {
 
     @Autowired
     private UserRepository userRepository;

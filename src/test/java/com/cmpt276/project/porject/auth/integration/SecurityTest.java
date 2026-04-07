@@ -21,6 +21,18 @@ public class SecurityTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.friends.FriendsRepository friendsRepository;
+
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.trackers.workouts.WorkoutRepository workoutRepository;
+
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.meals.MealRepository mealRepository;
+
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.rank.RewardService rewardService;
+
     @MockitoBean
     private UserRepository userRepository;
 

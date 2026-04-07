@@ -32,6 +32,9 @@ public class MealControllerTest {
         @Autowired
         private MockMvc mockMvc;
 
+        @org.springframework.test.context.bean.override.mockito.MockitoBean
+        private com.cmpt276.project.porject.friends.FriendsRepository friendsRepository;
+
         @MockitoBean
         private MealService mealService;
 

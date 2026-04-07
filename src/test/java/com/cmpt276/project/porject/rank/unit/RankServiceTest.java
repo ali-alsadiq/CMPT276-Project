@@ -1,8 +1,9 @@
-package com.cmpt276.project.porject.rank;
+package com.cmpt276.project.porject.rank.unit;
 
 import org.junit.jupiter.api.Test;
 
 import com.cmpt276.project.porject.auth.User;
+import com.cmpt276.project.porject.rank.RankService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +37,7 @@ public class RankServiceTest {
 
         assertEquals("Diamond I", rankService.getTierName(1600));
         assertEquals("Diamond II", rankService.getTierName(1800));
-        
+
         // Test highest score
         assertEquals("2000 RR", rankService.getTierName(2000));
         assertEquals("2200 RR", rankService.getTierName(2200));
@@ -62,12 +63,12 @@ public class RankServiceTest {
 
     @Test
     public void getProgressPercentage_shouldReturnProgressInsideCurrent200PointBucket() {
-        // Formula: (rr % 200) * 100 / 200  (integer division)
-        assertEquals(0,   rankService.getProgressPercentage(0));    // 0/200 = 0%
-        assertEquals(25,  rankService.getProgressPercentage(50));   // 50*100/200 = 25%
-        assertEquals(99,  rankService.getProgressPercentage(199));  // 199*100/200 = 99%
-        assertEquals(0,   rankService.getProgressPercentage(200));  // resets at new tier
-        assertEquals(37,  rankService.getProgressPercentage(275));  // 75*100/200 = 37%
+        // Formula: (rr % 200) * 100 / 200 (integer division)
+        assertEquals(0, rankService.getProgressPercentage(0)); // 0/200 = 0%
+        assertEquals(25, rankService.getProgressPercentage(50)); // 50*100/200 = 25%
+        assertEquals(99, rankService.getProgressPercentage(199)); // 199*100/200 = 99%
+        assertEquals(0, rankService.getProgressPercentage(200)); // resets at new tier
+        assertEquals(37, rankService.getProgressPercentage(275)); // 75*100/200 = 37%
         assertEquals(100, rankService.getProgressPercentage(2000)); // max rank = 100%
     }
 
@@ -105,40 +106,35 @@ public class RankServiceTest {
         assertEquals(70, user.getRankProfile().getRr());
     }
 
-    // =========================================================
-    //              ADDITIONAL EDGE-CASE TESTS
-    // =========================================================
-
-    // --- getTierName ---
-
+    // getTierName
     @Test
     public void getTierName_exactBoundaries_correctTier() {
         // Every tier boundary: first RR of each tier
-        assertEquals("Bronze I",    rankService.getTierName(0));
-        assertEquals("Bronze II",   rankService.getTierName(200));
-        assertEquals("Silver I",    rankService.getTierName(400));
-        assertEquals("Silver II",   rankService.getTierName(600));
-        assertEquals("Gold I",      rankService.getTierName(800));
-        assertEquals("Gold II",     rankService.getTierName(1000));
-        assertEquals("Platinum I",  rankService.getTierName(1200));
+        assertEquals("Bronze I", rankService.getTierName(0));
+        assertEquals("Bronze II", rankService.getTierName(200));
+        assertEquals("Silver I", rankService.getTierName(400));
+        assertEquals("Silver II", rankService.getTierName(600));
+        assertEquals("Gold I", rankService.getTierName(800));
+        assertEquals("Gold II", rankService.getTierName(1000));
+        assertEquals("Platinum I", rankService.getTierName(1200));
         assertEquals("Platinum II", rankService.getTierName(1400));
-        assertEquals("Diamond I",   rankService.getTierName(1600));
-        assertEquals("Diamond II",  rankService.getTierName(1800));
+        assertEquals("Diamond I", rankService.getTierName(1600));
+        assertEquals("Diamond II", rankService.getTierName(1800));
     }
 
     @Test
     public void getTierName_oneBeforeBoundary_staysInLowerTier() {
         // One point below each boundary stays in the previous tier
-        assertEquals("Bronze I",    rankService.getTierName(199));
-        assertEquals("Bronze II",   rankService.getTierName(399));
-        assertEquals("Silver I",    rankService.getTierName(599));
-        assertEquals("Silver II",   rankService.getTierName(799));
-        assertEquals("Gold I",      rankService.getTierName(999));
-        assertEquals("Gold II",     rankService.getTierName(1199));
-        assertEquals("Platinum I",  rankService.getTierName(1399));
+        assertEquals("Bronze I", rankService.getTierName(199));
+        assertEquals("Bronze II", rankService.getTierName(399));
+        assertEquals("Silver I", rankService.getTierName(599));
+        assertEquals("Silver II", rankService.getTierName(799));
+        assertEquals("Gold I", rankService.getTierName(999));
+        assertEquals("Gold II", rankService.getTierName(1199));
+        assertEquals("Platinum I", rankService.getTierName(1399));
         assertEquals("Platinum II", rankService.getTierName(1599));
-        assertEquals("Diamond I",   rankService.getTierName(1799));
-        assertEquals("Diamond II",  rankService.getTierName(1999));
+        assertEquals("Diamond I", rankService.getTierName(1799));
+        assertEquals("Diamond II", rankService.getTierName(1999));
     }
 
     @Test
@@ -149,8 +145,7 @@ public class RankServiceTest {
         assertEquals("9999 RR", rankService.getTierName(9999));
     }
 
-    // --- isMaxRank ---
-
+    // isMaxRank
     @Test
     public void isMaxRank_justBelowMax_returnsFalse() {
         assertFalse(rankService.isMaxRank(1999));
@@ -166,8 +161,7 @@ public class RankServiceTest {
         assertFalse(rankService.isMaxRank(0));
     }
 
-    // --- getPointsToNextRank ---
-
+    // getPointsToNextRank
     @Test
     public void getPointsToNextRank_atMaxRank_returnsZero() {
         assertEquals(0, rankService.getPointsToNextRank(2000));
@@ -188,8 +182,7 @@ public class RankServiceTest {
         assertEquals(1, rankService.getPointsToNextRank(1999));
     }
 
-    // --- getProgressPercentage ---
-
+    // getProgressPercentage
     @Test
     public void getProgressPercentage_exactlyAtTierStart_returnsZero() {
         assertEquals(0, rankService.getProgressPercentage(0));
@@ -211,22 +204,20 @@ public class RankServiceTest {
         assertEquals(100, rankService.getProgressPercentage(3000));
     }
 
-    // --- getRankImagePath ---
-
     @Test
     public void getRankImagePath_allTenLevels_correctImage() {
         // rank level = (rr / 200) + 1, capped at 10
         String[] expected = {
-            "/images/rank1.png",  // 0
-            "/images/rank2.png",  // 200
-            "/images/rank3.png",  // 400
-            "/images/rank4.png",  // 600
-            "/images/rank5.png",  // 800
-            "/images/rank6.png",  // 1000
-            "/images/rank7.png",  // 1200
-            "/images/rank8.png",  // 1400
-            "/images/rank9.png",  // 1600
-            "/images/rank10.png", // 1800
+                "/images/rank1.png", // 0
+                "/images/rank2.png", // 200
+                "/images/rank3.png", // 400
+                "/images/rank4.png", // 600
+                "/images/rank5.png", // 800
+                "/images/rank6.png", // 1000
+                "/images/rank7.png", // 1200
+                "/images/rank8.png", // 1400
+                "/images/rank9.png", // 1600
+                "/images/rank10.png", // 1800
         };
         for (int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], rankService.getRankImagePath(i * 200),
@@ -240,8 +231,7 @@ public class RankServiceTest {
         assertEquals("/images/rank10.png", rankService.getRankImagePath(9999));
     }
 
-    // --- increaseRR / decreaseRR ---
-
+    // increaseRR / decreaseRR
     @Test
     public void increaseRR_fromZero_updatesCorrectly() {
         User user = new User("A", "B", "rr_inc_zero", "pass", "USER");
@@ -251,7 +241,8 @@ public class RankServiceTest {
 
     @Test
     public void increaseRR_pastMaxRank_noClampApplied() {
-        // RankService.increaseRR has no upper cap — this documents the current behaviour
+        // RankService.increaseRR has no upper cap — this documents the current
+        // behaviour
         User user = new User("A", "B", "rr_inc_past_max", "pass", "USER");
         user.getRankProfile().setRr(1990);
         rankService.increaseRR(user, 100);

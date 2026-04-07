@@ -32,6 +32,12 @@ public class TrackerControllerTest {
         @Autowired
         private MockMvc mockMvc;
 
+        @org.springframework.test.context.bean.override.mockito.MockitoBean
+        private com.cmpt276.project.porject.friends.FriendsRepository friendsRepository;
+
+        @org.springframework.test.context.bean.override.mockito.MockitoBean
+        private com.cmpt276.project.porject.rank.RewardService rewardService;
+
         @MockitoBean
         private WorkoutApiService workoutApiService;
 

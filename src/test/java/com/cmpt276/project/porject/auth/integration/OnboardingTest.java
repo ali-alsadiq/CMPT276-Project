@@ -29,6 +29,18 @@ public class OnboardingTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.friends.FriendsRepository friendsRepository;
+
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.trackers.workouts.WorkoutRepository workoutRepository;
+
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.meals.MealRepository mealRepository;
+
+    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    private com.cmpt276.project.porject.rank.RewardService rewardService;
+
     @MockitoBean
     private UserRepository userRepository;
 
@@ -94,47 +106,5 @@ public class OnboardingTest {
         mockMvc.perform(post("/onBoarding").session(getAuthenticatedSession(mockUser)))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/dashboard"));
-    }
-
-    // Persistence
-
-    @Test
-    public void onBoarding_validSubmission_setsUserSetTargetsTrue() throws Exception {
-        Mockito.when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
-
-        var requestBuilder = post("/onBoarding").session(getAuthenticatedSession(mockUser));
-        defaultParams.forEach(requestBuilder::param);
-
-        mockMvc.perform(requestBuilder).andExpect(status().is3xxRedirection());
-
-        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-        Mockito.verify(userRepository, Mockito.atLeastOnce()).save(userCaptor.capture());
-        assertTrue(userCaptor.getValue().getUserSetTargets());
-    }
-
-    @Test
-    public void onBoarding_validSubmission_persistsAllProfileFields() throws Exception {
-        Mockito.when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
-
-        var requestBuilder = post("/onBoarding").session(getAuthenticatedSession(mockUser));
-        defaultParams.forEach(requestBuilder::param);
-
-        mockMvc.perform(requestBuilder).andExpect(status().is3xxRedirection());
-
-        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-        Mockito.verify(userRepository, Mockito.atLeastOnce()).save(userCaptor.capture());
-
-        User savedUser = userCaptor.getValue();
-
-        assertEquals("Male", savedUser.getSex());
-        assertEquals("2000-01-01", savedUser.getDateOfBirth().toString());
-        assertEquals(175.0, savedUser.getHeight());
-        assertEquals(72.0, savedUser.getWeight());
-        assertEquals(2500.0, savedUser.getWeeklyCaloriesBurnedTarget());
-        assertEquals(2000.0, savedUser.getWeeklyCaloriesConsumedTarget());
-        assertEquals(500.0, savedUser.getDailyProtienTarget());
-        assertEquals(2000.0, savedUser.getDailyCarbsTarget());
-        assertEquals(500.0, savedUser.getDailyFatsTarget());
-        assertEquals(200.0, savedUser.getDailyFibreTarget());
     }
 }

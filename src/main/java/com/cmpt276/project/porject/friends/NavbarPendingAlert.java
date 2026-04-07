@@ -14,15 +14,15 @@ import java.util.List;
  */
 @ControllerAdvice
 public class NavbarPendingAlert {
-    
+
     @Autowired
     private FriendsRepository friendsRepository;
-    
+
     @ModelAttribute
     public void addPendingRequestCount(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
-        
+
         if (user != null) {
 
             int pendingCount = 0;
