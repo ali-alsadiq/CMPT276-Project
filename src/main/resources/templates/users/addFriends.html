@@ -21,11 +21,11 @@
                 <!-- Header -->
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <div>
-                        <a th:href="@{/dashboard}" class="text-decoration-none text-white-50 mb-2 d-inline-block">
+                        <a th:href="@{/dashboard}" class="text-decoration-none text-secondary mb-2 d-inline-block">
                             <i class="bi bi-arrow-left me-1"></i> Back
                         </a>
                         <h1 class="fw-bold mb-1">Add Friend</h1>
-                        <p class="mb-0 text-white-50">Search for users to connect with</p>
+                        <p class="mb-0 text-secondary">Search for users to connect with</p>
                     </div>
                     <i class="bi bi-person-plus fs-1"></i>
                 </div>
@@ -33,7 +33,7 @@
                 <!-- Search bar -->
                 <form th:action="@{/addFriends}" method="get" class="mb-4">
                     <div class="position-relative">
-                        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-white-50"></i>
+                        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
                         <input type="text" 
                                name="search"
                                th:value="${searchQuery}"
@@ -56,15 +56,15 @@
                 <!-- results -->
                 <div th:if="${searchResults != null}">
                     <div th:if="${#lists.isEmpty(searchResults)}" class="text-center py-4">
-                        <p class="text-white-50 mb-0">No users found with that username you haven't already requested.</p>
+                        <p class="text-secondary mb-0">No users found with that username you haven't already requested.</p>
                     </div>
 
                     <div th:unless="${#lists.isEmpty(searchResults)}">
                         <div th:each="user : ${searchResults}" 
                              class="d-flex justify-content-between align-items-center theme-input p-3 rounded-3 mb-2">
                             <div>
-                                <h6 class="text-white mb-0" th:text="${user.firstname + ' ' + user.lastname}"></h6>
-                                <small class="text-white-50">@<span th:text="${user.username}"></span></small>
+                                <h6 class="text-theme-primary mb-0" th:text="${user.firstname + ' ' + user.lastname}"></h6>
+                                <small class="text-secondary">@<span th:text="${user.username}"></span></small>
                             </div>
                             
                             <form th:action="@{/sendFriendRequest}" method="post">
