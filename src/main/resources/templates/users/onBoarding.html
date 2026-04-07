@@ -1,257 +1,178 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Ascend - Onboarding</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/dashboard.css" rel="stylesheet">
-    <script src="/js/theme.js"></script>
-    <link rel="stylesheet" href="/css/navbar.css">
-  </head>
 
-  <body class="theme-bg min-vh-100 m-0">
-    <div class="container py-5">
-      <div class="d-flex justify-content-center">
-        <div
-          class="theme-bg-container p-5"
-          style="width: 100%; max-width: 700px"
-        >
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <div>
-              <h1 class="fw-bold mb-1">Welcome!</h1>
-              <p class="mb-0 text-white-50">Let's get your profile set up.</p>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ascend - Onboarding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/dashboard.css" rel="stylesheet">
+  <script src="/js/theme.js"></script>
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+<body class="theme-bg min-vh-100 m-0">
+  <div class="container py-5">
+    <div class="d-flex justify-content-center">
+      <div class="theme-bg-container p-5" style="width: 100%; max-width: 700px">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div>
+            <h1 class="fw-bold mb-1">Welcome!</h1>
+            <p class="mb-0 text-white-50">Let's get your profile set up.</p>
+          </div>
+          <i class="bi bi-person-circle fs-1"></i>
+        </div>
+
+        <form th:action="@{/onBoarding}" method="post" novalidate>
+
+          <!-- Personal Info -->
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="sex" class="form-label">
+                <i class="bi bi-gender-ambiguous me-2"></i>Sex
+              </label>
+              <select
+                th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
+                id="sex" name="sex" required>
+                <option value="" disabled selected>Select your sex</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
             </div>
-            <i class="bi bi-person-circle fs-1"></i>
+
+            <div class="col-md-6">
+              <label for="dateOfBirth" class="form-label">
+                <i class="bi bi-calendar-date me-2"></i>Date of Birth
+              </label>
+              <input type="date"
+                th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${dateOfBirthVal != null ? dateOfBirthVal : ''}" id="dateOfBirth" name="dateOfBirth"
+                required />
+            </div>
           </div>
 
-          <form th:action="@{/onBoarding}" method="post" novalidate>
-
-            <!-- Personal Info -->
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="sex" class="form-label">
-                  <i class="bi bi-gender-ambiguous me-2"></i>Sex
-                </label>
-                <select
-                  th:class="${sexError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
-                  id="sex"
-                  name="sex"
-                  required
-                >
-                  <option value="" disabled selected>Select your sex</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </select>
-              </div>
-
-              <div class="col-md-6">
-                <label for="dateOfBirth" class="form-label">
-                  <i class="bi bi-calendar-date me-2"></i>Date of Birth
-                </label>
-                <input
-                  type="date"
-                  th:class="${dateOfBirthError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${dateOfBirthVal != null ? dateOfBirthVal : ''}"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  required
-                />
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="height" class="form-label">
+                <i class="bi bi-rulers me-2"></i>Height (cm)
+              </label>
+              <input type="number" step="0.1" min="50" max="300"
+                th:class="${heightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${heightVal != null ? heightVal : ''}" id="height" name="height"
+                placeholder="Enter your height in cm" required />
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="height" class="form-label">
-                  <i class="bi bi-rulers me-2"></i>Height (cm)
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="50"
-                  max="300"
-                  th:class="${heightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${heightVal != null ? heightVal : ''}"
-                  id="height"
-                  name="height"
-                  placeholder="Enter your height in cm"
-                  required
-                />
-              </div>
+            <div class="col-md-6">
+              <label for="weight" class="form-label">
+                <i class="bi bi-speedometer2 me-2"></i>Weight (kg)
+              </label>
+              <input type="number" step="0.1" min="20" max="500"
+                th:class="${weightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weightVal != null ? weightVal : ''}" id="weight" name="weight"
+                placeholder="Enter your weight in kg" required />
+            </div>
+          </div>
 
-              <div class="col-md-6">
-                <label for="weight" class="form-label">
-                  <i class="bi bi-speedometer2 me-2"></i>Weight (kg)
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="20"
-                  max="500"
-                  th:class="${weightError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weightVal != null ? weightVal : ''}"
-                  id="weight"
-                  name="weight"
-                  placeholder="Enter your weight in kg"
-                  required
-                />
-              </div>
-
-              <div class="col-12">
-                <label for="weight" class="form-label">
-                  <i class="bi bi-speedometer2 me-2"></i>Weekly Workout Target
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="20"
-                  max="500"
-                  th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : ''}"
-                  id="weeklyWorkoutGoalCount"
-                  name="weeklyWorkoutGoalCount"
-                  placeholder="How often you'll aim to workout weekly"
-                  required
-                />
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="weeklyWorkoutGoalCount" class="form-label">
+                <i class="bi bi-calendar-check me-2"></i>Weekly Workout Target
+              </label>
+              <input type="number" step="1" min="1" max="30"
+                th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : ''}"
+                id="weeklyWorkoutGoalCount" name="weeklyWorkoutGoalCount" placeholder="How often you workout"
+                required />
             </div>
 
-            <!-- Calorie Goals -->
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="weeklyCaloriesConsumedTarget" class="form-label">
-                  <i class="bi bi-calendar-week me-2"></i>Weekly Calories Consumed Goal (kcal)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${weeklyCaloriesConsumedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCaloriesConsumedTargetVal != null ? weeklyCaloriesConsumedTargetVal : ''}"
-                  id="weeklyCaloriesConsumedTarget"
-                  name="weeklyCaloriesConsumedTarget"
-                  placeholder="e.g. 14000"
-                  required
-                />
-              </div>
+            <div class="col-md-6">
+              <label for="fitnessGoal" class="form-label">
+                <i class="bi bi-bullseye me-2"></i>Fitness Goal
+              </label>
+              <select
+                th:class="${fitnessGoalError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}"
+                id="fitnessGoal" name="fitnessGoal" required>
+                <option value="" disabled selected>Select your fitness goal</option>
+                <option th:each="goal : ${fitnessGoals}" th:value="${goal.name()}" th:text="${goal.goalName}">
+                </option>
+              </select>
+              <small class="text-white-50 mt-1 d-block">
+                <i class="bi bi-info-circle me-1"></i>
+                Automatically calculates your nutrition targets
+              </small>
+            </div>
+          </div>
 
-              <div class="col-md-6">
-                <label for="weeklyCaloriesBurnedTarget" class="form-label">
-                  <i class="bi bi-fire me-2"></i>Weekly Calories Burned Goal (kcal)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${weeklyCaloriesBurnedTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${weeklyCaloriesBurnedTargetVal != null ? weeklyCaloriesBurnedTargetVal : ''}"
-                  id="weeklyCaloriesBurnedTarget"
-                  name="weeklyCaloriesBurnedTarget"
-                  placeholder="e.g. 2000"
-                  required
-                />
+          <!-- Auto-calculated Preview Display -->
+          <div class="theme-input p-3 rounded-3 mb-3" id="nutritionPreview">
+            <p class="small text-accent-1 mb-2">
+              <i class="bi bi-calculator-fill me-1"></i>
+              Your Nutrition Plan (auto-calculated)
+            </p>
+            <div class="row text-center small">
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Daily Calories</div>
+                <strong class="text-accent-1" id="previewDailyCalories">-</strong>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Daily Protein</div>
+                <strong class="text-accent-1" id="previewProtein">-</strong> <span class="text-white-50">g</span>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Daily Carbs</div>
+                <strong class="text-accent-1" id="previewCarbs">-</strong> <span class="text-white-50">g</span>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Daily Fats</div>
+                <strong class="text-accent-1" id="previewFats">-</strong> <span class="text-white-50">g</span>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Daily Fibre</div>
+                <strong class="text-accent-1" id="previewFibre">-</strong> <span class="text-white-50">g</span>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Weekly Calorie Intake</div>
+                <strong class="text-accent-1" id="previewWeeklyCalories">-</strong>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="text-white-50">Weekly Calsorie Burn</div>
+                <strong class="text-accent-1" id="previewWeeklyBurnTarget">-</strong> <span
+                  class="text-white-50">kcal</span>
               </div>
             </div>
+          </div>
 
-            <!-- Nutrient Goals -->
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="dailyProtienTarget" class="form-label">
-                  <i class="bi bi-egg-fried me-2"></i>Daily Protien Goal (g)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${dailyProtienTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${dailyProtienTargetVal != null ? dailyProtienTargetVal : ''}"
-                  id="dailyProtienTarget"
-                  name="dailyProtienTarget"
-                  placeholder="e.g. 100"
-                  required
-                />
-              </div>
+          <!-- fields to store calculated values -->
+          <input type="hidden" id="weeklyCaloriesConsumedTarget" name="weeklyCaloriesConsumedTarget">
+          <input type="hidden" id="weeklyCaloriesBurnedTarget" name="weeklyCaloriesBurnedTarget">
+          <input type="hidden" id="dailyProtienTarget" name="dailyProtienTarget">
+          <input type="hidden" id="dailyCarbsTarget" name="dailyCarbsTarget">
+          <input type="hidden" id="dailyFatsTarget" name="dailyFatsTarget">
+          <input type="hidden" id="dailyFibreTarget" name="dailyFibreTarget">
 
-              <div class="col-md-6">
-                <label for="dailyCarbsTarget" class="form-label">
-                  <i class="bi bi-basket me-2"></i>Daily Carbs Goal (g)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${dailyCarbsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${dailyCarbsTargetVal != null ? dailyCarbsTargetVal : ''}"
-                  id="dailyCarbsTarget"
-                  name="dailyCarbsTarget"
-                  placeholder="e.g. 100"
-                  required
-                />
-              </div>
-            </div>
+          <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-primary w-100 p-3 rounded-pill">
+              <i class="bi bi-floppy me-2"></i>Save Goals
+            </button>
 
-            <div class="row mb-3">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <label for="dailyFatsTarget" class="form-label">
-                  <i class="bi bi-droplet me-2"></i>Daily Fats Goal (g)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${dailyFatsTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${dailyFatsTargetVal != null ? dailyFatsTargetVal : ''}"
-                  id="dailyFatsTarget"
-                  name="dailyFatsTarget"
-                  placeholder="e.g. 50"
-                  required
-                />
-              </div>
+            <a th:href="@{/dashboard}" class="btn btn-outline-light w-100 p-3 rounded-pill">
+              <i class="bi bi-skip-forward me-2"></i>Skip for now
+            </a>
+          </div>
 
-              <div class="col-md-6">
-                <label for="dailyFibreTarget" class="form-label">
-                  <i class="bi bi-flower1 me-2"></i>Daily Fibre Goal (g)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  th:class="${dailyFibreTargetError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
-                  th:value="${dailyFibreTargetVal != null ? dailyFibreTargetVal : ''}"
-                  id="dailyFibreTarget"
-                  name="dailyFibreTarget"
-                  placeholder="e.g. 50"
-                  required
-                />
-              </div>
-            </div>
-            
+        </form>
 
-            <div class="d-flex gap-3">
-              <button
-                type="submit"
-                class="btn btn-primary w-100 p-3 rounded-pill"
-              >
-                <i class="bi bi-floppy me-2"></i>Save Goals
-              </button>
-
-              <a
-                th:href="@{/dashboard}"
-                class="btn btn-outline-light w-100 p-3 rounded-pill"
-              >
-                <i class="bi bi-skip-forward me-2"></i>Skip for now
-              </a>
-            </div>
-
-          </form>
-          <div th:if="${error}" class="text-danger text-start mb-3 small">
-              <span th:text="${error}"></span>
-            </div>
+        <div th:if="${error}" class="text-danger text-start mb-3 small">
+          <span th:text="${error}"></span>
         </div>
+
       </div>
     </div>
-  </body>
+  </div>
+  <script src="/js/nutrition-preview.js"></script>
+</body>
+
 </html>
