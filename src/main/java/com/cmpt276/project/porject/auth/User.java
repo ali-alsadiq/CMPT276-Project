@@ -245,6 +245,14 @@ public class User {
     public void setWeeklyWorkoutGoalCount(int weeklyWorkoutGoalCount) {
         this.weeklyWorkoutGoalCount = weeklyWorkoutGoalCount;
     }
+
+    public String getFitnessGoal() {
+        return fitnessGoal;
+    }
+
+    public void setFitnessGoal(String fitnessGoal) {
+        this.fitnessGoal = fitnessGoal;
+    }
+
     
- 
 }
