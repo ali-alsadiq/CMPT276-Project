@@ -26,6 +26,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 /**
  * Controller for handling user authentication and user management.
  * 
@@ -45,6 +46,9 @@ public class UserController {
 
     @Autowired
     private WorkoutRepository workoutRepository;
+
+    @Autowired
+    private com.cmpt276.project.porject.meals.MealRepository mealRepository;
 
     @Autowired
     private FriendsRepository friendsRepository;
@@ -166,7 +170,7 @@ public class UserController {
 
             request.getSession().setAttribute("session_user", user);
 
-             // set cookie (remember user)
+            // set cookie (remember user)
             Cookie cookie = new Cookie("userId", String.valueOf(user.getUid()));
             cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
             cookie.setPath("/");
@@ -268,7 +272,7 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String getDashboard(HttpServletRequest request, Model model) {
-        
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("session_user");
         Cookie[] cookies = request.getCookies();
@@ -307,12 +311,11 @@ public class UserController {
         return "dashboard";
     }
 
-
     private void populateDashboardWorkoutModel(User user, Model model) {
         List<Workout> workouts = workoutRepository.findByUserIdOrderByWorkoutDateDesc(user.getUid());
         LocalDate today = LocalDate.now();
-        LocalDate weekStart = today.with(DayOfWeek.SUNDAY);
-        int[] dailyCalories = new int[7];
+        LocalDate weekStart = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        int[] dailyCaloriesBurned = new int[7];
         int weeklyWorkoutSessions = 0;
         int weeklyWorkoutCalories = 0;
 
@@ -328,36 +331,68 @@ public class UserController {
             }
 
             int dayIndex = workoutDay.getDayOfWeek().getValue() % 7;
-            dailyCalories[dayIndex] += workout.getCalsBurned();
+            dailyCaloriesBurned[dayIndex] += workout.getCalsBurned();
             weeklyWorkoutSessions++;
             weeklyWorkoutCalories += workout.getCalsBurned();
         }
+
+        // Fetch meals to calculate calories consumed
+        LocalDateTime weekStartDateTime = weekStart.atStartOfDay();
+        LocalDateTime weekEndDateTime = weekStart.plusDays(6).atTime(23, 59, 59);
+        List<com.cmpt276.project.porject.meals.Meal> meals = mealRepository
+                .findByUserUidAndConsumedDateBetween(user.getUid(), weekStartDateTime, weekEndDateTime);
+
+        double[] dailyCaloriesConsumed = new double[7];
+        for (com.cmpt276.project.porject.meals.Meal meal : meals) {
+            LocalDateTime consumedDate = meal.getConsumedDate();
+            if (consumedDate == null)
+                continue;
+
+            int dayIndex = consumedDate.getDayOfWeek().getValue() % 7;
+            dailyCaloriesConsumed[dayIndex] += meal.getCalories();
+        }
+
+        double dailyConsumedGoal = user.getWeeklyCaloriesConsumedTarget() / 7.0;
+        if (dailyConsumedGoal <= 0)
+            dailyConsumedGoal = 2000.0; // Default fallback
 
         List<String> dayLabels = List.of("S", "M", "T", "W", "T", "F", "S");
         List<DashboardWorkoutDaySummary> dashboardWorkoutWeek = new ArrayList<>();
         int missedWorkoutDays = 0;
 
         for (int i = 0; i < 7; i++) {
-            boolean accomplished = dailyCalories[i] > 0;
-            if (!accomplished) {
+            // Track missed workouts for consistency warning
+            boolean accomplishedWorkout = dailyCaloriesBurned[i] > 0;
+            if (!accomplishedWorkout) {
                 missedWorkoutDays++;
             }
 
+            // Calculate progress circle based on calories consumed
+            double consumed = dailyCaloriesConsumed[i];
+            int percent = (int) Math.round((consumed / dailyConsumedGoal) * 100);
+            if (percent > 100)
+                percent = 100;
+
+            // Goal achieved if they consume at least some minimum reasonable amount (e.g.,
+            // 50% of target) or hit target
+            boolean accomplishedConsumption = consumed > 0;
+
             dashboardWorkoutWeek.add(new DashboardWorkoutDaySummary(
                     dayLabels.get(i),
-                    accomplished ? 100 : 100,
-                    accomplished ? "#39FF88" : "#FF5C72",
-                    accomplished));
+                    percent,
+                    accomplishedConsumption ? "#39FF88" : "#FF5C72",
+                    accomplishedConsumption));
         }
 
         int weeklyWorkoutGoalCount = user.getWeeklyWorkoutGoalCount();
-        if (weeklyWorkoutGoalCount < 1) weeklyWorkoutGoalCount = 1;
+        if (weeklyWorkoutGoalCount < 1)
+            weeklyWorkoutGoalCount = 1;
 
         // Convert Friends objects to User objects
         List<Friends> allFriendsRelations = new ArrayList<>();
         allFriendsRelations.addAll(friendsRepository.findByReceiverAndStatus(user, "FRIENDS"));
         allFriendsRelations.addAll(friendsRepository.findBySenderAndStatus(user, "FRIENDS"));
-        
+
         List<User> allFriends = new ArrayList<>();
         for (Friends friendRel : allFriendsRelations) {
             // Get the friend user (not the current user)
@@ -369,10 +404,9 @@ public class UserController {
         }
 
         allFriends.sort((f1, f2) -> Integer.compare(
-            f2.getRankProfile().getRr(), 
-            f1.getRankProfile().getRr()
-        ));
-        
+                f2.getRankProfile().getRr(),
+                f1.getRankProfile().getRr()));
+
         model.addAttribute("friends", allFriends);
         model.addAttribute("friendCount", allFriends.size());
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
@@ -403,17 +437,18 @@ public class UserController {
 
     /**
      * Helper method for profile
+     * 
      * @param user
      * @return list of users user is friends with
      */
     private List<User> getFriendsList(User user) {
-        //get all
+        // get all
         List<Friends> acceptedFriends = friendsRepository.findByReceiverAndStatus(user, "FRIENDS");
         List<Friends> sentFriends = friendsRepository.findBySenderAndStatus(user, "FRIENDS");
-        
+
         List<User> friends = new ArrayList<>();
 
-        //conv to User list
+        // conv to User list
         for (Friends friend : acceptedFriends) {
             friends.add(friend.getSender());
         }
@@ -421,7 +456,7 @@ public class UserController {
             friends.add(friend.getReceiver());
         }
 
-        //sort
+        // sort
         friends.sort((f1, f2) -> f1.getUsername().compareToIgnoreCase(f2.getUsername()));
 
         return friends;
@@ -477,17 +512,27 @@ public class UserController {
         String dateOfBirthStr = profileData.get("dateOfBirth") != null ? profileData.get("dateOfBirth").trim() : "";
         String heightStr = profileData.get("height") != null ? profileData.get("height").trim() : "";
         String weightStr = profileData.get("weight") != null ? profileData.get("weight").trim() : "";
-        String weeklyWorkoutGoalCountStr = profileData.get("weeklyWorkoutGoalCount") != null ? profileData.get("weeklyWorkoutGoalCount").trim() : "";
+        String weeklyWorkoutGoalCountStr = profileData.get("weeklyWorkoutGoalCount") != null
+                ? profileData.get("weeklyWorkoutGoalCount").trim()
+                : "";
         String weeklyCaloriesBurnedTargetStr = profileData.get("weeklyCaloriesBurnedTarget") != null
                 ? profileData.get("weeklyCaloriesBurnedTarget").trim()
                 : "";
         String weeklyCaloriesConsumedTargetStr = profileData.get("weeklyCaloriesConsumedTarget") != null
                 ? profileData.get("weeklyCaloriesConsumedTarget").trim()
                 : "";
-        String dailyProtienTargetStr = profileData.get("dailyProtienTarget") != null ? profileData.get("dailyProtienTarget").trim() : "";
-        String dailyCarbsTargetStr = profileData.get("dailyCarbsTarget") != null ? profileData.get("dailyCarbsTarget").trim() : "";
-        String dailyFatsTargetStr = profileData.get("dailyFatsTarget") != null ? profileData.get("dailyFatsTarget").trim() : "";
-        String dailyFibreTargetStr = profileData.get("dailyFibreTarget") != null ? profileData.get("dailyFibreTarget").trim() : "";
+        String dailyProtienTargetStr = profileData.get("dailyProtienTarget") != null
+                ? profileData.get("dailyProtienTarget").trim()
+                : "";
+        String dailyCarbsTargetStr = profileData.get("dailyCarbsTarget") != null
+                ? profileData.get("dailyCarbsTarget").trim()
+                : "";
+        String dailyFatsTargetStr = profileData.get("dailyFatsTarget") != null
+                ? profileData.get("dailyFatsTarget").trim()
+                : "";
+        String dailyFibreTargetStr = profileData.get("dailyFibreTarget") != null
+                ? profileData.get("dailyFibreTarget").trim()
+                : "";
 
         model.addAttribute("firstnameVal", firstname);
         model.addAttribute("lastnameVal", lastname);
@@ -502,7 +547,6 @@ public class UserController {
         model.addAttribute("dailyCarbsTargetVal", dailyCarbsTargetStr);
         model.addAttribute("dailyFatsTargetVal", dailyFatsTargetStr);
         model.addAttribute("dailyFibreTargetVal", dailyFibreTargetStr);
-        
 
         if (firstname.isEmpty()) {
             model.addAttribute("firstnameError", true);
@@ -823,7 +867,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-         if (user.getUserSetTargets() == true) {
+        if (user.getUserSetTargets() == true) {
             return "redirect:/dashboard";
         }
 
@@ -854,17 +898,27 @@ public class UserController {
         String dateOfBirthStr = profileData.get("dateOfBirth") != null ? profileData.get("dateOfBirth").trim() : "";
         String heightStr = profileData.get("height") != null ? profileData.get("height").trim() : "";
         String weightStr = profileData.get("weight") != null ? profileData.get("weight").trim() : "";
-        String weeklyWorkoutGoalCountStr = profileData.get("weeklyWorkoutGoalCount") != null ? profileData.get("weeklyWorkoutGoalCount").trim() : "";
+        String weeklyWorkoutGoalCountStr = profileData.get("weeklyWorkoutGoalCount") != null
+                ? profileData.get("weeklyWorkoutGoalCount").trim()
+                : "";
         String weeklyCaloriesBurnedTargetStr = profileData.get("weeklyCaloriesBurnedTarget") != null
                 ? profileData.get("weeklyCaloriesBurnedTarget").trim()
                 : "";
         String weeklyCaloriesConsumedTargetStr = profileData.get("weeklyCaloriesConsumedTarget") != null
                 ? profileData.get("weeklyCaloriesConsumedTarget").trim()
                 : "";
-        String dailyProtienTargetStr = profileData.get("dailyProtienTarget") != null ? profileData.get("dailyProtienTarget").trim() : "";
-        String dailyCarbsTargetStr = profileData.get("dailyCarbsTarget") != null ? profileData.get("dailyCarbsTarget").trim() : "";
-        String dailyFatsTargetStr = profileData.get("dailyFatsTarget") != null ? profileData.get("dailyFatsTarget").trim() : "";
-        String dailyFibreTargetStr = profileData.get("dailyFibreTarget") != null ? profileData.get("dailyFibreTarget").trim() : "";
+        String dailyProtienTargetStr = profileData.get("dailyProtienTarget") != null
+                ? profileData.get("dailyProtienTarget").trim()
+                : "";
+        String dailyCarbsTargetStr = profileData.get("dailyCarbsTarget") != null
+                ? profileData.get("dailyCarbsTarget").trim()
+                : "";
+        String dailyFatsTargetStr = profileData.get("dailyFatsTarget") != null
+                ? profileData.get("dailyFatsTarget").trim()
+                : "";
+        String dailyFibreTargetStr = profileData.get("dailyFibreTarget") != null
+                ? profileData.get("dailyFibreTarget").trim()
+                : "";
 
         model.addAttribute("sexVal", sex);
         model.addAttribute("dateOfBirthVal", dateOfBirthStr);
@@ -877,7 +931,6 @@ public class UserController {
         model.addAttribute("dailyCarbsTargetVal", dailyCarbsTargetStr);
         model.addAttribute("dailyFatsTargetVal", dailyFatsTargetStr);
         model.addAttribute("dailyFibreTargetVal", dailyFibreTargetStr);
-
 
         if (sex.isEmpty()) {
             model.addAttribute("sexError", true);
@@ -1110,7 +1163,5 @@ public class UserController {
 
         return "redirect:/dashboard";
     }
-    
+
 }
-
-
