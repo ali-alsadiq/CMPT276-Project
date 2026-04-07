@@ -110,10 +110,9 @@
                                 <div
                                     class="rank-progress-card neon-glow w-100 d-flex flex-column justify-content-center">
                                     <p class="rank-progress-kicker mb-2">Today's Push</p>
-                                    <h3 class="rank-progress-title mb-2">Lock in and stay consistent</h3>
+                                    <h3 class="rank-progress-title mb-2" th:text="${dailyPushTitle}">Lock in and stay consistent</h3>
                                     <p class="dashboard-copy mb-0">
-                                        You're one solid workout away from building your weekly consistency and
-                                        protecting your rank.
+                                        You're <span th:text="${(weeklyWorkoutGoalCount - weeklyWorkoutSessions) > 0 ? (weeklyWorkoutGoalCount - weeklyWorkoutSessions) : 0}">1</span> solid workouts and <span th:text="${(user.weeklyCaloriesBurnedTarget - weeklyWorkoutCalories) > 0 ? #numbers.formatDecimal((user.weeklyCaloriesBurnedTarget - weeklyWorkoutCalories), 0, 0) : 0}">100</span> calories away from building consistency and protecting your rank.
                                     </p>
                                 </div>
                             </div>

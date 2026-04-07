@@ -28,7 +28,7 @@
                 <!-- Chat Input Box: shifts down on first send -->
                 <div id="input-section" class="w-100" style="max-width: 600px;">
                     <form id="logging-form" th:action="@{/calorie-tracker/log}" method="post">
-                        <div class="p-3 d-flex flex-column border-0 rounded-4" style="background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.15);">
+                        <div class="p-3 d-flex flex-column rounded-4" style="background-color: var(--bg-input); border: var(--outline-main);">
                             <textarea id="logging-input" name="description" class="form-control bg-transparent border-0 text-theme-primary shadow-none px-2 pt-2 mb-2"
                                     rows="3"
                                     placeholder="E.g., 2 scrambled eggs, a piece of whole wheat toast, and a black coffee..."
