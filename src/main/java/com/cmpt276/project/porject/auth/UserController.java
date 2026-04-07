@@ -411,6 +411,8 @@ public class UserController {
             }
         }
 
+        allFriends.add(user);
+
         allFriends.sort((f1, f2) -> Integer.compare(
                 f2.getRankProfile().getRr(),
                 f1.getRankProfile().getRr()));
