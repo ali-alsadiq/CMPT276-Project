@@ -89,27 +89,29 @@
                                 <div class="row mb-3">
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-3 mb-md-0">
-                                            <div th:replace="~{shared/input :: tallInput(
-                                                id='weeklyWorkoutGoalCount', 
-                                                label='Weekly Workout Target', 
-                                                icon='bi bi-calendar-check', 
-                                                type='number', 
-                                                placeholder='How many workouts per week?', 
-                                                val=${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : user.weeklyWorkoutGoalCount}, 
-                                                hasError=${weeklyWorkoutGoalCountError}
-                                            )}"></div>
+                                            <label for="weeklyWorkoutGoalCount" class="form-label">
+                                                <i class="bi bi-calendar-check me-2"></i>Weekly Workout Target
+                                            </label>
+                                            <input type="number" step="1" min="1" max="30"
+                                                th:class="${weeklyWorkoutGoalCountError != null ? 'form-control theme-input p-3 border border-danger' : 'form-control theme-input p-3 border-0'}"
+                                                th:value="${weeklyWorkoutGoalCountVal != null ? weeklyWorkoutGoalCountVal : user.weeklyWorkoutGoalCount}"
+                                                id="weeklyWorkoutGoalCount" name="weeklyWorkoutGoalCount"
+                                                placeholder="How many workouts per week?" required />
                                         </div>
                                         <div class="col-md-6">
-                                            <div th:replace="~{shared/input :: tallSelect(
-                                                id='fitnessGoal', 
-                                                label='Fitness Goal', 
-                                                icon='bi bi-bullseye', 
-                                                options=${fitnessGoals}, 
-                                                optionLabelGetter='goalName',
-                                                placeholder='Select your goal', 
-                                                val=${user.fitnessGoal}, 
-                                                hasError=${fitnessGoalError}
-                                            )}"></div>
+                                            <div class="form-group mb-3">
+                                                <label for="fitnessGoal" class="form-label">
+                                                    <i class="bi bi-bullseye me-2"></i>Fitness Goal
+                                                </label>
+                                                <select id="fitnessGoal" name="fitnessGoal"
+                                                    th:class="${fitnessGoalError != null ? 'form-select theme-input p-3 border border-danger' : 'form-select theme-input p-3 border-0'}">
+                                                    <option value="" disabled>Select your fitness goal</option>
+                                                    <option th:each="goal : ${fitnessGoals}" th:value="${goal.name()}"
+                                                        th:text="${goal.goalName}"
+                                                        th:selected="${user.fitnessGoal != null && user.fitnessGoal.equals(goal.name())}">
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <small class="text-white-50 mt-1 d-block">
                                                 <i class="bi bi-info-circle me-1"></i>
                                                 Changing your goal will automatically update your nutrition targets
