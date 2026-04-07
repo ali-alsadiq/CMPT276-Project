@@ -426,7 +426,7 @@ public class UserController {
         model.addAttribute("dailyPushTitle", pushTitles[new java.util.Random().nextInt(pushTitles.length)]);
 
         model.addAttribute("friends", allFriends);
-        model.addAttribute("friendCount", allFriends.size());
+        model.addAttribute("friendCount", (allFriends.size() - 1));
         model.addAttribute("dashboardWorkoutWeek", dashboardWorkoutWeek);
         model.addAttribute("weeklyWorkoutSessions", weeklyWorkoutSessions);
         model.addAttribute("weeklyWorkoutGoalCount", weeklyWorkoutGoalCount);
