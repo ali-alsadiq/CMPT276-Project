@@ -33,39 +33,41 @@
                             </p>
                         </div>
                         <div class="profile-card neon-heat">
-                            <div class="d-flex flex-row justify-content-between">
-                                <div class="profile-card-main">
-                                    <div class="badge-placeholder">
-                                        <img th:src="${rankService.getRankImagePath(user.rankProfile.rr)}"
-                                            alt="Rank badge" class="badge-image">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <div class="profile-card-main">
+                                        <div class="badge-placeholder">
+                                            <img th:src="${@rankService.getRankImagePath(session.session_user.rankProfile.rr)}"
+                                                alt="Rank badge" class="badge-image">
+                                        </div>
+                                        <div class="profile-copy">
+                                            <div class="profile-label">Current Rank</div>
+                                            <h2 class="profile-name mb-1" th:text="${session.session_user.username}">
+                                                username</h2>
+                                            <p class="profile-rank mb-2"
+                                                th:text="${@rankService.getTierName(session.session_user.rankProfile.rr)}">
+                                                Silver</p>
+                                        </div>
                                     </div>
-                                    <div class="profile-copy">
-                                        <div class="profile-label">Current Rank</div>
-                                        <h2 class="profile-name mb-1" th:text="${session.session_user.username}">
-                                            username</h2>
-                                        <p class="profile-rank mb-2"
-                                            th:text="${@rankService.getTierName(session.session_user.rankProfile.rr)}">
-                                            Silver</p>
+                                    <div class="d-flex flex-column p-3">
+                                        <span class="eyebrow">Rank Status:</span>
+                                        <strong class="pt-2"
+                                            th:text="${@rankService.isMaxRank(session.session_user.rankProfile.rr)} ? 'Elite peak' : 'Climbing steady'">Climbing
+                                            steady</strong>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-column p-3">
-                                    <span class="eyebrow">Rank Status:</span>
-                                    <strong class="pt-2"
-                                        th:text="${@rankService.isMaxRank(session.session_user.rankProfile.rr)} ? 'Elite peak' : 'Climbing steady'">Climbing
-                                        steady</strong>
-                                </div>
-                            </div>
-                            <div class="profile-meta-grid">
-                                <div class="meta-chip">
-                                    <span class="meta-chip-label">Current RR</span>
-                                    <strong th:text="${session.session_user.rankProfile.rr} + ' RR'">420 RR</strong>
-                                </div>
-                                <div class="meta-chip"
-                                    th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}">
-                                    <span class="meta-chip-label">Next Rank</span>
-                                    <strong
-                                        th:text="${@rankService.getPointsToNextRank(session.session_user.rankProfile.rr)} + ' RR left'">80
-                                        RR left</strong>
+                                <div class="profile-meta-grid">
+                                    <div class="meta-chip">
+                                        <span class="meta-chip-label">Current RR</span>
+                                        <strong th:text="${session.session_user.rankProfile.rr} + ' RR'">420 RR</strong>
+                                    </div>
+                                    <div class="meta-chip"
+                                        th:if="${!@rankService.isMaxRank(session.session_user.rankProfile.rr)}">
+                                        <span class="meta-chip-label">Next Rank</span>
+                                        <strong
+                                            th:text="${@rankService.getPointsToNextRank(session.session_user.rankProfile.rr)} + ' RR left'">80
+                                            RR left</strong>
+                                    </div>
                                 </div>
                             </div>
                             <div class="rank-progress-card">
@@ -95,27 +97,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row g-3 mt-1 dashboard-summary-row">
-                            <div class="col-md-4 d-flex">
-                                <div
-                                    class="meta-chip dashboard-streak-card w-100 d-flex flex-column justify-content-center align-items-center text-center p-4">
-                                    <p class="mb-n2">
-                                        <strong class="dashboard-streak-value"> 7</strong>
-                                        <i class="fa-solid fa-fire mb-3 dashboard-streak-icon"></i>
-                                    </p>
-                                    <span class="meta-chip-label mb-0">Current Streak</span>
-                                </div>
-                            </div>
-                            <div class="col-md-8 d-flex">
-                                <div
-                                    class="rank-progress-card neon-glow w-100 d-flex flex-column justify-content-center">
-                                    <p class="rank-progress-kicker mb-2">Today's Push</p>
-                                    <h3 class="rank-progress-title mb-2" th:text="${dailyPushTitle}">Lock in and stay consistent</h3>
-                                    <p class="dashboard-copy mb-0">
-                                        You're <span th:text="${(weeklyWorkoutGoalCount - weeklyWorkoutSessions) > 0 ? (weeklyWorkoutGoalCount - weeklyWorkoutSessions) : 0}">1</span> solid workouts and <span th:text="${(user.weeklyCaloriesBurnedTarget - weeklyWorkoutCalories) > 0 ? #numbers.formatDecimal((user.weeklyCaloriesBurnedTarget - weeklyWorkoutCalories), 0, 0) : 0}">100</span> calories away from building consistency and protecting your rank.
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="rank-progress-card neon-glow w-100 d-flex flex-column justify-content-center" style="min-height: 120px;">
+                            <p class="rank-progress-kicker mb-2">Today's Push</p>
+                            <h3 class="rank-progress-title mb-2" th:text="${dailyPushTitle}">Lock in and stay consistent</h3>
+                            <p class="dashboard-copy mb-0">
+                                You're <span th:text="${(weeklyWorkoutGoalCount - weeklyWorkoutSessions) > 0 ? (weeklyWorkoutGoalCount - weeklyWorkoutSessions) : 0}">1</span> solid workouts and <span th:text="${(user.weeklyCaloriesBurnedTarget - weeklyWorkoutCalories) > 0 ? #numbers.formatDecimal((user.weeklyCaloriesBurnedTarget - weeklyWorkoutCalories), 0, 0) : 0}">100</span> calories away from building consistency and protecting your rank.
+                            </p>
                         </div>
                     </div>
 
