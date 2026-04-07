@@ -60,7 +60,9 @@ public class RankService {
         if (isMaxRank(rr)) {
             return 100;
         }
-        return rr % RR_PER_RANK;
+         int progressInCurrentRank = rr % RR_PER_RANK;
+
+        return (progressInCurrentRank * 100) / RR_PER_RANK;
     }
 
     /**
